@@ -1,0 +1,28 @@
+generated: '2026-07-19'
+method: searched
+source: openapi/go1-openapi.yml
+docs: https://developers.go1.com/docs/developer-tools/auth/overview-auth
+verified:
+- https://developers.go1.com/docs/developer-tools/auth/grant-client-credentials
+- POST https://auth.go1.com/oauth/token returned 400 invalid_request (live probe, endpoint confirmed)
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+  - clientCredentials
+schemes:
+- name: OAuth2
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.go1.com/oauth/token
+    scopes: 8
+  - flow: authorizationCode
+    authorizationUrl: https://auth.go1.com/oauth/authorize
+    tokenUrl: https://auth.go1.com/oauth/token
+    scopes: 8
+  description: OAuth 2.0. Server-to-server integrations use the client_credentials flow; user-context
+    integrations use the authorization_code flow. Access tokens are valid for 12 hours.
+  sources:
+  - openapi/go1-openapi.yml
