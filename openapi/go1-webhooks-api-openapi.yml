@@ -1,0 +1,577 @@
+openapi: 3.0.3
+info:
+  title: Go1 Enrollments Webhooks API
+  version: '2025-01-01'
+  description: 'The Go1 API lets partners and platforms discover Go1''s learning content library, manage learner enrollments, provision and manage customer portals, and subscribe to Go1 events via webhooks. Versioning is date-based and selected per request with the `Api-Version` header (current: 2025-01-01). All requests are authenticated with OAuth 2.0 bearer tokens issued by https://auth.go1.com/oauth/token. Reconstructed by the API Evangelist enrichment pipeline from Go1''s published REST reference (developers.go1.com) — operations, parameters, responses and scopes are Go1''s verbatim reference data.'
+  contact:
+    name: Go1 Developer Support
+    url: https://developers.go1.com/
+  termsOfService: https://www.go1.com/terms/customer-terms
+servers:
+- url: https://gateway.go1.com
+  description: Go1 API gateway (production)
+security:
+- OAuth2: []
+tags:
+- name: Webhooks
+paths:
+  /webhooks:
+    get:
+      security:
+      - OAuth2:
+        - webhook.read
+      operationId: WebhookController_getPortalWebhookConfiguration
+      summary: List all webhooks
+      description: Returns a list of your webhooks.
+      responses:
+        '200':
+          description: Returns a list of webhooks
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: number
+                    example: '1'
+                    description: The number of webhooks contained in the response.
+                  hits:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: xUjKifleke4u
+                          description: The ID of the webhook configuration.
+                        portal_id:
+                          type: string
+                          example: '11905591'
+                          description: The Go1 portal against which the webhook is configured.
+                        name:
+                          type: string
+                          example: My webhook description
+                          description: A name or description of what the webhook is used for.
+                        url:
+                          type: string
+                          example: https://webhook-consumer.com
+                          description: The URL of the webhook endpoint.
+                        secret_key:
+                          type: string
+                          example: MyS3cretK#y
+                          description: An optional shared secret to identify each webhook as a trusted Go1 event.
+                        event_types:
+                          type: array
+                          example:
+                          - enrollment.complete
+                          - enrollment.create
+                          - content.decommission
+                          - content.decommission.pending
+                          - content.add
+                          - content.remove
+                          - content.library.sync.request
+                          description: The list of events that are enabled for this endpoint.
+                          items:
+                            type: string
+                            enum:
+                            - enrollment.complete
+                            - enrollment.create
+                            - content.decommission
+                            - content.decommission.pending
+                            - content.add
+                            - content.remove
+                            - content.library.sync.request
+                        status:
+                          type: string
+                          example: active
+                          description: The status of the webhook. It can be active or inactive.
+                        created_by:
+                          type: string
+                          example: '19491473'
+                          description: The user ID of the user who created the webhook.
+                        created_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36.000Z'
+                          description: Time at which the webhook was created (ISO 8601 in UTC).
+                        updated_by:
+                          type: string
+                          example: '19491473'
+                          description: The user ID of the user who last updated the webhook.
+                        updated_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36.000Z'
+                          description: Time at which the webhook was last updated (ISO 8601 in UTC).
+                        auth_type:
+                          type: string
+                          example: oauth2
+                          description: The type of authentication used when setting up webhook authentication with an external auth system.
+                        oauth2:
+                          type: object
+                          example: '{"grant_type":"client_credentials","client_id":"123456789123456789","client_secret":"ThisIsMySecret","authentication_server_url":"https://authentication-service.com/oauth/token","scope":"create+delete"}'
+                          description: The oauth2 parameters required to authenticate a webhook with an external system. This parameter should be supplied along with the auth_type field, where it contains a value of oauth2.
+                        integration_system_id:
+                          type: string
+                          example: int_AzuTsRz
+                          description: A unique ID assigned to an external system that integrates with Go1. When using the `content.library.sync.request` webhook event, the `integration_system_id` is required to identify which system the event should apply to.
+                      required:
+                      - id
+                      - url
+                      - event_types
+                      - status
+                      - created_by
+                      - created_time
+                      - updated_by
+                      - updated_time
+                    description: The list of webhooks.
+                required:
+                - total
+                - hits
+        '401':
+          description: User is unauthenticated.
+        '403':
+          description: User is not authorized.
+        '500':
+          description: Server error.
+      tags:
+      - Webhooks
+    post:
+      security:
+      - OAuth2:
+        - webhook.write
+      operationId: WebhookController_createPortalWebhookConfiguration
+      summary: Create a webhook
+      description: Creates a new webhook that will fire events to the given url.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: My webhook description
+                  description: A name or description of what the webhook is used for.
+                url:
+                  type: string
+                  example: https://webhook-consumer.com
+                  description: The URL of the webhook endpoint.
+                secret_key:
+                  type: string
+                  example: MyS3cretK#y
+                  description: An optional secret key, identifying each event as coming from a trusted Go1 source.
+                event_types:
+                  type: array
+                  example:
+                  - enrollment.complete
+                  - enrollment.create
+                  - enrollment.delete
+                  - content.decommission
+                  - content.decommission.pending
+                  - content.add
+                  - content.remove
+                  - content.library.sync.request
+                  - content.library.add
+                  - content.library.remove
+                  - content.library.update
+                  - content.library.decommission
+                  description: The list of events to enable for this webhook.
+                  items:
+                    type: string
+                    enum:
+                    - enrollment.complete
+                    - enrollment.create
+                    - enrollment.delete
+                    - content.decommission
+                    - content.decommission.pending
+                    - content.add
+                    - content.remove
+                    - content.library.sync.request
+                    - content.library.add
+                    - content.library.remove
+                    - content.library.update
+                    - content.library.decommission
+                auth_type:
+                  type: string
+                  example: oauth2
+                  description: The type of authentication used when setting up webhook authentication with an external auth system.
+                oauth2:
+                  type: object
+                  example: '{"grant_type":"client_credentials","client_id":"123456789123456789","client_secret":"ThisIsMySecret","authentication_server_url":"https://authentication-service.com/oauth/token","scope":"create+delete"}'
+                  description: The oauth2 parameters required to authenticate a webhook with an external system. This parameter should be supplied along with the auth_type field, where it contains a value of oauth2.
+                integration_system_id:
+                  type: string
+                  example: int_AzuTsaz
+                  description: A unique ID assigned to an external system that integrates with Go1. When using the `content.library.sync.request` webhook event, the `integration_system_id` is required to identify which system the event should apply to.
+              required:
+              - url
+              - event_types
+      responses:
+        '201':
+          description: Webhook created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: xUjKifleke4u
+                    description: The ID of the webhook configuration.
+                  portal_id:
+                    type: string
+                    example: '11905591'
+                    description: The Go1 portal against which the webhook is configured.
+                  name:
+                    type: string
+                    example: My webhook description
+                    description: A name or description of what the webhook is used for.
+                  url:
+                    type: string
+                    example: https://webhook-consumer.com
+                    description: The URL of the webhook endpoint.
+                  secret_key:
+                    type: string
+                    example: MyS3cretK#y
+                    description: An optional shared secret to identify each webhook as a trusted Go1 event.
+                  event_types:
+                    type: array
+                    example:
+                    - enrollment.complete
+                    - enrollment.create
+                    - content.decommission
+                    - content.decommission.pending
+                    - content.add
+                    - content.remove
+                    - content.library.sync.request
+                    description: The list of events that are enabled for this endpoint.
+                    items:
+                      type: string
+                      enum:
+                      - enrollment.complete
+                      - enrollment.create
+                      - content.decommission
+                      - content.decommission.pending
+                      - content.add
+                      - content.remove
+                      - content.library.sync.request
+                  status:
+                    type: string
+                    example: active
+                    description: The status of the webhook. It can be active or inactive.
+                  created_by:
+                    type: string
+                    example: '19491473'
+                    description: The user ID of the user who created the webhook.
+                  created_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36.000Z'
+                    description: Time at which the webhook was created (ISO 8601 in UTC).
+                  updated_by:
+                    type: string
+                    example: '19491473'
+                    description: The user ID of the user who last updated the webhook.
+                  updated_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36.000Z'
+                    description: Time at which the webhook was last updated (ISO 8601 in UTC).
+                  auth_type:
+                    type: string
+                    example: oauth2
+                    description: The type of authentication used when setting up webhook authentication with an external auth system.
+                  oauth2:
+                    type: object
+                    example: '{"grant_type":"client_credentials","client_id":"123456789123456789","client_secret":"ThisIsMySecret","authentication_server_url":"https://authentication-service.com/oauth/token","scope":"create+delete"}'
+                    description: The oauth2 parameters required to authenticate a webhook with an external system. This parameter should be supplied along with the auth_type field, where it contains a value of oauth2.
+                  integration_system_id:
+                    type: string
+                    example: int_AzuTsRz
+                    description: A unique ID assigned to an external system that integrates with Go1. When using the `content.library.sync.request` webhook event, the `integration_system_id` is required to identify which system the event should apply to.
+                required:
+                - id
+                - url
+                - event_types
+                - status
+                - created_by
+                - created_time
+                - updated_by
+                - updated_time
+        '400':
+          description: Invalid POST parameters provided.
+        '403':
+          description: Invalid permission to create the webhook.
+      tags:
+      - Webhooks
+  /webhooks/{id}:
+    patch:
+      security:
+      - OAuth2:
+        - webhook.write
+      operationId: WebhookController_updatePortalWebhookConfiguration
+      summary: Update a webhook
+      description: 'Updates any of the following fields on an existing webhook: name, url, secret_key, event_types and status.'
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: My webhook description
+                  description: A name or description of what the webhook is used for.
+                url:
+                  type: string
+                  example: https://webhook-consumer.com
+                  description: The URL of the webhook endpoint.
+                secret_key:
+                  type: string
+                  example: MyS3cretK#y
+                  description: An optional secret key, identifying each event as coming from a trusted Go1 source.
+                event_types:
+                  type: array
+                  example:
+                  - enrollment.complete
+                  - enrollment.create
+                  - enrollment.delete
+                  - content.decommission
+                  - content.decommission.pending
+                  - content.add
+                  - content.remove
+                  - content.library.sync.request
+                  - content.library.add
+                  - content.library.remove
+                  - content.library.update
+                  - content.library.decommission
+                  description: The list of events to enable for this webhook.
+                  items:
+                    type: string
+                    enum:
+                    - enrollment.complete
+                    - enrollment.create
+                    - enrollment.delete
+                    - content.decommission
+                    - content.decommission.pending
+                    - content.add
+                    - content.remove
+                    - content.library.sync.request
+                    - content.library.add
+                    - content.library.remove
+                    - content.library.update
+                    - content.library.decommission
+                status:
+                  type: string
+                  example: active
+                  description: The status of the webhook. It can be active or inactive.
+                auth_type:
+                  type: string
+                  example: oauth2
+                  description: The type of authentication used when setting up webhook authentication with an external auth system.
+                oauth2:
+                  type: object
+                  example: '{"grant_type":"client_credentials","client_id":"123456789123456789","client_secret":"ThisIsMySecret","authentication_server_url":"https://authentication-service.com/oauth/token","scope":"create+delete"}'
+                  description: The oauth2 parameters required to authenticate a webhook with an external system. This parameter should be supplied along with the auth_type field, where it contains a value of oauth2.
+                integration_system_id:
+                  type: string
+                  example: int_AzuTsaz
+                  description: A unique ID assigned to an external system that integrates with Go1. When using the `content.library.sync.request` webhook event, the `integration_system_id` is required to identify which system the event should apply to.
+          application/merge-patch+json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: My webhook description
+                  description: A name or description of what the webhook is used for.
+                url:
+                  type: string
+                  example: https://webhook-consumer.com
+                  description: The URL of the webhook endpoint.
+                secret_key:
+                  type: string
+                  example: MyS3cretK#y
+                  description: An optional secret key, identifying each event as coming from a trusted Go1 source.
+                event_types:
+                  type: array
+                  example:
+                  - enrollment.complete
+                  - enrollment.create
+                  - enrollment.delete
+                  - content.decommission
+                  - content.decommission.pending
+                  - content.add
+                  - content.remove
+                  - content.library.sync.request
+                  - content.library.add
+                  - content.library.remove
+                  - content.library.update
+                  - content.library.decommission
+                  description: The list of events to enable for this webhook.
+                  items:
+                    type: string
+                    enum:
+                    - enrollment.complete
+                    - enrollment.create
+                    - enrollment.delete
+                    - content.decommission
+                    - content.decommission.pending
+                    - content.add
+                    - content.remove
+                    - content.library.sync.request
+                    - content.library.add
+                    - content.library.remove
+                    - content.library.update
+                    - content.library.decommission
+                status:
+                  type: string
+                  example: active
+                  description: The status of the webhook. It can be active or inactive.
+                auth_type:
+                  type: string
+                  example: oauth2
+                  description: The type of authentication used when setting up webhook authentication with an external auth system.
+                oauth2:
+                  type: object
+                  example: '{"grant_type":"client_credentials","client_id":"123456789123456789","client_secret":"ThisIsMySecret","authentication_server_url":"https://authentication-service.com/oauth/token","scope":"create+delete"}'
+                  description: The oauth2 parameters required to authenticate a webhook with an external system. This parameter should be supplied along with the auth_type field, where it contains a value of oauth2.
+                integration_system_id:
+                  type: string
+                  example: int_AzuTsaz
+                  description: A unique ID assigned to an external system that integrates with Go1. When using the `content.library.sync.request` webhook event, the `integration_system_id` is required to identify which system the event should apply to.
+      responses:
+        '200':
+          description: Webhook updated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: xUjKifleke4u
+                    description: The ID of the webhook configuration.
+                  portal_id:
+                    type: string
+                    example: '11905591'
+                    description: The Go1 portal against which the webhook is configured.
+                  name:
+                    type: string
+                    example: My webhook description
+                    description: A name or description of what the webhook is used for.
+                  url:
+                    type: string
+                    example: https://webhook-consumer.com
+                    description: The URL of the webhook endpoint.
+                  secret_key:
+                    type: string
+                    example: MyS3cretK#y
+                    description: An optional shared secret to identify each webhook as a trusted Go1 event.
+                  event_types:
+                    type: array
+                    example:
+                    - enrollment.complete
+                    - enrollment.create
+                    - content.decommission
+                    - content.decommission.pending
+                    - content.add
+                    - content.remove
+                    - content.library.sync.request
+                    description: The list of events that are enabled for this endpoint.
+                    items:
+                      type: string
+                      enum:
+                      - enrollment.complete
+                      - enrollment.create
+                      - content.decommission
+                      - content.decommission.pending
+                      - content.add
+                      - content.remove
+                      - content.library.sync.request
+                  status:
+                    type: string
+                    example: active
+                    description: The status of the webhook. It can be active or inactive.
+                  created_by:
+                    type: string
+                    example: '19491473'
+                    description: The user ID of the user who created the webhook.
+                  created_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36.000Z'
+                    description: Time at which the webhook was created (ISO 8601 in UTC).
+                  updated_by:
+                    type: string
+                    example: '19491473'
+                    description: The user ID of the user who last updated the webhook.
+                  updated_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36.000Z'
+                    description: Time at which the webhook was last updated (ISO 8601 in UTC).
+                  auth_type:
+                    type: string
+                    example: oauth2
+                    description: The type of authentication used when setting up webhook authentication with an external auth system.
+                  oauth2:
+                    type: object
+                    example: '{"grant_type":"client_credentials","client_id":"123456789123456789","client_secret":"ThisIsMySecret","authentication_server_url":"https://authentication-service.com/oauth/token","scope":"create+delete"}'
+                    description: The oauth2 parameters required to authenticate a webhook with an external system. This parameter should be supplied along with the auth_type field, where it contains a value of oauth2.
+                  integration_system_id:
+                    type: string
+                    example: int_AzuTsRz
+                    description: A unique ID assigned to an external system that integrates with Go1. When using the `content.library.sync.request` webhook event, the `integration_system_id` is required to identify which system the event should apply to.
+                required:
+                - id
+                - url
+                - event_types
+                - status
+                - created_by
+                - created_time
+                - updated_by
+                - updated_time
+        '400':
+          description: Bad request.
+        '401':
+          description: User is unauthenticated.
+        '403':
+          description: User is not authorized.
+        '404':
+          description: Webhook not found.
+        '500':
+          description: Server error.
+      tags:
+      - Webhooks
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: OAuth 2.0. Server-to-server integrations use the client_credentials flow; user-context integrations use the authorization_code flow. Access tokens are valid for 12 hours.
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.go1.com/oauth/token
+          scopes: &id001
+            lo.read: Read learning objects (content catalog).
+            lo.write: Create, update and delete learning objects.
+            enrollment.read: Read enrollments and completion records.
+            enrollment.write: Create, update and delete enrollments.
+            webhook.read: Read webhook configurations.
+            webhook.write: Create, update and delete webhook configurations.
+            portal.read: Read customer portals.
+            portal.write: Create and update customer portals.
+        authorizationCode:
+          authorizationUrl: https://auth.go1.com/oauth/authorize
+          tokenUrl: https://auth.go1.com/oauth/token
+          scopes: *id001

@@ -1,0 +1,863 @@
+openapi: 3.0.3
+info:
+  title: Go1 Enrollments API
+  version: '2025-01-01'
+  description: 'The Go1 API lets partners and platforms discover Go1''s learning content library, manage learner enrollments, provision and manage customer portals, and subscribe to Go1 events via webhooks. Versioning is date-based and selected per request with the `Api-Version` header (current: 2025-01-01). All requests are authenticated with OAuth 2.0 bearer tokens issued by https://auth.go1.com/oauth/token. Reconstructed by the API Evangelist enrichment pipeline from Go1''s published REST reference (developers.go1.com) — operations, parameters, responses and scopes are Go1''s verbatim reference data.'
+  contact:
+    name: Go1 Developer Support
+    url: https://developers.go1.com/
+  termsOfService: https://www.go1.com/terms/customer-terms
+servers:
+- url: https://gateway.go1.com
+  description: Go1 API gateway (production)
+security:
+- OAuth2: []
+tags:
+- name: Enrollments
+paths:
+  /enrollments/{id}:
+    get:
+      security:
+      - OAuth2:
+        - enrollment.read
+      operationId: enrolmentLoadController_getSlimEnrollment
+      summary: Retrieve an enrollment
+      description: Retrieves the details of an enrollment.
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the details of a enrollment.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - enrollment_type
+                - user_account_id
+                - lo_id
+                - created_time
+                - updated_time
+                - status
+                properties:
+                  id:
+                    type: string
+                    example: '123'
+                    description: The unique identifier for the enrollment.
+                  enrollment_type:
+                    type: string
+                    example: assigned
+                    description: 'The enrollment type. Will return empty string for child enrollments. Enum: `assigned`, `self-directed`.'
+                    enum:
+                    - assigned
+                    - self-directed
+                  user_account_id:
+                    type: string
+                    example: '432'
+                    description: The ID of the user account that the enrollment belongs to.
+                  lo_id:
+                    type: string
+                    example: '567'
+                    description: The ID of the learning object that the enrollment belongs to.
+                  parent_enrollment_id:
+                    type: string
+                    example: '876'
+                    description: The ID of the parent enrollment that the enrollment belongs to.
+                  assigner_account_id:
+                    type: string
+                    example: '31013'
+                    description: The ID of a user account that assigned the enrollment.
+                  assign_date:
+                    type: string
+                    format: date-time
+                    description: The date that the user is assigned the enrollment (ISO 8601 in UTC).
+                    example: '2023-04-18T01:08:23+00:00'
+                  created_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36+00:00'
+                    description: Time at which the enrollment was created (ISO 8601 in UTC).
+                  updated_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36+00:00'
+                    description: Time at which the enrollment was last updated (ISO 8601 in UTC).
+                  status:
+                    type: string
+                    example: completed
+                    description: The status of the enrollment.
+                    enum:
+                    - not-started
+                    - in-progress
+                    - completed
+                  result:
+                    type: integer
+                    example: 100
+                    description: The enrollment score result, as an integer between 0 and 100.
+                  pass:
+                    type: boolean
+                    example: true
+                    description: Whether the enrollment was passed `true` or not passed `false`.
+                  start_date:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36+00:00'
+                    description: The date that the user started the enrollment (ISO 8601 in UTC). Start date is only populated for enrollments that are `in-progress` or `completed`.
+                  end_date:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T03:29:36+00:00'
+                    description: The date that the user completed the enrollment (ISO 8601 in UTC). End date is only populated for enrollments that are `completed`.
+                  due_date:
+                    type: string
+                    format: date-time
+                    example: '2022-03-31T03:29:36+00:00'
+                    description: The date that the enrollment is due for completion (ISO 8601 in UTC).
+        '404':
+          description: Enrollment not found.
+      tags:
+      - Enrollments
+    patch:
+      security:
+      - OAuth2:
+        - enrollment.write
+      operationId: enrolmentLoadController_patchSlimEnrollment
+      summary: Update an enrollment
+      description: Updates the details of an enrollment.
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                enrollment_type:
+                  type: string
+                  example: assigned
+                  description: 'The enrollment type. Enum: `assigned`, `self-directed`. Use `assigned` for enrollments created by one user for another user, or if assigning learning to oneself via an assigned learning workflow. Use `self-directed` when an enrollment is created by a user for themselves. Only applies to a parent enrollment.'
+                assigner_account_id:
+                  type: string
+                  example: '1234'
+                  description: 'The ID of a user account that is assigning the enrollment to another user. For example, this could be the user''s manager or administrator.
+
+
+                    Only include this field for `enrollment_type` of `assigned`. Defaults to the current user, determined by the access token used in the request.
+
+                    '
+                assign_date:
+                  type: string
+                  example: '2022-03-20T01:29:36+00:00'
+                  description: 'The date-time that the user is assigned the enrollment (ISO 8601 in UTC).
+
+
+                    Only include this field for `enrollment_type` of `assigned`. Defaults to the current date-time.
+
+                    '
+                status:
+                  type: string
+                  example: completed
+                  description: 'The status of the enrollment. Enum: `not-started`, `in-progress`, `completed`.'
+                  enum:
+                  - not-started
+                  - in-progress
+                  - completed
+                result:
+                  type: integer
+                  example: 100
+                  description: The enrollment score result, as an integer between 0 and 100. Only include for enrollments in a `completed` status.
+                pass:
+                  type: boolean
+                  example: true
+                  description: Whether the enrollment was passed `true` or not passed `false`. Only include for enrollments in a `completed` status.
+                start_date:
+                  type: string
+                  format: date-time
+                  example: '2022-03-29T01:29:36+00:00'
+                  description: The date that the user began the enrollment (ISO 8601 in UTC). Only include for enrollments in an `in-progress` or `completed` status, exclude for `not-started` enrollments.
+                end_date:
+                  type: string
+                  format: date-time
+                  example: '2022-03-29T03:29:36+00:00'
+                  description: The date that the user finished the enrollment (ISO 8601 in UTC). Only include for enrollments in a `completed` status.
+                due_date:
+                  type: string
+                  format: date-time
+                  example: '2022-03-31T03:29:36+00:00'
+                  description: The date that the enrollment is due for completion (ISO 8601 in UTC). Only include this field for `enrollment_type` of `assigned`.
+      responses:
+        '200':
+          description: Returns the details of a enrollment.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - enrollment_type
+                - user_account_id
+                - lo_id
+                - created_time
+                - updated_time
+                - status
+                properties:
+                  id:
+                    type: string
+                    example: '123'
+                    description: The unique identifier for the enrollment.
+                  enrollment_type:
+                    type: string
+                    example: assigned
+                    description: 'The enrollment type. Will return empty string for child enrollments. Enum: `assigned`, `self-directed`.'
+                    enum:
+                    - assigned
+                    - self-directed
+                  user_account_id:
+                    type: string
+                    example: '432'
+                    description: The ID of the user account that the enrollment belongs to.
+                  lo_id:
+                    type: string
+                    example: '567'
+                    description: The ID of the learning object that the enrollment belongs to.
+                  parent_enrollment_id:
+                    type: string
+                    example: '876'
+                    description: The ID of the parent enrollment that the enrollment belongs to.
+                  assigner_account_id:
+                    type: string
+                    example: '31013'
+                    description: The ID of a user account that assigned the enrollment.
+                  assign_date:
+                    type: string
+                    format: date-time
+                    description: The date that the user is assigned the enrollment (ISO 8601 in UTC).
+                    example: '2023-04-18T01:08:23+00:00'
+                  created_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36+00:00'
+                    description: Time at which the enrollment was created (ISO 8601 in UTC).
+                  updated_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36+00:00'
+                    description: Time at which the enrollment was last updated (ISO 8601 in UTC).
+                  status:
+                    type: string
+                    example: completed
+                    description: The status of the enrollment.
+                    enum:
+                    - not-started
+                    - in-progress
+                    - completed
+                  result:
+                    type: integer
+                    example: 100
+                    description: The enrollment score result, as an integer between 0 and 100.
+                  pass:
+                    type: boolean
+                    example: true
+                    description: Whether the enrollment was passed `true` or not passed `false`.
+                  start_date:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36+00:00'
+                    description: The date that the user started the enrollment (ISO 8601 in UTC). Start date is only populated for enrollments that are `in-progress` or `completed`.
+                  end_date:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T03:29:36+00:00'
+                    description: The date that the user completed the enrollment (ISO 8601 in UTC). End date is only populated for enrollments that are `completed`.
+                  due_date:
+                    type: string
+                    format: date-time
+                    example: '2022-03-31T03:29:36+00:00'
+                    description: The date that the enrollment is due for completion (ISO 8601 in UTC).
+        '400':
+          description: Invalid request.
+        '403':
+          description: Permission denied.
+        '404':
+          description: Not found.
+      tags:
+      - Enrollments
+    delete:
+      security:
+      - OAuth2:
+        - enrollment.write
+      operationId: enrolmentDeleteController_delete
+      summary: Delete an enrollment
+      description: Deletes an enrollment for the given enrollment id.
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: retain_original
+        in: query
+        description: Revert an assigned enrollment to its original self-directed state and remove assign attributes including `assigner_account_id`, `assign_date` and `due_date`. This parameter is only applicable for enrollments that were originally created as type `self-directed`, and is now type `assigned`. If original_type is `assigned`, both plan and enrollment will be deleted.
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '204':
+          description: Successful.
+        '400':
+          description: Invalid request.
+        '403':
+          description: You do not have the required role permissions to delete an enrollment.
+        '404':
+          description: Enrollment not found.
+        '500':
+          description: Server error.
+      tags:
+      - Enrollments
+  /enrollments:
+    get:
+      servers:
+      - url: /report-data/enrolment
+      security:
+      - OAuth2:
+        - enrollment.read
+      operationId: enrolmentSearchController_get
+      summary: List all enrollments
+      description: Returns a list of enrollments. Only returns parent enrollments from a course or stand-alone learning objects.
+      parameters:
+      - name: limit
+        in: query
+        description: A limit on the number of objects to be returned, between 1 and 50. The default is 20.
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        description: 'For use in pagination. The item number within a list request to start displaying results after. For example, if you make a request with `limit=20` and `offset=20`, items 21 - 40 are returned. Using the limit and offset parameters cannot exceed 10,000 results.
+
+          '
+        schema:
+          type: integer
+      - name: user_account_id
+        in: query
+        description: Returns enrollments for a given user, specified by a user account ID.
+        schema:
+          type: integer
+      - name: assigner_account_id
+        in: query
+        description: Returns enrollments for a given assigner, specified by a assigner account ID.
+        schema:
+          type: integer
+      - name: lo_ids
+        in: query
+        description: 'Returns enrollments for a learning object(s), specified by a learning object ID.
+
+
+          Format: `lo_ids=value[,value...]`
+
+          '
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: 'Returns enrollments for a given status. Format `status=value[,value...],` where the possible values are `completed`, `in-progress`, `not-started`. For example, `status=completed` will return completed enrollments and `status=not-started,in-progress` will return `not-started` and `in-progress` enrollments.
+
+          '
+        schema:
+          type: string
+          enum:
+          - completed
+          - in-progress
+          - not-started
+          - assigned
+      - name: update_time_lte
+        in: query
+        description: Returns enrollments with an `updated_time` that is less than or equal to a given value, eg. `update_time_lte=2022-09-01T01:29:36Z`. Date time format is ISO 8601 in UTC.
+        schema:
+          type: string
+      - name: update_time_gte
+        in: query
+        description: Returns enrollments with an `updated_time` that is greater than or equal to a given value, eg. `update_time_gte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC.
+        schema:
+          type: string
+      - name: due_date_exists
+        in: query
+        description: Returns enrollments with a due date, using `due_date_exists=true`. Returns enrollments that with no due date, using `due_date_exists=false`.
+        schema:
+          type: boolean
+      - name: due_date_gte
+        in: query
+        description: Returns enrollments with a `due_date` that is greater than or equal to a given value, eg. `due_date_gte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC.
+        schema:
+          type: string
+      - name: due_date_lte
+        in: query
+        description: Returns enrollments with a `due_date` that is less than or equal to a given value, eg. `due_date_lte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC.
+        schema:
+          type: string
+      - name: end_date_gte
+        in: query
+        description: Returns enrollments with an `end_date` that is greater than or equal to a given value, eg. `end_date_gte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC.
+        schema:
+          type: string
+      - name: end_date_lte
+        in: query
+        description: Returns enrollments with an `end_date` that is less than or equal to a given value, eg. `end_date_lte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC.
+        schema:
+          type: string
+      - name: assign_date_gte
+        in: query
+        description: Returns enrollments with an `assign_date` that is greater than or equal to a given value, eg. `assign_date_gte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC.
+        schema:
+          type: string
+      - name: assign_date_lte
+        in: query
+        description: Returns enrollments with an `assign_date` that is less than or equal to a given value, eg. `assign_date_lte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC.
+        schema:
+          type: string
+      - name: enrollment_type
+        in: query
+        description: 'Returns enrollments for a given `enrollment_type`. Enum: self-directed, assigned. The supplied enrollment_type.'
+        schema:
+          type: string
+          enum:
+          - self-directed
+          - assigned
+      - name: sort
+        in: query
+        schema:
+          type: string
+          enum:
+          - created_time
+          - updated_time
+          - due_date
+          - assign_date
+          default: created_time
+        description: 'Sort the results by a given field name. Sortable fields include: `created_time`, `updated_time`, `due_date`, `assign_date`. Default value is `created_time`.'
+      - name: order
+        in: query
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: desc
+        description: The order to sort the results by. Valid values are `asc` for ascending order and `desc` for descending order. Default value is descending.
+      responses:
+        '200':
+          description: Returns the list of a enrollments.
+          content:
+            application/json:
+              schema:
+                required:
+                - hits
+                - total
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: The total number of retrievable results from the request.
+                    example: 1
+                  hits:
+                    type: array
+                    description: An array containing the requested results.
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - user_account_id
+                      - lo_id
+                      - created_time
+                      - updated_time
+                      - status
+                      properties:
+                        id:
+                          type: string
+                          example: '123'
+                          description: The unique identifier for the enrollment.
+                        parent_enrolment_id:
+                          type: string
+                          example: '555'
+                          description: The ID of the parent enrolment that the enrolment be created under.  This parameter is used for creating enrollments in child.
+                        enrollment_type:
+                          description: 'The enrollment type. Will return empty string for child enrollments. Enum: `assigned`, `self-directed`.'
+                          type: string
+                          example: assigned
+                          enum:
+                          - assigned
+                          - self-directed
+                        user_account_id:
+                          type: string
+                          example: '432'
+                          description: The ID of the user account that the enrollment belongs to.
+                        assigner_account_id:
+                          type: string
+                          nullable: true
+                          example: '123'
+                          description: The ID of the assigner account that assigned the enrollment.
+                        assign_date:
+                          type: string
+                          nullable: true
+                          format: date-time
+                          description: The date that the user is assigned the enrollment (ISO 8601 in UTC).
+                          example: '2023-04-18T01:08:23+00:00'
+                        lo_id:
+                          type: string
+                          example: '567'
+                          description: The ID of the learning object that the enrollment belongs to.
+                        created_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-19T01:29:36+00:00'
+                          description: Time at which the enrollment was created (ISO 8601 in UTC).
+                        updated_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36+00:00'
+                          description: Time at which the enrollment was last updated (ISO 8601 in UTC).
+                        status:
+                          type: string
+                          example: completed
+                          description: 'The status of the enrollment. Enum: `not-started`, `in-progress`, `completed`.'
+                          enum:
+                          - not-started
+                          - in-progress
+                          - completed
+                        result:
+                          type: integer
+                          example: 100
+                          description: The enrollment score result, as an integer between 0 and 100.
+                        pass:
+                          type: boolean
+                          example: true
+                          description: Whether the enrollment was passed `true` or not passed `false`.
+                        start_date:
+                          type: string
+                          nullable: true
+                          format: date-time
+                          example: '2022-03-29T01:29:36+00:00'
+                          description: The date that the user started the enrollment (ISO 8601 in UTC). Start date is only populated for enrollments that are in-progress of completed.
+                        end_date:
+                          type: string
+                          nullable: true
+                          format: date-time
+                          example: '2022-03-29T03:29:36+00:00'
+                          description: The date that the user completed the enrollment (ISO 8601 in UTC). End date is only populated for enrollments that are `completed`.
+                        due_date:
+                          type: string
+                          nullable: true
+                          format: date-time
+                          example: '2022-03-31T03:29:38+00:00'
+                          description: The date that the enrollment is due for completion (ISO 8601 in UTC).
+        '400':
+          description: Invalid parameters provided.
+        '401':
+          description: User is unauthenticated.
+        '403':
+          description: Only portal administrators can query another user's enrollments. To retrieve enrollments that belong to you. Include your user_account_id as a query parameter.
+        '500':
+          description: Server error
+      tags:
+      - Enrollments
+    post:
+      servers:
+      - url: /enrolment
+      security:
+      - OAuth2:
+        - enrollment.write
+      summary: Create an enrollment
+      description: Create an enrollment
+      operationId: enrolmentCreateController_postV3
+      parameters:
+      - name: re-enroll
+        in: query
+        description: A parameter that enables a new enrollment to be created where one already exists. Set `re-enroll` to `true` to create a new enrollment, and archive the existing enrollment.
+        required: false
+        schema:
+          type: boolean
+      requestBody:
+        description: Create an enrollment
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - user_account_id
+              - lo_id
+              - enrollment_type
+              - status
+              properties:
+                enrollment_type:
+                  description: The enrollment type. Use `assigned` for enrollments created by one user for another user, or if assigning learning to oneself via an assigned learning workflow. Use `self-directed` when an enrollment is created by a user for themselves.  Only applies to a parent enrollment.
+                  type: string
+                  example: assigned
+                  enum:
+                  - self-directed
+                  - assigned
+                user_account_id:
+                  description: The ID of a user account that the enrollment will be created for.
+                  type: string
+                  example: '1012'
+                lo_id:
+                  description: The ID of a learning object that the enrollment will be created for.
+                  type: string
+                  example: '198772'
+                parent_enrolment_id:
+                  type: string
+                  example: '555'
+                  description: The ID of the parent enrollment, required only when creating an enrollment into a child learning object, such as a module within a course, or learning objects within a module.
+                assigner_account_id:
+                  description: 'The ID of a user account that is assigning the enrollment to another user. For example, this could be the user''s manager or administrator.
+
+
+                    Only include this field for enrollment_type of assigned. Defaults to the current user, determined by the access token used in the request.
+
+                    '
+                  type: string
+                  example: '31013'
+                assign_date:
+                  description: 'The date-time that the user is assigned the enrollment (ISO 8601 in UTC).
+
+
+                    Only include this field for `enrollment_type` of `assigned`. Defaults to the current date-time.
+
+                    '
+                  type: string
+                  format: date-time
+                status:
+                  type: string
+                  description: 'The status of the enrollment.
+
+
+                    When creating enrollments in a `not-started` status, the result, pass, start_date and end_date parameters cannot be included in the request.
+
+                    '
+                  example: completed
+                  enum:
+                  - not-started
+                  - in-progress
+                  - completed
+                result:
+                  description: The enrollment score result, as an integer between 0 and 100. Only include for enrollments in a `completed` status.
+                  type: integer
+                  minimum: 0
+                  maximum: 100
+                  example: 100
+                pass:
+                  description: Whether the enrollment was passed `true` or not passed `false`. Only include for enrollments in a `completed` status.
+                  type: boolean
+                  example: true
+                start_date:
+                  description: The date that the user began the enrollment (ISO 8601 in UTC). Only include for enrollments in an `in-progress` or `completed` status, exclude for `not-started` enrollments
+                  type: string
+                  format: date-time
+                end_date:
+                  description: The date that the user finished the enrollment (ISO 8601 in UTC). Only include for enrollments in a `completed` status.
+                  type: string
+                  format: date-time
+                due_date:
+                  description: The date that the enrollment is due for completion (ISO 8601 in UTC).
+                  type: string
+                  format: date-time
+        required: true
+      responses:
+        '201':
+          description: Returns the details of a enrollment.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - enrollment_type
+                - user_account_id
+                - lo_id
+                - created_time
+                - updated_time
+                - status
+                properties:
+                  id:
+                    type: string
+                    example: '123'
+                    description: The unique identifier for the enrollment.
+                  enrollment_type:
+                    type: string
+                    example: assigned
+                    description: 'The enrollment type. Will return empty string for child enrollments. Enum: `assigned`, `self-directed`.'
+                    enum:
+                    - assigned
+                    - self-directed
+                  user_account_id:
+                    type: string
+                    example: '432'
+                    description: The ID of the user account that the enrollment belongs to.
+                  lo_id:
+                    type: string
+                    example: '567'
+                    description: The ID of the learning object that the enrollment belongs to.
+                  parent_enrollment_id:
+                    type: string
+                    example: '876'
+                    description: The ID of the parent enrollment that the enrollment belongs to.
+                  assigner_account_id:
+                    type: string
+                    example: '31013'
+                    description: The ID of a user account that assigned the enrollment.
+                  assign_date:
+                    type: string
+                    format: date-time
+                    description: The date that the user is assigned the enrollment (ISO 8601 in UTC).
+                    example: '2023-04-18T01:08:23+00:00'
+                  created_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36+00:00'
+                    description: Time at which the enrollment was created (ISO 8601 in UTC).
+                  updated_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36+00:00'
+                    description: Time at which the enrollment was last updated (ISO 8601 in UTC).
+                  status:
+                    type: string
+                    example: completed
+                    description: The status of the enrollment.
+                    enum:
+                    - not-started
+                    - in-progress
+                    - completed
+                  result:
+                    type: integer
+                    example: 100
+                    description: The enrollment score result, as an integer between 0 and 100.
+                  pass:
+                    type: boolean
+                    example: true
+                    description: Whether the enrollment was passed `true` or not passed `false`.
+                  start_date:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36+00:00'
+                    description: The date that the user started the enrollment (ISO 8601 in UTC). Start date is only populated for enrollments that are `in-progress` or `completed`.
+                  end_date:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T03:29:36+00:00'
+                    description: The date that the user completed the enrollment (ISO 8601 in UTC). End date is only populated for enrollments that are `completed`.
+                  due_date:
+                    type: string
+                    format: date-time
+                    example: '2022-03-31T03:29:36+00:00'
+                    description: The date that the enrollment is due for completion (ISO 8601 in UTC).
+        '400':
+          description: Invalid input
+        '403':
+          description: Forbidden
+        '409':
+          description: Already exists will be returned if an existing enrollment is found create_new
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - ref
+                - error_code
+                - message
+                properties:
+                  ref:
+                    description: The unique identifier for the enrollment.
+                    type: string
+                    example: '123'
+                  error_code:
+                    description: Type of error
+                    type: string
+                    example: enrollment_exists
+                  message:
+                    description: Description of the error
+                    type: string
+                    example: Enrollment already exists. To create a new enrollment and archive the current enrollment, include the re_enroll=true parameter.
+      tags:
+      - Enrollments
+  /enrollments/{id}/certificate:
+    get:
+      security:
+      - OAuth2:
+        - enrollment.read
+      tags:
+      - Enrollments
+      summary: Download certificate
+      operationId: download_enrollment_controller
+      description: Generates a downloadable PDF Go1 Completion Certificate for a learner. This providers proof that the learner has successfully completed the learning.
+      parameters:
+      - name: id
+        in: path
+        description: The unique identifier for the Enrollment.
+        required: true
+        schema:
+          type: integer
+          example: 123
+      responses:
+        '200':
+          description: Returning a PDF file.
+        '400':
+          description: Invalid enrollment.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Can not generate certificate for pending enrolment.
+        '403':
+          description: Invalid user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Permission denied.
+        '404':
+          description: Enrollment not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Enrollment not found.
+        '500':
+          description: Internal server error.
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: OAuth 2.0. Server-to-server integrations use the client_credentials flow; user-context integrations use the authorization_code flow. Access tokens are valid for 12 hours.
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.go1.com/oauth/token
+          scopes: &id001
+            lo.read: Read learning objects (content catalog).
+            lo.write: Create, update and delete learning objects.
+            enrollment.read: Read enrollments and completion records.
+            enrollment.write: Create, update and delete enrollments.
+            webhook.read: Read webhook configurations.
+            webhook.write: Create, update and delete webhook configurations.
+            portal.read: Read customer portals.
+            portal.write: Create and update customer portals.
+        authorizationCode:
+          authorizationUrl: https://auth.go1.com/oauth/authorize
+          tokenUrl: https://auth.go1.com/oauth/token
+          scopes: *id001

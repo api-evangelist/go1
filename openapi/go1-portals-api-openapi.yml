@@ -1,0 +1,2355 @@
+openapi: 3.0.3
+info:
+  title: Go1 Enrollments Portals API
+  version: '2025-01-01'
+  description: 'The Go1 API lets partners and platforms discover Go1''s learning content library, manage learner enrollments, provision and manage customer portals, and subscribe to Go1 events via webhooks. Versioning is date-based and selected per request with the `Api-Version` header (current: 2025-01-01). All requests are authenticated with OAuth 2.0 bearer tokens issued by https://auth.go1.com/oauth/token. Reconstructed by the API Evangelist enrichment pipeline from Go1''s published REST reference (developers.go1.com) — operations, parameters, responses and scopes are Go1''s verbatim reference data.'
+  contact:
+    name: Go1 Developer Support
+    url: https://developers.go1.com/
+  termsOfService: https://www.go1.com/terms/customer-terms
+servers:
+- url: https://gateway.go1.com
+  description: Go1 API gateway (production)
+security:
+- OAuth2: []
+tags:
+- name: Portals
+paths:
+  /portals:
+    post:
+      operationId: createPortal
+      x-api-version: '2025-01-01'
+      summary: Create a portal
+      description: Creates a new portal and a primary user account associated with the portal.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                country:
+                  type: string
+                  description: The country code representing the head office location of the customer's business operation. See [country list](https://api.go1.co/portal/properties/country).
+                  example: AU
+                  enum:
+                  - AD
+                  - AE
+                  - AF
+                  - AG
+                  - AI
+                  - AL
+                  - AM
+                  - AO
+                  - AQ
+                  - AR
+                  - AS
+                  - AT
+                  - AU
+                  - AW
+                  - AX
+                  - AZ
+                  - BA
+                  - BB
+                  - BD
+                  - BE
+                  - BF
+                  - BG
+                  - BH
+                  - BI
+                  - BJ
+                  - BL
+                  - BM
+                  - BN
+                  - BO
+                  - BQ
+                  - BR
+                  - BS
+                  - BT
+                  - BV
+                  - BW
+                  - BY
+                  - BZ
+                  - CA
+                  - CC
+                  - CD
+                  - CF
+                  - CG
+                  - CH
+                  - CI
+                  - CK
+                  - CL
+                  - CM
+                  - CN
+                  - CO
+                  - CR
+                  - CU
+                  - CV
+                  - CW
+                  - CX
+                  - CY
+                  - CZ
+                  - DE
+                  - DJ
+                  - DK
+                  - DM
+                  - DO
+                  - DZ
+                  - EC
+                  - EE
+                  - EG
+                  - EH
+                  - ER
+                  - ES
+                  - ET
+                  - FI
+                  - FJ
+                  - FK
+                  - FM
+                  - FO
+                  - FR
+                  - GA
+                  - GB
+                  - GD
+                  - GE
+                  - GF
+                  - GG
+                  - GH
+                  - GI
+                  - GL
+                  - GM
+                  - GN
+                  - GP
+                  - GQ
+                  - GR
+                  - GS
+                  - GT
+                  - GU
+                  - GW
+                  - GY
+                  - HK
+                  - HM
+                  - HN
+                  - HR
+                  - HT
+                  - HU
+                  - ID
+                  - IE
+                  - IL
+                  - IM
+                  - IN
+                  - IO
+                  - IQ
+                  - IR
+                  - IS
+                  - IT
+                  - JE
+                  - JM
+                  - JO
+                  - JP
+                  - KE
+                  - KG
+                  - KH
+                  - KI
+                  - KM
+                  - KN
+                  - KP
+                  - KR
+                  - KW
+                  - KY
+                  - KZ
+                  - LA
+                  - LB
+                  - LC
+                  - LI
+                  - LK
+                  - LR
+                  - LS
+                  - LT
+                  - LU
+                  - LV
+                  - LY
+                  - MA
+                  - MC
+                  - MD
+                  - ME
+                  - MF
+                  - MG
+                  - MH
+                  - MK
+                  - ML
+                  - MM
+                  - MN
+                  - MO
+                  - MP
+                  - MQ
+                  - MR
+                  - MS
+                  - MT
+                  - MU
+                  - MV
+                  - MW
+                  - MX
+                  - MY
+                  - MZ
+                  - NA
+                  - NC
+                  - NE
+                  - NF
+                  - NG
+                  - NI
+                  - NL
+                  - 'NO'
+                  - NP
+                  - NR
+                  - NU
+                  - NZ
+                  - OM
+                  - PA
+                  - PE
+                  - PF
+                  - PG
+                  - PH
+                  - PK
+                  - PL
+                  - PM
+                  - PN
+                  - PR
+                  - PS
+                  - PT
+                  - PW
+                  - PY
+                  - QA
+                  - RE
+                  - RO
+                  - RS
+                  - RU
+                  - RW
+                  - SA
+                  - SB
+                  - SC
+                  - SD
+                  - SE
+                  - SG
+                  - SH
+                  - SI
+                  - SJ
+                  - SK
+                  - SL
+                  - SM
+                  - SN
+                  - SO
+                  - SR
+                  - SS
+                  - ST
+                  - SV
+                  - SX
+                  - SY
+                  - SZ
+                  - TC
+                  - TD
+                  - TF
+                  - TG
+                  - TH
+                  - TJ
+                  - TK
+                  - TL
+                  - TM
+                  - TN
+                  - TO
+                  - TR
+                  - TT
+                  - TV
+                  - TW
+                  - TZ
+                  - UA
+                  - UG
+                  - UM
+                  - US
+                  - UY
+                  - UZ
+                  - VA
+                  - VC
+                  - VE
+                  - VG
+                  - VI
+                  - VN
+                  - VU
+                  - WF
+                  - WS
+                  - XK
+                  - YE
+                  - YT
+                  - ZA
+                  - ZM
+                  - ZW
+                external_customer_id:
+                  type: string
+                  description: An externally defined identifier for the customer associated with this portal. This ID is typically supplied by a partner or third-party system and enables mapping between this portal and the corresponding customer record in an external system to support reconciliation, reporting, and lifecycle management across systems.
+                name:
+                  type: string
+                  description: The name of the customer the portal represents.
+                  example: Customer name
+                domain:
+                  type: string
+                  description: The domain associated with the portal. Must be a first-level subdomain of mygo1.com. If no value is provided, a random unique domain will be generated automatically and cannot be edited thereafter.
+                  example: mynewportal.mygo1.com
+                industry:
+                  type: string
+                  description: The industry of the customer's business. See [industry list](https://api.go1.co/portal/properties/industry).
+                  example: Professional, Scientific and Technical Services
+                  enum:
+                  - Accommodation and Food Services
+                  - Administrative and Support Services
+                  - Agriculture, Forestry and Fishing
+                  - Arts and Recreation Services
+                  - Construction
+                  - Education and Training
+                  - Electricity, Gas, Water and Waste Services
+                  - Financial and Insurance Services
+                  - Health Care and Social Assistance
+                  - Information Media and Telecommunications
+                  - K-12
+                  - Manufacturing
+                  - Mining
+                  - Other Services
+                  - Professional, Scientific and Technical Services
+                  - Public Administration and Safety
+                  - Rental, Hiring and Real Estate Services
+                  - Retail Trade
+                  - Retail and Wholesale Trade
+                  - Transport, Postal and Warehousing
+                logo:
+                  type: string
+                  description: The URL of the customer's logo.
+                  example: https://media.go1static.com/image/upload/v171099305/uavdj2um.png
+                timezone:
+                  type: string
+                  description: Timezone must use the IANA format. See [timezone list](https://api.go1.co/portal/properties/timezones). If not provided, UTC will be used.
+                  example: Australia/Brisbane
+                  enum:
+                  - Africa/Accra
+                  - Africa/Addis_Ababa
+                  - Africa/Algiers
+                  - Africa/Asmara
+                  - Africa/Bamako
+                  - Africa/Bangui
+                  - Africa/Banjul
+                  - Africa/Bissau
+                  - Africa/Blantyre
+                  - Africa/Brazzaville
+                  - Africa/Bujumbura
+                  - Africa/Cairo
+                  - Africa/Casablanca
+                  - Africa/Ceuta
+                  - Africa/Conakry
+                  - Africa/Dakar
+                  - Africa/Dar_es_Salaam
+                  - Africa/Djibouti
+                  - Africa/Douala
+                  - Africa/El_Aaiun
+                  - Africa/Freetown
+                  - Africa/Gaborone
+                  - Africa/Harare
+                  - Africa/Johannesburg
+                  - Africa/Juba
+                  - Africa/Kampala
+                  - Africa/Khartoum
+                  - Africa/Kigali
+                  - Africa/Kinshasa
+                  - Africa/Lagos
+                  - Africa/Libreville
+                  - Africa/Lome
+                  - Africa/Luanda
+                  - Africa/Lubumbashi
+                  - Africa/Lusaka
+                  - Africa/Malabo
+                  - Africa/Maputo
+                  - Africa/Maseru
+                  - Africa/Mbabane
+                  - Africa/Mogadishu
+                  - Africa/Monrovia
+                  - Africa/Nairobi
+                  - Africa/Ndjamena
+                  - Africa/Niamey
+                  - Africa/Nouakchott
+                  - Africa/Ouagadougou
+                  - Africa/Porto-Novo
+                  - Africa/Sao_Tome
+                  - Africa/Tripoli
+                  - Africa/Tunis
+                  - Africa/Windhoek
+                  - America/Adak
+                  - America/Anchorage
+                  - America/Anguilla
+                  - America/Antigua
+                  - America/Araguaina
+                  - America/Argentina/Buenos_Aires
+                  - America/Argentina/Catamarca
+                  - America/Argentina/Cordoba
+                  - America/Argentina/Jujuy
+                  - America/Argentina/La_Rioja
+                  - America/Argentina/Mendoza
+                  - America/Argentina/Rio_Gallegos
+                  - America/Argentina/Salta
+                  - America/Argentina/San_Juan
+                  - America/Argentina/San_Luis
+                  - America/Argentina/Tucuman
+                  - America/Argentina/Ushuaia
+                  - America/Aruba
+                  - America/Asuncion
+                  - America/Atikokan
+                  - America/Bahia
+                  - America/Bahia_Banderas
+                  - America/Barbados
+                  - America/Belem
+                  - America/Belize
+                  - America/Blanc-Sablon
+                  - America/Boa_Vista
+                  - America/Bogota
+                  - America/Boise
+                  - America/Cambridge_Bay
+                  - America/Campo_Grande
+                  - America/Cancun
+                  - America/Caracas
+                  - America/Cayenne
+                  - America/Cayman
+                  - America/Chicago
+                  - America/Chihuahua
+                  - America/Costa_Rica
+                  - America/Creston
+                  - America/Cuiaba
+                  - America/Curacao
+                  - America/Danmarkshavn
+                  - America/Dawson
+                  - America/Dawson_Creek
+                  - America/Denver
+                  - America/Detroit
+                  - America/Dominica
+                  - America/Edmonton
+                  - America/Eirunepe
+                  - America/El_Salvador
+                  - America/Fort_Nelson
+                  - America/Fortaleza
+                  - America/Glace_Bay
+                  - America/Goose_Bay
+                  - America/Grand_Turk
+                  - America/Grenada
+                  - America/Guadeloupe
+                  - America/Guatemala
+                  - America/Guayaquil
+                  - America/Guyana
+                  - America/Halifax
+                  - America/Havana
+                  - America/Hermosillo
+                  - America/Indiana/Indianapolis
+                  - America/Indiana/Knox
+                  - America/Indiana/Marengo
+                  - America/Indiana/Petersburg
+                  - America/Indiana/Tell_City
+                  - America/Indiana/Vevay
+                  - America/Indiana/Vincennes
+                  - America/Indiana/Winamac
+                  - America/Inuvik
+                  - America/Iqaluit
+                  - America/Jamaica
+                  - America/Juneau
+                  - America/Kentucky/Louisville
+                  - America/Kentucky/Monticello
+                  - America/Kralendijk
+                  - America/La_Paz
+                  - America/Lima
+                  - America/Los_Angeles
+                  - America/Lower_Princes
+                  - America/Maceio
+                  - America/Managua
+                  - America/Manaus
+                  - America/Marigot
+                  - America/Martinique
+                  - America/Matamoros
+                  - America/Mazatlan
+                  - America/Menominee
+                  - America/Merida
+                  - America/Metlakatla
+                  - America/Mexico_City
+                  - America/Miquelon
+                  - America/Moncton
+                  - America/Monterrey
+                  - America/Montevideo
+                  - America/Montserrat
+                  - America/Nassau
+                  - America/New_York
+                  - America/Nipigon
+                  - America/Nome
+                  - America/Noronha
+                  - America/North_Dakota/Beulah
+                  - America/North_Dakota/Center
+                  - America/North_Dakota/New_Salem
+                  - America/Nuuk
+                  - America/Ojinaga
+                  - America/Panama
+                  - America/Pangnirtung
+                  - America/Paramaribo
+                  - America/Phoenix
+                  - America/Port-au-Prince
+                  - America/Port_of_Spain
+                  - America/Porto_Velho
+                  - America/Puerto_Rico
+                  - America/Punta_Arenas
+                  - America/Rainy_River
+                  - America/Rankin_Inlet
+                  - America/Recife
+                  - America/Regina
+                  - America/Resolute
+                  - America/Rio_Branco
+                  - America/Santarem
+                  - America/Santiago
+                  - America/Santo_Domingo
+                  - America/Sao_Paulo
+                  - America/Scoresbysund
+                  - America/Sitka
+                  - America/St_Barthelemy
+                  - America/St_Johns
+                  - America/St_Kitts
+                  - America/St_Lucia
+                  - America/St_Thomas
+                  - America/St_Vincent
+                  - America/Swift_Current
+                  - America/Tegucigalpa
+                  - America/Thule
+                  - America/Thunder_Bay
+                  - America/Tijuana
+                  - America/Toronto
+                  - America/Tortola
+                  - America/Vancouver
+                  - America/Whitehorse
+                  - America/Winnipeg
+                  - America/Yakutat
+                  - America/Yellowknife
+                  - Antarctica/Casey
+                  - Antarctica/Davis
+                  - Antarctica/DumontDUrville
+                  - Antarctica/Macquarie
+                  - Antarctica/Mawson
+                  - Antarctica/McMurdo
+                  - Antarctica/Palmer
+                  - Antarctica/Rothera
+                  - Antarctica/Syowa
+                  - Antarctica/Troll
+                  - Antarctica/Vostok
+                  - Arctic/Longyearbyen
+                  - Asia/Aden
+                  - Asia/Almaty
+                  - Asia/Amman
+                  - Asia/Anadyr
+                  - Asia/Aqtau
+                  - Asia/Aqtobe
+                  - Asia/Ashgabat
+                  - Asia/Atyrau
+                  - Asia/Baghdad
+                  - Asia/Bahrain
+                  - Asia/Baku
+                  - Asia/Bangkok
+                  - Asia/Barnaul
+                  - Asia/Beirut
+                  - Asia/Bishkek
+                  - Asia/Brunei
+                  - Asia/Chita
+                  - Asia/Choibalsan
+                  - Asia/Colombo
+                  - Asia/Damascus
+                  - Asia/Dhaka
+                  - Asia/Dili
+                  - Asia/Dubai
+                  - Asia/Dushanbe
+                  - Asia/Famagusta
+                  - Asia/Gaza
+                  - Asia/Hebron
+                  - Asia/Ho_Chi_Minh
+                  - Asia/Hong_Kong
+                  - Asia/Hovd
+                  - Asia/Irkutsk
+                  - Asia/Jakarta
+                  - Asia/Jayapura
+                  - Asia/Jerusalem
+                  - Asia/Kabul
+                  - Asia/Kamchatka
+                  - Asia/Karachi
+                  - Asia/Kathmandu
+                  - Asia/Khandyga
+                  - Asia/Kolkata
+                  - Asia/Krasnoyarsk
+                  - Asia/Kuala_Lumpur
+                  - Asia/Kuching
+                  - Asia/Kuwait
+                  - Asia/Macau
+                  - Asia/Magadan
+                  - Asia/Makassar
+                  - Asia/Manila
+                  - Asia/Muscat
+                  - Asia/Nicosia
+                  - Asia/Novokuznetsk
+                  - Asia/Novosibirsk
+                  - Asia/Omsk
+                  - Asia/Oral
+                  - Asia/Phnom_Penh
+                  - Asia/Pontianak
+                  - Asia/Pyongyang
+                  - Asia/Qatar
+                  - Asia/Qostanay
+                  - Asia/Qyzylorda
+                  - Asia/Riyadh
+                  - Asia/Sakhalin
+                  - Asia/Samarkand
+                  - Asia/Seoul
+                  - Asia/Shanghai
+                  - Asia/Singapore
+                  - Asia/Srednekolymsk
+                  - Asia/Taipei
+                  - Asia/Tashkent
+                  - Asia/Tbilisi
+                  - Asia/Tehran
+                  - Asia/Thimphu
+                  - Asia/Tokyo
+                  - Asia/Tomsk
+                  - Asia/Ulaanbaatar
+                  - Asia/Urumqi
+                  - Asia/Ust-Nera
+                  - Asia/Vientiane
+                  - Asia/Vladivostok
+                  - Asia/Yakutsk
+                  - Asia/Yangon
+                  - Asia/Yekaterinburg
+                  - Asia/Yerevan
+                  - Atlantic/Azores
+                  - Atlantic/Bermuda
+                  - Atlantic/Canary
+                  - Atlantic/Cape_Verde
+                  - Atlantic/Faroe
+                  - Atlantic/Madeira
+                  - Atlantic/Reykjavik
+                  - Atlantic/South_Georgia
+                  - Atlantic/St_Helena
+                  - Atlantic/Stanley
+                  - Australia/Adelaide
+                  - Australia/Brisbane
+                  - Australia/Broken_Hill
+                  - Australia/Darwin
+                  - Australia/Eucla
+                  - Australia/Hobart
+                  - Australia/Lindeman
+                  - Australia/Lord_Howe
+                  - Australia/Melbourne
+                  - Australia/Perth
+                  - Australia/Sydney
+                  - Etc/GMT
+                  - Etc/GMT+0
+                  - Etc/GMT+1
+                  - Etc/GMT+10
+                  - Etc/GMT+11
+                  - Etc/GMT+12
+                  - Etc/GMT+2
+                  - Etc/GMT+3
+                  - Etc/GMT+4
+                  - Etc/GMT+5
+                  - Etc/GMT+6
+                  - Etc/GMT+7
+                  - Etc/GMT+8
+                  - Etc/GMT+9
+                  - Etc/GMT-0
+                  - Etc/GMT-1
+                  - Etc/GMT-10
+                  - Etc/GMT-11
+                  - Etc/GMT-12
+                  - Etc/GMT-13
+                  - Etc/GMT-14
+                  - Etc/GMT-2
+                  - Etc/GMT-3
+                  - Etc/GMT-4
+                  - Etc/GMT-5
+                  - Etc/GMT-6
+                  - Etc/GMT-7
+                  - Etc/GMT-8
+                  - Etc/GMT-9
+                  - Etc/UTC
+                  - Europe/Amsterdam
+                  - Europe/Andorra
+                  - Europe/Astrakhan
+                  - Europe/Athens
+                  - Europe/Belgrade
+                  - Europe/Berlin
+                  - Europe/Bratislava
+                  - Europe/Brussels
+                  - Europe/Bucharest
+                  - Europe/Budapest
+                  - Europe/Busingen
+                  - Europe/Chisinau
+                  - Europe/Copenhagen
+                  - Europe/Dublin
+                  - Europe/Gibraltar
+                  - Europe/Guernsey
+                  - Europe/Helsinki
+                  - Europe/Isle_of_Man
+                  - Europe/Istanbul
+                  - Europe/Jersey
+                  - Europe/Kaliningrad
+                  - Europe/Kiev
+                  - Europe/Kirov
+                  - Europe/Lisbon
+                  - Europe/Ljubljana
+                  - Europe/London
+                  - Europe/Luxembourg
+                  - Europe/Madrid
+                  - Europe/Malta
+                  - Europe/Mariehamn
+                  - Europe/Minsk
+                  - Europe/Monaco
+                  - Europe/Moscow
+                  - Europe/Oslo
+                  - Europe/Paris
+                  - Europe/Podgorica
+                  - Europe/Prague
+                  - Europe/Riga
+                  - Europe/Rome
+                  - Europe/Samara
+                  - Europe/San_Marino
+                  - Europe/Sarajevo
+                  - Europe/Saratov
+                  - Europe/Simferopol
+                  - Europe/Skopje
+                  - Europe/Sofia
+                  - Europe/Stockholm
+                  - Europe/Tallinn
+                  - Europe/Tirane
+                  - Europe/Ulyanovsk
+                  - Europe/Uzhgorod
+                  - Europe/Vaduz
+                  - Europe/Vatican
+                  - Europe/Vienna
+                  - Europe/Vilnius
+                  - Europe/Volgograd
+                  - Europe/Warsaw
+                  - Europe/Zagreb
+                  - Europe/Zaporozhye
+                  - Europe/Zurich
+                  - Indian/Antananarivo
+                  - Indian/Chagos
+                  - Indian/Christmas
+                  - Indian/Cocos
+                  - Indian/Comoro
+                  - Indian/Kerguelen
+                  - Indian/Mahe
+                  - Indian/Maldives
+                  - Indian/Mauritius
+                  - Indian/Mayotte
+                  - Indian/Reunion
+                  - Pacific/Apia
+                  - Pacific/Auckland
+                  - Pacific/Bougainville
+                  - Pacific/Chatham
+                  - Pacific/Chuuk
+                  - Pacific/Easter
+                  - Pacific/Efate
+                  - Pacific/Enderbury
+                  - Pacific/Fakaofo
+                  - Pacific/Fiji
+                  - Pacific/Funafuti
+                  - Pacific/Galapagos
+                  - Pacific/Gambier
+                  - Pacific/Guadalcanal
+                  - Pacific/Guam
+                  - Pacific/Honolulu
+                  - Pacific/Kiritimati
+                  - Pacific/Kosrae
+                  - Pacific/Kwajalein
+                  - Pacific/Majuro
+                  - Pacific/Marquesas
+                  - Pacific/Midway
+                  - Pacific/Nauru
+                  - Pacific/Niue
+                  - Pacific/Norfolk
+                  - Pacific/Noumea
+                  - Pacific/Pago_Pago
+                  - Pacific/Palau
+                  - Pacific/Pitcairn
+                  - Pacific/Pohnpei
+                  - Pacific/Port_Moresby
+                  - Pacific/Rarotonga
+                  - Pacific/Saipan
+                  - Pacific/Tahiti
+                  - Pacific/Tarawa
+                  - Pacific/Tongatapu
+                  - Pacific/Wake
+                  - Pacific/Wallis
+                  - UTC
+                user_account:
+                  description: An object containing details for the primary admin user created on the portal.
+                  allOf:
+                  - type: object
+                    properties:
+                      email:
+                        type: string
+                        description: The user’s email address.
+                        example: john.doe@example.com
+                      username:
+                        type: string
+                        description: The user’s username. Must be unique. We recommend using the user's email address when creating an account on behalf of another user.
+                        example: john.doe@example.com
+                      password:
+                        type: string
+                        description: 'A password to set for the user. Must contain at least one letter and be at least 8 characters long. Password must not contain common words, eg. password. We recommend using a combination of upper and lower-case characters, numbers and special characters. Note: to set a password the email address provided must not currently exist in any go1 portals, otherwise an error will be returned.'
+                        example: SecurePassword
+                      given_name:
+                        type: string
+                        description: The user's first name.
+                        example: John
+                      family_name:
+                        type: string
+                        description: The user's last name.
+                        example: Doe
+                    required:
+                    - email
+                    - username
+                    - given_name
+                    - family_name
+                settings:
+                  description: An object containing settings for the portal.
+                  allOf:
+                  - type: object
+                    properties:
+                      enable_subscribed_content_library:
+                        type: boolean
+                        description: A boolean value indicating whether subscribe configuration is enabled for the portal. Defaults to false.
+                        example: false
+                      notifications:
+                        type: boolean
+                        description: A boolean value indicating whether notifications are enabled for the portal. Defaults to true.
+                        example: true
+                    required:
+                    - notifications
+                company_size:
+                  type: number
+                  description: 'The number of employees in the customer''s business.
+
+
+                    Possible values:
+
+                    - `50`
+
+                    - `200`
+
+                    - `500`
+
+                    - `1000`
+
+                    - `1500`
+
+                    - `2000`
+
+                    - `2500`
+
+                    - `3000`
+
+                    - `5000`
+
+                    - `10000`
+
+                    - `10001`, Represents 10,000+ employees.'
+                  enum:
+                  - 50
+                  - 200
+                  - 500
+                  - 1000
+                  - 1500
+                  - 2000
+                  - 2500
+                  - 3000
+                  - 5000
+                  - 10000
+                  - 10001
+              required:
+              - country
+              - name
+              - domain
+              - industry
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The unique identifier for the portal.
+                    example: '123456'
+                  name:
+                    type: string
+                    description: The name of the customer the portal represents.
+                    example: Customer name
+                  domain:
+                    type: string
+                    description: The domain associated with the portal. Must be a first-level subdomain of mygo1.com. If no value is provided, a random unique domain will be generated automatically and cannot be edited thereafter.
+                    example: mynewportal.mygo1.com
+                  timezone:
+                    type: string
+                    description: This portal follows the IANA format for time zones. If no value is provided, the UTC string will be used instead.
+                    example: Australia/Brisbane
+                  partner_portal_id:
+                    type: string
+                    description: The identifier for a partner portal, associating a created customer portal with a specific partner within the Go1 ecosystem.
+                    example: '54321'
+                  industry:
+                    type: string
+                    description: The industry of the customer's business. See [industry list](https://api.go1.co/portal/properties/industry).
+                    example: Professional, Scientific and Technical Services
+                  country:
+                    type: string
+                    description: The country code representing the head office location of the customer's business operation. See [country list](https://api.go1.co/portal/properties/country).
+                    example: AU
+                  logo:
+                    type: string
+                    description: The URL of the customer's logo.
+                    example: https://media.go1static.com/image/upload/v1714099305/uavyluj2um.png
+                  created_time:
+                    type: string
+                    description: The timestamp indicating when the portal was created (ISO 8601 in UTC).
+                    example: '2023-05-20T02:44:21.653Z'
+                  updated_time:
+                    type: string
+                    description: The timestamp indicating when the portal was last updated (ISO 8601 in UTC).
+                    example: '2023-05-20T02:44:21.653Z'
+                  user_account:
+                    description: An object containing details for the primary admin user created on the portal.
+                    allOf:
+                    - type: object
+                      properties:
+                        id:
+                          type: string
+                          description: The unique identifier for a user account.
+                          example: '123456'
+                        account_guid:
+                          type: string
+                          description: A new identifier for the user account. Moving to GUID will be introduced in future API versions.
+                          example: acc_01F2K1R9KG6RSKGE9J68RK6E1H
+                        oauth_token:
+                          description: An object containing OAuth token details for the user account.
+                          allOf:
+                          - type: object
+                            properties:
+                              token_type:
+                                type: string
+                                description: The type of token.
+                                example: Bearer
+                              expires_in:
+                                type: number
+                                description: The duration in seconds for which the token is valid.
+                                example: 43200
+                              access_token:
+                                type: string
+                                description: The access token for the user account.
+                                example: eyJ0e3efms33f...
+                              refresh_token:
+                                type: string
+                                description: The refresh token for the user account.
+                                example: eyJ0e3efms33f...
+                            required:
+                            - token_type
+                            - expires_in
+                            - access_token
+                            - refresh_token
+                      required:
+                      - id
+                      - account_guid
+                      - oauth_token
+                  company_size:
+                    type: number
+                    description: The number of employees in the customer's business.
+                    example: 50
+                required:
+                - id
+                - name
+                - domain
+                - partner_portal_id
+                - industry
+                - country
+                - logo
+                - created_time
+                - updated_time
+                - user_account
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  message:
+                    type: string
+                required:
+                - error_code
+                - message
+              examples:
+                PORTAL_ALREADY_EXIST:
+                  value:
+                    error_code: PORTAL_ALREADY_EXIST
+                    message: Portal already exist.
+                INVALID_DOMAIN:
+                  value:
+                    error_code: INVALID_DOMAIN
+                    message: Invalid domain.
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  message:
+                    type: string
+                required:
+                - error_code
+                - message
+              examples:
+                AUTH_TOKEN_INVALID:
+                  value:
+                    error_code: AUTH_TOKEN_INVALID
+                    message: Invalid credentials.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  message:
+                    type: string
+                required:
+                - error_code
+                - message
+              examples:
+                UNABLE_TO_ISSUE_ACCESS_TOKEN:
+                  value:
+                    error_code: UNABLE_TO_ISSUE_ACCESS_TOKEN
+                    message: Unable to issue access token.
+      tags:
+      - Portals
+      security:
+      - OAuth2:
+        - portal.write
+    get:
+      operationId: getPortals
+      x-api-version: '2025-01-01'
+      summary: List all portals
+      description: Returns a list of portals.
+      parameters:
+      - name: keyword
+        required: false
+        in: query
+        description: The keyword to search for in the portal name.
+        schema:
+          example: Customer.mygo1.com
+          type: string
+      - name: id
+        required: false
+        in: query
+        description: Filters portals by id.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: limit
+        required: false
+        in: query
+        description: A limit on the number of objects to be returned, between 1 and 100. The default is 20.
+        schema:
+          minimum: 0
+          maximum: 100
+          default: 20
+          example: '50'
+          type: number
+      - name: offset
+        required: false
+        in: query
+        description: For use in pagination. The item number within a List request to start displaying results after. For example, if you make a request with limit=20 and offset=20, items 21 - 40 are returned.
+        schema:
+          minimum: 0
+          default: 0
+          example: '10'
+          type: number
+      - name: sort
+        required: false
+        in: query
+        description: 'Sort the results by a given field name. Sortable fields include: `created_time`. Default value is `created_time`.'
+        schema:
+          example: created_time
+          enum:
+          - created_time
+          type: string
+      - name: order
+        required: false
+        in: query
+        description: The order to sort the results by. Valid values are `asc` for ascending order and `desc` for descending order. Default value is descending.
+        schema:
+          example: desc
+          enum:
+          - asc
+          - desc
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: number
+                    description: The total number of retrievable results from the request.
+                    example: '10'
+                    default: 0
+                  hits:
+                    description: An array containing the requested results.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        external_customer_id:
+                          type: string
+                          description: An externally defined identifier for the customer associated with this portal. This ID is typically supplied by a partner or third-party system and enables mapping between this portal and the corresponding customer record in an external system to support reconciliation, reporting, and lifecycle management across systems.
+                          example: 123ABC
+                        id:
+                          type: string
+                          description: The unique identifier for the portal.
+                          example: '123456'
+                        name:
+                          type: string
+                          description: The name of the customer the portal represents.
+                          example: Customer name
+                        domain:
+                          type: string
+                          description: The domain associated with the portal. Must be a first-level subdomain of mygo1.com. If no value is provided, a random unique domain will be generated automatically and cannot be edited thereafter.
+                          example: mynewportal.mygo1.com
+                        custom_domain:
+                          type: string
+                          description: The custom domain associated with the portal.
+                          example: example.com
+                        timezone:
+                          type: string
+                          description: Timezone must use the IANA format. See [timezone list](https://api.go1.co/portal/properties/timezones). If not provided, UTC will be used.
+                          example: Australia/Brisbane
+                        partner_portal_id:
+                          type: string
+                          description: The identifier for a partner portal, associating a created customer portal with a specific partner within the Go1 ecosystem.
+                          example: '54321'
+                        industry:
+                          type: string
+                          description: The industry of the customer's business. See [industry list](https://api.go1.co/portal/properties/industry).
+                          example: Professional, Scientific and Technical Services
+                        country:
+                          type: string
+                          description: The country code representing the head office location of the customer's business operation. See [country list](https://api.go1.co/portal/properties/country).
+                          example: AU
+                        logo:
+                          type: string
+                          description: The URL of the customer's logo.
+                          example: https://media.go1static.com/image/upload/v1714099305/uavyluj2um.png
+                        created_time:
+                          type: string
+                          description: The timestamp indicating when the portal was created (ISO 8601 in UTC).
+                          example: '2023-05-20T02:44:21.653Z'
+                        updated_time:
+                          type: string
+                          description: The timestamp indicating when the portal was last updated (ISO 8601 in UTC).
+                          example: '2023-05-20T02:44:21.653Z'
+                        company_size:
+                          type: number
+                          description: The number of employees in the customer's business.
+                          example: 50
+                        type:
+                          type: string
+                          description: The type of portal.
+                          example: customer
+                        data_residency_region:
+                          type: string
+                          description: The region where PII is stored.
+                          example: centralus
+                        salesforce_id:
+                          type: string
+                          description: The identifier for the customer SDFC account id.
+                          example: 0017F00002gk4b3QAA
+                      required:
+                      - id
+                      - name
+                      - partner_portal_id
+                      - industry
+                      - country
+                      - created_time
+                      - updated_time
+                required:
+                - total
+                - hits
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  message:
+                    type: string
+                required:
+                - error_code
+                - message
+              examples:
+                AUTH_TOKEN_INVALID:
+                  value:
+                    error_code: AUTH_TOKEN_INVALID
+                    message: Invalid credentials.
+      tags:
+      - Portals
+      security:
+      - OAuth2:
+        - portal.read
+  /portals/{id}:
+    get:
+      operationId: getPortal
+      x-api-version: '2025-01-01'
+      summary: Retrieve a portal
+      description: Returns the details of a portal.
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: include_external_customer_id
+        required: false
+        in: query
+        description: Optionally include external customer agreement field in the response.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  external_customer_id:
+                    type: string
+                    description: An externally defined identifier for the customer associated with this portal. This ID is typically supplied by a partner or third-party system and enables mapping between this portal and the corresponding customer record in an external system to support reconciliation, reporting, and lifecycle management across systems.
+                    example: 123ABC
+                  id:
+                    type: string
+                    description: The unique identifier for the portal.
+                    example: '123456'
+                  name:
+                    type: string
+                    description: The name of the customer the portal represents.
+                    example: Customer name
+                  domain:
+                    type: string
+                    description: The domain associated with the portal. Must be a first-level subdomain of mygo1.com. If no value is provided, a random unique domain will be generated automatically and cannot be edited thereafter.
+                    example: mynewportal.mygo1.com
+                  custom_domain:
+                    type: string
+                    description: The custom domain associated with the portal.
+                    example: example.com
+                  timezone:
+                    type: string
+                    description: Timezone must use the IANA format. See [timezone list](https://api.go1.co/portal/properties/timezones). If not provided, UTC will be used.
+                    example: Australia/Brisbane
+                  partner_portal_id:
+                    type: string
+                    description: The identifier for a partner portal, associating a created customer portal with a specific partner within the Go1 ecosystem.
+                    example: '54321'
+                  industry:
+                    type: string
+                    description: The industry of the customer's business. See [industry list](https://api.go1.co/portal/properties/industry).
+                    example: Professional, Scientific and Technical Services
+                  country:
+                    type: string
+                    description: The country code representing the head office location of the customer's business operation. See [country list](https://api.go1.co/portal/properties/country).
+                    example: AU
+                  logo:
+                    type: string
+                    description: The URL of the customer's logo.
+                    example: https://media.go1static.com/image/upload/v1714099305/uavyluj2um.png
+                  created_time:
+                    type: string
+                    description: The timestamp indicating when the portal was created (ISO 8601 in UTC).
+                    example: '2023-05-20T02:44:21.653Z'
+                  updated_time:
+                    type: string
+                    description: The timestamp indicating when the portal was last updated (ISO 8601 in UTC).
+                    example: '2023-05-20T02:44:21.653Z'
+                  company_size:
+                    type: number
+                    description: The number of employees in the customer's business.
+                    example: 50
+                  type:
+                    type: string
+                    description: The type of portal.
+                    example: customer
+                  data_residency_region:
+                    type: string
+                    description: The region where PII is stored.
+                    example: centralus
+                  salesforce_id:
+                    type: string
+                    description: The identifier for the customer SDFC account id.
+                    example: 0017F00002gk4b3QAA
+                required:
+                - id
+                - name
+                - partner_portal_id
+                - industry
+                - country
+                - created_time
+                - updated_time
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  message:
+                    type: string
+                required:
+                - error_code
+                - message
+              examples:
+                AUTH_TOKEN_INVALID:
+                  value:
+                    error_code: AUTH_TOKEN_INVALID
+                    message: Invalid credentials.
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  message:
+                    type: string
+                required:
+                - error_code
+                - message
+              examples:
+                PORTAL_ACCESS_UNAUTHORIZED:
+                  value:
+                    error_code: PORTAL_ACCESS_UNAUTHORIZED
+                    message: Insufficient permission to access portal.
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  message:
+                    type: string
+                required:
+                - error_code
+                - message
+              examples:
+                PORTAL_NOT_FOUND:
+                  value:
+                    error_code: PORTAL_NOT_FOUND
+                    message: Portal not found.
+      tags:
+      - Portals
+      security:
+      - OAuth2:
+        - portal.read
+    patch:
+      operationId: patchPortal
+      x-api-version: '2025-01-01'
+      summary: Update a portal
+      description: Updates the details of a portal.
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                country:
+                  type: string
+                  description: The country code representing the head office location of the customer's business operation. See [country list](https://api.go1.co/portal/properties/country).
+                  example: AU
+                  enum:
+                  - AD
+                  - AE
+                  - AF
+                  - AG
+                  - AI
+                  - AL
+                  - AM
+                  - AO
+                  - AQ
+                  - AR
+                  - AS
+                  - AT
+                  - AU
+                  - AW
+                  - AX
+                  - AZ
+                  - BA
+                  - BB
+                  - BD
+                  - BE
+                  - BF
+                  - BG
+                  - BH
+                  - BI
+                  - BJ
+                  - BL
+                  - BM
+                  - BN
+                  - BO
+                  - BQ
+                  - BR
+                  - BS
+                  - BT
+                  - BV
+                  - BW
+                  - BY
+                  - BZ
+                  - CA
+                  - CC
+                  - CD
+                  - CF
+                  - CG
+                  - CH
+                  - CI
+                  - CK
+                  - CL
+                  - CM
+                  - CN
+                  - CO
+                  - CR
+                  - CU
+                  - CV
+                  - CW
+                  - CX
+                  - CY
+                  - CZ
+                  - DE
+                  - DJ
+                  - DK
+                  - DM
+                  - DO
+                  - DZ
+                  - EC
+                  - EE
+                  - EG
+                  - EH
+                  - ER
+                  - ES
+                  - ET
+                  - FI
+                  - FJ
+                  - FK
+                  - FM
+                  - FO
+                  - FR
+                  - GA
+                  - GB
+                  - GD
+                  - GE
+                  - GF
+                  - GG
+                  - GH
+                  - GI
+                  - GL
+                  - GM
+                  - GN
+                  - GP
+                  - GQ
+                  - GR
+                  - GS
+                  - GT
+                  - GU
+                  - GW
+                  - GY
+                  - HK
+                  - HM
+                  - HN
+                  - HR
+                  - HT
+                  - HU
+                  - ID
+                  - IE
+                  - IL
+                  - IM
+                  - IN
+                  - IO
+                  - IQ
+                  - IR
+                  - IS
+                  - IT
+                  - JE
+                  - JM
+                  - JO
+                  - JP
+                  - KE
+                  - KG
+                  - KH
+                  - KI
+                  - KM
+                  - KN
+                  - KP
+                  - KR
+                  - KW
+                  - KY
+                  - KZ
+                  - LA
+                  - LB
+                  - LC
+                  - LI
+                  - LK
+                  - LR
+                  - LS
+                  - LT
+                  - LU
+                  - LV
+                  - LY
+                  - MA
+                  - MC
+                  - MD
+                  - ME
+                  - MF
+                  - MG
+                  - MH
+                  - MK
+                  - ML
+                  - MM
+                  - MN
+                  - MO
+                  - MP
+                  - MQ
+                  - MR
+                  - MS
+                  - MT
+                  - MU
+                  - MV
+                  - MW
+                  - MX
+                  - MY
+                  - MZ
+                  - NA
+                  - NC
+                  - NE
+                  - NF
+                  - NG
+                  - NI
+                  - NL
+                  - 'NO'
+                  - NP
+                  - NR
+                  - NU
+                  - NZ
+                  - OM
+                  - PA
+                  - PE
+                  - PF
+                  - PG
+                  - PH
+                  - PK
+                  - PL
+                  - PM
+                  - PN
+                  - PR
+                  - PS
+                  - PT
+                  - PW
+                  - PY
+                  - QA
+                  - RE
+                  - RO
+                  - RS
+                  - RU
+                  - RW
+                  - SA
+                  - SB
+                  - SC
+                  - SD
+                  - SE
+                  - SG
+                  - SH
+                  - SI
+                  - SJ
+                  - SK
+                  - SL
+                  - SM
+                  - SN
+                  - SO
+                  - SR
+                  - SS
+                  - ST
+                  - SV
+                  - SX
+                  - SY
+                  - SZ
+                  - TC
+                  - TD
+                  - TF
+                  - TG
+                  - TH
+                  - TJ
+                  - TK
+                  - TL
+                  - TM
+                  - TN
+                  - TO
+                  - TR
+                  - TT
+                  - TV
+                  - TW
+                  - TZ
+                  - UA
+                  - UG
+                  - UM
+                  - US
+                  - UY
+                  - UZ
+                  - VA
+                  - VC
+                  - VE
+                  - VG
+                  - VI
+                  - VN
+                  - VU
+                  - WF
+                  - WS
+                  - XK
+                  - YE
+                  - YT
+                  - ZA
+                  - ZM
+                  - ZW
+                external_customer_id:
+                  type: string
+                  description: An externally defined identifier for the customer associated with this portal. This ID is typically supplied by a partner or third-party system and enables mapping between this portal and the corresponding customer record in an external system to support reconciliation, reporting, and lifecycle management across systems.
+                name:
+                  type: string
+                  description: The name of the customer the portal represents.
+                  example: Customer name
+                industry:
+                  type: string
+                  description: The industry of the customer's business. See [industry list](https://api.go1.co/portal/properties/industry).
+                  example: Professional, Scientific and Technical Services
+                  enum:
+                  - Accommodation and Food Services
+                  - Administrative and Support Services
+                  - Agriculture, Forestry and Fishing
+                  - Arts and Recreation Services
+                  - Construction
+                  - Education and Training
+                  - Electricity, Gas, Water and Waste Services
+                  - Financial and Insurance Services
+                  - Health Care and Social Assistance
+                  - Information Media and Telecommunications
+                  - K-12
+                  - Manufacturing
+                  - Mining
+                  - Other Services
+                  - Professional, Scientific and Technical Services
+                  - Public Administration and Safety
+                  - Rental, Hiring and Real Estate Services
+                  - Retail Trade
+                  - Retail and Wholesale Trade
+                  - Transport, Postal and Warehousing
+                logo:
+                  type: string
+                  description: The URL of the customer's logo.
+                  example: https://media.go1static.com/image/upload/v171099305/uavdj2um.png
+                company_size:
+                  type: number
+                  description: 'The number of employees in the customer''s business.
+
+
+                    Possible values:
+
+                    - `50`
+
+                    - `200`
+
+                    - `500`
+
+                    - `1000`
+
+                    - `1500`
+
+                    - `2000`
+
+                    - `2500`
+
+                    - `3000`
+
+                    - `5000`
+
+                    - `10000`
+
+                    - `10001`, Represents 10,000+ employees.'
+                  enum:
+                  - 50
+                  - 200
+                  - 500
+                  - 1000
+                  - 1500
+                  - 2000
+                  - 2500
+                  - 3000
+                  - 5000
+                  - 10000
+                  - 10001
+                timezone:
+                  type: string
+                  description: Timezone must use the IANA format. See [timezone list](https://api.go1.co/portal/properties/timezones). If not provided, UTC will be used.
+                  example: Australia/Brisbane
+                  enum:
+                  - Africa/Accra
+                  - Africa/Addis_Ababa
+                  - Africa/Algiers
+                  - Africa/Asmara
+                  - Africa/Bamako
+                  - Africa/Bangui
+                  - Africa/Banjul
+                  - Africa/Bissau
+                  - Africa/Blantyre
+                  - Africa/Brazzaville
+                  - Africa/Bujumbura
+                  - Africa/Cairo
+                  - Africa/Casablanca
+                  - Africa/Ceuta
+                  - Africa/Conakry
+                  - Africa/Dakar
+                  - Africa/Dar_es_Salaam
+                  - Africa/Djibouti
+                  - Africa/Douala
+                  - Africa/El_Aaiun
+                  - Africa/Freetown
+                  - Africa/Gaborone
+                  - Africa/Harare
+                  - Africa/Johannesburg
+                  - Africa/Juba
+                  - Africa/Kampala
+                  - Africa/Khartoum
+                  - Africa/Kigali
+                  - Africa/Kinshasa
+                  - Africa/Lagos
+                  - Africa/Libreville
+                  - Africa/Lome
+                  - Africa/Luanda
+                  - Africa/Lubumbashi
+                  - Africa/Lusaka
+                  - Africa/Malabo
+                  - Africa/Maputo
+                  - Africa/Maseru
+                  - Africa/Mbabane
+                  - Africa/Mogadishu
+                  - Africa/Monrovia
+                  - Africa/Nairobi
+                  - Africa/Ndjamena
+                  - Africa/Niamey
+                  - Africa/Nouakchott
+                  - Africa/Ouagadougou
+                  - Africa/Porto-Novo
+                  - Africa/Sao_Tome
+                  - Africa/Tripoli
+                  - Africa/Tunis
+                  - Africa/Windhoek
+                  - America/Adak
+                  - America/Anchorage
+                  - America/Anguilla
+                  - America/Antigua
+                  - America/Araguaina
+                  - America/Argentina/Buenos_Aires
+                  - America/Argentina/Catamarca
+                  - America/Argentina/Cordoba
+                  - America/Argentina/Jujuy
+                  - America/Argentina/La_Rioja
+                  - America/Argentina/Mendoza
+                  - America/Argentina/Rio_Gallegos
+                  - America/Argentina/Salta
+                  - America/Argentina/San_Juan
+                  - America/Argentina/San_Luis
+                  - America/Argentina/Tucuman
+                  - America/Argentina/Ushuaia
+                  - America/Aruba
+                  - America/Asuncion
+                  - America/Atikokan
+                  - America/Bahia
+                  - America/Bahia_Banderas
+                  - America/Barbados
+                  - America/Belem
+                  - America/Belize
+                  - America/Blanc-Sablon
+                  - America/Boa_Vista
+                  - America/Bogota
+                  - America/Boise
+                  - America/Cambridge_Bay
+                  - America/Campo_Grande
+                  - America/Cancun
+                  - America/Caracas
+                  - America/Cayenne
+                  - America/Cayman
+                  - America/Chicago
+                  - America/Chihuahua
+                  - America/Costa_Rica
+                  - America/Creston
+                  - America/Cuiaba
+                  - America/Curacao
+                  - America/Danmarkshavn
+                  - America/Dawson
+                  - America/Dawson_Creek
+                  - America/Denver
+                  - America/Detroit
+                  - America/Dominica
+                  - America/Edmonton
+                  - America/Eirunepe
+                  - America/El_Salvador
+                  - America/Fort_Nelson
+                  - America/Fortaleza
+                  - America/Glace_Bay
+                  - America/Goose_Bay
+                  - America/Grand_Turk
+                  - America/Grenada
+                  - America/Guadeloupe
+                  - America/Guatemala
+                  - America/Guayaquil
+                  - America/Guyana
+                  - America/Halifax
+                  - America/Havana
+                  - America/Hermosillo
+                  - America/Indiana/Indianapolis
+                  - America/Indiana/Knox
+                  - America/Indiana/Marengo
+                  - America/Indiana/Petersburg
+                  - America/Indiana/Tell_City
+                  - America/Indiana/Vevay
+                  - America/Indiana/Vincennes
+                  - America/Indiana/Winamac
+                  - America/Inuvik
+                  - America/Iqaluit
+                  - America/Jamaica
+                  - America/Juneau
+                  - America/Kentucky/Louisville
+                  - America/Kentucky/Monticello
+                  - America/Kralendijk
+                  - America/La_Paz
+                  - America/Lima
+                  - America/Los_Angeles
+                  - America/Lower_Princes
+                  - America/Maceio
+                  - America/Managua
+                  - America/Manaus
+                  - America/Marigot
+                  - America/Martinique
+                  - America/Matamoros
+                  - America/Mazatlan
+                  - America/Menominee
+                  - America/Merida
+                  - America/Metlakatla
+                  - America/Mexico_City
+                  - America/Miquelon
+                  - America/Moncton
+                  - America/Monterrey
+                  - America/Montevideo
+                  - America/Montserrat
+                  - America/Nassau
+                  - America/New_York
+                  - America/Nipigon
+                  - America/Nome
+                  - America/Noronha
+                  - America/North_Dakota/Beulah
+                  - America/North_Dakota/Center
+                  - America/North_Dakota/New_Salem
+                  - America/Nuuk
+                  - America/Ojinaga
+                  - America/Panama
+                  - America/Pangnirtung
+                  - America/Paramaribo
+                  - America/Phoenix
+                  - America/Port-au-Prince
+                  - America/Port_of_Spain
+                  - America/Porto_Velho
+                  - America/Puerto_Rico
+                  - America/Punta_Arenas
+                  - America/Rainy_River
+                  - America/Rankin_Inlet
+                  - America/Recife
+                  - America/Regina
+                  - America/Resolute
+                  - America/Rio_Branco
+                  - America/Santarem
+                  - America/Santiago
+                  - America/Santo_Domingo
+                  - America/Sao_Paulo
+                  - America/Scoresbysund
+                  - America/Sitka
+                  - America/St_Barthelemy
+                  - America/St_Johns
+                  - America/St_Kitts
+                  - America/St_Lucia
+                  - America/St_Thomas
+                  - America/St_Vincent
+                  - America/Swift_Current
+                  - America/Tegucigalpa
+                  - America/Thule
+                  - America/Thunder_Bay
+                  - America/Tijuana
+                  - America/Toronto
+                  - America/Tortola
+                  - America/Vancouver
+                  - America/Whitehorse
+                  - America/Winnipeg
+                  - America/Yakutat
+                  - America/Yellowknife
+                  - Antarctica/Casey
+                  - Antarctica/Davis
+                  - Antarctica/DumontDUrville
+                  - Antarctica/Macquarie
+                  - Antarctica/Mawson
+                  - Antarctica/McMurdo
+                  - Antarctica/Palmer
+                  - Antarctica/Rothera
+                  - Antarctica/Syowa
+                  - Antarctica/Troll
+                  - Antarctica/Vostok
+                  - Arctic/Longyearbyen
+                  - Asia/Aden
+                  - Asia/Almaty
+                  - Asia/Amman
+                  - Asia/Anadyr
+                  - Asia/Aqtau
+                  - Asia/Aqtobe
+                  - Asia/Ashgabat
+                  - Asia/Atyrau
+                  - Asia/Baghdad
+                  - Asia/Bahrain
+                  - Asia/Baku
+                  - Asia/Bangkok
+                  - Asia/Barnaul
+                  - Asia/Beirut
+                  - Asia/Bishkek
+                  - Asia/Brunei
+                  - Asia/Chita
+                  - Asia/Choibalsan
+                  - Asia/Colombo
+                  - Asia/Damascus
+                  - Asia/Dhaka
+                  - Asia/Dili
+                  - Asia/Dubai
+                  - Asia/Dushanbe
+                  - Asia/Famagusta
+                  - Asia/Gaza
+                  - Asia/Hebron
+                  - Asia/Ho_Chi_Minh
+                  - Asia/Hong_Kong
+                  - Asia/Hovd
+                  - Asia/Irkutsk
+                  - Asia/Jakarta
+                  - Asia/Jayapura
+                  - Asia/Jerusalem
+                  - Asia/Kabul
+                  - Asia/Kamchatka
+                  - Asia/Karachi
+                  - Asia/Kathmandu
+                  - Asia/Khandyga
+                  - Asia/Kolkata
+                  - Asia/Krasnoyarsk
+                  - Asia/Kuala_Lumpur
+                  - Asia/Kuching
+                  - Asia/Kuwait
+                  - Asia/Macau
+                  - Asia/Magadan
+                  - Asia/Makassar
+                  - Asia/Manila
+                  - Asia/Muscat
+                  - Asia/Nicosia
+                  - Asia/Novokuznetsk
+                  - Asia/Novosibirsk
+                  - Asia/Omsk
+                  - Asia/Oral
+                  - Asia/Phnom_Penh
+                  - Asia/Pontianak
+                  - Asia/Pyongyang
+                  - Asia/Qatar
+                  - Asia/Qostanay
+                  - Asia/Qyzylorda
+                  - Asia/Riyadh
+                  - Asia/Sakhalin
+                  - Asia/Samarkand
+                  - Asia/Seoul
+                  - Asia/Shanghai
+                  - Asia/Singapore
+                  - Asia/Srednekolymsk
+                  - Asia/Taipei
+                  - Asia/Tashkent
+                  - Asia/Tbilisi
+                  - Asia/Tehran
+                  - Asia/Thimphu
+                  - Asia/Tokyo
+                  - Asia/Tomsk
+                  - Asia/Ulaanbaatar
+                  - Asia/Urumqi
+                  - Asia/Ust-Nera
+                  - Asia/Vientiane
+                  - Asia/Vladivostok
+                  - Asia/Yakutsk
+                  - Asia/Yangon
+                  - Asia/Yekaterinburg
+                  - Asia/Yerevan
+                  - Atlantic/Azores
+                  - Atlantic/Bermuda
+                  - Atlantic/Canary
+                  - Atlantic/Cape_Verde
+                  - Atlantic/Faroe
+                  - Atlantic/Madeira
+                  - Atlantic/Reykjavik
+                  - Atlantic/South_Georgia
+                  - Atlantic/St_Helena
+                  - Atlantic/Stanley
+                  - Australia/Adelaide
+                  - Australia/Brisbane
+                  - Australia/Broken_Hill
+                  - Australia/Darwin
+                  - Australia/Eucla
+                  - Australia/Hobart
+                  - Australia/Lindeman
+                  - Australia/Lord_Howe
+                  - Australia/Melbourne
+                  - Australia/Perth
+                  - Australia/Sydney
+                  - Etc/GMT
+                  - Etc/GMT+0
+                  - Etc/GMT+1
+                  - Etc/GMT+10
+                  - Etc/GMT+11
+                  - Etc/GMT+12
+                  - Etc/GMT+2
+                  - Etc/GMT+3
+                  - Etc/GMT+4
+                  - Etc/GMT+5
+                  - Etc/GMT+6
+                  - Etc/GMT+7
+                  - Etc/GMT+8
+                  - Etc/GMT+9
+                  - Etc/GMT-0
+                  - Etc/GMT-1
+                  - Etc/GMT-10
+                  - Etc/GMT-11
+                  - Etc/GMT-12
+                  - Etc/GMT-13
+                  - Etc/GMT-14
+                  - Etc/GMT-2
+                  - Etc/GMT-3
+                  - Etc/GMT-4
+                  - Etc/GMT-5
+                  - Etc/GMT-6
+                  - Etc/GMT-7
+                  - Etc/GMT-8
+                  - Etc/GMT-9
+                  - Etc/UTC
+                  - Europe/Amsterdam
+                  - Europe/Andorra
+                  - Europe/Astrakhan
+                  - Europe/Athens
+                  - Europe/Belgrade
+                  - Europe/Berlin
+                  - Europe/Bratislava
+                  - Europe/Brussels
+                  - Europe/Bucharest
+                  - Europe/Budapest
+                  - Europe/Busingen
+                  - Europe/Chisinau
+                  - Europe/Copenhagen
+                  - Europe/Dublin
+                  - Europe/Gibraltar
+                  - Europe/Guernsey
+                  - Europe/Helsinki
+                  - Europe/Isle_of_Man
+                  - Europe/Istanbul
+                  - Europe/Jersey
+                  - Europe/Kaliningrad
+                  - Europe/Kiev
+                  - Europe/Kirov
+                  - Europe/Lisbon
+                  - Europe/Ljubljana
+                  - Europe/London
+                  - Europe/Luxembourg
+                  - Europe/Madrid
+                  - Europe/Malta
+                  - Europe/Mariehamn
+                  - Europe/Minsk
+                  - Europe/Monaco
+                  - Europe/Moscow
+                  - Europe/Oslo
+                  - Europe/Paris
+                  - Europe/Podgorica
+                  - Europe/Prague
+                  - Europe/Riga
+                  - Europe/Rome
+                  - Europe/Samara
+                  - Europe/San_Marino
+                  - Europe/Sarajevo
+                  - Europe/Saratov
+                  - Europe/Simferopol
+                  - Europe/Skopje
+                  - Europe/Sofia
+                  - Europe/Stockholm
+                  - Europe/Tallinn
+                  - Europe/Tirane
+                  - Europe/Ulyanovsk
+                  - Europe/Uzhgorod
+                  - Europe/Vaduz
+                  - Europe/Vatican
+                  - Europe/Vienna
+                  - Europe/Vilnius
+                  - Europe/Volgograd
+                  - Europe/Warsaw
+                  - Europe/Zagreb
+                  - Europe/Zaporozhye
+                  - Europe/Zurich
+                  - Indian/Antananarivo
+                  - Indian/Chagos
+                  - Indian/Christmas
+                  - Indian/Cocos
+                  - Indian/Comoro
+                  - Indian/Kerguelen
+                  - Indian/Mahe
+                  - Indian/Maldives
+                  - Indian/Mauritius
+                  - Indian/Mayotte
+                  - Indian/Reunion
+                  - Pacific/Apia
+                  - Pacific/Auckland
+                  - Pacific/Bougainville
+                  - Pacific/Chatham
+                  - Pacific/Chuuk
+                  - Pacific/Easter
+                  - Pacific/Efate
+                  - Pacific/Enderbury
+                  - Pacific/Fakaofo
+                  - Pacific/Fiji
+                  - Pacific/Funafuti
+                  - Pacific/Galapagos
+                  - Pacific/Gambier
+                  - Pacific/Guadalcanal
+                  - Pacific/Guam
+                  - Pacific/Honolulu
+                  - Pacific/Kiritimati
+                  - Pacific/Kosrae
+                  - Pacific/Kwajalein
+                  - Pacific/Majuro
+                  - Pacific/Marquesas
+                  - Pacific/Midway
+                  - Pacific/Nauru
+                  - Pacific/Niue
+                  - Pacific/Norfolk
+                  - Pacific/Noumea
+                  - Pacific/Pago_Pago
+                  - Pacific/Palau
+                  - Pacific/Pitcairn
+                  - Pacific/Pohnpei
+                  - Pacific/Port_Moresby
+                  - Pacific/Rarotonga
+                  - Pacific/Saipan
+                  - Pacific/Tahiti
+                  - Pacific/Tarawa
+                  - Pacific/Tongatapu
+                  - Pacific/Wake
+                  - Pacific/Wallis
+                  - UTC
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  external_customer_id:
+                    type: string
+                    description: An externally defined identifier for the customer associated with this portal. This ID is typically supplied by a partner or third-party system and enables mapping between this portal and the corresponding customer record in an external system to support reconciliation, reporting, and lifecycle management across systems.
+                    example: 123ABC
+                  id:
+                    type: string
+                    description: The unique identifier for the portal.
+                    example: '123456'
+                  name:
+                    type: string
+                    description: The name of the customer the portal represents.
+                    example: Customer name
+                  domain:
+                    type: string
+                    description: The domain associated with the portal. Must be a first-level subdomain of mygo1.com. If no value is provided, a random unique domain will be generated automatically and cannot be edited thereafter.
+                    example: mynewportal.mygo1.com
+                  custom_domain:
+                    type: string
+                    description: The custom domain associated with the portal.
+                    example: example.com
+                  timezone:
+                    type: string
+                    description: Timezone must use the IANA format. See [timezone list](https://api.go1.co/portal/properties/timezones). If not provided, UTC will be used.
+                    example: Australia/Brisbane
+                  partner_portal_id:
+                    type: string
+                    description: The identifier for a partner portal, associating a created customer portal with a specific partner within the Go1 ecosystem.
+                    example: '54321'
+                  industry:
+                    type: string
+                    description: The industry of the customer's business. See [industry list](https://api.go1.co/portal/properties/industry).
+                    example: Professional, Scientific and Technical Services
+                  country:
+                    type: string
+                    description: The country code representing the head office location of the customer's business operation. See [country list](https://api.go1.co/portal/properties/country).
+                    example: AU
+                  logo:
+                    type: string
+                    description: The URL of the customer's logo.
+                    example: https://media.go1static.com/image/upload/v1714099305/uavyluj2um.png
+                  created_time:
+                    type: string
+                    description: The timestamp indicating when the portal was created (ISO 8601 in UTC).
+                    example: '2023-05-20T02:44:21.653Z'
+                  updated_time:
+                    type: string
+                    description: The timestamp indicating when the portal was last updated (ISO 8601 in UTC).
+                    example: '2023-05-20T02:44:21.653Z'
+                  company_size:
+                    type: number
+                    description: The number of employees in the customer's business.
+                    example: 50
+                  type:
+                    type: string
+                    description: The type of portal.
+                    example: customer
+                  data_residency_region:
+                    type: string
+                    description: The region where PII is stored.
+                    example: centralus
+                  salesforce_id:
+                    type: string
+                    description: The identifier for the customer SDFC account id.
+                    example: 0017F00002gk4b3QAA
+                required:
+                - id
+                - name
+                - partner_portal_id
+                - industry
+                - country
+                - created_time
+                - updated_time
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  message:
+                    type: string
+                required:
+                - error_code
+                - message
+              examples:
+                AUTH_TOKEN_INVALID:
+                  value:
+                    error_code: AUTH_TOKEN_INVALID
+                    message: Invalid credentials.
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  message:
+                    type: string
+                required:
+                - error_code
+                - message
+              examples:
+                PORTAL_ACCESS_UNAUTHORIZED:
+                  value:
+                    error_code: PORTAL_ACCESS_UNAUTHORIZED
+                    message: Insufficient permission to access portal.
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  message:
+                    type: string
+                required:
+                - error_code
+                - message
+              examples:
+                PORTAL_NOT_FOUND:
+                  value:
+                    error_code: PORTAL_NOT_FOUND
+                    message: Portal not found.
+      tags:
+      - Portals
+      security:
+      - OAuth2:
+        - portal.write
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: OAuth 2.0. Server-to-server integrations use the client_credentials flow; user-context integrations use the authorization_code flow. Access tokens are valid for 12 hours.
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.go1.com/oauth/token
+          scopes: &id001
+            lo.read: Read learning objects (content catalog).
+            lo.write: Create, update and delete learning objects.
+            enrollment.read: Read enrollments and completion records.
+            enrollment.write: Create, update and delete enrollments.
+            webhook.read: Read webhook configurations.
+            webhook.write: Create, update and delete webhook configurations.
+            portal.read: Read customer portals.
+            portal.write: Create and update customer portals.
+        authorizationCode:
+          authorizationUrl: https://auth.go1.com/oauth/authorize
+          tokenUrl: https://auth.go1.com/oauth/token
+          scopes: *id001
