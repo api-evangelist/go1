@@ -1,0 +1,31 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Go1 API
+  version: 1.0.0
+extends: openapi/go1-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provenance:
+        method: harvested
+        source: https://developers.go1.com/api/rest/2025-01-01/
+        note: >-
+          Operations, parameters, responses and scopes assembled verbatim from Go1's published REST
+          reference data endpoint. Servers, OAuth2 flows and scopes were confirmed against the Go1
+          developer docs and a live token-endpoint probe.
+      x-apievangelist-artifacts:
+        authentication: authentication/go1-authentication.yml
+        scopes: scopes/go1-scopes.yml
+        conventions: conventions/go1-conventions.yml
+        errors: errors/go1-problem-types.yml
+        data_model: data-model/go1-data-model.yml
+        webhooks: asyncapi/go1-webhooks.yml
+  - target: $.info
+    update:
+      x-apievangelist-versioning:
+        scheme: date-based
+        selector: Api-Version request header
+        current: '2025-01-01'
+  - target: $.components.securitySchemes.OAuth2
+    update:
+      x-apievangelist-token-lifetime-seconds: 43200

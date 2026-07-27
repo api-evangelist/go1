@@ -1,0 +1,18 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/go1-openapi.yml
+skills:
+- file: go1-discover-and-enroll.md
+  name: Discover Go1 content and enroll a learner
+  api: openapi/go1-openapi.yml
+  operations:
+  - learning-objects-v3-search
+  - enrolmentCreateController_postV3
+  - enrolmentLoadController_getSlimEnrollment
+- file: go1-provision-portal-and-webhook.md
+  name: Provision a Go1 portal and subscribe to events
+  api: openapi/go1-openapi.yml
+  operations:
+  - createPortal
+  - WebhookController_createPortalWebhookConfiguration
+  - WebhookController_updatePortalWebhookConfiguration

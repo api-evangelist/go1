@@ -1,0 +1,22 @@
+generated: '2026-07-19'
+method: searched
+source: live probes of Go1 hosts
+hosts:
+- host: https://api.go1.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+- host: https://auth.go1.com
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 403
+- host: https://www.go1.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+note: No public /.well-known/ discovery documents were served (hosts return 403/404). OAuth 2.0 token
+  endpoint is documented at https://auth.go1.com/oauth/token.

@@ -1,0 +1,34 @@
+arazzo: 1.0.1
+info:
+  title: Go1 — provision a portal and subscribe to events
+  version: 1.0.0
+  summary: Create a customer portal and register a webhook subscription for Go1 events.
+sourceDescriptions:
+  - name: go1
+    url: ../openapi/go1-openapi.yml
+    type: openapi
+workflows:
+  - workflowId: provisionPortalAndWebhook
+    summary: Create a portal then subscribe to enrollment events via a webhook.
+    inputs:
+      type: object
+      properties:
+        webhookUrl:
+          type: string
+    steps:
+      - stepId: createPortal
+        description: Provision a new Go1 customer portal.
+        operationId: createPortal
+        outputs:
+          portalId: $response.body#/id
+      - stepId: createWebhook
+        description: Register a webhook to receive enrollment.complete events.
+        operationId: WebhookController_createPortalWebhookConfiguration
+        outputs:
+          webhookId: $response.body#/id
+      - stepId: readWebhooks
+        description: Read the portal webhook configuration to confirm the subscription.
+        operationId: WebhookController_getPortalWebhookConfiguration
+    outputs:
+      portalId: $steps.createPortal.outputs.portalId
+      webhookId: $steps.createWebhook.outputs.webhookId

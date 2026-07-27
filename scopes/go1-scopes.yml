@@ -1,0 +1,76 @@
+generated: '2026-07-19'
+method: searched
+source: openapi/go1-openapi.yml
+docs: https://developers.go1.com/docs/developer-tools/auth/overview-auth
+note: >-
+  Scopes recovered from the per-operation security requirements published in Go1's REST reference
+  (developers.go1.com). Go1 does not publish a standalone scope-reference page; descriptions are
+  derived from the resource each scope governs.
+schemes:
+- name: OAuth2
+  source: openapi/go1-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.go1.com/oauth/token
+  - flow: authorizationCode
+    authorizationUrl: https://auth.go1.com/oauth/authorize
+    tokenUrl: https://auth.go1.com/oauth/token
+  description: OAuth 2.0. Server-to-server integrations use the client_credentials flow; user-context
+    integrations use the authorization_code flow. Access tokens are valid for 12 hours.
+scopes:
+- scope: enrollment.read
+  description: Read enrollments and completion records.
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/go1-openapi.yml
+- scope: enrollment.write
+  description: Create, update and delete enrollments.
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/go1-openapi.yml
+- scope: lo.read
+  description: Read learning objects (content catalog).
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/go1-openapi.yml
+- scope: lo.write
+  description: Create, update and delete learning objects.
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/go1-openapi.yml
+- scope: portal.read
+  description: Read customer portals.
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/go1-openapi.yml
+- scope: portal.write
+  description: Create and update customer portals.
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/go1-openapi.yml
+- scope: webhook.read
+  description: Read webhook configurations.
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/go1-openapi.yml
+- scope: webhook.write
+  description: Create, update and delete webhook configurations.
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/go1-openapi.yml

@@ -1,0 +1,62 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/go1-openapi.yml
+entities:
+- name: LearningObject
+  aka: lo
+  key: id
+  description: A unit of learning content in the Go1 library.
+  operations:
+  - learning-objects-v3-search
+  - learning-objects-v3-get
+  - learning-objects-v3-create
+  - learning-objects-v3-update
+  - learning-objects-v3-delete
+  - getRetiringContentAlternatives
+  - learning-objects-download-scorm-package
+- name: Enrollment
+  key: id
+  description: A learner's enrollment in a learning object.
+  operations:
+  - enrolmentSearchController_get
+  - enrolmentLoadController_getSlimEnrollment
+  - enrolmentCreateController_postV3
+  - enrolmentLoadController_patchSlimEnrollment
+  - enrolmentDeleteController_delete
+  - download_enrollment_controller
+- name: Portal
+  key: id
+  description: A Go1 customer portal / workspace.
+  operations:
+  - getPortals
+  - getPortal
+  - createPortal
+  - patchPortal
+- name: Webhook
+  key: id
+  description: A portal webhook subscription configuration.
+  operations:
+  - WebhookController_getPortalWebhookConfiguration
+  - WebhookController_createPortalWebhookConfiguration
+  - WebhookController_updatePortalWebhookConfiguration
+relationships:
+- from: Enrollment
+  to: LearningObject
+  kind: belongs_to
+  via: lo_id
+- from: Enrollment
+  to: Portal
+  kind: belongs_to
+  via: portal_id
+- from: Webhook
+  to: Portal
+  kind: belongs_to
+  via: portal
+- from: Portal
+  to: Enrollment
+  kind: has_many
+  via: portal_id
+- from: Portal
+  to: Webhook
+  kind: has_many
+  via: portal

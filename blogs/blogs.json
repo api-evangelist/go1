@@ -1,0 +1,14 @@
+{
+  "repo": "go1",
+  "feeds": [
+    {
+      "source": "https://help.go1.com/en",
+      "feed_url": "https://help.go1.com/en",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-07-25T15:00:33Z"
+}

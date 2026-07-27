@@ -1,0 +1,318 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/go1-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 20
+  by_action_class:
+    connected: 10
+    acting: 10
+  by_consequence:
+    read: 10
+    safety-critical: 5
+    write: 5
+  human_in_the_loop_required: 5
+operations:
+- path: /webhooks
+  method: get
+  operationId: WebhookController_getPortalWebhookConfiguration
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - webhook.read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /webhooks
+  method: post
+  operationId: WebhookController_createPortalWebhookConfiguration
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - webhook.write
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /webhooks/{id}
+  method: patch
+  operationId: WebhookController_updatePortalWebhookConfiguration
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - webhook.write
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /learning-objects/{id}/alternatives
+  method: get
+  operationId: getRetiringContentAlternatives
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - lo.read
+    - portal.read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /learning-objects/{id}
+  method: get
+  operationId: learning-objects-v3-get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - lo.read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /learning-objects/{id}
+  method: delete
+  operationId: learning-objects-v3-delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - lo.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /learning-objects
+  method: get
+  operationId: learning-objects-v3-search
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - lo.read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /learning-objects
+  method: post
+  operationId: learning-objects-v3-create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - lo.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /learning-objects/{id}/set
+  method: post
+  operationId: learning-objects-v3-update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - lo.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /learning-objects/{id}/scorm
+  method: get
+  operationId: learning-objects-download-scorm-package
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - lo.write
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /enrollments/{id}
+  method: get
+  operationId: enrolmentLoadController_getSlimEnrollment
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - enrollment.read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /enrollments/{id}
+  method: patch
+  operationId: enrolmentLoadController_patchSlimEnrollment
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - enrollment.write
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /enrollments/{id}
+  method: delete
+  operationId: enrolmentDeleteController_delete
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - enrollment.write
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /enrollments
+  method: get
+  operationId: enrolmentSearchController_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - enrollment.read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /enrollments
+  method: post
+  operationId: enrolmentCreateController_postV3
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - enrollment.write
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /enrollments/{id}/certificate
+  method: get
+  operationId: download_enrollment_controller
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - enrollment.read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /portals
+  method: post
+  operationId: createPortal
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - portal.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /portals
+  method: get
+  operationId: getPortals
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - portal.read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /portals/{id}
+  method: get
+  operationId: getPortal
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - portal.read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /portals/{id}
+  method: patch
+  operationId: patchPortal
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - portal.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required

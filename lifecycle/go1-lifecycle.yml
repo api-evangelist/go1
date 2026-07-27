@@ -1,0 +1,13 @@
+generated: '2026-07-19'
+method: searched
+source: developers.go1.com + status.go1.com
+versioning:
+  scheme: date-based
+  selector: Api-Version request header
+  current: '2025-01-01'
+  docs: https://developers.go1.com/api/rest/2025-01-01/overview/
+status_page: https://status.go1.com
+status_api: https://status.go1.com/api/v2/status.json
+deprecated_operations: []
+note: Version is pinned per request via the Api-Version header. No public deprecation-policy page or Sunset/Deprecation
+  header contract was found; not asserted.

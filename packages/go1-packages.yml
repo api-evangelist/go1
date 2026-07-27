@@ -1,0 +1,44 @@
+generated: '2026-07-19'
+method: searched
+source: https://www.npmjs.com/ (npm registry search, @go1 / @go1d scopes)
+packages:
+- language: javascript
+  registry: npm
+  name: '@go1/go1-embedding-js-sdk'
+  url: https://www.npmjs.com/package/@go1/go1-embedding-js-sdk
+  install: npm install @go1/go1-embedding-js-sdk
+  version: 0.13.1
+  official: true
+  description: JavaScript library to embed Go1 content into your website.
+- language: javascript
+  registry: npm
+  name: '@go1/go1-embedding-react-sdk'
+  url: https://www.npmjs.com/package/@go1/go1-embedding-react-sdk
+  install: npm install @go1/go1-embedding-react-sdk
+  version: 0.13.1
+  official: true
+  description: React library to embed Go1 content into your website.
+- language: javascript
+  registry: npm
+  name: '@go1/webhook-verifier-js'
+  url: https://www.npmjs.com/package/@go1/webhook-verifier-js
+  version: 1.0.5
+  install: npm install @go1/webhook-verifier-js
+  official: true
+  repository: https://github.com/go1com/webhook-verifier-js
+  description: Verify the signature passed in the header of an incoming Go1 webhook.
+- language: javascript
+  registry: npm
+  name: '@go1/apim-cli'
+  url: https://www.npmjs.com/package/@go1/apim-cli
+  version: 2.0.3
+  install: npm install -g @go1/apim-cli
+  official: true
+  description: Generate APIM deployment files from your OpenAPI doc (Go1 API management CLI).
+- language: javascript
+  registry: npm
+  name: '@go1d/go1d'
+  url: https://www.npmjs.com/package/@go1d/go1d
+  official: true
+  install: npm install @go1d/go1d
+  description: Go1 Design System (go1d) React component library.

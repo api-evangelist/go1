@@ -1,0 +1,41 @@
+generated: '2026-07-19'
+method: searched
+spec_type: Webhooks
+source: https://developers.go1.com/docs/developer-tools/webhooks/events/
+transport: HTTP POST to subscriber URL
+webhook_version: 3.0.0
+management_api:
+  create: POST https://gateway.go1.com/webhooks
+  update: PATCH https://gateway.go1.com/webhooks/{id}
+  docs: https://developers.go1.com/api/rest/2025-01-01/webhooks/
+security:
+  signature_header: go1-signature
+  algorithm: HMAC
+  signature_version: v1
+  timestamp_tolerance_seconds: 60
+  verifier_library: '@go1/webhook-verifier-js'
+  optional_auth: oauth2 client_credentials (auth_type=oauth2) for authenticated delivery
+  docs: https://developers.go1.com/docs/developer-tools/webhooks/security/
+event_envelope:
+  fields:
+  - id
+  - event_type
+  - webhook_version
+  - sent
+  - attempt_number
+  - url
+  - webhook_id
+  - data
+events:
+- type: content.add
+- type: content.decommission
+- type: content.decommission.pending
+- type: content.library.add
+- type: content.library.decommission
+- type: content.library.remove
+- type: content.library.sync.request
+- type: content.library.update
+- type: content.remove
+- type: enrollment.complete
+- type: enrollment.create
+- type: enrollment.delete

@@ -1,8 +1,27 @@
 aid: go1
 name: Go1
-description: 'Go1 is a company surfaced as a portfolio company of softbank-vision-fund, y-combinator and
-  added to the API Evangelist network as a stub for enrichment. Sector: edtech. This profile is a lead
-  awaiting the enrichment pipeline.'
+description: >-
+  Go1 is an AI-powered corporate learning and development (L&D) platform that consolidates employee
+  training into a single subscription. Its content library aggregates courses from 250+ providers
+  across 40+ languages, layered with curation, skill-based learning paths, reporting and the Morgan
+  by Go1 learning agent, and connects to existing HR and business systems through 75+ integrations.
+  The Go1 developer platform exposes a date-versioned REST API (gateway.go1.com, Api-Version header)
+  for discovering learning objects, managing enrollments, provisioning customer portals and
+  subscribing to events via webhooks, secured with OAuth 2.0, plus JavaScript/React embedding SDKs
+  and a webhook-verifier library. Go1 is backed by SoftBank Vision Fund and Y Combinator.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://www.go1.com/opengraph-image.png
 url: https://raw.githubusercontent.com/api-evangelist/go1/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -13,13 +32,139 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
 - Edtech
-apis: []
+- Learning
+- E-Learning
+- Corporate Training
+- Content
+- Learning Management
+- LMS
+- Education
+- Webhooks
+apis:
+- aid: go1:go1-enrollments-api
+  name: Go1 Enrollments API
+  description: The Enrollments API from Go1 — 3 operation(s) for enrollments.
+  humanURL: https://developers.go1.com/
+  baseURL: https://gateway.go1.com
+  tags:
+  - Enrollments
+  properties:
+  - type: OpenAPI
+    url: openapi/go1-enrollments-api-openapi.yml
+- aid: go1:go1-learning-objects-api
+  name: Go1 Learning objects API
+  description: The Learning objects API from Go1 — 5 operation(s) for learning objects.
+  humanURL: https://developers.go1.com/
+  baseURL: https://gateway.go1.com
+  tags:
+  - Learning objects
+  properties:
+  - type: OpenAPI
+    url: openapi/go1-learning-objects-api-openapi.yml
+- aid: go1:go1-portals-api
+  name: Go1 Portals API
+  description: The Portals API from Go1 — 2 operation(s) for portals.
+  humanURL: https://developers.go1.com/
+  baseURL: https://gateway.go1.com
+  tags:
+  - Portals
+  properties:
+  - type: OpenAPI
+    url: openapi/go1-portals-api-openapi.yml
+- aid: go1:go1-webhooks-api
+  name: Go1 Webhooks API
+  description: The Webhooks API from Go1 — 2 operation(s) for webhooks.
+  humanURL: https://developers.go1.com/
+  baseURL: https://gateway.go1.com
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/go1-webhooks-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+common:
+- type: DomainSecurity
+  url: security/go1-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/go1-agentic-access.yml
+- type: OAuthScopes
+  url: scopes/go1-scopes.yml
+- type: Authentication
+  url: authentication/go1-authentication.yml
+- type: Packages
+  url: packages/go1-packages.yml
+- type: SDKs
+  url: packages/go1-packages.yml
+- type: CLI
+  url: cli/go1-cli.yml
+- type: Components
+  url: components/go1-components.yml
+- type: WellKnown
+  url: well-known/go1-well-known.yml
+- type: MCPServer
+  url: mcp/go1-mcp.yml
+- type: LLMsTxt
+  url: llms/go1-llms.txt
+- type: Overlay
+  url: overlays/go1-openapi-overlay.yaml
+- type: Conformance
+  url: conformance/go1-conformance.yml
+- type: ErrorCatalog
+  url: errors/go1-problem-types.yml
+- type: Conventions
+  url: conventions/go1-conventions.yml
+- type: DataModel
+  url: data-model/go1-data-model.yml
+- type: Lifecycle
+  url: lifecycle/go1-lifecycle.yml
+- type: StatusPage
+  url: https://status.go1.com
+- type: TrustCenter
+  url: security/go1-trust-center.yml
+- type: Webhooks
+  url: asyncapi/go1-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Arazzo
+  name: Go1 — discover content and enroll a learner
+  url: arazzo/go1-discover-and-enroll.yml
+- type: Arazzo
+  name: Go1 — provision a portal and subscribe to events
+  url: arazzo/go1-provision-portal-and-webhook.yml
+- type: Website
+  url: https://www.go1.com/
+- type: DeveloperPortal
+  url: https://developers.go1.com/
+- type: Documentation
+  url: https://developers.go1.com/docs/overview/
+- type: APIReference
+  url: https://developers.go1.com/api/rest/2025-01-01/overview/
+- type: GettingStarted
+  url: https://developers.go1.com/docs/getting-started/
+- type: Support
+  url: https://help.go1.com/en
+- type: Blog
+  url: https://www.go1.com/blog
+- type: GitHubOrganization
+  url: https://github.com/go1com
+- type: Pricing
+  url: https://www.go1.com/plans
+- type: SignUp
+  url: https://www.go1.com/login
+- type: TermsOfService
+  url: https://www.go1.com/terms/customer-terms
+- type: PrivacyPolicy
+  url: https://www.go1.com/terms/privacy-policy
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

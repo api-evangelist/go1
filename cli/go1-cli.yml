@@ -1,0 +1,12 @@
+generated: '2026-07-19'
+method: searched
+source: https://www.npmjs.com/package/@go1/apim-cli
+name: apim-cli
+package: '@go1/apim-cli'
+version: 2.0.3
+install:
+- npm install -g @go1/apim-cli
+description: Go1 API management CLI that generates APIM deployment files from an OpenAPI document.
+purpose: API management / deployment file generation from OpenAPI
+note: First-party CLI published under the @go1 npm scope. It is a build/deploy tool for API management,
+  not a general API-call CLI.

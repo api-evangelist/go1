@@ -1,0 +1,222 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/go1-openapi.yml (4xx/5xx responses)
+format: custom-json
+envelope:
+  content_type: application/json
+  fields:
+  - ref
+  - error_code
+  - message
+  example:
+    ref: '123'
+    error_code: enrollment_exists
+    message: Enrollment already exists.
+known_error_codes:
+- code: enrollment_exists
+  status: 409
+  meaning: An enrollment already exists for the user and learning object.
+  operation: enrolmentCreateController_postV3
+problems:
+- status: 401
+  title: User is unauthenticated.
+  source_operation: openapi/go1-openapi.yml#WebhookController_getPortalWebhookConfiguration
+- status: 403
+  title: User is not authorized.
+  source_operation: openapi/go1-openapi.yml#WebhookController_getPortalWebhookConfiguration
+- status: 500
+  title: Server error.
+  source_operation: openapi/go1-openapi.yml#WebhookController_getPortalWebhookConfiguration
+- status: 400
+  title: Invalid POST parameters provided.
+  source_operation: openapi/go1-openapi.yml#WebhookController_createPortalWebhookConfiguration
+- status: 403
+  title: Invalid permission to create the webhook.
+  source_operation: openapi/go1-openapi.yml#WebhookController_createPortalWebhookConfiguration
+- status: 400
+  title: Bad request.
+  source_operation: openapi/go1-openapi.yml#WebhookController_updatePortalWebhookConfiguration
+- status: 401
+  title: User is unauthenticated.
+  source_operation: openapi/go1-openapi.yml#WebhookController_updatePortalWebhookConfiguration
+- status: 403
+  title: User is not authorized.
+  source_operation: openapi/go1-openapi.yml#WebhookController_updatePortalWebhookConfiguration
+- status: 404
+  title: Webhook not found.
+  source_operation: openapi/go1-openapi.yml#WebhookController_updatePortalWebhookConfiguration
+- status: 500
+  title: Server error.
+  source_operation: openapi/go1-openapi.yml#WebhookController_updatePortalWebhookConfiguration
+- status: 400
+  title: Bad Request
+  source_operation: openapi/go1-openapi.yml#getRetiringContentAlternatives
+- status: 401
+  title: Unauthorized
+  source_operation: openapi/go1-openapi.yml#getRetiringContentAlternatives
+- status: 403
+  title: Forbidden
+  source_operation: openapi/go1-openapi.yml#getRetiringContentAlternatives
+- status: 500
+  title: Internal Server Error
+  source_operation: openapi/go1-openapi.yml#getRetiringContentAlternatives
+- status: 503
+  title: Service Unavailable
+  source_operation: openapi/go1-openapi.yml#getRetiringContentAlternatives
+- status: 400
+  title: Occurs when invalid query parameters are provided
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-get
+- status: 401
+  title: Occurs when the request failed to provide a valid JWT.
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-get
+- status: 403
+  title: Insufficient roles for this resource.
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-get
+- status: 404
+  title: Occurs when there's no Learning Object found with the given id
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-get
+- status: 500
+  title: Occurs when a subsequent API call of Go1 internal services has fallen over.
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-get
+- status: 400
+  title: Occurs when the Learning Object is not eligible for deletion.
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-delete
+- status: 401
+  title: Occurs when the request failed to provide a valid JWT.
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-delete
+- status: 403
+  title: Insufficient roles for this resource.
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-delete
+- status: 404
+  title: Learning object not found.
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-delete
+- status: 500
+  title: Occurs when a subsequent API call of Go1 internal services has fallen over.
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-delete
+- status: 400
+  title: Occurs when invalid query parameters are provided.
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-search
+- status: 401
+  title: Occurs when the request failed to provide a valid JWT.
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-search
+- status: 403
+  title: Insufficient roles for this resource.
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-search
+- status: 500
+  title: Occurs when a subsequent API call of Go1 internal services has fallen over.
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-search
+- status: 400
+  title: Occurs when the request body fails LO validations.
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-create
+- status: 401
+  title: Occurs when the request failed to provide a valid JWT.
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-create
+- status: 403
+  title: Insufficient roles for this resource.
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-create
+- status: 500
+  title: Occurs when a subsequent API call of Go1 internal services has fallen over.
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-create
+- status: 400
+  title: Occurs when the request body fails LO validations.
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-update
+- status: 401
+  title: Occurs when the request failed to provide a valid JWT.
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-update
+- status: 403
+  title: Insufficient roles for this resource.
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-update
+- status: 500
+  title: Occurs when a subsequent API call of Go1 internal services has fallen over.
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-update
+- status: 400
+  title: Invalid parameters provided.
+  source_operation: openapi/go1-openapi.yml#learning-objects-download-scorm-package
+- status: 404
+  title: Enrollment not found.
+  source_operation: openapi/go1-openapi.yml#enrolmentLoadController_getSlimEnrollment
+- status: 400
+  title: Invalid request.
+  source_operation: openapi/go1-openapi.yml#enrolmentLoadController_patchSlimEnrollment
+- status: 403
+  title: Permission denied.
+  source_operation: openapi/go1-openapi.yml#enrolmentLoadController_patchSlimEnrollment
+- status: 404
+  title: Not found.
+  source_operation: openapi/go1-openapi.yml#enrolmentLoadController_patchSlimEnrollment
+- status: 400
+  title: Invalid request.
+  source_operation: openapi/go1-openapi.yml#enrolmentDeleteController_delete
+- status: 403
+  title: You do not have the required role permissions to delete an enrollment.
+  source_operation: openapi/go1-openapi.yml#enrolmentDeleteController_delete
+- status: 404
+  title: Enrollment not found.
+  source_operation: openapi/go1-openapi.yml#enrolmentDeleteController_delete
+- status: 500
+  title: Server error.
+  source_operation: openapi/go1-openapi.yml#enrolmentDeleteController_delete
+- status: 400
+  title: Invalid parameters provided.
+  source_operation: openapi/go1-openapi.yml#enrolmentSearchController_get
+- status: 401
+  title: User is unauthenticated.
+  source_operation: openapi/go1-openapi.yml#enrolmentSearchController_get
+- status: 403
+  title: Only portal administrators can query another user's enrollments. To retrieve enrollments that
+    belong to you. Include you
+  source_operation: openapi/go1-openapi.yml#enrolmentSearchController_get
+- status: 500
+  title: Server error
+  source_operation: openapi/go1-openapi.yml#enrolmentSearchController_get
+- status: 400
+  title: Invalid input
+  source_operation: openapi/go1-openapi.yml#enrolmentCreateController_postV3
+- status: 403
+  title: Forbidden
+  source_operation: openapi/go1-openapi.yml#enrolmentCreateController_postV3
+- status: 409
+  title: Already exists will be returned if an existing enrollment is found create_new
+  source_operation: openapi/go1-openapi.yml#enrolmentCreateController_postV3
+- status: 400
+  title: Invalid enrollment.
+  source_operation: openapi/go1-openapi.yml#download_enrollment_controller
+- status: 403
+  title: Invalid user.
+  source_operation: openapi/go1-openapi.yml#download_enrollment_controller
+- status: 404
+  title: Enrollment not found.
+  source_operation: openapi/go1-openapi.yml#download_enrollment_controller
+- status: 500
+  title: Internal server error.
+  source_operation: openapi/go1-openapi.yml#download_enrollment_controller
+- status: 400
+  title: Bad request
+  source_operation: openapi/go1-openapi.yml#createPortal
+- status: 401
+  title: Unauthorized
+  source_operation: openapi/go1-openapi.yml#createPortal
+- status: 500
+  title: Internal server error
+  source_operation: openapi/go1-openapi.yml#createPortal
+- status: 401
+  title: Unauthorized
+  source_operation: openapi/go1-openapi.yml#getPortals
+- status: 401
+  title: Unauthorized
+  source_operation: openapi/go1-openapi.yml#getPortal
+- status: 403
+  title: Forbidden
+  source_operation: openapi/go1-openapi.yml#getPortal
+- status: 404
+  title: Not found
+  source_operation: openapi/go1-openapi.yml#getPortal
+- status: 401
+  title: Unauthorized
+  source_operation: openapi/go1-openapi.yml#patchPortal
+- status: 403
+  title: Forbidden
+  source_operation: openapi/go1-openapi.yml#patchPortal
+- status: 404
+  title: Not found
+  source_operation: openapi/go1-openapi.yml#patchPortal

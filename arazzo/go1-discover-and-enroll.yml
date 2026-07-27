@@ -1,0 +1,46 @@
+arazzo: 1.0.1
+info:
+  title: Go1 — discover content and enroll a learner
+  version: 1.0.0
+  summary: Search the Go1 learning library, enroll a learner, and confirm the enrollment.
+sourceDescriptions:
+  - name: go1
+    url: ../openapi/go1-openapi.yml
+    type: openapi
+workflows:
+  - workflowId: discoverAndEnroll
+    summary: Find a learning object and enroll a learner in it.
+    inputs:
+      type: object
+      properties:
+        keyword:
+          type: string
+        user_account_id:
+          type: string
+    steps:
+      - stepId: searchContent
+        description: Search the Go1 content library.
+        operationId: learning-objects-v3-search
+        parameters:
+          - name: keyword
+            in: query
+            value: $inputs.keyword
+          - name: limit
+            in: query
+            value: 20
+        outputs:
+          loId: $response.body#/hits/0/id
+      - stepId: createEnrollment
+        description: Enroll the learner in the selected learning object.
+        operationId: enrolmentCreateController_postV3
+        outputs:
+          enrollmentId: $response.body#/id
+      - stepId: confirmEnrollment
+        description: Load the enrollment to confirm it exists.
+        operationId: enrolmentLoadController_getSlimEnrollment
+        parameters:
+          - name: id
+            in: path
+            value: $steps.createEnrollment.outputs.enrollmentId
+    outputs:
+      enrollmentId: $steps.createEnrollment.outputs.enrollmentId

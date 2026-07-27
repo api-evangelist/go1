@@ -1,0 +1,22 @@
+generated: '2026-07-19'
+method: searched
+source: https://developers.go1.com/docs/developer-tools/sdks/overview-sdks/ + npm
+families:
+- name: Go1 Embedding SDK
+  kind: embeddable-content-ui
+  description: Embed the Go1 content discovery and learning experience into a host web application.
+  docs: https://developers.go1.com/docs/developer-tools/sdks/overview-sdks/
+  loaders:
+  - name: '@go1/go1-embedding-js-sdk'
+    registry: npm
+    url: https://www.npmjs.com/package/@go1/go1-embedding-js-sdk
+  - name: '@go1/go1-embedding-react-sdk'
+    registry: npm
+    url: https://www.npmjs.com/package/@go1/go1-embedding-react-sdk
+- name: go1d Design System
+  kind: component-library
+  description: Go1 Design System React component library.
+  loaders:
+  - name: '@go1d/go1d'
+    registry: npm
+    url: https://www.npmjs.com/package/@go1d/go1d

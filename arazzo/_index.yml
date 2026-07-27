@@ -1,0 +1,12 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/go1-openapi.yml
+workflows:
+- file: go1-discover-and-enroll.yml
+  workflowId: discoverAndEnroll
+  title: Go1 — discover content and enroll a learner
+  summary: Search the Go1 learning library, enroll a learner, and confirm the enrollment.
+- file: go1-provision-portal-and-webhook.yml
+  workflowId: provisionPortalAndWebhook
+  title: Go1 — provision a portal and subscribe to events
+  summary: Create a customer portal and register a webhook subscription for Go1 events.

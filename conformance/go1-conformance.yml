@@ -1,0 +1,34 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/go1-openapi.yml + developers.go1.com docs
+standards:
+- id: oauth2
+  conforms: true
+  evidence: OpenAPI securitySchemes type oauth2 (clientCredentials + authorizationCode); token endpoint
+    https://auth.go1.com/oauth/token
+- id: oauth2-client-credentials
+  conforms: true
+  evidence: documented client_credentials grant for server-to-server integrations
+- id: oauth2-authorization-code
+  conforms: true
+  evidence: documented authorization_code grant for user-context integrations
+- id: oidc
+  conforms: false
+  evidence: no openid-configuration served; OAuth 2.0 only, no OIDC claims documented
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: error responses use application/json with a custom {ref, error_code, message} envelope, not
+    application/problem+json
+- id: webhooks
+  conforms: true
+  evidence: documented webhook subscriptions with HMAC go1-signature header (webhook_version 3.0.0)
+- id: pagination-offset
+  conforms: true
+  evidence: limit/offset query parameters plus scroll (use_scroll/scroll_id) for deep pagination
+- id: idempotency
+  conforms: false
+  evidence: no Idempotency-Key header/parameter documented
+- id: fhir
+  conforms: false
+- id: scim
+  conforms: false

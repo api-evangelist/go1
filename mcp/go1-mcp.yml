@@ -1,0 +1,70 @@
+generated: '2026-07-19'
+method: derived
+status: candidate
+source: openapi/go1-openapi.yml
+note: No official hosted/remote Go1 MCP server was found. Tool list derived from the Go1 REST API operations
+  as a candidate manifest.
+server:
+  name: go1
+  transport: http
+tools:
+- name: WebhookController_getPortalWebhookConfiguration
+  description: List all webhooks
+  source_operation: openapi/go1-openapi.yml#WebhookController_getPortalWebhookConfiguration
+- name: WebhookController_createPortalWebhookConfiguration
+  description: Create a webhook
+  source_operation: openapi/go1-openapi.yml#WebhookController_createPortalWebhookConfiguration
+- name: WebhookController_updatePortalWebhookConfiguration
+  description: Update a webhook
+  source_operation: openapi/go1-openapi.yml#WebhookController_updatePortalWebhookConfiguration
+- name: getRetiringContentAlternatives
+  description: List alternative learning objects
+  source_operation: openapi/go1-openapi.yml#getRetiringContentAlternatives
+- name: learning-objects-v3-get
+  description: Retrieve a Learning Object
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-get
+- name: learning-objects-v3-delete
+  description: Delete a Learning Object
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-delete
+- name: learning-objects-v3-search
+  description: List all Learning Objects
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-search
+- name: learning-objects-v3-create
+  description: Create a Learning Object
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-create
+- name: learning-objects-v3-update
+  description: Update a Learning Object
+  source_operation: openapi/go1-openapi.yml#learning-objects-v3-update
+- name: learning-objects-download-scorm-package
+  description: Download learning object as a SCORM package
+  source_operation: openapi/go1-openapi.yml#learning-objects-download-scorm-package
+- name: enrolmentLoadController_getSlimEnrollment
+  description: Retrieve an enrollment
+  source_operation: openapi/go1-openapi.yml#enrolmentLoadController_getSlimEnrollment
+- name: enrolmentLoadController_patchSlimEnrollment
+  description: Update an enrollment
+  source_operation: openapi/go1-openapi.yml#enrolmentLoadController_patchSlimEnrollment
+- name: enrolmentDeleteController_delete
+  description: Delete an enrollment
+  source_operation: openapi/go1-openapi.yml#enrolmentDeleteController_delete
+- name: enrolmentSearchController_get
+  description: List all enrollments
+  source_operation: openapi/go1-openapi.yml#enrolmentSearchController_get
+- name: enrolmentCreateController_postV3
+  description: Create an enrollment
+  source_operation: openapi/go1-openapi.yml#enrolmentCreateController_postV3
+- name: download_enrollment_controller
+  description: Download certificate
+  source_operation: openapi/go1-openapi.yml#download_enrollment_controller
+- name: createPortal
+  description: Create a portal
+  source_operation: openapi/go1-openapi.yml#createPortal
+- name: getPortals
+  description: List all portals
+  source_operation: openapi/go1-openapi.yml#getPortals
+- name: getPortal
+  description: Retrieve a portal
+  source_operation: openapi/go1-openapi.yml#getPortal
+- name: patchPortal
+  description: Update a portal
+  source_operation: openapi/go1-openapi.yml#patchPortal

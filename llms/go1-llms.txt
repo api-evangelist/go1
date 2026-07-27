@@ -1,0 +1,33 @@
+# Go1
+
+> Go1 is an AI-powered corporate learning and development (L&D) platform whose content library aggregates courses from 250+ providers across 40+ languages. The Go1 developer platform exposes a date-versioned REST API (gateway.go1.com, selected with the `Api-Version` header) for discovering learning objects, managing enrollments, provisioning customer portals, and subscribing to events via webhooks. Authentication is OAuth 2.0 (client_credentials and authorization_code), with bearer tokens issued by https://auth.go1.com/oauth/token.
+
+Provenance: generated 2026-07-19 by the API Evangelist enrichment pipeline from Go1's public developer surface (developers.go1.com) and package registries. Method: generated.
+
+## API
+
+- [Go1 API developer portal](https://developers.go1.com/): learning objects, enrollments, portals, webhooks. Base URL https://gateway.go1.com, header `Api-Version: 2025-01-01`.
+- [API reference](https://developers.go1.com/api/rest/2025-01-01/overview/)
+- [Getting started](https://developers.go1.com/docs/getting-started/)
+
+## Specs & artifacts
+
+- [OpenAPI (harvested)](openapi/go1-openapi.yml): 12 paths / 20 operations across Learning Objects, Enrollments, Portals, Webhooks.
+- [Authentication profile](authentication/go1-authentication.yml): OAuth 2.0, token endpoint https://auth.go1.com/oauth/token.
+- [OAuth scopes](scopes/go1-scopes.yml): lo.read, lo.write, enrollment.read, enrollment.write, portal.read, portal.write, webhook.read, webhook.write.
+- [API conventions](conventions/go1-conventions.yml): auth, versioning header, offset/scroll pagination, error envelope, webhook signatures.
+- [Error catalog](errors/go1-problem-types.yml): custom `{ref, error_code, message}` JSON envelope.
+- [Data model](data-model/go1-data-model.yml): LearningObject, Enrollment, Portal, Webhook.
+- [Webhooks catalog](asyncapi/go1-webhooks.yml): 12 event types (content.*, content.library.*, enrollment.*).
+- [Lifecycle](lifecycle/go1-lifecycle.yml): date-based versioning, status page https://status.go1.com.
+- [Packages / SDKs](packages/go1-packages.yml): @go1 embedding JS/React SDKs, webhook-verifier, apim-cli, go1d design system.
+- [Agent skills](skills/_index.yml)
+
+## Docs
+
+- [Authentication](https://developers.go1.com/docs/developer-tools/auth/overview-auth)
+- [Webhooks](https://developers.go1.com/docs/developer-tools/webhooks/overview-webhooks/)
+- [SDKs](https://developers.go1.com/docs/developer-tools/sdks/overview-sdks/)
+- [Support](https://help.go1.com/en)
+- [Status](https://status.go1.com)
+- [Trust center](https://trust.go1.com/)

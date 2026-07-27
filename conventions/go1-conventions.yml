@@ -1,0 +1,51 @@
+generated: '2026-07-19'
+method: searched
+source: https://developers.go1.com/docs/ + openapi/go1-openapi.yml
+authentication:
+  style: OAuth 2.0 Bearer token
+  header: 'Authorization: Bearer {access_token}'
+  token_endpoint: https://auth.go1.com/oauth/token
+  grants:
+  - client_credentials
+  - authorization_code
+  token_lifetime_seconds: 43200
+  artifact: authentication/go1-authentication.yml
+versioning:
+  style: date-based header
+  header: Api-Version
+  current: '2025-01-01'
+  artifact: lifecycle/go1-lifecycle.yml
+pagination:
+  style: offset
+  params:
+  - limit
+  - offset
+  limit_default: 20
+  limit_max: 50
+  deep_pagination:
+    params:
+    - use_scroll
+    - scroll_id
+    limit_max_with_scroll: 5000
+  response_fields:
+  - total
+idempotency:
+  supported: false
+  note: No Idempotency-Key header/parameter is documented. enrolmentCreateController_postV3 returns 409
+    enrollment_exists on duplicate create.
+error_envelope:
+  content_type: application/json
+  fields:
+  - ref
+  - error_code
+  - message
+  artifact: errors/go1-problem-types.yml
+webhooks:
+  signature_header: go1-signature
+  algorithm: HMAC
+  signature_version: v1
+  timestamp_tolerance_seconds: 60
+  webhook_version: 3.0.0
+  artifact: asyncapi/go1-webhooks.yml
+rate_limiting:
+  note: No public rate-limit headers or quota policy documented at probe time.
