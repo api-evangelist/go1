@@ -3,12 +3,12 @@
   "feeds": [
     {
       "source": "https://help.go1.com/en",
-      "feed_url": "https://help.go1.com/en",
+      "feed_url": "https://help.go1.com/en/feed.xml",
       "title": "",
-      "saved": 0,
-      "method": "none"
+      "saved": 20,
+      "method": "discovered"
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-07-25T15:00:33Z"
+  "post_count": 20,
+  "fetched": "2026-08-01T15:49:00Z"
 }
