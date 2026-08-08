@@ -2,13 +2,20 @@
   "repo": "go1",
   "feeds": [
     {
+      "source": "https://help.go1.com/en/feed.xml",
+      "feed_url": "https://help.go1.com/en/feed.xml",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
       "source": "https://help.go1.com/en",
       "feed_url": "https://help.go1.com/en/feed.xml",
       "title": "",
-      "saved": 20,
+      "saved": 0,
       "method": "discovered"
     }
   ],
-  "post_count": 20,
-  "fetched": "2026-08-01T15:49:00Z"
+  "post_count": 25,
+  "fetched": "2026-08-06T14:08:46Z"
 }
