@@ -1,0 +1,1159 @@
+{
+  "item": [
+    {
+      "id": "967701c2-6cad-4137-af47-1d1f070e901d",
+      "name": "Portals",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8203887e-a78f-4827-ae18-8e84cd0a3cde",
+          "name": "Create a portal",
+          "request": {
+            "name": "Create a portal",
+            "description": {
+              "content": "Creates a new portal and a primary user account associated with the portal.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "portals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "lo.read lo.write enrollment.read enrollment.write webhook.read webhook.write portal.read portal.write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.go1.com/oauth/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"country\": \"<string>\",\n  \"name\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"external_customer_id\": \"<string>\",\n  \"logo\": \"<string>\",\n  \"timezone\": \"<string>\",\n  \"user_account\": {\n    \"email\": \"<string>\",\n    \"username\": \"<string>\",\n    \"given_name\": \"<string>\",\n    \"family_name\": \"<string>\",\n    \"password\": \"<string>\"\n  },\n  \"settings\": {\n    \"notifications\": \"<boolean>\",\n    \"enable_subscribed_content_library\": \"<boolean>\"\n  },\n  \"company_size\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1ce57cfb-1a8b-442c-8824-ee21f201edff",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"country\": \"AU\",\n  \"name\": \"Customer name\",\n  \"domain\": \"mynewportal.mygo1.com\",\n  \"industry\": \"Professional, Scientific and Technical Services\",\n  \"external_customer_id\": \"<string>\",\n  \"logo\": \"https://media.go1static.com/image/upload/v171099305/uavdj2um.png\",\n  \"timezone\": \"Australia/Brisbane\",\n  \"user_account\": {\n    \"email\": \"john.doe@example.com\",\n    \"username\": \"john.doe@example.com\",\n    \"given_name\": \"John\",\n    \"family_name\": \"Doe\",\n    \"password\": \"SecurePassword\"\n  },\n  \"settings\": {\n    \"notifications\": true,\n    \"enable_subscribed_content_library\": false\n  },\n  \"company_size\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"123456\",\n  \"name\": \"Customer name\",\n  \"domain\": \"mynewportal.mygo1.com\",\n  \"partner_portal_id\": \"54321\",\n  \"industry\": \"Professional, Scientific and Technical Services\",\n  \"country\": \"AU\",\n  \"logo\": \"https://media.go1static.com/image/upload/v1714099305/uavyluj2um.png\",\n  \"created_time\": \"2023-05-20T02:44:21.653Z\",\n  \"updated_time\": \"2023-05-20T02:44:21.653Z\",\n  \"user_account\": {\n    \"id\": \"123456\",\n    \"account_guid\": \"acc_01F2K1R9KG6RSKGE9J68RK6E1H\",\n    \"oauth_token\": {\n      \"token_type\": \"Bearer\",\n      \"expires_in\": 43200,\n      \"access_token\": \"eyJ0e3efms33f...\",\n      \"refresh_token\": \"eyJ0e3efms33f...\"\n    }\n  },\n  \"timezone\": \"Australia/Brisbane\",\n  \"company_size\": 50\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf40ea47-cb60-4a1b-bcbc-efce10e50538",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"country\": \"AU\",\n  \"name\": \"Customer name\",\n  \"domain\": \"mynewportal.mygo1.com\",\n  \"industry\": \"Professional, Scientific and Technical Services\",\n  \"external_customer_id\": \"<string>\",\n  \"logo\": \"https://media.go1static.com/image/upload/v171099305/uavdj2um.png\",\n  \"timezone\": \"Australia/Brisbane\",\n  \"user_account\": {\n    \"email\": \"john.doe@example.com\",\n    \"username\": \"john.doe@example.com\",\n    \"given_name\": \"John\",\n    \"family_name\": \"Doe\",\n    \"password\": \"SecurePassword\"\n  },\n  \"settings\": {\n    \"notifications\": true,\n    \"enable_subscribed_content_library\": false\n  },\n  \"company_size\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"PORTAL_ALREADY_EXIST\",\n  \"message\": \"Portal already exist.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5fe39d4-52ab-41d3-8b9f-7e8fe3833aba",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"country\": \"AU\",\n  \"name\": \"Customer name\",\n  \"domain\": \"mynewportal.mygo1.com\",\n  \"industry\": \"Professional, Scientific and Technical Services\",\n  \"external_customer_id\": \"<string>\",\n  \"logo\": \"https://media.go1static.com/image/upload/v171099305/uavdj2um.png\",\n  \"timezone\": \"Australia/Brisbane\",\n  \"user_account\": {\n    \"email\": \"john.doe@example.com\",\n    \"username\": \"john.doe@example.com\",\n    \"given_name\": \"John\",\n    \"family_name\": \"Doe\",\n    \"password\": \"SecurePassword\"\n  },\n  \"settings\": {\n    \"notifications\": true,\n    \"enable_subscribed_content_library\": false\n  },\n  \"company_size\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"AUTH_TOKEN_INVALID\",\n  \"message\": \"Invalid credentials.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e91dd63e-80fd-439e-ae04-b67fb40cc1fa",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"country\": \"AU\",\n  \"name\": \"Customer name\",\n  \"domain\": \"mynewportal.mygo1.com\",\n  \"industry\": \"Professional, Scientific and Technical Services\",\n  \"external_customer_id\": \"<string>\",\n  \"logo\": \"https://media.go1static.com/image/upload/v171099305/uavdj2um.png\",\n  \"timezone\": \"Australia/Brisbane\",\n  \"user_account\": {\n    \"email\": \"john.doe@example.com\",\n    \"username\": \"john.doe@example.com\",\n    \"given_name\": \"John\",\n    \"family_name\": \"Doe\",\n    \"password\": \"SecurePassword\"\n  },\n  \"settings\": {\n    \"notifications\": true,\n    \"enable_subscribed_content_library\": false\n  },\n  \"company_size\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"UNABLE_TO_ISSUE_ACCESS_TOKEN\",\n  \"message\": \"Unable to issue access token.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2a97eac3-66e3-47f8-ba29-3fb124d57e44",
+          "name": "List all portals",
+          "request": {
+            "name": "List all portals",
+            "description": {
+              "content": "Returns a list of portals.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "portals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "keyword",
+                  "value": "<string>",
+                  "description": "The keyword to search for in the portal name."
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "Filters portals by id."
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "Filters portals by id."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "A limit on the number of objects to be returned, between 1 and 100. The default is 20."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "For use in pagination. The item number within a List request to start displaying results after. For example, if you make a request with limit=20 and offset=20, items 21 - 40 are returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort the results by a given field name. Sortable fields include: `created_time`. Default value is `created_time`."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Valid values are `asc` for ascending order and `desc` for descending order. Default value is descending."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "lo.read lo.write enrollment.read enrollment.write webhook.read webhook.write portal.read portal.write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.go1.com/oauth/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "002eeb13-3a30-43b3-aec0-fad0181b0805",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "keyword",
+                      "value": "Customer.mygo1.com"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "created_time"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 0,\n  \"hits\": [\n    {\n      \"id\": \"123456\",\n      \"name\": \"Customer name\",\n      \"partner_portal_id\": \"54321\",\n      \"industry\": \"Professional, Scientific and Technical Services\",\n      \"country\": \"AU\",\n      \"created_time\": \"2023-05-20T02:44:21.653Z\",\n      \"updated_time\": \"2023-05-20T02:44:21.653Z\",\n      \"external_customer_id\": \"123ABC\",\n      \"domain\": \"mynewportal.mygo1.com\",\n      \"custom_domain\": \"example.com\",\n      \"timezone\": \"Australia/Brisbane\",\n      \"logo\": \"https://media.go1static.com/image/upload/v1714099305/uavyluj2um.png\",\n      \"company_size\": 50,\n      \"type\": \"customer\",\n      \"data_residency_region\": \"centralus\",\n      \"salesforce_id\": \"0017F00002gk4b3QAA\"\n    },\n    {\n      \"id\": \"123456\",\n      \"name\": \"Customer name\",\n      \"partner_portal_id\": \"54321\",\n      \"industry\": \"Professional, Scientific and Technical Services\",\n      \"country\": \"AU\",\n      \"created_time\": \"2023-05-20T02:44:21.653Z\",\n      \"updated_time\": \"2023-05-20T02:44:21.653Z\",\n      \"external_customer_id\": \"123ABC\",\n      \"domain\": \"mynewportal.mygo1.com\",\n      \"custom_domain\": \"example.com\",\n      \"timezone\": \"Australia/Brisbane\",\n      \"logo\": \"https://media.go1static.com/image/upload/v1714099305/uavyluj2um.png\",\n      \"company_size\": 50,\n      \"type\": \"customer\",\n      \"data_residency_region\": \"centralus\",\n      \"salesforce_id\": \"0017F00002gk4b3QAA\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce061013-e8af-416b-9331-cec2ca487a42",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "keyword",
+                      "value": "Customer.mygo1.com"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "created_time"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"AUTH_TOKEN_INVALID\",\n  \"message\": \"Invalid credentials.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aa91204e-3c1e-4926-8b82-9e6d8e7f7d10",
+          "name": "Retrieve a portal",
+          "request": {
+            "name": "Retrieve a portal",
+            "description": {
+              "content": "Returns the details of a portal.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "portals",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_external_customer_id",
+                  "value": "<boolean>",
+                  "description": "Optionally include external customer agreement field in the response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "lo.read lo.write enrollment.read enrollment.write webhook.read webhook.write portal.read portal.write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.go1.com/oauth/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "002322b9-a9da-4049-8c6d-864fd6651faf",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portals",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_external_customer_id",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"123456\",\n  \"name\": \"Customer name\",\n  \"partner_portal_id\": \"54321\",\n  \"industry\": \"Professional, Scientific and Technical Services\",\n  \"country\": \"AU\",\n  \"created_time\": \"2023-05-20T02:44:21.653Z\",\n  \"updated_time\": \"2023-05-20T02:44:21.653Z\",\n  \"external_customer_id\": \"123ABC\",\n  \"domain\": \"mynewportal.mygo1.com\",\n  \"custom_domain\": \"example.com\",\n  \"timezone\": \"Australia/Brisbane\",\n  \"logo\": \"https://media.go1static.com/image/upload/v1714099305/uavyluj2um.png\",\n  \"company_size\": 50,\n  \"type\": \"customer\",\n  \"data_residency_region\": \"centralus\",\n  \"salesforce_id\": \"0017F00002gk4b3QAA\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65ca349d-2432-49ff-9c8f-9b860c8cebb5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portals",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_external_customer_id",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"AUTH_TOKEN_INVALID\",\n  \"message\": \"Invalid credentials.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d441f2ee-6a18-44a4-bb9b-0bb45b7e900a",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portals",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_external_customer_id",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"PORTAL_ACCESS_UNAUTHORIZED\",\n  \"message\": \"Insufficient permission to access portal.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6cf18803-1d0b-481c-9a33-3d09758ea6cd",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portals",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_external_customer_id",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"PORTAL_NOT_FOUND\",\n  \"message\": \"Portal not found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "990c0ed6-37fb-4d48-aaea-f724b8e679b6",
+          "name": "Update a portal",
+          "request": {
+            "name": "Update a portal",
+            "description": {
+              "content": "Updates the details of a portal.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "portals",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "lo.read lo.write enrollment.read enrollment.write webhook.read webhook.write portal.read portal.write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.go1.com/oauth/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"country\": \"<string>\",\n  \"external_customer_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"logo\": \"<string>\",\n  \"company_size\": \"<number>\",\n  \"timezone\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d6a09ee7-3553-4c5b-918b-98bce5a86d82",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portals",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"country\": \"AU\",\n  \"external_customer_id\": \"<string>\",\n  \"name\": \"Customer name\",\n  \"industry\": \"Professional, Scientific and Technical Services\",\n  \"logo\": \"https://media.go1static.com/image/upload/v171099305/uavdj2um.png\",\n  \"company_size\": \"<number>\",\n  \"timezone\": \"Australia/Brisbane\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"123456\",\n  \"name\": \"Customer name\",\n  \"partner_portal_id\": \"54321\",\n  \"industry\": \"Professional, Scientific and Technical Services\",\n  \"country\": \"AU\",\n  \"created_time\": \"2023-05-20T02:44:21.653Z\",\n  \"updated_time\": \"2023-05-20T02:44:21.653Z\",\n  \"external_customer_id\": \"123ABC\",\n  \"domain\": \"mynewportal.mygo1.com\",\n  \"custom_domain\": \"example.com\",\n  \"timezone\": \"Australia/Brisbane\",\n  \"logo\": \"https://media.go1static.com/image/upload/v1714099305/uavyluj2um.png\",\n  \"company_size\": 50,\n  \"type\": \"customer\",\n  \"data_residency_region\": \"centralus\",\n  \"salesforce_id\": \"0017F00002gk4b3QAA\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "720afb30-8de7-4b7a-a2e3-3e26331a0314",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portals",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"country\": \"AU\",\n  \"external_customer_id\": \"<string>\",\n  \"name\": \"Customer name\",\n  \"industry\": \"Professional, Scientific and Technical Services\",\n  \"logo\": \"https://media.go1static.com/image/upload/v171099305/uavdj2um.png\",\n  \"company_size\": \"<number>\",\n  \"timezone\": \"Australia/Brisbane\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"AUTH_TOKEN_INVALID\",\n  \"message\": \"Invalid credentials.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00dac0be-697f-4291-80cc-80c7789fd103",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portals",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"country\": \"AU\",\n  \"external_customer_id\": \"<string>\",\n  \"name\": \"Customer name\",\n  \"industry\": \"Professional, Scientific and Technical Services\",\n  \"logo\": \"https://media.go1static.com/image/upload/v171099305/uavdj2um.png\",\n  \"company_size\": \"<number>\",\n  \"timezone\": \"Australia/Brisbane\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"PORTAL_ACCESS_UNAUTHORIZED\",\n  \"message\": \"Insufficient permission to access portal.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3dfbeae2-4291-4321-9ac5-1a476c562bcb",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portals",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"country\": \"AU\",\n  \"external_customer_id\": \"<string>\",\n  \"name\": \"Customer name\",\n  \"industry\": \"Professional, Scientific and Technical Services\",\n  \"logo\": \"https://media.go1static.com/image/upload/v171099305/uavdj2um.png\",\n  \"company_size\": \"<number>\",\n  \"timezone\": \"Australia/Brisbane\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"PORTAL_NOT_FOUND\",\n  \"message\": \"Portal not found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://gateway.go1.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "lo.read lo.write enrollment.read enrollment.write webhook.read webhook.write portal.read portal.write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.go1.com/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2120cfc9-5773-4071-8054-d93e1bb860aa",
+    "name": "Go1 Enrollments Portals API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Go1 API lets partners and platforms discover Go1's learning content library, manage learner enrollments, provision and manage customer portals, and subscribe to Go1 events via webhooks. Versioning is date-based and selected per request with the `Api-Version` header (current: 2025-01-01). All requests are authenticated with OAuth 2.0 bearer tokens issued by https://auth.go1.com/oauth/token. Reconstructed by the API Evangelist enrichment pipeline from Go1's published REST reference (developers.go1.com) — operations, parameters, responses and scopes are Go1's verbatim reference data.\n\nContact Support:\n Name: Go1 Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

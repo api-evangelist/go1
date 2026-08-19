@@ -1,0 +1,175 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Go1 Enrollments Portals API",
+    "version": "2025-01-01"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://auth.go1.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Portals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all portals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.go1.com/portals",
+            "params": [
+              {
+                "name": "keyword",
+                "value": "",
+                "type": "query",
+                "description": "The keyword to search for in the portal name."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Filters portals by id."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "A limit on the number of objects to be returned, between 1 and 100. The default is 20."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "For use in pagination. The item number within a List request to start displaying results after. For example, if you make a request with limit=20 and offset=20, items 21 - 40 are returned."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort the results by a given field name. Sortable fields include: `created_time`. Default value is `created_time`."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order to sort the results by. Valid values are `asc` for ascending order and `desc` for descending order. Default value is descending."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.go1.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns a list of portals."
+        },
+        {
+          "info": {
+            "name": "Create a portal",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.go1.com/portals",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.go1.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Creates a new portal and a primary user account associated with the portal."
+        },
+        {
+          "info": {
+            "name": "Retrieve a portal",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.go1.com/portals/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include_external_customer_id",
+                "value": "",
+                "type": "query",
+                "description": "Optionally include external customer agreement field in the response."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.go1.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns the details of a portal."
+        },
+        {
+          "info": {
+            "name": "Update a portal",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://gateway.go1.com/portals/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.go1.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Updates the details of a portal."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

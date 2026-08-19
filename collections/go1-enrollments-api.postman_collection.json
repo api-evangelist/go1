@@ -1,0 +1,2149 @@
+{
+  "item": [
+    {
+      "id": "3519e698-796a-4974-9b1a-ff4a2a9c3216",
+      "name": "Enrollments",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8dbaf06c-79a5-443d-bc3d-24335c68111f",
+          "name": "Retrieve an enrollment",
+          "request": {
+            "name": "Retrieve an enrollment",
+            "description": {
+              "content": "Retrieves the details of an enrollment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "enrollments",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "lo.read lo.write enrollment.read enrollment.write webhook.read webhook.write portal.read portal.write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.go1.com/oauth/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ac0e6c4a-0f2c-4777-bfc7-3c6976fcb0d7",
+              "name": "Returns the details of a enrollment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"123\",\n  \"enrollment_type\": \"assigned\",\n  \"user_account_id\": \"432\",\n  \"lo_id\": \"567\",\n  \"created_time\": \"2022-03-29T01:29:36+00:00\",\n  \"updated_time\": \"2022-03-29T01:29:36+00:00\",\n  \"status\": \"completed\",\n  \"parent_enrollment_id\": \"876\",\n  \"assigner_account_id\": \"31013\",\n  \"assign_date\": \"2023-04-18T01:08:23+00:00\",\n  \"result\": 100,\n  \"pass\": true,\n  \"start_date\": \"2022-03-29T01:29:36+00:00\",\n  \"end_date\": \"2022-03-29T03:29:36+00:00\",\n  \"due_date\": \"2022-03-31T03:29:36+00:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a12efb3-1e93-4ae2-a7c5-c479806d348e",
+              "name": "Enrollment not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b58c028-5cbc-4b72-bda9-9415e37339bc",
+          "name": "Update an enrollment",
+          "request": {
+            "name": "Update an enrollment",
+            "description": {
+              "content": "Updates the details of an enrollment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "enrollments",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "lo.read lo.write enrollment.read enrollment.write webhook.read webhook.write portal.read portal.write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.go1.com/oauth/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enrollment_type\": \"<string>\",\n  \"assigner_account_id\": \"<string>\",\n  \"assign_date\": \"<string>\",\n  \"status\": \"<string>\",\n  \"result\": \"<integer>\",\n  \"pass\": \"<boolean>\",\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\",\n  \"due_date\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "43d4e459-47ea-4b2c-a5fe-42183b142b36",
+              "name": "Returns the details of a enrollment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enrollment_type\": \"assigned\",\n  \"assigner_account_id\": \"1234\",\n  \"assign_date\": \"2022-03-20T01:29:36+00:00\",\n  \"status\": \"completed\",\n  \"result\": 100,\n  \"pass\": true,\n  \"start_date\": \"2022-03-29T01:29:36+00:00\",\n  \"end_date\": \"2022-03-29T03:29:36+00:00\",\n  \"due_date\": \"2022-03-31T03:29:36+00:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"123\",\n  \"enrollment_type\": \"assigned\",\n  \"user_account_id\": \"432\",\n  \"lo_id\": \"567\",\n  \"created_time\": \"2022-03-29T01:29:36+00:00\",\n  \"updated_time\": \"2022-03-29T01:29:36+00:00\",\n  \"status\": \"completed\",\n  \"parent_enrollment_id\": \"876\",\n  \"assigner_account_id\": \"31013\",\n  \"assign_date\": \"2023-04-18T01:08:23+00:00\",\n  \"result\": 100,\n  \"pass\": true,\n  \"start_date\": \"2022-03-29T01:29:36+00:00\",\n  \"end_date\": \"2022-03-29T03:29:36+00:00\",\n  \"due_date\": \"2022-03-31T03:29:36+00:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "12ab0c31-6f37-4e90-bb10-f3d73c7297d8",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enrollment_type\": \"assigned\",\n  \"assigner_account_id\": \"1234\",\n  \"assign_date\": \"2022-03-20T01:29:36+00:00\",\n  \"status\": \"completed\",\n  \"result\": 100,\n  \"pass\": true,\n  \"start_date\": \"2022-03-29T01:29:36+00:00\",\n  \"end_date\": \"2022-03-29T03:29:36+00:00\",\n  \"due_date\": \"2022-03-31T03:29:36+00:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9034d07f-80d2-4039-9017-59d0d9f8d129",
+              "name": "Permission denied.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enrollment_type\": \"assigned\",\n  \"assigner_account_id\": \"1234\",\n  \"assign_date\": \"2022-03-20T01:29:36+00:00\",\n  \"status\": \"completed\",\n  \"result\": 100,\n  \"pass\": true,\n  \"start_date\": \"2022-03-29T01:29:36+00:00\",\n  \"end_date\": \"2022-03-29T03:29:36+00:00\",\n  \"due_date\": \"2022-03-31T03:29:36+00:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "98d75ca4-2073-4bc8-89af-dbfa6cfa4275",
+              "name": "Not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enrollment_type\": \"assigned\",\n  \"assigner_account_id\": \"1234\",\n  \"assign_date\": \"2022-03-20T01:29:36+00:00\",\n  \"status\": \"completed\",\n  \"result\": 100,\n  \"pass\": true,\n  \"start_date\": \"2022-03-29T01:29:36+00:00\",\n  \"end_date\": \"2022-03-29T03:29:36+00:00\",\n  \"due_date\": \"2022-03-31T03:29:36+00:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a04e0f5b-fd52-4628-8edd-84082f000751",
+          "name": "Delete an enrollment",
+          "request": {
+            "name": "Delete an enrollment",
+            "description": {
+              "content": "Deletes an enrollment for the given enrollment id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "enrollments",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "retain_original",
+                  "value": "<boolean>",
+                  "description": "Revert an assigned enrollment to its original self-directed state and remove assign attributes including `assigner_account_id`, `assign_date` and `due_date`. This parameter is only applicable for enrollments that were originally created as type `self-directed`, and is now type `assigned`. If original_type is `assigned`, both plan and enrollment will be deleted."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "lo.read lo.write enrollment.read enrollment.write webhook.read webhook.write portal.read portal.write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.go1.com/oauth/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "38d8abf2-8e7a-4f4e-b60e-4b24ec0c5681",
+              "name": "Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "retain_original",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b4d5cf25-ff43-468e-a60e-fd74f3075a1d",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "retain_original",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d3015479-a891-4f2d-afa3-bb9875cdfda0",
+              "name": "You do not have the required role permissions to delete an enrollment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "retain_original",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "41ed8870-cf0d-4799-beec-7d0a61b16b16",
+              "name": "Enrollment not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "retain_original",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "77bf344a-549a-4c61-827f-91c54a44f206",
+              "name": "Server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "retain_original",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ce38b83d-4ced-465d-a359-fcf8c5c0a766",
+          "name": "List all enrollments",
+          "request": {
+            "name": "List all enrollments",
+            "description": {
+              "content": "Returns a list of enrollments. Only returns parent enrollments from a course or stand-alone learning objects.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "report-data",
+                "enrolment",
+                "enrollments"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "A limit on the number of objects to be returned, between 1 and 50. The default is 20."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "For use in pagination. The item number within a list request to start displaying results after. For example, if you make a request with `limit=20` and `offset=20`, items 21 - 40 are returned. Using the limit and offset parameters cannot exceed 10,000 results.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "user_account_id",
+                  "value": "<integer>",
+                  "description": "Returns enrollments for a given user, specified by a user account ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "assigner_account_id",
+                  "value": "<integer>",
+                  "description": "Returns enrollments for a given assigner, specified by a assigner account ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "lo_ids",
+                  "value": "<string>",
+                  "description": "Returns enrollments for a learning object(s), specified by a learning object ID.\n\nFormat: `lo_ids=value[,value...]`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Returns enrollments for a given status. Format `status=value[,value...],` where the possible values are `completed`, `in-progress`, `not-started`. For example, `status=completed` will return completed enrollments and `status=not-started,in-progress` will return `not-started` and `in-progress` enrollments.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "update_time_lte",
+                  "value": "<string>",
+                  "description": "Returns enrollments with an `updated_time` that is less than or equal to a given value, eg. `update_time_lte=2022-09-01T01:29:36Z`. Date time format is ISO 8601 in UTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "update_time_gte",
+                  "value": "<string>",
+                  "description": "Returns enrollments with an `updated_time` that is greater than or equal to a given value, eg. `update_time_gte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "due_date_exists",
+                  "value": "<boolean>",
+                  "description": "Returns enrollments with a due date, using `due_date_exists=true`. Returns enrollments that with no due date, using `due_date_exists=false`."
+                },
+                {
+                  "disabled": false,
+                  "key": "due_date_gte",
+                  "value": "<string>",
+                  "description": "Returns enrollments with a `due_date` that is greater than or equal to a given value, eg. `due_date_gte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "due_date_lte",
+                  "value": "<string>",
+                  "description": "Returns enrollments with a `due_date` that is less than or equal to a given value, eg. `due_date_lte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date_gte",
+                  "value": "<string>",
+                  "description": "Returns enrollments with an `end_date` that is greater than or equal to a given value, eg. `end_date_gte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date_lte",
+                  "value": "<string>",
+                  "description": "Returns enrollments with an `end_date` that is less than or equal to a given value, eg. `end_date_lte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "assign_date_gte",
+                  "value": "<string>",
+                  "description": "Returns enrollments with an `assign_date` that is greater than or equal to a given value, eg. `assign_date_gte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "assign_date_lte",
+                  "value": "<string>",
+                  "description": "Returns enrollments with an `assign_date` that is less than or equal to a given value, eg. `assign_date_lte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "enrollment_type",
+                  "value": "<string>",
+                  "description": "Returns enrollments for a given `enrollment_type`. Enum: self-directed, assigned. The supplied enrollment_type."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "created_time",
+                  "description": "Sort the results by a given field name. Sortable fields include: `created_time`, `updated_time`, `due_date`, `assign_date`. Default value is `created_time`."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "The order to sort the results by. Valid values are `asc` for ascending order and `desc` for descending order. Default value is descending."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "lo.read lo.write enrollment.read enrollment.write webhook.read webhook.write portal.read portal.write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.go1.com/oauth/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7dbe324a-a212-4b9a-ba1e-5c6c42f3c131",
+              "name": "Returns the list of a enrollments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "report-data",
+                    "enrolment",
+                    "enrollments"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "user_account_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "assigner_account_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "lo_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "update_time_lte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "update_time_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "due_date_exists",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "due_date_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "due_date_lte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date_lte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assign_date_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assign_date_lte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enrollment_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "created_time"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"hits\": [\n    {\n      \"id\": \"123\",\n      \"user_account_id\": \"432\",\n      \"lo_id\": \"567\",\n      \"created_time\": \"2022-03-19T01:29:36+00:00\",\n      \"updated_time\": \"2022-03-29T01:29:36+00:00\",\n      \"status\": \"completed\",\n      \"parent_enrolment_id\": \"555\",\n      \"enrollment_type\": \"assigned\",\n      \"assigner_account_id\": \"123\",\n      \"assign_date\": \"2023-04-18T01:08:23+00:00\",\n      \"result\": 100,\n      \"pass\": true,\n      \"start_date\": \"2022-03-29T01:29:36+00:00\",\n      \"end_date\": \"2022-03-29T03:29:36+00:00\",\n      \"due_date\": \"2022-03-31T03:29:38+00:00\"\n    },\n    {\n      \"id\": \"123\",\n      \"user_account_id\": \"432\",\n      \"lo_id\": \"567\",\n      \"created_time\": \"2022-03-19T01:29:36+00:00\",\n      \"updated_time\": \"2022-03-29T01:29:36+00:00\",\n      \"status\": \"completed\",\n      \"parent_enrolment_id\": \"555\",\n      \"enrollment_type\": \"assigned\",\n      \"assigner_account_id\": \"123\",\n      \"assign_date\": \"2023-04-18T01:08:23+00:00\",\n      \"result\": 100,\n      \"pass\": true,\n      \"start_date\": \"2022-03-29T01:29:36+00:00\",\n      \"end_date\": \"2022-03-29T03:29:36+00:00\",\n      \"due_date\": \"2022-03-31T03:29:38+00:00\"\n    }\n  ],\n  \"total\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a7e6fda-9798-4dc4-b3f3-45174cefdc7f",
+              "name": "Invalid parameters provided.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "report-data",
+                    "enrolment",
+                    "enrollments"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "user_account_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "assigner_account_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "lo_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "update_time_lte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "update_time_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "due_date_exists",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "due_date_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "due_date_lte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date_lte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assign_date_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assign_date_lte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enrollment_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "created_time"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0f9bd59f-ee72-4f55-b83c-a0564ad1eaa7",
+              "name": "User is unauthenticated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "report-data",
+                    "enrolment",
+                    "enrollments"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "user_account_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "assigner_account_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "lo_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "update_time_lte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "update_time_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "due_date_exists",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "due_date_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "due_date_lte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date_lte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assign_date_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assign_date_lte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enrollment_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "created_time"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3d101a01-9d26-4039-9f43-2c54d4c7765c",
+              "name": "Only portal administrators can query another user's enrollments. To retrieve enrollments that belong to you. Include your user_account_id as a query parameter.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "report-data",
+                    "enrolment",
+                    "enrollments"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "user_account_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "assigner_account_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "lo_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "update_time_lte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "update_time_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "due_date_exists",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "due_date_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "due_date_lte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date_lte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assign_date_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assign_date_lte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enrollment_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "created_time"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "de01a45b-60b0-4298-bed3-733ac14f3146",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "report-data",
+                    "enrolment",
+                    "enrollments"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "user_account_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "assigner_account_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "lo_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "update_time_lte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "update_time_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "due_date_exists",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "due_date_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "due_date_lte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date_lte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assign_date_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assign_date_lte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enrollment_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "created_time"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7912d3f9-9f03-45d4-b8e3-7dddf621c8ee",
+          "name": "Create an enrollment",
+          "request": {
+            "name": "Create an enrollment",
+            "description": {
+              "content": "Create an enrollment",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "enrolment",
+                "enrollments"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "re-enroll",
+                  "value": "<boolean>",
+                  "description": "A parameter that enables a new enrollment to be created where one already exists. Set `re-enroll` to `true` to create a new enrollment, and archive the existing enrollment."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "lo.read lo.write enrollment.read enrollment.write webhook.read webhook.write portal.read portal.write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.go1.com/oauth/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_account_id\": \"<string>\",\n  \"lo_id\": \"<string>\",\n  \"enrollment_type\": \"<string>\",\n  \"status\": \"<string>\",\n  \"parent_enrolment_id\": \"<string>\",\n  \"assigner_account_id\": \"<string>\",\n  \"assign_date\": \"<dateTime>\",\n  \"result\": \"<integer>\",\n  \"pass\": \"<boolean>\",\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\",\n  \"due_date\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4b0ee7e4-385f-4f5a-8283-abe7216a9a2a",
+              "name": "Returns the details of a enrollment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrolment",
+                    "enrollments"
+                  ],
+                  "query": [
+                    {
+                      "key": "re-enroll",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_account_id\": \"1012\",\n  \"lo_id\": \"198772\",\n  \"enrollment_type\": \"assigned\",\n  \"status\": \"completed\",\n  \"parent_enrolment_id\": \"555\",\n  \"assigner_account_id\": \"31013\",\n  \"assign_date\": \"<dateTime>\",\n  \"result\": 100,\n  \"pass\": true,\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\",\n  \"due_date\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"123\",\n  \"enrollment_type\": \"assigned\",\n  \"user_account_id\": \"432\",\n  \"lo_id\": \"567\",\n  \"created_time\": \"2022-03-29T01:29:36+00:00\",\n  \"updated_time\": \"2022-03-29T01:29:36+00:00\",\n  \"status\": \"completed\",\n  \"parent_enrollment_id\": \"876\",\n  \"assigner_account_id\": \"31013\",\n  \"assign_date\": \"2023-04-18T01:08:23+00:00\",\n  \"result\": 100,\n  \"pass\": true,\n  \"start_date\": \"2022-03-29T01:29:36+00:00\",\n  \"end_date\": \"2022-03-29T03:29:36+00:00\",\n  \"due_date\": \"2022-03-31T03:29:36+00:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e48b5676-62d6-427c-a2b0-376f31339071",
+              "name": "Invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrolment",
+                    "enrollments"
+                  ],
+                  "query": [
+                    {
+                      "key": "re-enroll",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_account_id\": \"1012\",\n  \"lo_id\": \"198772\",\n  \"enrollment_type\": \"assigned\",\n  \"status\": \"completed\",\n  \"parent_enrolment_id\": \"555\",\n  \"assigner_account_id\": \"31013\",\n  \"assign_date\": \"<dateTime>\",\n  \"result\": 100,\n  \"pass\": true,\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\",\n  \"due_date\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ea55eef0-50a0-40fc-9fa4-c8945e5db7c9",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrolment",
+                    "enrollments"
+                  ],
+                  "query": [
+                    {
+                      "key": "re-enroll",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_account_id\": \"1012\",\n  \"lo_id\": \"198772\",\n  \"enrollment_type\": \"assigned\",\n  \"status\": \"completed\",\n  \"parent_enrolment_id\": \"555\",\n  \"assigner_account_id\": \"31013\",\n  \"assign_date\": \"<dateTime>\",\n  \"result\": 100,\n  \"pass\": true,\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\",\n  \"due_date\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7054b88d-d863-496d-ab62-92ff10ddc5de",
+              "name": "Already exists will be returned if an existing enrollment is found create_new",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrolment",
+                    "enrollments"
+                  ],
+                  "query": [
+                    {
+                      "key": "re-enroll",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_account_id\": \"1012\",\n  \"lo_id\": \"198772\",\n  \"enrollment_type\": \"assigned\",\n  \"status\": \"completed\",\n  \"parent_enrolment_id\": \"555\",\n  \"assigner_account_id\": \"31013\",\n  \"assign_date\": \"<dateTime>\",\n  \"result\": 100,\n  \"pass\": true,\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\",\n  \"due_date\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ref\": \"123\",\n  \"error_code\": \"enrollment_exists\",\n  \"message\": \"Enrollment already exists. To create a new enrollment and archive the current enrollment, include the re_enroll=true parameter.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e7aae34-1c53-4eaa-89b5-75fe4c4d5d62",
+          "name": "Download certificate",
+          "request": {
+            "name": "Download certificate",
+            "description": {
+              "content": "Generates a downloadable PDF Go1 Completion Certificate for a learner. This providers proof that the learner has successfully completed the learning.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "enrollments",
+                ":id",
+                "certificate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier for the Enrollment."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "lo.read lo.write enrollment.read enrollment.write webhook.read webhook.write portal.read portal.write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.go1.com/oauth/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a4e6242e-60e2-4903-a0b8-44a73ba33c7a",
+              "name": "Returning a PDF file.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":id",
+                    "certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for the Enrollment."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bad8eceb-20de-472d-a121-274bcef68be9",
+              "name": "Invalid enrollment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":id",
+                    "certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for the Enrollment."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Can not generate certificate for pending enrolment.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "120324b7-83f9-43fa-8289-57aa3d30c3c4",
+              "name": "Invalid user.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":id",
+                    "certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for the Enrollment."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Permission denied.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8343e9a9-7bb9-4089-a6bc-0dd6d59ba32f",
+              "name": "Enrollment not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":id",
+                    "certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for the Enrollment."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Enrollment not found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f073f46-2e5c-4c91-8395-4cfc3886ff67",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":id",
+                    "certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for the Enrollment."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://gateway.go1.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "lo.read lo.write enrollment.read enrollment.write webhook.read webhook.write portal.read portal.write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.go1.com/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e652b842-6603-4d60-9982-5f477bdf0ebd",
+    "name": "Go1 Enrollments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Go1 API lets partners and platforms discover Go1's learning content library, manage learner enrollments, provision and manage customer portals, and subscribe to Go1 events via webhooks. Versioning is date-based and selected per request with the `Api-Version` header (current: 2025-01-01). All requests are authenticated with OAuth 2.0 bearer tokens issued by https://auth.go1.com/oauth/token. Reconstructed by the API Evangelist enrichment pipeline from Go1's published REST reference (developers.go1.com) — operations, parameters, responses and scopes are Go1's verbatim reference data.\n\nContact Support:\n Name: Go1 Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

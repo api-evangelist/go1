@@ -68,3 +68,9 @@ tools:
 - name: patchPortal
   description: Update a portal
   source_operation: openapi/go1-openapi.yml#patchPortal
+deployment:
+  mode: none
+  verified: derived
+  tools: 20
+  checked: '2026-08-12'
+  source: catalog MCP census

@@ -1,0 +1,882 @@
+{
+  "item": [
+    {
+      "id": "31b5763b-7c5a-4ec8-802d-3f7e1c30dfcd",
+      "name": "Webhooks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "083f5644-5821-4d58-a9b9-22667d9bccfd",
+          "name": "List all webhooks",
+          "request": {
+            "name": "List all webhooks",
+            "description": {
+              "content": "Returns a list of your webhooks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "webhooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "lo.read lo.write enrollment.read enrollment.write webhook.read webhook.write portal.read portal.write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.go1.com/oauth/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2b837fd2-34fa-4e6f-86c7-acdabe403280",
+              "name": "Returns a list of webhooks",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 5124.136453555285,\n  \"hits\": [\n    {\n      \"id\": \"xUjKifleke4u\",\n      \"url\": \"https://webhook-consumer.com\",\n      \"event_types\": [\n        \"enrollment.complete\",\n        \"enrollment.create\",\n        \"content.decommission\",\n        \"content.decommission.pending\",\n        \"content.add\",\n        \"content.remove\",\n        \"content.library.sync.request\"\n      ],\n      \"status\": \"active\",\n      \"created_by\": \"19491473\",\n      \"created_time\": \"2022-03-29T01:29:36.000Z\",\n      \"updated_by\": \"19491473\",\n      \"updated_time\": \"2022-03-29T01:29:36.000Z\",\n      \"portal_id\": \"11905591\",\n      \"name\": \"My webhook description\",\n      \"secret_key\": \"MyS3cretK#y\",\n      \"auth_type\": \"oauth2\",\n      \"oauth2\": {},\n      \"integration_system_id\": \"int_AzuTsRz\"\n    },\n    {\n      \"id\": \"xUjKifleke4u\",\n      \"url\": \"https://webhook-consumer.com\",\n      \"event_types\": [\n        \"enrollment.complete\",\n        \"enrollment.create\",\n        \"content.decommission\",\n        \"content.decommission.pending\",\n        \"content.add\",\n        \"content.remove\",\n        \"content.library.sync.request\"\n      ],\n      \"status\": \"active\",\n      \"created_by\": \"19491473\",\n      \"created_time\": \"2022-03-29T01:29:36.000Z\",\n      \"updated_by\": \"19491473\",\n      \"updated_time\": \"2022-03-29T01:29:36.000Z\",\n      \"portal_id\": \"11905591\",\n      \"name\": \"My webhook description\",\n      \"secret_key\": \"MyS3cretK#y\",\n      \"auth_type\": \"oauth2\",\n      \"oauth2\": {},\n      \"integration_system_id\": \"int_AzuTsRz\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ef1885e-b355-4e0e-951c-63a5a7681adc",
+              "name": "User is unauthenticated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4bdb9898-fb50-4e14-8ea1-3a5e86140559",
+              "name": "User is not authorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b5d96059-4c52-44b8-a0d9-4520b7be5e72",
+              "name": "Server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "426b3254-8335-4a01-9dc2-5d999a7cb087",
+          "name": "Create a webhook",
+          "request": {
+            "name": "Create a webhook",
+            "description": {
+              "content": "Creates a new webhook that will fire events to the given url.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "webhooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "lo.read lo.write enrollment.read enrollment.write webhook.read webhook.write portal.read portal.write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.go1.com/oauth/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<string>\",\n  \"event_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"secret_key\": \"<string>\",\n  \"auth_type\": \"<string>\",\n  \"oauth2\": \"<object>\",\n  \"integration_system_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fdb705da-9306-4da8-9f4a-f31485caa409",
+              "name": "Webhook created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"https://webhook-consumer.com\",\n  \"event_types\": [\n    \"enrollment.complete\",\n    \"enrollment.create\",\n    \"enrollment.delete\",\n    \"content.decommission\",\n    \"content.decommission.pending\",\n    \"content.add\",\n    \"content.remove\",\n    \"content.library.sync.request\",\n    \"content.library.add\",\n    \"content.library.remove\",\n    \"content.library.update\",\n    \"content.library.decommission\"\n  ],\n  \"name\": \"My webhook description\",\n  \"secret_key\": \"MyS3cretK#y\",\n  \"auth_type\": \"oauth2\",\n  \"oauth2\": \"<object>\",\n  \"integration_system_id\": \"int_AzuTsaz\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"xUjKifleke4u\",\n  \"url\": \"https://webhook-consumer.com\",\n  \"event_types\": [\n    \"enrollment.complete\",\n    \"enrollment.create\",\n    \"content.decommission\",\n    \"content.decommission.pending\",\n    \"content.add\",\n    \"content.remove\",\n    \"content.library.sync.request\"\n  ],\n  \"status\": \"active\",\n  \"created_by\": \"19491473\",\n  \"created_time\": \"2022-03-29T01:29:36.000Z\",\n  \"updated_by\": \"19491473\",\n  \"updated_time\": \"2022-03-29T01:29:36.000Z\",\n  \"portal_id\": \"11905591\",\n  \"name\": \"My webhook description\",\n  \"secret_key\": \"MyS3cretK#y\",\n  \"auth_type\": \"oauth2\",\n  \"oauth2\": {},\n  \"integration_system_id\": \"int_AzuTsRz\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f386c26d-b6df-41b1-a053-9f9be921c7ce",
+              "name": "Invalid POST parameters provided.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"https://webhook-consumer.com\",\n  \"event_types\": [\n    \"enrollment.complete\",\n    \"enrollment.create\",\n    \"enrollment.delete\",\n    \"content.decommission\",\n    \"content.decommission.pending\",\n    \"content.add\",\n    \"content.remove\",\n    \"content.library.sync.request\",\n    \"content.library.add\",\n    \"content.library.remove\",\n    \"content.library.update\",\n    \"content.library.decommission\"\n  ],\n  \"name\": \"My webhook description\",\n  \"secret_key\": \"MyS3cretK#y\",\n  \"auth_type\": \"oauth2\",\n  \"oauth2\": \"<object>\",\n  \"integration_system_id\": \"int_AzuTsaz\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "565bd2e8-8d78-44b3-86a8-05e74b685ce8",
+              "name": "Invalid permission to create the webhook.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"https://webhook-consumer.com\",\n  \"event_types\": [\n    \"enrollment.complete\",\n    \"enrollment.create\",\n    \"enrollment.delete\",\n    \"content.decommission\",\n    \"content.decommission.pending\",\n    \"content.add\",\n    \"content.remove\",\n    \"content.library.sync.request\",\n    \"content.library.add\",\n    \"content.library.remove\",\n    \"content.library.update\",\n    \"content.library.decommission\"\n  ],\n  \"name\": \"My webhook description\",\n  \"secret_key\": \"MyS3cretK#y\",\n  \"auth_type\": \"oauth2\",\n  \"oauth2\": \"<object>\",\n  \"integration_system_id\": \"int_AzuTsaz\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3efccf65-e894-4957-9856-690959df17ce",
+          "name": "Update a webhook",
+          "request": {
+            "name": "Update a webhook",
+            "description": {
+              "content": "Updates any of the following fields on an existing webhook: name, url, secret_key, event_types and status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "webhooks",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "lo.read lo.write enrollment.read enrollment.write webhook.read webhook.write portal.read portal.write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.go1.com/oauth/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"secret_key\": \"<string>\",\n  \"event_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"<string>\",\n  \"auth_type\": \"<string>\",\n  \"oauth2\": \"<object>\",\n  \"integration_system_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "482c7015-ed01-48a2-a0dc-9de08afb77a5",
+              "name": "Webhook updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My webhook description\",\n  \"url\": \"https://webhook-consumer.com\",\n  \"secret_key\": \"MyS3cretK#y\",\n  \"event_types\": [\n    \"enrollment.complete\",\n    \"enrollment.create\",\n    \"enrollment.delete\",\n    \"content.decommission\",\n    \"content.decommission.pending\",\n    \"content.add\",\n    \"content.remove\",\n    \"content.library.sync.request\",\n    \"content.library.add\",\n    \"content.library.remove\",\n    \"content.library.update\",\n    \"content.library.decommission\"\n  ],\n  \"status\": \"active\",\n  \"auth_type\": \"oauth2\",\n  \"oauth2\": \"<object>\",\n  \"integration_system_id\": \"int_AzuTsaz\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"xUjKifleke4u\",\n  \"url\": \"https://webhook-consumer.com\",\n  \"event_types\": [\n    \"enrollment.complete\",\n    \"enrollment.create\",\n    \"content.decommission\",\n    \"content.decommission.pending\",\n    \"content.add\",\n    \"content.remove\",\n    \"content.library.sync.request\"\n  ],\n  \"status\": \"active\",\n  \"created_by\": \"19491473\",\n  \"created_time\": \"2022-03-29T01:29:36.000Z\",\n  \"updated_by\": \"19491473\",\n  \"updated_time\": \"2022-03-29T01:29:36.000Z\",\n  \"portal_id\": \"11905591\",\n  \"name\": \"My webhook description\",\n  \"secret_key\": \"MyS3cretK#y\",\n  \"auth_type\": \"oauth2\",\n  \"oauth2\": {},\n  \"integration_system_id\": \"int_AzuTsRz\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8cf9be65-b0d9-4aa2-a4c9-9dd5dee95349",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My webhook description\",\n  \"url\": \"https://webhook-consumer.com\",\n  \"secret_key\": \"MyS3cretK#y\",\n  \"event_types\": [\n    \"enrollment.complete\",\n    \"enrollment.create\",\n    \"enrollment.delete\",\n    \"content.decommission\",\n    \"content.decommission.pending\",\n    \"content.add\",\n    \"content.remove\",\n    \"content.library.sync.request\",\n    \"content.library.add\",\n    \"content.library.remove\",\n    \"content.library.update\",\n    \"content.library.decommission\"\n  ],\n  \"status\": \"active\",\n  \"auth_type\": \"oauth2\",\n  \"oauth2\": \"<object>\",\n  \"integration_system_id\": \"int_AzuTsaz\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c2060000-3de4-4b54-a828-4f4a884d2d1e",
+              "name": "User is unauthenticated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My webhook description\",\n  \"url\": \"https://webhook-consumer.com\",\n  \"secret_key\": \"MyS3cretK#y\",\n  \"event_types\": [\n    \"enrollment.complete\",\n    \"enrollment.create\",\n    \"enrollment.delete\",\n    \"content.decommission\",\n    \"content.decommission.pending\",\n    \"content.add\",\n    \"content.remove\",\n    \"content.library.sync.request\",\n    \"content.library.add\",\n    \"content.library.remove\",\n    \"content.library.update\",\n    \"content.library.decommission\"\n  ],\n  \"status\": \"active\",\n  \"auth_type\": \"oauth2\",\n  \"oauth2\": \"<object>\",\n  \"integration_system_id\": \"int_AzuTsaz\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a16706c1-490b-4532-b458-170d8303bd29",
+              "name": "User is not authorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My webhook description\",\n  \"url\": \"https://webhook-consumer.com\",\n  \"secret_key\": \"MyS3cretK#y\",\n  \"event_types\": [\n    \"enrollment.complete\",\n    \"enrollment.create\",\n    \"enrollment.delete\",\n    \"content.decommission\",\n    \"content.decommission.pending\",\n    \"content.add\",\n    \"content.remove\",\n    \"content.library.sync.request\",\n    \"content.library.add\",\n    \"content.library.remove\",\n    \"content.library.update\",\n    \"content.library.decommission\"\n  ],\n  \"status\": \"active\",\n  \"auth_type\": \"oauth2\",\n  \"oauth2\": \"<object>\",\n  \"integration_system_id\": \"int_AzuTsaz\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "76302d2f-63f3-49fb-a80e-736b29a65597",
+              "name": "Webhook not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My webhook description\",\n  \"url\": \"https://webhook-consumer.com\",\n  \"secret_key\": \"MyS3cretK#y\",\n  \"event_types\": [\n    \"enrollment.complete\",\n    \"enrollment.create\",\n    \"enrollment.delete\",\n    \"content.decommission\",\n    \"content.decommission.pending\",\n    \"content.add\",\n    \"content.remove\",\n    \"content.library.sync.request\",\n    \"content.library.add\",\n    \"content.library.remove\",\n    \"content.library.update\",\n    \"content.library.decommission\"\n  ],\n  \"status\": \"active\",\n  \"auth_type\": \"oauth2\",\n  \"oauth2\": \"<object>\",\n  \"integration_system_id\": \"int_AzuTsaz\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4f3b9e4f-b5fb-4c1b-9919-b2270459eb97",
+              "name": "Server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My webhook description\",\n  \"url\": \"https://webhook-consumer.com\",\n  \"secret_key\": \"MyS3cretK#y\",\n  \"event_types\": [\n    \"enrollment.complete\",\n    \"enrollment.create\",\n    \"enrollment.delete\",\n    \"content.decommission\",\n    \"content.decommission.pending\",\n    \"content.add\",\n    \"content.remove\",\n    \"content.library.sync.request\",\n    \"content.library.add\",\n    \"content.library.remove\",\n    \"content.library.update\",\n    \"content.library.decommission\"\n  ],\n  \"status\": \"active\",\n  \"auth_type\": \"oauth2\",\n  \"oauth2\": \"<object>\",\n  \"integration_system_id\": \"int_AzuTsaz\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://gateway.go1.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "lo.read lo.write enrollment.read enrollment.write webhook.read webhook.write portal.read portal.write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.go1.com/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f2b597e7-7ab9-4210-b703-c29f174e2823",
+    "name": "Go1 Enrollments Webhooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Go1 API lets partners and platforms discover Go1's learning content library, manage learner enrollments, provision and manage customer portals, and subscribe to Go1 events via webhooks. Versioning is date-based and selected per request with the `Api-Version` header (current: 2025-01-01). All requests are authenticated with OAuth 2.0 bearer tokens issued by https://auth.go1.com/oauth/token. Reconstructed by the API Evangelist enrichment pipeline from Go1's published REST reference (developers.go1.com) — operations, parameters, responses and scopes are Go1's verbatim reference data.\n\nContact Support:\n Name: Go1 Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

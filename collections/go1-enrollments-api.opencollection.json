@@ -1,0 +1,310 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Go1 Enrollments API",
+    "version": "2025-01-01"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://auth.go1.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Enrollments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve an enrollment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.go1.com/enrollments/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.go1.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves the details of an enrollment."
+        },
+        {
+          "info": {
+            "name": "Update an enrollment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://gateway.go1.com/enrollments/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.go1.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Updates the details of an enrollment."
+        },
+        {
+          "info": {
+            "name": "Delete an enrollment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.go1.com/enrollments/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "retain_original",
+                "value": "",
+                "type": "query",
+                "description": "Revert an assigned enrollment to its original self-directed state and remove assign attributes including `assigner_account_id`, `assign_date` and `due_date`. This parameter is only applicable for enrollments that were originally created as type `self-directed`, and is now type `assigned`. If original_type is `assigned`, both plan and enrollment will be deleted."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.go1.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Deletes an enrollment for the given enrollment id."
+        },
+        {
+          "info": {
+            "name": "List all enrollments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.go1.com/enrollments",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "A limit on the number of objects to be returned, between 1 and 50. The default is 20."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "For use in pagination. The item number within a list request to start displaying results after. For example, if you make a request with `limit=20` and `offset=20`, items 21 - 40 are returned. Using the limit and offset parameters cannot exceed 10,000 results.\n"
+              },
+              {
+                "name": "user_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Returns enrollments for a given user, specified by a user account ID."
+              },
+              {
+                "name": "assigner_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Returns enrollments for a given assigner, specified by a assigner account ID."
+              },
+              {
+                "name": "lo_ids",
+                "value": "",
+                "type": "query",
+                "description": "Returns enrollments for a learning object(s), specified by a learning object ID.\n\nFormat: `lo_ids=value[,value...]`\n"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Returns enrollments for a given status. Format `status=value[,value...],` where the possible values are `completed`, `in-progress`, `not-started`. For example, `status=completed` will return completed enrollments and `status=not-started,in-progress` will return `not-started` and `in-progress` enrollments.\n"
+              },
+              {
+                "name": "update_time_lte",
+                "value": "",
+                "type": "query",
+                "description": "Returns enrollments with an `updated_time` that is less than or equal to a given value, eg. `update_time_lte=2022-09-01T01:29:36Z`. Date time format is ISO 8601 in UTC."
+              },
+              {
+                "name": "update_time_gte",
+                "value": "",
+                "type": "query",
+                "description": "Returns enrollments with an `updated_time` that is greater than or equal to a given value, eg. `update_time_gte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC."
+              },
+              {
+                "name": "due_date_exists",
+                "value": "",
+                "type": "query",
+                "description": "Returns enrollments with a due date, using `due_date_exists=true`. Returns enrollments that with no due date, using `due_date_exists=false`."
+              },
+              {
+                "name": "due_date_gte",
+                "value": "",
+                "type": "query",
+                "description": "Returns enrollments with a `due_date` that is greater than or equal to a given value, eg. `due_date_gte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC."
+              },
+              {
+                "name": "due_date_lte",
+                "value": "",
+                "type": "query",
+                "description": "Returns enrollments with a `due_date` that is less than or equal to a given value, eg. `due_date_lte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC."
+              },
+              {
+                "name": "end_date_gte",
+                "value": "",
+                "type": "query",
+                "description": "Returns enrollments with an `end_date` that is greater than or equal to a given value, eg. `end_date_gte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC."
+              },
+              {
+                "name": "end_date_lte",
+                "value": "",
+                "type": "query",
+                "description": "Returns enrollments with an `end_date` that is less than or equal to a given value, eg. `end_date_lte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC."
+              },
+              {
+                "name": "assign_date_gte",
+                "value": "",
+                "type": "query",
+                "description": "Returns enrollments with an `assign_date` that is greater than or equal to a given value, eg. `assign_date_gte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC."
+              },
+              {
+                "name": "assign_date_lte",
+                "value": "",
+                "type": "query",
+                "description": "Returns enrollments with an `assign_date` that is less than or equal to a given value, eg. `assign_date_lte=2022-03-29T01:29:36Z`. Date time format is ISO 8601 in UTC."
+              },
+              {
+                "name": "enrollment_type",
+                "value": "",
+                "type": "query",
+                "description": "Returns enrollments for a given `enrollment_type`. Enum: self-directed, assigned. The supplied enrollment_type."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort the results by a given field name. Sortable fields include: `created_time`, `updated_time`, `due_date`, `assign_date`. Default value is `created_time`."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order to sort the results by. Valid values are `asc` for ascending order and `desc` for descending order. Default value is descending."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.go1.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns a list of enrollments. Only returns parent enrollments from a course or stand-alone learning objects."
+        },
+        {
+          "info": {
+            "name": "Create an enrollment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.go1.com/enrollments",
+            "params": [
+              {
+                "name": "re-enroll",
+                "value": "",
+                "type": "query",
+                "description": "A parameter that enables a new enrollment to be created where one already exists. Set `re-enroll` to `true` to create a new enrollment, and archive the existing enrollment."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.go1.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create an enrollment"
+        },
+        {
+          "info": {
+            "name": "Download certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.go1.com/enrollments/:id/certificate",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the Enrollment."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.go1.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Generates a downloadable PDF Go1 Completion Certificate for a learner. This providers proof that the learner has successfully completed the learning."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
