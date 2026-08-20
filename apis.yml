@@ -35,6 +35,17 @@ created: '2026-07-17'
 modified: '2026-07-19'
 tags:
 - Company
+- EdTech
+- Learning
+- E-Learning
+- Corporate Training
+- Content
+- Learning Management
+- LMS
+- Education
+- Webhook
+tags_raw:
+- Company
 - Edtech
 - Learning
 - E-Learning
@@ -61,6 +72,8 @@ apis:
   humanURL: https://developers.go1.com/
   baseURL: https://gateway.go1.com
   tags:
+  - Learning Objects
+  tags_raw:
   - Learning objects
   properties:
   - type: OpenAPI
@@ -71,6 +84,8 @@ apis:
   humanURL: https://developers.go1.com/
   baseURL: https://gateway.go1.com
   tags:
+  - Portal
+  tags_raw:
   - Portals
   properties:
   - type: OpenAPI
@@ -81,6 +96,8 @@ apis:
   humanURL: https://developers.go1.com/
   baseURL: https://gateway.go1.com
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
