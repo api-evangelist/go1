@@ -3,6 +3,17 @@ info:
   title: Go1 — discover content and enroll a learner
   version: 1.0.0
   summary: Search the Go1 learning library, enroll a learner, and confirm the enrollment.
+  x-realizes-capability-ids:
+  - BC-300.40
+  x-capability-derivation:
+    method: 'deterministic join: sourceDescriptions -> per-tag OpenAPI -> tag/capability edge. No classification at this step.'
+    min_confidence: 0.7
+    sources:
+    - capability_id: BC-300.40
+      capability_name: Learning & Development Management
+      spec: go1-enrollments-api-openapi.yml
+      confidence: 0.85
+    model: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities, CC BY 4.0
 sourceDescriptions:
 - name: enrollmentsApi
   url: ../openapi/go1-enrollments-api-openapi.yml

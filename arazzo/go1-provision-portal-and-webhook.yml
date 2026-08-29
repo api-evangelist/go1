@@ -3,6 +3,22 @@ info:
   title: Go1 — provision a portal and subscribe to events
   version: 1.0.0
   summary: Create a customer portal and register a webhook subscription for Go1 events.
+  x-realizes-capability-ids:
+  - BC-4230.10
+  - BC-4270.80
+  x-capability-derivation:
+    method: 'deterministic join: sourceDescriptions -> per-tag OpenAPI -> tag/capability edge. No classification at this step.'
+    min_confidence: 0.7
+    sources:
+    - capability_id: BC-4230.10
+      capability_name: Tenant Provisioning & Lifecycle
+      spec: go1-portals-api-openapi.yml
+      confidence: 0.72
+    - capability_id: BC-4270.80
+      capability_name: Webhook & Event Subscription Management
+      spec: go1-webhooks-api-openapi.yml
+      confidence: 0.7
+    model: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities, CC BY 4.0
 sourceDescriptions:
 - name: portalsApi
   url: ../openapi/go1-portals-api-openapi.yml
