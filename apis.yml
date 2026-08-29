@@ -120,6 +120,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/go1-capability-edges.yml
+  name: Go1 Business Capability Map
 - type: DomainSecurity
   url: security/go1-domain-security.yml
 - type: AgenticAccess

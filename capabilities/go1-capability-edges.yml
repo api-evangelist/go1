@@ -1,0 +1,45 @@
+slug: go1
+provider: Go1
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Education
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Enrollments
+  spec_file: go1-enrollments-api-openapi.yml
+  capability_id: BC-300.40
+  capability_id_l1: BC-300
+  capability_name: Learning & Development Management
+  confidence: 0.85
+  evidence: POST /enrollments  Create an enrollment; GET /enrollments/{id}/certificate  Download certificate
+    — "manage learner enrollments" for a corporate learning and development (L&D) platform
+  reason: Operations create, update and complete learner enrolments in training content with certificate
+    issuance — corporate training administration, i.e. Learning & Development Management. Vendor is an
+    employee L&D platform, not an academic registrar, so education enrolment records are not the right
+    frame.
+- tag: Portals
+  spec_file: go1-portals-api-openapi.yml
+  capability_id: BC-4230.10
+  capability_id_l1: BC-4230
+  capability_name: Tenant Provisioning & Lifecycle
+  confidence: 0.72
+  evidence: POST /portals  Create a portal — the API lets partners "provision and manage customer portals"
+  reason: Portals are per-customer instances of the SaaS provisioned by partners; create/list/patch is
+    tenant provisioning and lifecycle in a multi-tenant service, not an end-user learning capability.
+- tag: Webhooks
+  spec_file: go1-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.7
+  evidence: POST /webhooks  Create a webhook — "subscribe to Go1 events via webhooks"
+  reason: Lifecycle management of outbound event subscriptions for platform consumers; the candidate list
+    contains an explicit webhook/event-subscription capability, so this is mapped rather than abstained.
