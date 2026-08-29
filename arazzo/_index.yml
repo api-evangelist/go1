@@ -1,6 +1,6 @@
-generated: '2026-07-19'
-method: derived
-source: openapi/go1-openapi.yml
+x-generated: '2026-07-19'
+x-method: derived
+x-source: openapi/go1-openapi.yml
 workflows:
 - file: go1-discover-and-enroll.yml
   workflowId: discoverAndEnroll
