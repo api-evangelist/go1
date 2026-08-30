@@ -47,7 +47,7 @@ created: '2026-07-17'
 modified: '2026-07-19'
 tags:
 - Company
-- EdTech
+- Edtech
 - Learning
 - E-Learning
 - Corporate Training
@@ -84,7 +84,7 @@ apis:
   humanURL: https://developers.go1.com/
   baseURL: https://gateway.go1.com
   tags:
-  - Learning Objects
+  - Learning objects
   tags_raw:
   - Learning objects
   properties:
