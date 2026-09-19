@@ -74,6 +74,8 @@ apis:
   humanURL: https://developers.go1.com/
   baseURL: https://gateway.go1.com
   tags:
+  - Enrollment
+  tags_raw:
   - Enrollments
   properties:
   - type: OpenAPI
