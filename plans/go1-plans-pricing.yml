@@ -1,0 +1,29 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://www.go1.com/plans
+sources:
+- https://www.go1.com/plans
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T120546
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: negotiated
+published: false
+note: Plans page lists three tiers with no numeric prices; all direct to sales contact.
+plan_count: 3
+plans:
+- name: Essentials Select
+  price_text: See Small-Team Plans
+  period: none
+  included_quota: Choose 10, 25, or 50 courses from our Premium Essentials library, and swap them anytime.
+- name: Premium Essentials
+  price_text: Speak with an expert
+  period: none
+  included_quota: Unlimited access to 80,000+ courses from over 300 providers in 120+ languages
+- name: Premium Pro
+  price_text: Speak with an expert
+  period: none
+  included_quota: Unlimited access to 80,000+ courses from over 300 providers in 120+ languages; exclusive
+    providers
