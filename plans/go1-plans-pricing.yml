@@ -10,6 +10,10 @@ provenance:
   grounding: every price_text was found verbatim in the fetched page text
 audience: business-product
 pricing_basis: negotiated
+delivery:
+  delivery: managed
+  method: keyword-prefilter
+  read: '2026-09-20'
 published: false
 note: Plans page lists three tiers with no numeric prices; all direct to sales contact.
 plan_count: 3
