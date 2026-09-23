@@ -1,8 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Go1 Enrollments API
   version: '2025-01-01'
-  description: 'The Go1 API lets partners and platforms discover Go1''s learning content library, manage learner enrollments, provision and manage customer portals, and subscribe to Go1 events via webhooks. Versioning is date-based and selected per request with the `Api-Version` header (current: 2025-01-01). All requests are authenticated with OAuth 2.0 bearer tokens issued by https://auth.go1.com/oauth/token. Reconstructed by the API Evangelist enrichment pipeline from Go1''s published REST reference (developers.go1.com) — operations, parameters, responses and scopes are Go1''s verbatim reference data.'
+  description: The Go1 API lets partners and platforms discover Go1's learning content library, manage learner enrollments, provision and manage customer portals, and subscribe to Go1 events via webhooks.
   contact:
     name: Go1 Developer Support
     url: https://developers.go1.com/
@@ -500,13 +500,15 @@ paths:
                           example: '432'
                           description: The ID of the user account that the enrollment belongs to.
                         assigner_account_id:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           example: '123'
                           description: The ID of the assigner account that assigned the enrollment.
                         assign_date:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           format: date-time
                           description: The date that the user is assigned the enrollment (ISO 8601 in UTC).
                           example: '2023-04-18T01:08:23+00:00'
@@ -541,20 +543,23 @@ paths:
                           example: true
                           description: Whether the enrollment was passed `true` or not passed `false`.
                         start_date:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           format: date-time
                           example: '2022-03-29T01:29:36+00:00'
                           description: The date that the user started the enrollment (ISO 8601 in UTC). Start date is only populated for enrollments that are in-progress of completed.
                         end_date:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           format: date-time
                           example: '2022-03-29T03:29:36+00:00'
                           description: The date that the user completed the enrollment (ISO 8601 in UTC). End date is only populated for enrollments that are `completed`.
                         due_date:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           format: date-time
                           example: '2022-03-31T03:29:38+00:00'
                           description: The date that the enrollment is due for completion (ISO 8601 in UTC).
@@ -575,7 +580,6 @@ paths:
       - OAuth2:
         - enrollment.write
       summary: Create an enrollment
-      description: Create an enrollment
       operationId: enrolmentCreateController_postV3
       parameters:
       - name: re-enroll
@@ -848,7 +852,7 @@ components:
       flows:
         clientCredentials:
           tokenUrl: https://auth.go1.com/oauth/token
-          scopes: &id001
+          scopes:
             lo.read: Read learning objects (content catalog).
             lo.write: Create, update and delete learning objects.
             enrollment.read: Read enrollments and completion records.
@@ -860,4 +864,12 @@ components:
         authorizationCode:
           authorizationUrl: https://auth.go1.com/oauth/authorize
           tokenUrl: https://auth.go1.com/oauth/token
-          scopes: *id001
+          scopes:
+            lo.read: Read learning objects (content catalog).
+            lo.write: Create, update and delete learning objects.
+            enrollment.read: Read enrollments and completion records.
+            enrollment.write: Create, update and delete enrollments.
+            webhook.read: Read webhook configurations.
+            webhook.write: Create, update and delete webhook configurations.
+            portal.read: Read customer portals.
+            portal.write: Create and update customer portals.

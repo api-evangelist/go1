@@ -1,10 +1,7 @@
 {
   "provider": "go1",
   "sources": [
-    "go1-enrollments-api-openapi.yml",
-    "go1-learning-objects-api-openapi.yml",
-    "go1-portals-api-openapi.yml",
-    "go1-webhooks-api-openapi.yml"
+    "_original/go1-openapi.yml"
   ],
   "outputs": [
     "go1-enrollments-api-openapi.yml",
@@ -15,6 +12,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "go1-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "go1-openapi.yml: declared missing tag: Learning objects",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "go1-enrollments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "go1-learning-objects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "go1-portals-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "go1-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

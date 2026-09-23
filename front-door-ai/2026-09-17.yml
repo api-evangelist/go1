@@ -1,0 +1,26 @@
+# Front Door AI Index — go1 — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: go1
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.go1.com
+  final_host: www.go1.com
+  ownership: own
+  owner: go1
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 2
+  host_score: 2
+  density: 4.37
+  words: 458
+  tiers:
+    agentic: 0
+    core: 2
+    model: 0
+  ambiguous: 1
+  top_terms:
+    AI: 2
+    agent: 1

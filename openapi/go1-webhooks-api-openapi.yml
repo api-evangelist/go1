@@ -1,8 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Go1 Enrollments Webhooks API
+  title: Go1 Webhooks API
   version: '2025-01-01'
-  description: 'The Go1 API lets partners and platforms discover Go1''s learning content library, manage learner enrollments, provision and manage customer portals, and subscribe to Go1 events via webhooks. Versioning is date-based and selected per request with the `Api-Version` header (current: 2025-01-01). All requests are authenticated with OAuth 2.0 bearer tokens issued by https://auth.go1.com/oauth/token. Reconstructed by the API Evangelist enrichment pipeline from Go1''s published REST reference (developers.go1.com) — operations, parameters, responses and scopes are Go1''s verbatim reference data.'
+  description: The Go1 API lets partners and platforms discover Go1's learning content library, manage learner enrollments, provision and manage customer portals, and subscribe to Go1 events via webhooks.
   contact:
     name: Go1 Developer Support
     url: https://developers.go1.com/
@@ -562,7 +562,7 @@ components:
       flows:
         clientCredentials:
           tokenUrl: https://auth.go1.com/oauth/token
-          scopes: &id001
+          scopes:
             lo.read: Read learning objects (content catalog).
             lo.write: Create, update and delete learning objects.
             enrollment.read: Read enrollments and completion records.
@@ -574,4 +574,12 @@ components:
         authorizationCode:
           authorizationUrl: https://auth.go1.com/oauth/authorize
           tokenUrl: https://auth.go1.com/oauth/token
-          scopes: *id001
+          scopes:
+            lo.read: Read learning objects (content catalog).
+            lo.write: Create, update and delete learning objects.
+            enrollment.read: Read enrollments and completion records.
+            enrollment.write: Create, update and delete enrollments.
+            webhook.read: Read webhook configurations.
+            webhook.write: Create, update and delete webhook configurations.
+            portal.read: Read customer portals.
+            portal.write: Create and update customer portals.
