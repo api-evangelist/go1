@@ -31,3 +31,30 @@ plans:
   period: none
   included_quota: Unlimited access to 80,000+ courses from over 300 providers in 120+ languages; exclusive
     providers
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models: []
+  units: []
+  plans:
+  - name: Essentials Select
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: Premium Essentials
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: Premium Pro
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
