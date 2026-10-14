@@ -1,0 +1,32 @@
+generated: '2026-10-14'
+method: searched
+checked:
+- okta/integrations/okta-integration-edges.yml
+source:
+- okta/integrations/okta-integration-edges.yml
+edges:
+- partner_name: Okta (own)
+  partner: okta
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.okta.com/integrations/go1/
+  mirror_of: okta/integrations/okta-integration-edges.yml
+  apps:
+  - Go1
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Directory and HR Sync
+  badges:
+  - OKTA_VERIFIED
+  features:
+  - CREATE
+  - DEACTIVATE
+  - GROUP_PUSH
+  - IDENTITY_SECURITY_POSTURE_MANAGEMENT
+  - UPDATE
