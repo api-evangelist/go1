@@ -1,0 +1,6 @@
+generated: '2026-10-21'
+method: probed
+generator: harvest-llms.py
+source: https://help.go1.com/llms.txt
+bytes: 76912
+note: saved verbatim; the provider's own document

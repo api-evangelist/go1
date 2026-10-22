@@ -1,11 +1,10 @@
-generated: '2026-07-19'
+generated: '2026-10-21'
 method: derived
 source: openapi/go1-openapi.yml + developers.go1.com docs
 standards:
 - id: oauth2
   conforms: true
-  evidence: OpenAPI securitySchemes type oauth2 (clientCredentials + authorizationCode); token endpoint
-    https://auth.go1.com/oauth/token
+  evidence: OpenAPI securitySchemes type oauth2 (clientCredentials + authorizationCode); token endpoint https://auth.go1.com/oauth/token
 - id: oauth2-client-credentials
   conforms: true
   evidence: documented client_credentials grant for server-to-server integrations
@@ -17,8 +16,7 @@ standards:
   evidence: no openid-configuration served; OAuth 2.0 only, no OIDC claims documented
 - id: rfc9457-problem-details
   conforms: false
-  evidence: error responses use application/json with a custom {ref, error_code, message} envelope, not
-    application/problem+json
+  evidence: error responses use application/json with a custom {ref, error_code, message} envelope, not application/problem+json
 - id: webhooks
   conforms: true
   evidence: documented webhook subscriptions with HMAC go1-signature header (webhook_version 3.0.0)
@@ -31,4 +29,28 @@ standards:
 - id: fhir
   conforms: false
 - id: scim
+  conforms: true
+  evidence: openapi/_original/go1-openapi-2025-01-01.json paths /scim/Users, /scim/Groups, /scim/Users/.search declare schemas urn:ietf:params:scim:schemas:core:2.0:User
+    and :Group, urn:ietf:params:scim:api:messages:2.0:PatchOp/ListResponse/Error (SCIM 2.0, RFC 7643/7644)
+  domain_standard: true
+  correction: earlier derived row said false; the contract declares SCIM 2.0 URNs
+- id: scorm
+  conforms: true
+  domain_standard: true
+  evidence: '2025-01-01 release notes: "/learning-objects/{id}/scorm - Added to enable SCORM download" (https://developers.go1.com/docs/developer-tools/api/api-release-notes-2025-01-01/);
+    path present in openapi/_original/go1-openapi-2025-01-01.json'
+- id: oauth2-rfc6749
+  conforms: true
+  evidence: '"Go1 uses OAuth 2.0, an industry-standard framework, for authentication." https://developers.go1.com/docs/developer-tools/auth/overview-auth/'
+- id: rfc6585-429-retry-after
+  conforms: true
+  evidence: 429 Too Many Requests with Retry-After header documented at https://developers.go1.com/docs/developer-tools/api/rate-limits/
+- id: openapi-3.0
+  conforms: true
+  evidence: the document declares 3.0.3
+- id: rfc9457
   conforms: false
+  evidence: no response declares application/problem+json
+- id: pagination
+  conforms: true
+  evidence: list operations take limit, offset

@@ -2,18 +2,34 @@ openapi: 3.2.0
 info:
   title: Go1 Learning objects API
   version: '2025-01-01'
-  description: The Go1 API lets partners and platforms discover Go1's learning content library, manage learner enrollments, provision and manage customer portals, and subscribe to Go1 events via webhooks.
+  description: Go1 REST API, version 2025-01-01, as published in the Go1 developer API reference. Every path operation is the provider's own OpenAPI operation object, copied verbatim from the endpoints data embedded in each reference page (__NEXT_DATA__ pageProps.endpoints) on developers.go1.com. The info, servers and securitySchemes envelope is assembled from the reference overview (base URL https://gateway.go1.com, Api-Version header) and the OAuth 2.0 grant guides (auth.go1.com token/authorize URLs); scope descriptions are left blank because the operations name scopes without describing them.
   contact:
     name: Go1 Developer Support
     url: https://developers.go1.com/
-  termsOfService: https://www.go1.com/terms/customer-terms
+  x-assembled-from:
+  - https://developers.go1.com/api/rest/2025-01-01/overview/
+  - https://developers.go1.com/api/rest/2025-01-01/categories/
+  - https://developers.go1.com/api/rest/2025-01-01/collections/
+  - https://developers.go1.com/api/rest/2025-01-01/compliance/
+  - https://developers.go1.com/api/rest/2025-01-01/enrollments/
+  - https://developers.go1.com/api/rest/2025-01-01/files/
+  - https://developers.go1.com/api/rest/2025-01-01/learning-objects/
+  - https://developers.go1.com/api/rest/2025-01-01/plans/
+  - https://developers.go1.com/api/rest/2025-01-01/play-links/
+  - https://developers.go1.com/api/rest/2025-01-01/playlists/
+  - https://developers.go1.com/api/rest/2025-01-01/portals/
+  - https://developers.go1.com/api/rest/2025-01-01/restrictions/
+  - https://developers.go1.com/api/rest/2025-01-01/scim/
+  - https://developers.go1.com/api/rest/2025-01-01/user-accounts/
+  - https://developers.go1.com/api/rest/2025-01-01/webhooks/
+  x-assembled: '2026-10-21'
 servers:
 - url: https://gateway.go1.com
-  description: Go1 API gateway (production)
-security:
-- OAuth2: []
+  description: Go1 API gateway (stated as the Base URL in the API reference overview)
 tags:
 - name: Learning Objects
+  description: Learning objects represent learning content that can be consumed by learners within the Go1 ecosystem, for example, a course, document or video. A learning object contains contextual information about the content resource, such as its title, description, thumbnail image, learning outcomes and provider. Use this resource to create, look up and manage learning objects.
+  x-source: https://developers.go1.com/api/rest/2025-01-01/learning-objects/
 paths:
   /learning-objects/{id}/alternatives:
     get:
@@ -121,41 +137,7 @@ paths:
       - name: include[]
         required: false
         in: query
-        description: 'Returns extended information related to the Learning Object. Enum:
-
-          - `core`, returns the `core` object.
-
-          - `pricing`, returns the `pricing` object.
-
-          - `lifecycle`, returns the `lifecycle` object.
-
-          - `relevance`, returns the `relevance` object.
-
-          - `skills`, returns the `skills` object.
-
-          - `quality`, returns the `quality` object.
-
-          - `provider`, returns the `provider` object.
-
-          - `protected`, returns the `protected` object.
-
-          - `playback_behavior`, returns the `playback_behavior` object.
-
-          - `images`, returns the `images` object.
-
-          - `preview`, returns the `preview` object.
-
-          - `tags`, returns the `tags` object.
-
-          - `topics`, returns the `topics` object.
-
-          - `offerings`, returns the `offerings` object.
-
-          - `revisions`, returns the `revisions` object.
-
-          - `presentation`, returns the `presentation` object.
-
-          - `accessibility`, returns the `accessibility` object. If the `include[]` parameter is not supplied, the `core` fields will be returned by default. See the response schema for a list of fields that can be expected with each of the objects defined above.'
+        description: "Returns extended information related to the Learning Object. Enum:\n- `core`, returns the `core` object.\n- `pricing`, returns the `pricing` object.\n- `lifecycle`, returns the `lifecycle` object.\n- `relevance`, returns the `relevance` object.\n- `skills`, returns the `skills` object.\n- `quality`, returns the `quality` object.\n- `provider`, returns the `provider` object.\n- `protected`, returns the `protected` object.\n- `playback_behavior`, returns the `playback_behavior` object.\n- `images`, returns the `images` object.\n- `preview`, returns the `preview` object.\n- `tags`, returns the `tags` object.\n- `topics`, returns the `topics` object.\n- `offerings`, returns the `offerings` object.\n- `revisions`, returns the `revisions` object.\n- `presentation`, returns the `presentation` object.\n- `accessibility`, returns the `accessibility` object.\n- `regulations`, returns the `regulations` object.\n\n If the `include[]` parameter is not supplied, the `core` fields will be returned by default. See the response schema for a list of fields that can be expected with each of the objects defined above."
         schema:
           default: core
           type: array
@@ -185,6 +167,7 @@ paths:
             - restrictions
             - accessibility
             - categories
+            - simulation
       - name: preferred_language
         required: false
         in: query
@@ -1072,6 +1055,119 @@ paths:
                           items:
                             type: object
                       description: module type Learning Object
+                  regulations:
+                    type: object
+                    properties:
+                      items:
+                        description: Regulations associated with the Learning Object.
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: reg_01M0VX0YGQW6SE2KHNERFSGTFQ
+                            name:
+                              type: string
+                            enforcing_agency:
+                              type:
+                              - string
+                              - 'null'
+                            locations:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  display:
+                                    type: string
+                                    example: New York City, NY, US
+                                  country_or_region:
+                                    type: string
+                                    example: US
+                                  state_province:
+                                    type:
+                                    - string
+                                    - 'null'
+                                    example: New York
+                                  city_locality:
+                                    type:
+                                    - string
+                                    - 'null'
+                                    example: New York City
+                                required:
+                                - display
+                                - country_or_region
+                                - state_province
+                                - city_locality
+                            industries:
+                              type: array
+                              items:
+                                type: string
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                            obligations:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    example: obl_01M0VX5SYFH4A409VW9EA12EBF
+                                  name:
+                                    type: string
+                                  audience_department:
+                                    type: array
+                                    items:
+                                      type: string
+                                  audience_role:
+                                    type: array
+                                    items:
+                                      type: string
+                                  mandate_status:
+                                    type: string
+                                  required_frequency:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  minimum_duration:
+                                    type:
+                                    - number
+                                    - 'null'
+                                  maximum_duration:
+                                    type:
+                                    - number
+                                    - 'null'
+                                  source_url:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  description:
+                                    type:
+                                    - string
+                                    - 'null'
+                                required:
+                                - id
+                                - name
+                                - audience_department
+                                - audience_role
+                                - mandate_status
+                                - required_frequency
+                                - minimum_duration
+                                - maximum_duration
+                                - source_url
+                                - description
+                          required:
+                          - id
+                          - name
+                          - enforcing_agency
+                          - locations
+                          - industries
+                          - description
+                          - obligations
+                    required:
+                    - items
                   accessibility:
                     description: Optional information that outlines accessibility options that are relevant to an unspecified number of content types.
                     allOf:
@@ -1123,6 +1219,17 @@ paths:
                                 type: boolean
                                 description: Indicates whether the content is compatible with screen readers (true if compatible, false if not, unset if not applicable or unknown). Applicable to document, text, interactive and link content types.
                                 example: true
+                  simulation:
+                    description: Identifies this Learning Object as a Compliance Simulation.
+                    allOf:
+                    - type: object
+                      properties:
+                        id:
+                          type: string
+                          description: The Compliance Simulation identifier.
+                          example: e7a849e0-622b-46cd-bd37-114de190a2a8
+                      required:
+                      - id
                 required:
                 - id
                 - updated_time
@@ -1414,7 +1521,7 @@ paths:
       - name: facets[]
         required: false
         in: query
-        description: "The facets[] query parameter allows you to request facets to be included in the API response. Facets represent sets of data associated with a queried list of Learning Objects, often used to display filtering options in a search interface. Enum:\n  * `providers`\n  * `language`\n  * `mobile_friendly`\n  * `region_relevance`\n  * `topics`\n  * `duration`\n  * `entry_level`\n  * `type`\n  * `locale`\n  * `is_compliance`\n  * `restricted_categories`\n  * `five_star_rating`\n  * `categories`\n  * `accessibility_wcag_level`\n  * `accessibility_features`"
+        description: "The facets[] query parameter allows you to request facets to be included in the API response. Facets represent sets of data associated with a queried list of Learning Objects, often used to display filtering options in a search interface. Enum:\n  * `providers`\n  * `language`\n  * `mobile_friendly`\n  * `region_relevance`\n  * `topics`\n  * `duration`\n  * `entry_level`\n  * `type`\n  * `locale`\n  * `regulation_ids`\n  * `is_compliance`\n  * `compliance_city_localities`\n  * `compliance_country_or_region`\n  * `compliance_industries`\n  * `compliance_mandate_status`\n  * `compliance_state_provinces`\n  * `restricted_categories`\n  * `five_star_rating`\n  * `categories`\n  * `accessibility_wcag_level`\n  * `accessibility_features`"
         schema:
           example: duration
           type: array
@@ -1432,7 +1539,13 @@ paths:
             - type
             - locale
             - regulations
+            - regulation_ids
             - is_compliance
+            - compliance_city_localities
+            - compliance_country_or_region
+            - compliance_industries
+            - compliance_mandate_status
+            - compliance_state_provinces
             - restricted_categories
             - five_star_rating
             - categories
@@ -1754,6 +1867,106 @@ paths:
         schema:
           example: is_compliance=true
           type: boolean
+      - name: regulation_ids[]
+        required: false
+        in: query
+        description: 'Filters Learning Objects by regulation IDs. Multiple values are OR joined.
+
+
+          Examples:
+
+
+          - `regulation_ids[]=reg_01M0VX0WNB79EKDA8X2X4PZ06Y` - returns Learning Objects with an eligible compliance mapping to the supplied regulation ID.
+
+
+          - `regulation_ids[]=reg_01M0VX0WNB79EKDA8X2X4PZ06Y&regulation_ids[]=reg_01M0F63JX8K8BFAEDJPFFVVK9J` - returns Learning Objects matching either regulation ID.'
+        schema:
+          type: array
+          maxItems: 25
+          items:
+            type: string
+      - name: compliance_industries[]
+        required: false
+        in: query
+        description: 'Filters Learning Objects by NAICS (North American Industry Classification System) sector names. NAICS classifies business establishments by their primary economic activity ([NAICS overview](https://en.wikipedia.org/wiki/North_American_Industry_Classification_System)). Input is Unicode-normalized and matched case-insensitively. Multiple values are OR joined.
+
+
+          Examples:
+
+
+          - `compliance_industries[]=Transportation and Warehousing` - returns Learning Objects with an eligible compliance mapping for Transportation and Warehousing.
+
+
+          - `compliance_industries[]=Transportation and Warehousing&compliance_industries[]=Health Care and Social Assistance` - returns Learning Objects matching either compliance industry.'
+        schema:
+          type: array
+          maxItems: 25
+          items:
+            type: string
+      - name: compliance_country_or_region[]
+        required: false
+        in: query
+        description: 'Filters Learning Objects by governed country or region values. Country values use ISO 3166-1 alpha-2 codes; region values use UN M49 codes. Multiple values are OR joined.
+
+
+          Examples:
+
+
+          - `compliance_country_or_region[]=US` - returns Learning Objects with an eligible compliance mapping for the United States.
+
+
+          - `compliance_country_or_region[]=US&compliance_country_or_region[]=CA` - returns Learning Objects matching either country or region.'
+        schema:
+          type: array
+          maxItems: 25
+          items:
+            type: string
+      - name: compliance_state_provinces[]
+        required: false
+        in: query
+        description: 'Filters Learning Objects by governed public state or province values. Input is Unicode-normalized and matched case-insensitively. Multiple values are OR joined.
+
+
+          Examples:
+
+
+          - `compliance_state_provinces[]=Quebec` - returns Learning Objects with an eligible compliance mapping for Quebec.
+
+
+          - `compliance_state_provinces[]=Quebec&compliance_state_provinces[]=New York` - returns Learning Objects matching either state or province.'
+        schema:
+          type: array
+          maxItems: 25
+          items:
+            type: string
+      - name: compliance_city_localities[]
+        required: false
+        in: query
+        description: 'Filters Learning Objects by governed public city or locality values. Input is Unicode-normalized and matched case-insensitively. Multiple values are OR joined.
+
+
+          Examples:
+
+
+          - `compliance_city_localities[]=New York City` - returns Learning Objects with an eligible compliance mapping for New York City.
+
+
+          - `compliance_city_localities[]=New York City&compliance_city_localities[]=Toronto` - returns Learning Objects matching either city or locality.'
+        schema:
+          type: array
+          maxItems: 25
+          items:
+            type: string
+      - name: compliance_mandate_status
+        required: false
+        in: query
+        description: 'Filters Learning Objects by the governed training need''s normalized mandate status. Enum: `required`, `best_practice`. The parameter is single-valued.'
+        schema:
+          example: required
+          type: string
+          enum:
+          - required
+          - best_practice
       - name: accessibility_features_screenreader_compatible
         required: false
         in: query
@@ -1806,39 +2019,7 @@ paths:
       - name: include[]
         required: false
         in: query
-        description: 'Returns extended information related to the Learning Object. Enum:
-
-          - `core`, returns the `core` object.
-
-          - `pricing`, returns the `pricing` object.
-
-          - `lifecycle`, returns the `lifecycle` object.
-
-          - `relevance`, returns the `relevance` object.
-
-          - `skills`, returns the `skills` object.
-
-          - `quality`, returns the `quality` object.
-
-          - `provider`, returns the `provider` object.
-
-          - `playback_behavior`, returns the `playback_behavior` object.
-
-          - `images`, returns the `images` object.
-
-          - `preview`, returns the `preview` object.
-
-          - `tags`, returns the `tags` object.
-
-          - `topics`, returns the `topics` object.
-
-          - `offerings`, returns the `offerings` object.
-
-          - `revisions`, returns the `revisions` object.
-
-          - `presentation`, returns the `presentation` object.
-
-          - `accessibility`, returns the `accessibility` object. If the `include[]` parameter is not supplied, the `core` fields will be returned by default. See the response schema for a list of fields that can be expected with each of the objects defined above.'
+        description: "Returns extended information related to the Learning Object. Enum:\n- `core`, returns the `core` object.\n- `pricing`, returns the `pricing` object.\n- `lifecycle`, returns the `lifecycle` object.\n- `relevance`, returns the `relevance` object.\n- `skills`, returns the `skills` object.\n- `quality`, returns the `quality` object.\n- `provider`, returns the `provider` object.\n- `playback_behavior`, returns the `playback_behavior` object.\n- `images`, returns the `images` object.\n- `preview`, returns the `preview` object.\n- `tags`, returns the `tags` object.\n- `topics`, returns the `topics` object.\n- `offerings`, returns the `offerings` object.\n- `revisions`, returns the `revisions` object.\n- `presentation`, returns the `presentation` object.\n- `accessibility`, returns the `accessibility` object.\n- `regulations`, returns the `regulations` object.\n\n If the `include[]` parameter is not supplied, the `core` fields will be returned by default. See the response schema for a list of fields that can be expected with each of the objects defined above."
         schema:
           default: core
           type: array
@@ -2181,6 +2362,191 @@ paths:
                             count: 66
                           - key: 0
                             count: 56
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              key:
+                                type: string
+                                description: Unique identifier that defines this facet bucket.
+                                example: 1.0-15.0
+                              count:
+                                type: number
+                                description: Total number of Learning Objects that match this facet bucket.
+                                example: 1393
+                              from:
+                                type: number
+                                description: Only returned with `duration` facet.
+                                example: 1
+                              to:
+                                type: number
+                                description: Only returned with `duration` facet.
+                                example: 15
+                              name:
+                                type: string
+                                description: Only returned with `providers` facet.
+                                example: O Reilly
+                        regulation_ids:
+                          description: Returns a list of available regulation ID values.
+                          example:
+                          - key: reg_01JP784ST1JDA391FJ0VEBBSE5
+                            name: 8 Aged Care Quality Standards
+                            count: 1
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              key:
+                                type: string
+                                description: Unique identifier that defines this facet bucket.
+                                example: 1.0-15.0
+                              count:
+                                type: number
+                                description: Total number of Learning Objects that match this facet bucket.
+                                example: 1393
+                              from:
+                                type: number
+                                description: Only returned with `duration` facet.
+                                example: 1
+                              to:
+                                type: number
+                                description: Only returned with `duration` facet.
+                                example: 15
+                              name:
+                                type: string
+                                description: Only returned with `providers` facet.
+                                example: O Reilly
+                        compliance_city_localities:
+                          description: Returns a list of available compliance city or locality values.
+                          example:
+                          - key: New York City
+                            count: 1
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              key:
+                                type: string
+                                description: Unique identifier that defines this facet bucket.
+                                example: 1.0-15.0
+                              count:
+                                type: number
+                                description: Total number of Learning Objects that match this facet bucket.
+                                example: 1393
+                              from:
+                                type: number
+                                description: Only returned with `duration` facet.
+                                example: 1
+                              to:
+                                type: number
+                                description: Only returned with `duration` facet.
+                                example: 15
+                              name:
+                                type: string
+                                description: Only returned with `providers` facet.
+                                example: O Reilly
+                        compliance_country_or_region:
+                          description: Returns a list of available compliance country or region values.
+                          example:
+                          - key: US
+                            count: 3
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              key:
+                                type: string
+                                description: Unique identifier that defines this facet bucket.
+                                example: 1.0-15.0
+                              count:
+                                type: number
+                                description: Total number of Learning Objects that match this facet bucket.
+                                example: 1393
+                              from:
+                                type: number
+                                description: Only returned with `duration` facet.
+                                example: 1
+                              to:
+                                type: number
+                                description: Only returned with `duration` facet.
+                                example: 15
+                              name:
+                                type: string
+                                description: Only returned with `providers` facet.
+                                example: O Reilly
+                        compliance_industries:
+                          description: Returns a list of available compliance industry values using NAICS (North American Industry Classification System) sector names. NAICS classifies business establishments by their primary economic activity ([NAICS overview](https://en.wikipedia.org/wiki/North_American_Industry_Classification_System)).
+                          example:
+                          - key: Health Care and Social Assistance
+                            count: 2
+                          - key: Finance and Insurance
+                            count: 1
+                          - key: Manufacturing
+                            count: 1
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              key:
+                                type: string
+                                description: Unique identifier that defines this facet bucket.
+                                example: 1.0-15.0
+                              count:
+                                type: number
+                                description: Total number of Learning Objects that match this facet bucket.
+                                example: 1393
+                              from:
+                                type: number
+                                description: Only returned with `duration` facet.
+                                example: 1
+                              to:
+                                type: number
+                                description: Only returned with `duration` facet.
+                                example: 15
+                              name:
+                                type: string
+                                description: Only returned with `providers` facet.
+                                example: O Reilly
+                        compliance_mandate_status:
+                          description: Returns a list of available compliance mandate status values.
+                          example:
+                          - key: required
+                            name: Required
+                            count: 4
+                          - key: best_practice
+                            name: Best practice
+                            count: 1
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              key:
+                                type: string
+                                description: Unique identifier that defines this facet bucket.
+                                example: 1.0-15.0
+                              count:
+                                type: number
+                                description: Total number of Learning Objects that match this facet bucket.
+                                example: 1393
+                              from:
+                                type: number
+                                description: Only returned with `duration` facet.
+                                example: 1
+                              to:
+                                type: number
+                                description: Only returned with `duration` facet.
+                                example: 15
+                              name:
+                                type: string
+                                description: Only returned with `providers` facet.
+                                example: O Reilly
+                        compliance_state_provinces:
+                          description: Returns a list of available compliance state or province values.
+                          example:
+                          - key: California
+                            count: 1
+                          - key: New York
+                            count: 1
                           type: array
                           items:
                             type: object
@@ -2898,6 +3264,119 @@ paths:
                                 items:
                                   type: object
                             description: module type Learning Object
+                        regulations:
+                          type: object
+                          properties:
+                            items:
+                              description: Regulations associated with the Learning Object.
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    example: reg_01M0VX0YGQW6SE2KHNERFSGTFQ
+                                  name:
+                                    type: string
+                                  enforcing_agency:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  locations:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        display:
+                                          type: string
+                                          example: New York City, NY, US
+                                        country_or_region:
+                                          type: string
+                                          example: US
+                                        state_province:
+                                          type:
+                                          - string
+                                          - 'null'
+                                          example: New York
+                                        city_locality:
+                                          type:
+                                          - string
+                                          - 'null'
+                                          example: New York City
+                                      required:
+                                      - display
+                                      - country_or_region
+                                      - state_province
+                                      - city_locality
+                                  industries:
+                                    type: array
+                                    items:
+                                      type: string
+                                  description:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  obligations:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        id:
+                                          type: string
+                                          example: obl_01M0VX5SYFH4A409VW9EA12EBF
+                                        name:
+                                          type: string
+                                        audience_department:
+                                          type: array
+                                          items:
+                                            type: string
+                                        audience_role:
+                                          type: array
+                                          items:
+                                            type: string
+                                        mandate_status:
+                                          type: string
+                                        required_frequency:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        minimum_duration:
+                                          type:
+                                          - number
+                                          - 'null'
+                                        maximum_duration:
+                                          type:
+                                          - number
+                                          - 'null'
+                                        source_url:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        description:
+                                          type:
+                                          - string
+                                          - 'null'
+                                      required:
+                                      - id
+                                      - name
+                                      - audience_department
+                                      - audience_role
+                                      - mandate_status
+                                      - required_frequency
+                                      - minimum_duration
+                                      - maximum_duration
+                                      - source_url
+                                      - description
+                                required:
+                                - id
+                                - name
+                                - enforcing_agency
+                                - locations
+                                - industries
+                                - description
+                                - obligations
+                          required:
+                          - items
                         accessibility:
                           description: Optional information that outlines accessibility options that are relevant to an unspecified number of content types.
                           allOf:
@@ -2949,6 +3428,17 @@ paths:
                                       type: boolean
                                       description: Indicates whether the content is compatible with screen readers (true if compatible, false if not, unset if not applicable or unknown). Applicable to document, text, interactive and link content types.
                                       example: true
+                        simulation:
+                          description: Identifies this Learning Object as a Compliance Simulation.
+                          allOf:
+                          - type: object
+                            properties:
+                              id:
+                                type: string
+                                description: The Compliance Simulation identifier.
+                                example: e7a849e0-622b-46cd-bd37-114de190a2a8
+                            required:
+                            - id
                       required:
                       - id
                       - updated_time
@@ -3860,38 +4350,112 @@ paths:
         in: path
         description: Unique identifier of the Learning Object
         schema:
+          type: integer
+      - name: api-version
+        required: true
+        in: header
+        description: Public API contract version
+        schema:
           type: string
+          example: '2025-01-01'
       responses:
         '200':
           description: Returns the scorm package in a .zip format
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
         '400':
           description: Invalid parameters provided.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                properties:
+                  message:
+                    type: string
+        '403':
+          description: Missing authentication or insufficient portal permission.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Portal, portal ID, or learning object not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Package generation failed.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                properties:
+                  message:
+                    type: string
 components:
   securitySchemes:
     OAuth2:
       type: oauth2
-      description: OAuth 2.0. Server-to-server integrations use the client_credentials flow; user-context integrations use the authorization_code flow. Access tokens are valid for 12 hours.
+      description: OAuth 2.0 via a Go1 Developer App (client_id/client_secret). See https://developers.go1.com/docs/developer-tools/auth/overview-auth
       flows:
         clientCredentials:
           tokenUrl: https://auth.go1.com/oauth/token
           scopes:
-            lo.read: Read learning objects (content catalog).
-            lo.write: Create, update and delete learning objects.
-            enrollment.read: Read enrollments and completion records.
-            enrollment.write: Create, update and delete enrollments.
-            webhook.read: Read webhook configurations.
-            webhook.write: Create, update and delete webhook configurations.
-            portal.read: Read customer portals.
-            portal.write: Create and update customer portals.
+            enrollment.read: ''
+            enrollment.write: ''
+            group.read: ''
+            group.write: ''
+            lo.launch: ''
+            lo.read: ''
+            lo.write: ''
+            plan.read: ''
+            plan.write: ''
+            portal.read: ''
+            portal.write: ''
+            user.login: ''
+            user.read: ''
+            user.write: ''
+            webhook.read: ''
+            webhook.write: ''
         authorizationCode:
           authorizationUrl: https://auth.go1.com/oauth/authorize
           tokenUrl: https://auth.go1.com/oauth/token
           scopes:
-            lo.read: Read learning objects (content catalog).
-            lo.write: Create, update and delete learning objects.
-            enrollment.read: Read enrollments and completion records.
-            enrollment.write: Create, update and delete enrollments.
-            webhook.read: Read webhook configurations.
-            webhook.write: Create, update and delete webhook configurations.
-            portal.read: Read customer portals.
-            portal.write: Create and update customer portals.
+            enrollment.read: ''
+            enrollment.write: ''
+            group.read: ''
+            group.write: ''
+            lo.launch: ''
+            lo.read: ''
+            lo.write: ''
+            plan.read: ''
+            plan.write: ''
+            portal.read: ''
+            portal.write: ''
+            user.login: ''
+            user.read: ''
+            user.write: ''
+            webhook.read: ''
+            webhook.write: ''
+    bearer:
+      type: http
+      scheme: bearer
+      description: Access token sent in the Authorization header (named "bearer" by some operations in the reference).

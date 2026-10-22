@@ -1,12 +1,28 @@
-generated: '2026-07-19'
+generated: '2026-10-21'
 method: searched
 source: https://www.npmjs.com/package/@go1/apim-cli
 name: apim-cli
 package: '@go1/apim-cli'
-version: 2.0.3
+version: 2.0.5
 install:
 - npm install -g @go1/apim-cli
 description: Go1 API management CLI that generates APIM deployment files from an OpenAPI document.
 purpose: API management / deployment file generation from OpenAPI
-note: First-party CLI published under the @go1 npm scope. It is a build/deploy tool for API management,
-  not a general API-call CLI.
+note: First-party CLI published under the @go1 npm scope. It is a build/deploy tool for API management, not a general
+  API-call CLI.
+published: '2026-09-01'
+commands_source: https://registry.npmjs.org/@go1%2fapim-cli (package README, latest 2.0.5)
+commands:
+- name: init
+  usage: '@go1/apim-cli init [OPTION]'
+  description: Create a new apim directory (wizard); options openapi, name, path, backend.
+- name: update
+  usage: '@go1/apim-cli update'
+  description: Update an existing apim directory without re-running the wizard.
+- name: validate
+  usage: '@go1/apim-cli validate <openapi.yml> [OPTION]'
+  description: Validate an OpenAPI doc against the standard schema; optional --master to detect breaking changes, --skip
+    to not throw on them.
+- name: merge
+  usage: '@go1/apim-cli merge changes.yml source.yml output.json'
+  description: Merge two OpenAPI docs into a single file.

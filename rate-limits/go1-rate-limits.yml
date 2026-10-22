@@ -1,0 +1,26 @@
+name: Go1 rate limits
+generated: '2026-10-21'
+method: searched
+source: https://developers.go1.com/docs/developer-tools/api/rate-limits/
+docs: https://developers.go1.com/docs/developer-tools/api/rate-limits/
+limit_count: 1
+scope_note: Currently, the rate limit applies exclusively to the List learning objects endpoint in the v2 API. There
+  are no rate limits on the v3 API.
+response:
+  status_code: 429
+  headers:
+  - Retry-After
+  body_example: HTTP/1.1 429 Request is blocked. Too many requests submitted. Try again in 10 seconds.
+  guidance: If you receive a 429 error, we recommend implementing strategies such as exponential backoff or waiting
+    the allotted time period specified in the Retry-After header before sending another request.
+limits:
+- name: v2 List learning objects
+  limit_text: The rate limit is a maximum of 4,000 requests within a 10-second timeframe, equivalent to 400 requests
+    per second.
+  max: 4000
+  window: 10 seconds
+  endpoint: v2 List learning objects
+  scope: endpoint
+  penalty: Exceeding this limit will result in a 10-second timeout.
+note: In the future, we may expand the rate limit coverage across the API. Any additional rate limits will be communicated
+  to all users in advance.

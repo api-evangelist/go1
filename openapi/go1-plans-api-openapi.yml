@@ -1,0 +1,2634 @@
+openapi: 3.2.0
+info:
+  title: Go1 Plans API
+  version: '2025-01-01'
+  description: Go1 REST API, version 2025-01-01, as published in the Go1 developer API reference. Every path operation is the provider's own OpenAPI operation object, copied verbatim from the endpoints data embedded in each reference page (__NEXT_DATA__ pageProps.endpoints) on developers.go1.com. The info, servers and securitySchemes envelope is assembled from the reference overview (base URL https://gateway.go1.com, Api-Version header) and the OAuth 2.0 grant guides (auth.go1.com token/authorize URLs); scope descriptions are left blank because the operations name scopes without describing them.
+  contact:
+    name: Go1 Developer Support
+    url: https://developers.go1.com/
+  x-assembled-from:
+  - https://developers.go1.com/api/rest/2025-01-01/overview/
+  - https://developers.go1.com/api/rest/2025-01-01/categories/
+  - https://developers.go1.com/api/rest/2025-01-01/collections/
+  - https://developers.go1.com/api/rest/2025-01-01/compliance/
+  - https://developers.go1.com/api/rest/2025-01-01/enrollments/
+  - https://developers.go1.com/api/rest/2025-01-01/files/
+  - https://developers.go1.com/api/rest/2025-01-01/learning-objects/
+  - https://developers.go1.com/api/rest/2025-01-01/plans/
+  - https://developers.go1.com/api/rest/2025-01-01/play-links/
+  - https://developers.go1.com/api/rest/2025-01-01/playlists/
+  - https://developers.go1.com/api/rest/2025-01-01/portals/
+  - https://developers.go1.com/api/rest/2025-01-01/restrictions/
+  - https://developers.go1.com/api/rest/2025-01-01/scim/
+  - https://developers.go1.com/api/rest/2025-01-01/user-accounts/
+  - https://developers.go1.com/api/rest/2025-01-01/webhooks/
+  x-assembled: '2026-10-21'
+servers:
+- url: https://gateway.go1.com
+  description: Go1 API gateway (stated as the Base URL in the API reference overview)
+tags:
+- name: Plans
+  description: 'The Plans resource represents a customer''s subscription plan to Go1, containing details such as the customer’s product tier, term duration, and license count. It manages customer access to Go1 products and facilitates the customer lifecycle, such as transitions between plan upgrades, downgrades, and renewals.
+
+
+    The Plans API allows Go1 partners who provision and distribute Go1 products to their customer Portals, to create, retrieve, update, and manage plans for their customers. It is essential for the provisioning and management of a customer''s access to Go1.'
+  x-source: https://developers.go1.com/api/rest/2025-01-01/plans/
+paths:
+  /portals/{id}/plans:
+    get:
+      description: Returns a list of plans associated with a specified portal. Use a customer portal ID to retrieve plans for that particular portal, or use your partner portal ID to retrieve plans across all customer portals.
+      operationId: getPlans
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: A limit on the number of objects to be returned, between 1 and 100. The default is 20.
+        schema:
+          default: 20
+          example: 10
+          type: number
+      - name: offset
+        required: false
+        in: query
+        description: For use in pagination. The item number within a List request to start displaying results after. For example, if you make a request with limit=20 and offset=20, items 21 - 40 are returned.
+        schema:
+          minimum: 0
+          default: 0
+          example: 0
+          type: number
+      - name: portal_ids[]
+        required: false
+        in: query
+        description: Filter results by a specific set of customer portals. This parameter can only be used when the request path includes your partner portal ID, allowing you to retrieve plans for selected customer portals.
+        schema:
+          default: []
+          example:
+          - '12345'
+          type: array
+          items:
+            type: string
+      - name: status[]
+        required: false
+        in: query
+        description: Filter by the status of the plan. Available options are active, expired, cancelled, pending.
+        schema:
+          example:
+          - active
+          type: array
+          items:
+            type: string
+            enum:
+            - active
+            - expired
+            - cancelled
+            - pending
+      responses:
+        '200':
+          description: List of plans
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: number
+                    description: The total number of retrievable results from the request.
+                    example: 100
+                  hits:
+                    description: An array containing the requested results.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: pln_01DRBZ0CR06CWKGDHR6WTKADHG
+                          description: The id of the plan.
+                        portal_id:
+                          type: string
+                          example: '36184809'
+                          description: The Go1 portal id which the plan was created for.
+                        status:
+                          enum:
+                          - active
+                          - expired
+                          - cancelled
+                          - pending
+                          type: string
+                          example: active
+                          description: "The current state of the plan.\n  - active: The plan is currently within the term dates and is available.\n  - expired: The plan has naturally reached its end date.\n  - cancelled: The plan has been manually cancelled.\n  - pending: The plan has not yet started; the start date is in the future."
+                        start_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36.000Z'
+                          description: The start time of the plan (ISO 8601 in UTC), when the plan will become active and access is given.
+                        end_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36.000Z'
+                          description: The end time of the plan (ISO 8601 in UTC), when the plan will renew or expire.
+                        created_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36.000Z'
+                          description: The timestamp when the plan was created (ISO 8601 in UTC).
+                        updated_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36.000Z'
+                          description: The timestamp when the plan was last updated  (ISO 8601 in UTC).
+                        auto_renew:
+                          type: boolean
+                          example: true
+                          description: Whether this plan will automatically renew at the end of the term.
+                        renewal_term:
+                          description: The details of renewal term. If auto_renew is false, then this field will be null
+                          allOf:
+                          - type: object
+                            properties:
+                              value:
+                                type: number
+                                description: The numerical value of the duration.
+                                example: 6
+                              unit:
+                                description: The unit of time for the duration. Available values are "months".
+                                example: months
+                                enum:
+                                - months
+                                - days
+                                type: string
+                            required:
+                            - value
+                            - unit
+                        term:
+                          description: The duration of the plan.
+                          allOf:
+                          - type: object
+                            properties:
+                              value:
+                                type: number
+                                description: The numerical value of the duration.
+                                example: 6
+                              unit:
+                                description: The unit of time for the duration. Available values are "months".
+                                example: months
+                                enum:
+                                - months
+                                - days
+                                type: string
+                            required:
+                            - value
+                            - unit
+                        entitlements:
+                          description: The details of the products this plan is entitled to.
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              product_key:
+                                type: string
+                                example: pk_22ZHBZ0CR00CWKGDHR6WTKADAU
+                                description: The key which represents the product associated with the plan.
+                              variant_key:
+                                type: string
+                                example: vk_22ZHBZ0CR00CWKGDHR6WTKADAU
+                                description: The key which represents the variant associated with the plan.
+                              status:
+                                enum:
+                                - active
+                                - cancelled
+                                type: string
+                                example: active
+                                description: The current state of the plan.
+                              license_count:
+                                type: number
+                                example: 36184809
+                                description: The number of user licenses included in the plan.
+                              created_time:
+                                type: string
+                                format: date-time
+                                example: '2022-03-29T01:29:36.000Z'
+                                description: The timestamp when the plan was created (ISO 8601 in UTC).
+                              updated_time:
+                                type: string
+                                format: date-time
+                                example: '2022-03-29T01:29:36.000Z'
+                                description: The timestamp when the plan was last updated  (ISO 8601 in UTC).
+                            required:
+                            - product_key
+                            - status
+                            - license_count
+                            - created_time
+                            - updated_time
+                      required:
+                      - id
+                      - portal_id
+                      - status
+                      - start_time
+                      - end_time
+                      - created_time
+                      - updated_time
+                      - auto_renew
+                      - term
+                required:
+                - total
+                - hits
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                PERMISSION_INVALID_ADMIN_REQUIRED:
+                  value:
+                    error_code: PERMISSION_INVALID_ADMIN_REQUIRED
+                    message: User must be an admin to perform this action.
+      security:
+      - OAuth2:
+        - plan.read
+      summary: List all plans
+      tags:
+      - Plans
+    post:
+      description: Creates a new plan.
+      operationId: createPlan
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                auto_renew:
+                  type: boolean
+                  description: Whether the plan will automatically be renewed at the end of its term.
+                  example: true
+                start_time:
+                  type: string
+                  description: 'The start date of the plan (ISO 8601 in UTC), when the plan will become active and access is given.
+
+                    If this parameter is not provided, the start date will default to the current time.'
+                  example: '2022-01-01T00:00:00.000Z'
+                term:
+                  description: 'The duration of the plan.
+
+                    If this field is not provided, the term will default to 12 months.'
+                  allOf:
+                  - type: object
+                    properties:
+                      value:
+                        type: number
+                        description: The numerical value of the duration.
+                        example: 6
+                      unit:
+                        description: The unit of time for the duration. Available values are "months".
+                        example: months
+                        enum:
+                        - months
+                        - days
+                        type: string
+                    required:
+                    - value
+                    - unit
+                renewal_term:
+                  description: 'The duration of the renewal plan.
+
+                    If this field is not provided and auto_renew is true, then the term of the renewed plan is the same length as the original plan.'
+                  allOf:
+                  - type: object
+                    properties:
+                      value:
+                        type: number
+                        description: The numerical value of the duration.
+                        example: 6
+                      unit:
+                        description: The unit of time for the duration. Available values are "months".
+                        example: months
+                        enum:
+                        - months
+                        - days
+                        type: string
+                    required:
+                    - value
+                    - unit
+                enable_early_access:
+                  type: boolean
+                  description: 'Enable early access to provision content immediately, regardless of the plan start date.
+
+                    When enabled, content will be made available right away even if the `start_time` is set to a future date.
+
+                    Note: If enabled, the `start_time` must be within 365 days from the current date.'
+                  example: false
+              required:
+              - term
+      responses:
+        '201':
+          description: Plan created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: pln_01DRBZ0CR06CWKGDHR6WTKADHG
+                    description: The id of the plan.
+                  portal_id:
+                    type: string
+                    example: '36184809'
+                    description: The Go1 portal id which the plan was created for.
+                  status:
+                    enum:
+                    - active
+                    - expired
+                    - cancelled
+                    - pending
+                    type: string
+                    example: active
+                    description: "The current state of the plan.\n  - active: The plan is currently within the term dates and is available.\n  - expired: The plan has naturally reached its end date.\n  - cancelled: The plan has been manually cancelled.\n  - pending: The plan has not yet started; the start date is in the future."
+                  start_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36.000Z'
+                    description: The start time of the plan (ISO 8601 in UTC), when the plan will become active and access is given.
+                  end_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36.000Z'
+                    description: The end time of the plan (ISO 8601 in UTC), when the plan will renew or expire.
+                  created_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36.000Z'
+                    description: The timestamp when the plan was created (ISO 8601 in UTC).
+                  updated_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36.000Z'
+                    description: The timestamp when the plan was last updated  (ISO 8601 in UTC).
+                  auto_renew:
+                    type: boolean
+                    example: true
+                    description: Whether this plan will automatically renew at the end of the term.
+                  renewal_term:
+                    description: The details of renewal term. If auto_renew is false, then this field will be null
+                    allOf:
+                    - type: object
+                      properties:
+                        value:
+                          type: number
+                          description: The numerical value of the duration.
+                          example: 6
+                        unit:
+                          description: The unit of time for the duration. Available values are "months".
+                          example: months
+                          enum:
+                          - months
+                          - days
+                          type: string
+                      required:
+                      - value
+                      - unit
+                  term:
+                    description: The duration of the plan.
+                    allOf:
+                    - type: object
+                      properties:
+                        value:
+                          type: number
+                          description: The numerical value of the duration.
+                          example: 6
+                        unit:
+                          description: The unit of time for the duration. Available values are "months".
+                          example: months
+                          enum:
+                          - months
+                          - days
+                          type: string
+                      required:
+                      - value
+                      - unit
+                  entitlements:
+                    example: []
+                    description: The details of the products this plan is entitled to.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product_key:
+                          type: string
+                          example: pk_22ZHBZ0CR00CWKGDHR6WTKADAU
+                          description: The key which represents the product associated with the plan.
+                        variant_key:
+                          type: string
+                          example: vk_22ZHBZ0CR00CWKGDHR6WTKADAU
+                          description: The key which represents the variant associated with the plan.
+                        status:
+                          enum:
+                          - active
+                          - cancelled
+                          type: string
+                          example: active
+                          description: The current state of the plan.
+                        license_count:
+                          type: number
+                          example: 36184809
+                          description: The number of user licenses included in the plan.
+                        created_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36.000Z'
+                          description: The timestamp when the plan was created (ISO 8601 in UTC).
+                        updated_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36.000Z'
+                          description: The timestamp when the plan was last updated  (ISO 8601 in UTC).
+                      required:
+                      - product_key
+                      - status
+                      - license_count
+                      - created_time
+                      - updated_time
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                PERMISSION_INVALID_ADMIN_REQUIRED:
+                  value:
+                    error_code: PERMISSION_INVALID_ADMIN_REQUIRED
+                    message: User must be an admin to perform this action.
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                PLAN_NOT_FOUND:
+                  value:
+                    error_code: PLAN_NOT_FOUND
+                    message: Plan not found.
+                PORTAL_NOT_FOUND:
+                  value:
+                    error_code: PORTAL_NOT_FOUND
+                    message: Portal not found.
+      security:
+      - OAuth2:
+        - plan.write
+      summary: Create a plan
+      tags:
+      - Plans
+  /portals/{portal_id}/plans/{plan_id}/entitlements:
+    patch:
+      description: Updates the entitlements linked to a plan.
+      operationId: updatePlanEntitlements
+      parameters:
+      - name: portal_id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: plan_id
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entitlements:
+                  description: The details of the products this plan is entitled to.
+                  example:
+                  - product_key: pk_22ZHBZ0CR00CWKGDHR6WTKADAU
+                    variant_key: vk_22ZHBZ0CR00CWKGDHR6WTKADAU
+                    license_count: 100
+                  - product_key: pk_08GRBZ0CR07CWKGDHR6WTKADUZ
+                    license_count: 10
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_key:
+                        type: string
+                        example: pk_22ZHBZ0CR00CWKGDHR6WTKADAU
+                        description: The key which represents the product associated with the plan.
+                      variant_key:
+                        type: string
+                        example: vk_22ZHBZ0CR00CWKGDHR6WTKADAU
+                        description: The key representing the variant which the entitlement will be provisioned with.
+                      license_count:
+                        type: number
+                        example: 100
+                        description: The number of user licenses included in the plan.
+                    required:
+                    - product_key
+                    - license_count
+              required:
+              - entitlements
+      responses:
+        '202':
+          description: Plan entitlements updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  entitlements:
+                    description: The details of the products this plan is entitled to.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product_key:
+                          type: string
+                          example: pk_22ZHBZ0CR00CWKGDHR6WTKADAU
+                          description: The key which represents the product associated with the plan.
+                        variant_key:
+                          type: string
+                          example: vk_22ZHBZ0CR00CWKGDHR6WTKADAU
+                          description: The key which represents the variant associated with the plan.
+                        status:
+                          enum:
+                          - active
+                          - cancelled
+                          type: string
+                          example: active
+                          description: The current state of the plan.
+                        license_count:
+                          type: number
+                          example: 36184809
+                          description: The number of user licenses included in the plan.
+                        created_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36.000Z'
+                          description: The timestamp when the plan was created (ISO 8601 in UTC).
+                        updated_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36.000Z'
+                          description: The timestamp when the plan was last updated  (ISO 8601 in UTC).
+                      required:
+                      - product_key
+                      - status
+                      - license_count
+                      - created_time
+                      - updated_time
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                PERMISSION_INVALID_ADMIN_REQUIRED:
+                  value:
+                    error_code: PERMISSION_INVALID_ADMIN_REQUIRED
+                    message: User must be an admin to perform this action.
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                PLAN_NOT_FOUND:
+                  value:
+                    error_code: PLAN_NOT_FOUND
+                    message: Plan not found.
+                PORTAL_NOT_FOUND:
+                  value:
+                    error_code: PORTAL_NOT_FOUND
+                    message: Portal not found.
+      security:
+      - OAuth2:
+        - plan.write
+      summary: Update plan entitlements
+      tags:
+      - Plans
+  /portals/{id}/plans/{plan_id}:
+    patch:
+      description: Updates a plan
+      operationId: patchPlan
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: plan_id
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                auto_renew:
+                  type: boolean
+                  description: Whether the plan will automatically be renewed at the end of its term.
+                  example: true
+                start_time:
+                  type: string
+                  description: 'The start date of the plan (ISO 8601 in UTC), when the plan will become active and access is given.
+
+                    If this parameter is not provided, the start date will default to the current time.'
+                  example: '2022-01-01T00:00:00.000Z'
+                term:
+                  description: 'The duration of the plan.
+
+                    If this field is not provided, the term will default to 12 months.'
+                  allOf:
+                  - type: object
+                    properties:
+                      value:
+                        type: number
+                        description: The numerical value of the duration.
+                        example: 6
+                      unit:
+                        description: The unit of time for the duration. Available values are "months".
+                        example: months
+                        enum:
+                        - months
+                        - days
+                        type: string
+                    required:
+                    - value
+                    - unit
+                renewal_term:
+                  description: 'The duration of the plan.
+
+                    If this field is not provided and auto_renew is true, then the term of the renewed plan is the same length as the original plan.'
+                  allOf:
+                  - type: object
+                    properties:
+                      value:
+                        type: number
+                        description: The numerical value of the duration.
+                        example: 6
+                      unit:
+                        description: The unit of time for the duration. Available values are "months".
+                        example: months
+                        enum:
+                        - months
+                        - days
+                        type: string
+                    required:
+                    - value
+                    - unit
+              required:
+              - term
+      responses:
+        '200':
+          description: Plan updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: pln_01DRBZ0CR06CWKGDHR6WTKADHG
+                    description: The id of the plan.
+                  portal_id:
+                    type: string
+                    example: '36184809'
+                    description: The Go1 portal id which the plan was created for.
+                  status:
+                    enum:
+                    - active
+                    - expired
+                    - cancelled
+                    - pending
+                    type: string
+                    example: active
+                    description: "The current state of the plan.\n  - active: The plan is currently within the term dates and is available.\n  - expired: The plan has naturally reached its end date.\n  - cancelled: The plan has been manually cancelled.\n  - pending: The plan has not yet started; the start date is in the future."
+                  start_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36.000Z'
+                    description: The start time of the plan (ISO 8601 in UTC), when the plan will become active and access is given.
+                  end_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36.000Z'
+                    description: The end time of the plan (ISO 8601 in UTC), when the plan will renew or expire.
+                  created_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36.000Z'
+                    description: The timestamp when the plan was created (ISO 8601 in UTC).
+                  updated_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36.000Z'
+                    description: The timestamp when the plan was last updated  (ISO 8601 in UTC).
+                  auto_renew:
+                    type: boolean
+                    example: true
+                    description: Whether this plan will automatically renew at the end of the term.
+                  renewal_term:
+                    description: The details of renewal term. If auto_renew is false, then this field will be null
+                    allOf:
+                    - type: object
+                      properties:
+                        value:
+                          type: number
+                          description: The numerical value of the duration.
+                          example: 6
+                        unit:
+                          description: The unit of time for the duration. Available values are "months".
+                          example: months
+                          enum:
+                          - months
+                          - days
+                          type: string
+                      required:
+                      - value
+                      - unit
+                  term:
+                    description: The duration of the plan.
+                    allOf:
+                    - type: object
+                      properties:
+                        value:
+                          type: number
+                          description: The numerical value of the duration.
+                          example: 6
+                        unit:
+                          description: The unit of time for the duration. Available values are "months".
+                          example: months
+                          enum:
+                          - months
+                          - days
+                          type: string
+                      required:
+                      - value
+                      - unit
+                  entitlements:
+                    description: The details of the products this plan is entitled to.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product_key:
+                          type: string
+                          example: pk_22ZHBZ0CR00CWKGDHR6WTKADAU
+                          description: The key which represents the product associated with the plan.
+                        variant_key:
+                          type: string
+                          example: vk_22ZHBZ0CR00CWKGDHR6WTKADAU
+                          description: The key which represents the variant associated with the plan.
+                        status:
+                          enum:
+                          - active
+                          - cancelled
+                          type: string
+                          example: active
+                          description: The current state of the plan.
+                        license_count:
+                          type: number
+                          example: 36184809
+                          description: The number of user licenses included in the plan.
+                        created_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36.000Z'
+                          description: The timestamp when the plan was created (ISO 8601 in UTC).
+                        updated_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36.000Z'
+                          description: The timestamp when the plan was last updated  (ISO 8601 in UTC).
+                      required:
+                      - product_key
+                      - status
+                      - license_count
+                      - created_time
+                      - updated_time
+                required:
+                - id
+                - portal_id
+                - status
+                - start_time
+                - end_time
+                - created_time
+                - updated_time
+                - auto_renew
+                - term
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                PERMISSION_INVALID_ADMIN_REQUIRED:
+                  value:
+                    error_code: PERMISSION_INVALID_ADMIN_REQUIRED
+                    message: User must be an admin to perform this action.
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                PLAN_NOT_FOUND:
+                  value:
+                    error_code: PLAN_NOT_FOUND
+                    message: Plan not found.
+      security:
+      - OAuth2:
+        - plan.write
+      summary: Update a plan
+      tags:
+      - Plans
+  /portals/{id}/plans/history:
+    get:
+      description: Returns the history of plans for a specific child portal matching the provided filters.
+      operationId: retrievePlanHistory
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: plan_ids[]
+        required: false
+        in: query
+        description: Filter by specific plan IDs.
+        schema:
+          example:
+          - pln_1234567
+          type: array
+          items:
+            type: string
+      - name: actions[]
+        required: false
+        in: query
+        description: Filter by the action type of the history event.
+        schema:
+          example:
+          - plan_created
+          type: array
+          items:
+            type: string
+      - name: offset
+        required: false
+        in: query
+        description: For use in pagination. The item number within a List request to start displaying results after.
+        schema:
+          example: 0
+          type: number
+      - name: limit
+        required: false
+        in: query
+        description: A limit on the number of objects to be returned. The default is 50.
+        schema:
+          example: 50
+          type: number
+      responses:
+        '200':
+          description: List of plan history
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: number
+                    description: The total number of retrievable results from the request.
+                    example: 100
+                  hits:
+                    description: An array containing the requested results.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: pln_01DRBZ0CR06CWKGDHR6WTKADHG
+                          description: The id of the plan.
+                        portal_id:
+                          type: string
+                          example: '36184809'
+                          description: The Go1 portal id which the plan was created for.
+                        status:
+                          enum:
+                          - active
+                          - expired
+                          - cancelled
+                          - pending
+                          type: string
+                          example: active
+                          description: "The current state of the plan.\n  - active: The plan is currently within the term dates and is available.\n  - expired: The plan has naturally reached its end date.\n  - cancelled: The plan has been manually cancelled.\n  - pending: The plan has not yet started; the start date is in the future."
+                        start_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36.000Z'
+                          description: The start time of the plan (ISO 8601 in UTC), when the plan will become active and access is given.
+                        end_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36.000Z'
+                          description: The end time of the plan (ISO 8601 in UTC), when the plan will renew or expire.
+                        created_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36.000Z'
+                          description: The timestamp when the plan was created (ISO 8601 in UTC).
+                        updated_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36.000Z'
+                          description: The timestamp when the plan was last updated  (ISO 8601 in UTC).
+                        auto_renew:
+                          type: boolean
+                          example: true
+                          description: Whether this plan will automatically renew at the end of the term.
+                        renewal_term:
+                          description: The details of renewal term. If auto_renew is false, then this field will be null
+                          allOf:
+                          - type: object
+                            properties:
+                              value:
+                                type: number
+                                description: The numerical value of the duration.
+                                example: 6
+                              unit:
+                                description: The unit of time for the duration. Available values are "months".
+                                example: months
+                                enum:
+                                - months
+                                - days
+                                type: string
+                            required:
+                            - value
+                            - unit
+                        term:
+                          description: The duration of the plan.
+                          allOf:
+                          - type: object
+                            properties:
+                              value:
+                                type: number
+                                description: The numerical value of the duration.
+                                example: 6
+                              unit:
+                                description: The unit of time for the duration. Available values are "months".
+                                example: months
+                                enum:
+                                - months
+                                - days
+                                type: string
+                            required:
+                            - value
+                            - unit
+                        entitlements:
+                          description: The details of the products this plan is entitled to.
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              product_key:
+                                type: string
+                                example: pk_22ZHBZ0CR00CWKGDHR6WTKADAU
+                                description: The key which represents the product associated with the plan.
+                              variant_key:
+                                type: string
+                                example: vk_22ZHBZ0CR00CWKGDHR6WTKADAU
+                                description: The key which represents the variant associated with the plan.
+                              status:
+                                enum:
+                                - active
+                                - cancelled
+                                type: string
+                                example: active
+                                description: The current state of the plan.
+                              license_count:
+                                type: number
+                                example: 36184809
+                                description: The number of user licenses included in the plan.
+                              created_time:
+                                type: string
+                                format: date-time
+                                example: '2022-03-29T01:29:36.000Z'
+                                description: The timestamp when the plan was created (ISO 8601 in UTC).
+                              updated_time:
+                                type: string
+                                format: date-time
+                                example: '2022-03-29T01:29:36.000Z'
+                                description: The timestamp when the plan was last updated  (ISO 8601 in UTC).
+                            required:
+                            - product_key
+                            - status
+                            - license_count
+                            - created_time
+                            - updated_time
+                      required:
+                      - id
+                      - portal_id
+                      - status
+                      - start_time
+                      - end_time
+                      - created_time
+                      - updated_time
+                      - auto_renew
+                      - term
+                required:
+                - total
+                - hits
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                PERMISSION_INVALID_ADMIN_REQUIRED:
+                  value:
+                    error_code: PERMISSION_INVALID_ADMIN_REQUIRED
+                    message: User must be an admin to perform this action.
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                PORTAL_NOT_FOUND:
+                  value:
+                    error_code: PORTAL_NOT_FOUND
+                    message: Portal not found.
+      security:
+      - OAuth2:
+        - plan.read
+      summary: List the history of plans on the portal
+      tags:
+      - Plans
+  /portals/{portal_id}/plans/{plan_id}/schedule:
+    get:
+      description: Retrieves details of a scheduled plan
+      operationId: getScheduledPlan
+      parameters:
+      - name: portal_id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: plan_id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Scheduled plan retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: number
+                    description: The total number of retrievable results from the request.
+                    example: 100
+                  hits:
+                    description: An array containing the requested results.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: pln_01DRBZ0CR06CWKGDHR6WTKADHG
+                          description: The id of the plan.
+                        portal_id:
+                          type: string
+                          example: '36184809'
+                          description: The Go1 portal id which the plan was created for.
+                        status:
+                          enum:
+                          - active
+                          - expired
+                          - cancelled
+                          - pending
+                          type: string
+                          example: active
+                          description: "The current state of the plan.\n  - active: The plan is currently within the term dates and is available.\n  - expired: The plan has naturally reached its end date.\n  - cancelled: The plan has been manually cancelled.\n  - pending: The plan has not yet started; the start date is in the future."
+                        start_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36.000Z'
+                          description: The start time of the plan (ISO 8601 in UTC), when the plan will become active and access is given.
+                        end_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36.000Z'
+                          description: The end time of the plan (ISO 8601 in UTC), when the plan will renew or expire.
+                        created_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36.000Z'
+                          description: The timestamp when the plan was created (ISO 8601 in UTC).
+                        updated_time:
+                          type: string
+                          format: date-time
+                          example: '2022-03-29T01:29:36.000Z'
+                          description: The timestamp when the plan was last updated  (ISO 8601 in UTC).
+                        auto_renew:
+                          type: boolean
+                          example: true
+                          description: Whether this plan will automatically renew at the end of the term.
+                        renewal_term:
+                          description: The details of renewal term. If auto_renew is false, then this field will be null
+                          allOf:
+                          - type: object
+                            properties:
+                              value:
+                                type: number
+                                description: The numerical value of the duration.
+                                example: 6
+                              unit:
+                                description: The unit of time for the duration. Available values are "months".
+                                example: months
+                                enum:
+                                - months
+                                - days
+                                type: string
+                            required:
+                            - value
+                            - unit
+                        term:
+                          description: The duration of the plan.
+                          allOf:
+                          - type: object
+                            properties:
+                              value:
+                                type: number
+                                description: The numerical value of the duration.
+                                example: 6
+                              unit:
+                                description: The unit of time for the duration. Available values are "months".
+                                example: months
+                                enum:
+                                - months
+                                - days
+                                type: string
+                            required:
+                            - value
+                            - unit
+                        entitlements:
+                          description: The details of the products this plan is entitled to.
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              product_key:
+                                type: string
+                                example: pk_22ZHBZ0CR00CWKGDHR6WTKADAU
+                                description: The key which represents the product associated with the plan.
+                              variant_key:
+                                type: string
+                                example: vk_22ZHBZ0CR00CWKGDHR6WTKADAU
+                                description: The key which represents the variant associated with the plan.
+                              status:
+                                enum:
+                                - active
+                                - cancelled
+                                type: string
+                                example: active
+                                description: The current state of the plan.
+                              license_count:
+                                type: number
+                                example: 36184809
+                                description: The number of user licenses included in the plan.
+                              created_time:
+                                type: string
+                                format: date-time
+                                example: '2022-03-29T01:29:36.000Z'
+                                description: The timestamp when the plan was created (ISO 8601 in UTC).
+                              updated_time:
+                                type: string
+                                format: date-time
+                                example: '2022-03-29T01:29:36.000Z'
+                                description: The timestamp when the plan was last updated  (ISO 8601 in UTC).
+                            required:
+                            - product_key
+                            - status
+                            - license_count
+                            - created_time
+                            - updated_time
+                      required:
+                      - id
+                      - portal_id
+                      - status
+                      - start_time
+                      - end_time
+                      - created_time
+                      - updated_time
+                      - auto_renew
+                      - term
+                required:
+                - total
+                - hits
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                PERMISSION_INVALID_ADMIN_REQUIRED:
+                  value:
+                    error_code: PERMISSION_INVALID_ADMIN_REQUIRED
+                    message: User must be an admin to perform this action.
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                PLAN_NOT_FOUND:
+                  value:
+                    error_code: PLAN_NOT_FOUND
+                    message: Plan not found.
+                PORTAL_NOT_FOUND:
+                  value:
+                    error_code: PORTAL_NOT_FOUND
+                    message: Portal not found.
+      security:
+      - OAuth2:
+        - plan.read
+      summary: Get a scheduled plan
+      tags:
+      - Plans
+    delete:
+      description: Deletes a scheduled plan
+      operationId: deleteScheduledPlan
+      parameters:
+      - name: portal_id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: plan_id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Scheduled plan deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                PERMISSION_INVALID_ADMIN_REQUIRED:
+                  value:
+                    error_code: PERMISSION_INVALID_ADMIN_REQUIRED
+                    message: User must be an admin to perform this action.
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                PLAN_NOT_FOUND:
+                  value:
+                    error_code: PLAN_NOT_FOUND
+                    message: Plan not found.
+                PORTAL_NOT_FOUND:
+                  value:
+                    error_code: PORTAL_NOT_FOUND
+                    message: Portal not found.
+      security:
+      - OAuth2:
+        - plan.write
+      summary: Delete a scheduled plan
+      tags:
+      - Plans
+    post:
+      description: Schedules updates to a plan and its entitlements to take effect at a specific time
+      operationId: setPlanSchedule
+      parameters:
+      - name: portal_id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: plan_id
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                effective_time:
+                  type: string
+                  format: date-time
+                  example: '2025-03-01T00:00:00.000Z'
+                  description: The effective time when the changes take place (ISO 8601 in UTC).
+                term:
+                  description: The term duration of the request.
+                  allOf:
+                  - type: object
+                    properties:
+                      value:
+                        type: number
+                        description: The numerical value of the duration.
+                        example: 6
+                      unit:
+                        description: The unit of time for the duration. Available values are "months".
+                        example: months
+                        enum:
+                        - months
+                        - days
+                        type: string
+                    required:
+                    - value
+                    - unit
+                entitlements:
+                  description: The entitlements associated with the plan request.
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_key:
+                        type: string
+                        example: pk_22ZHBZ0CR00CWKGDHR6WTKADAU
+                        description: The key which represents the product associated with the plan.
+                      variant_key:
+                        type: string
+                        example: vk_22ZHBZ0CR00CWKGDHR6WTKADAU
+                        description: The key representing the variant which the entitlement will be provisioned with.
+                      license_count:
+                        type: number
+                        example: 100
+                        description: The number of user licenses included in the plan.
+                    required:
+                    - product_key
+                    - license_count
+                start_time:
+                  type: string
+                  format: date-time
+                  example: '2025-03-01T00:00:00.000Z'
+                  description: The start time of the plan (ISO 8601 in UTC).
+              required:
+              - entitlements
+      responses:
+        '200':
+          description: Scheduled plan updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Scheduled plan was successfully updated.
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: sch_01DXYZ123ABC
+                    description: The ID of the scheduled plan edit.
+                  status:
+                    type: string
+                    example: pending
+                    description: The status of the scheduled plan edit.
+                  portal_id:
+                    type: string
+                    example: '36184809'
+                    description: The Go1 portal ID where the scheduled plan edit was created.
+                  plan_id:
+                    type: string
+                    example: pln_01DRBZ0CR06CWKGDHR6WTKADHG
+                    description: The ID of the plan being modified.
+                  user_id:
+                    type: string
+                    example: user_12345
+                    description: The ID of the user associated with the scheduled plan.
+                  created_time:
+                    type: string
+                    format: date-time
+                    example: '2025-02-15T12:00:00.000Z'
+                    description: The time when the scheduled plan was created (ISO 8601 in UTC).
+                  updated_time:
+                    type: string
+                    format: date-time
+                    example: '2025-02-16T12:00:00.000Z'
+                    description: The time when the scheduled plan was last updated (ISO 8601 in UTC).
+                  effective_time:
+                    type: string
+                    format: date-time
+                    example: '2025-03-01T00:00:00.000Z'
+                    description: The effective time when the scheduled plan changes take place (ISO 8601 in UTC).
+                  scheduled_details:
+                    description: Details about the scheduled plan changes.
+                    allOf:
+                    - type: object
+                      properties:
+                        entitlements:
+                          description: The entitlements associated with the scheduled details.
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              product_key:
+                                type: string
+                                example: pk_22ZHBZ0CR00CWKGDHR6WTKADAU
+                                description: The key which represents the product associated with the plan.
+                              variant_key:
+                                type: string
+                                example: vk_22ZHBZ0CR00CWKGDHR6WTKADAU
+                                description: The key which represents the variant associated with the plan.
+                              status:
+                                enum:
+                                - active
+                                - cancelled
+                                type: string
+                                example: active
+                                description: The current state of the plan.
+                              license_count:
+                                type: number
+                                example: 36184809
+                                description: The number of user licenses included in the plan.
+                              created_time:
+                                type: string
+                                format: date-time
+                                example: '2022-03-29T01:29:36.000Z'
+                                description: The timestamp when the plan was created (ISO 8601 in UTC).
+                              updated_time:
+                                type: string
+                                format: date-time
+                                example: '2022-03-29T01:29:36.000Z'
+                                description: The timestamp when the plan was last updated  (ISO 8601 in UTC).
+                            required:
+                            - product_key
+                            - status
+                            - license_count
+                            - created_time
+                            - updated_time
+                        term:
+                          description: The term duration of the scheduled details.
+                          allOf:
+                          - type: object
+                            properties:
+                              value:
+                                type: number
+                                description: The numerical value of the duration.
+                                example: 6
+                              unit:
+                                description: The unit of time for the duration. Available values are "months".
+                                example: months
+                                enum:
+                                - months
+                                - days
+                                type: string
+                            required:
+                            - value
+                            - unit
+                      required:
+                      - entitlements
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                PERMISSION_INVALID_ADMIN_REQUIRED:
+                  value:
+                    error_code: PERMISSION_INVALID_ADMIN_REQUIRED
+                    message: User must be an admin to perform this action.
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                PLAN_NOT_FOUND:
+                  value:
+                    error_code: PLAN_NOT_FOUND
+                    message: Plan not found.
+      security:
+      - OAuth2:
+        - plan.write
+      summary: Schedule a plan update
+      tags:
+      - Plans
+  /portals/{portal_id}/plans/{plan_id}/cancel:
+    post:
+      description: Cancels a plan, preventing renewal of linked entitlements.
+      operationId: cancelPortalPlan
+      parameters:
+      - name: portal_id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: plan_id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Plan cancelled successfully
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                PLAN_ALREADY_CANCELLED:
+                  value:
+                    error_code: PLAN_ALREADY_CANCELLED
+                    message: Plan is already cancelled.
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                PERMISSION_INVALID_ADMIN_REQUIRED:
+                  value:
+                    error_code: PERMISSION_INVALID_ADMIN_REQUIRED
+                    message: User must be an admin to perform this action.
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - AUTH_NOT_GRANTED_BY_USED_CREDENTIALS
+                    - USER_INVALID_PORTAL_ID
+                    - GET_CHILD_FAILED
+                    - NO_ACCESS_TO_PORTAL
+                    - PERMISSION_INVALID_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ACCOUNT_ROLE
+                    - INVALID_REQUEST
+                    - PORTAL_NOT_FOUND
+                    - PLAN_NOT_FOUND
+                    - PLAN_ALREADY_CANCELLED
+                    - PLAN_PAST_START_DATE
+                    - PRODUCT_NOT_FOUND
+                    - ACTIVE_PLAN_ALREADY_EXISTS
+                    - INTERNAL_SERVER_ERROR
+                    - PLAN_SCHEDULE_NOT_FOUND
+                    - PLAN_HISTORY_NOT_FOUND
+                    - PLAN_NOT_TRIAL
+                    - PLAN_NOT_EXPIRED
+                    - EXTENSION_WINDOW_CLOSED
+                    - EXTENSION_ALREADY_USED
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                PLAN_NOT_FOUND:
+                  value:
+                    error_code: PLAN_NOT_FOUND
+                    message: Plan not found.
+                PORTAL_NOT_FOUND:
+                  value:
+                    error_code: PORTAL_NOT_FOUND
+                    message: Portal not found.
+      security:
+      - OAuth2:
+        - plan.write
+      summary: Cancel a plan
+      tags:
+      - Plans
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: OAuth 2.0 via a Go1 Developer App (client_id/client_secret). See https://developers.go1.com/docs/developer-tools/auth/overview-auth
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.go1.com/oauth/token
+          scopes:
+            enrollment.read: ''
+            enrollment.write: ''
+            group.read: ''
+            group.write: ''
+            lo.launch: ''
+            lo.read: ''
+            lo.write: ''
+            plan.read: ''
+            plan.write: ''
+            portal.read: ''
+            portal.write: ''
+            user.login: ''
+            user.read: ''
+            user.write: ''
+            webhook.read: ''
+            webhook.write: ''
+        authorizationCode:
+          authorizationUrl: https://auth.go1.com/oauth/authorize
+          tokenUrl: https://auth.go1.com/oauth/token
+          scopes:
+            enrollment.read: ''
+            enrollment.write: ''
+            group.read: ''
+            group.write: ''
+            lo.launch: ''
+            lo.read: ''
+            lo.write: ''
+            plan.read: ''
+            plan.write: ''
+            portal.read: ''
+            portal.write: ''
+            user.login: ''
+            user.read: ''
+            user.write: ''
+            webhook.read: ''
+            webhook.write: ''
+    bearer:
+      type: http
+      scheme: bearer
+      description: Access token sent in the Authorization header (named "bearer" by some operations in the reference).

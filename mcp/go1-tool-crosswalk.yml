@@ -1,0 +1,132 @@
+generated: '2026-10-21'
+method: derived
+source:
+- https://help.go1.com/en/articles/15469776-connecting-to-the-go1-mcp-server
+- openapi/
+crosswalk:
+- tool: search_content
+  category: content-discovery
+  rest:
+  - learning-objects-v3-search
+  binding: GET /learning-objects (keyword, duration[][], entry_level[], language[], providers[], skills[] filters)
+  confidence: medium
+  note: Bound by documented semantics; live inputSchema gated (401).
+- tool: get_content_facets
+  category: content-discovery
+  rest:
+  - learning-objects-v3-search
+  binding: GET /learning-objects with facets[] parameter
+  confidence: low
+  note: REST search exposes a facets[] parameter; whether the tool calls it is not documented.
+- tool: get_playlist_details
+  category: playlists
+  rest:
+  - playlistController_getPlaylistDetails
+  - playlistController_getPlaylistLos
+  binding: GET /playlists/{id} + GET /playlists/{id}/learning-objects
+  confidence: medium
+  note: Documented as returning the ordered playlist contents.
+- tool: get_content_alternatives
+  category: content-lifecycle
+  rest:
+  - getRetiringContentAlternatives
+  binding: GET /learning-objects/{id}/alternatives
+  confidence: high
+  note: Same function (alternatives for decommissioned content) on both surfaces; live schema gated.
+mcp_only:
+- tool: suggest_skills
+  reason: No public REST operation returns skill recommendations for a role/topic in the 2025-01-01 OpenAPI.
+rest_only:
+- CategoriesController_getCategory
+- CollectionDeltaController_browseCollectionsDeltas
+- RegulationsController_getRegulations
+- WebhookController_createPortalWebhookConfiguration
+- WebhookController_getPortalWebhookConfiguration
+- WebhookController_updatePortalWebhookConfiguration
+- addContentsById
+- cancelPortalPlan
+- createPlan
+- createPortal
+- createUserAccount
+- deleteScheduledPlan
+- download_enrollment_controller
+- enrolmentCreateController_postV3
+- enrolmentDeleteController_delete
+- enrolmentLoadController_getSlimEnrollment
+- enrolmentLoadController_patchSlimEnrollment
+- enrolmentSearchController_get
+- files-upload-url
+- generateOneTimeTokenLoginLink
+- getPlans
+- getPortal
+- getPortals
+- getScheduledPlan
+- getUserAccount
+- learning-objects-download-scorm-package
+- learning-objects-v3-create
+- learning-objects-v3-delete
+- learning-objects-v3-get
+- learning-objects-v3-update
+- list-restrictions
+- patchPlan
+- patchPortal
+- playLinkController_postPlayLinks
+- playlistController_addLOToPlaylist
+- playlistController_createPlaylist
+- playlistController_reOrderPlaylist
+- post-restriction-create
+- put-restriction-update
+- removeContentsById
+- retrievePlanHistory
+- scimCreateGroup
+- scimCreateUser
+- scimDeleteGroup
+- scimDeleteUser
+- scimGetConfigurationSchema
+- scimGetGroup
+- scimGetResourceTypes
+- scimGetRoleTypes
+- scimGetSchema
+- scimGetSchemas
+- scimGetUser
+- scimGetUsersByFilter
+- scimGetUsersByFilterUsingPost
+- scimListGroups
+- scimPatchGroup
+- scimPatchUser
+- scimPutGroup
+- scimPutUser
+- searchAccountsBasic
+- setPlanSchedule
+- swapContents
+- updatePlanEntitlements
+- updateUserAccount
+surfaces:
+  openapi:
+  - openapi/go1-categories-api-openapi.yml
+  - openapi/go1-collections-api-openapi.yml
+  - openapi/go1-compliance-api-openapi.yml
+  - openapi/go1-enrollments-api-openapi.yml
+  - openapi/go1-files-api-openapi.yml
+  - openapi/go1-learning-objects-api-openapi.yml
+  - openapi/go1-plans-api-openapi.yml
+  - openapi/go1-play-links-api-openapi.yml
+  - openapi/go1-playlists-api-openapi.yml
+  - openapi/go1-portals-api-openapi.yml
+  - openapi/go1-restrictions-api-openapi.yml
+  - openapi/go1-scim-api-openapi.yml
+  - openapi/go1-user-accounts-api-openapi.yml
+  - openapi/go1-webhooks-api-openapi.yml
+  openapi_base: https://gateway.go1.com
+  graphql: null
+  mcp:
+    url: https://mcp.go1.com/mcp
+    gated: true
+    status_unauthenticated: 401
+coverage:
+  mcp_tools: 5
+  mapped: 4
+  mcp_only: 1
+  rest_operations: 68
+  rest_operations_bound: 4
+  rest_only: 64

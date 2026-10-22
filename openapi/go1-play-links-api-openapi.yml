@@ -1,0 +1,177 @@
+openapi: 3.2.0
+info:
+  title: Go1 Play links API
+  version: '2025-01-01'
+  description: Go1 REST API, version 2025-01-01, as published in the Go1 developer API reference. Every path operation is the provider's own OpenAPI operation object, copied verbatim from the endpoints data embedded in each reference page (__NEXT_DATA__ pageProps.endpoints) on developers.go1.com. The info, servers and securitySchemes envelope is assembled from the reference overview (base URL https://gateway.go1.com, Api-Version header) and the OAuth 2.0 grant guides (auth.go1.com token/authorize URLs); scope descriptions are left blank because the operations name scopes without describing them.
+  contact:
+    name: Go1 Developer Support
+    url: https://developers.go1.com/
+  x-assembled-from:
+  - https://developers.go1.com/api/rest/2025-01-01/overview/
+  - https://developers.go1.com/api/rest/2025-01-01/categories/
+  - https://developers.go1.com/api/rest/2025-01-01/collections/
+  - https://developers.go1.com/api/rest/2025-01-01/compliance/
+  - https://developers.go1.com/api/rest/2025-01-01/enrollments/
+  - https://developers.go1.com/api/rest/2025-01-01/files/
+  - https://developers.go1.com/api/rest/2025-01-01/learning-objects/
+  - https://developers.go1.com/api/rest/2025-01-01/plans/
+  - https://developers.go1.com/api/rest/2025-01-01/play-links/
+  - https://developers.go1.com/api/rest/2025-01-01/playlists/
+  - https://developers.go1.com/api/rest/2025-01-01/portals/
+  - https://developers.go1.com/api/rest/2025-01-01/restrictions/
+  - https://developers.go1.com/api/rest/2025-01-01/scim/
+  - https://developers.go1.com/api/rest/2025-01-01/user-accounts/
+  - https://developers.go1.com/api/rest/2025-01-01/webhooks/
+  x-assembled: '2026-10-21'
+servers:
+- url: https://gateway.go1.com
+  description: Go1 API gateway (stated as the Base URL in the API reference overview)
+tags:
+- name: Play links
+  description: 'Play links are the means by which a user is granted access to play learning content within the Go1 Player, a Go1-hosted UI for playing learning objects. A play link consists of a URL that when loaded, will log a user into the player to access and play a learning object.
+
+
+    For security reasons, sessions are short-lived and will expire if the customer does not visit the URL. Create sessions on-demand when users intend to play some Go1 content.'
+  x-source: https://developers.go1.com/api/rest/2025-01-01/play-links/
+paths:
+  /play-links:
+    post:
+      security:
+      - OAuth2:
+        - lo.launch
+      operationId: playLinkController_postPlayLinks
+      summary: Create a play link
+      tags:
+      - Play links
+      description: Creates a single-use play link that logs a user into the Go1 Player web app to play a learning object.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lo_id:
+                  type: string
+                  example: '123'
+                  description: The ID of the learning object that the play link will be generated for.
+                user_account_id:
+                  type: string
+                  example: acc_01FQJ81S0070SK8E9J74RKEE1J
+                  description: The ID of the user account that the play link will be generated for. This user will be logged into the Go1 player to access and play the learning object.
+                player_configuration:
+                  type: object
+                  description: Player configuration settings, that can be enabled or disabled for each play link that is generated. These settings offer a way to alter the player UI and behaviour in various ways. Enabled config parameters will be added to the returned play link URL as query parameters.
+                  example:
+                    recommendations: 0
+                    title: 1
+                    header: 1
+                    sidebar: open
+                    restart: 0
+                    exitAction: 3
+                    exitUrl: https://example.com
+                  properties:
+                    recommendations:
+                      type: integer
+                      example: 0
+                      description: Whether to show or hide content recommendations in the player. Recommendations are displayed as a modal in the player after a learner completes the learning object. Set `recommendations=0` to hide and `recommendations=1` (default) to show.
+                    title:
+                      type: integer
+                      example: 1
+                      description: Whether to show or hide the title of the learning object in the top header bar of the player (desktop view). Set `title=0` to hide and `title=1` (default) to show.
+                    header:
+                      type: integer
+                      example: 1
+                      description: Whether to show or hide the entire top header bar of the player (desktop view). Set `header=0` to hide and `header=1` (default) to show.
+                    sidebar:
+                      type: string
+                      example: open
+                      description: A setting that determines how the sidebar will behave when loading the player. Set `sidebar=closed` to remove the sidebar completely, `sidebar=collapsed` to load the player with the sidebar in a collapsed state, `sidebar=open` (default) to load the player with the sidebar in an open state.
+                      enum:
+                      - closed
+                      - collapsed
+                      - open
+                    restart:
+                      type: integer
+                      example: 0
+                      description: A setting that determines whether the given user will be re-enrolled into the learning object when the player loads, causing any previous enrollment and content progression to be archived. Set `restart=1` to re-enroll the user, or `restart=0` (default) to not re-enroll the user, and use an existing enrollment if one is available.
+                    exitAction:
+                      type: integer
+                      example: 3
+                      description: A setting that determines the behaviour of the exit button in the player. Set `exitAction=1` to remove the exit button from the player UI. Set `exitAction=2` to redirect the user to a specified `exitUrl` upon clicking the exit button, must include the `exitUrl` property. Set `exitAction=3` (default) to send the user back to the previous Go1 page.
+                    exitUrl:
+                      type: string
+                      example: https://example.com
+                      description: A URL that the user is redirected to when they click the exit button in the player, must be used with the `exitAction=2` property.
+              required:
+              - lo_id
+              - user_account_id
+      responses:
+        '200':
+          description: Returns the play link URL.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    example: https://example.mygo1.com/play/111111?recommendations=1
+                    description: The play link URL.
+                required:
+                - url
+        '400':
+          description: Invalid parameters provided.
+        '403':
+          description: User account has been deactivated.
+        '404':
+          description: User account not found.
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: OAuth 2.0 via a Go1 Developer App (client_id/client_secret). See https://developers.go1.com/docs/developer-tools/auth/overview-auth
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.go1.com/oauth/token
+          scopes:
+            enrollment.read: ''
+            enrollment.write: ''
+            group.read: ''
+            group.write: ''
+            lo.launch: ''
+            lo.read: ''
+            lo.write: ''
+            plan.read: ''
+            plan.write: ''
+            portal.read: ''
+            portal.write: ''
+            user.login: ''
+            user.read: ''
+            user.write: ''
+            webhook.read: ''
+            webhook.write: ''
+        authorizationCode:
+          authorizationUrl: https://auth.go1.com/oauth/authorize
+          tokenUrl: https://auth.go1.com/oauth/token
+          scopes:
+            enrollment.read: ''
+            enrollment.write: ''
+            group.read: ''
+            group.write: ''
+            lo.launch: ''
+            lo.read: ''
+            lo.write: ''
+            plan.read: ''
+            plan.write: ''
+            portal.read: ''
+            portal.write: ''
+            user.login: ''
+            user.read: ''
+            user.write: ''
+            webhook.read: ''
+            webhook.write: ''
+    bearer:
+      type: http
+      scheme: bearer
+      description: Access token sent in the Authorization header (named "bearer" by some operations in the reference).

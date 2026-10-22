@@ -1,12 +1,22 @@
 {
   "provider": "go1",
   "sources": [
-    "_original/go1-openapi.yml"
+    "_original/go1-openapi-2025-01-01.json"
   ],
   "outputs": [
+    "go1-categories-api-openapi.yml",
+    "go1-collections-api-openapi.yml",
+    "go1-compliance-api-openapi.yml",
     "go1-enrollments-api-openapi.yml",
+    "go1-files-api-openapi.yml",
     "go1-learning-objects-api-openapi.yml",
+    "go1-plans-api-openapi.yml",
+    "go1-play-links-api-openapi.yml",
+    "go1-playlists-api-openapi.yml",
     "go1-portals-api-openapi.yml",
+    "go1-restrictions-api-openapi.yml",
+    "go1-scim-api-openapi.yml",
+    "go1-user-accounts-api-openapi.yml",
     "go1-webhooks-api-openapi.yml"
   ],
   "archived": [],
@@ -14,14 +24,23 @@
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
-    "go1-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "go1-openapi.yml: declared missing tag: Learning objects",
+    "go1-openapi-2025-01-01.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
   "skipped": [
+    "go1-categories-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "go1-collections-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "go1-compliance-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "go1-enrollments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "go1-files-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "go1-learning-objects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "go1-plans-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "go1-play-links-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "go1-playlists-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "go1-portals-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "go1-restrictions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "go1-scim-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "go1-user-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "go1-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
   ]
 }

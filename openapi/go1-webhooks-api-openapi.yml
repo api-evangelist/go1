@@ -2,18 +2,37 @@ openapi: 3.2.0
 info:
   title: Go1 Webhooks API
   version: '2025-01-01'
-  description: The Go1 API lets partners and platforms discover Go1's learning content library, manage learner enrollments, provision and manage customer portals, and subscribe to Go1 events via webhooks.
+  description: Go1 REST API, version 2025-01-01, as published in the Go1 developer API reference. Every path operation is the provider's own OpenAPI operation object, copied verbatim from the endpoints data embedded in each reference page (__NEXT_DATA__ pageProps.endpoints) on developers.go1.com. The info, servers and securitySchemes envelope is assembled from the reference overview (base URL https://gateway.go1.com, Api-Version header) and the OAuth 2.0 grant guides (auth.go1.com token/authorize URLs); scope descriptions are left blank because the operations name scopes without describing them.
   contact:
     name: Go1 Developer Support
     url: https://developers.go1.com/
-  termsOfService: https://www.go1.com/terms/customer-terms
+  x-assembled-from:
+  - https://developers.go1.com/api/rest/2025-01-01/overview/
+  - https://developers.go1.com/api/rest/2025-01-01/categories/
+  - https://developers.go1.com/api/rest/2025-01-01/collections/
+  - https://developers.go1.com/api/rest/2025-01-01/compliance/
+  - https://developers.go1.com/api/rest/2025-01-01/enrollments/
+  - https://developers.go1.com/api/rest/2025-01-01/files/
+  - https://developers.go1.com/api/rest/2025-01-01/learning-objects/
+  - https://developers.go1.com/api/rest/2025-01-01/plans/
+  - https://developers.go1.com/api/rest/2025-01-01/play-links/
+  - https://developers.go1.com/api/rest/2025-01-01/playlists/
+  - https://developers.go1.com/api/rest/2025-01-01/portals/
+  - https://developers.go1.com/api/rest/2025-01-01/restrictions/
+  - https://developers.go1.com/api/rest/2025-01-01/scim/
+  - https://developers.go1.com/api/rest/2025-01-01/user-accounts/
+  - https://developers.go1.com/api/rest/2025-01-01/webhooks/
+  x-assembled: '2026-10-21'
 servers:
 - url: https://gateway.go1.com
-  description: Go1 API gateway (production)
-security:
-- OAuth2: []
+  description: Go1 API gateway (stated as the Base URL in the API reference overview)
 tags:
 - name: Webhooks
+  description: 'Webhooks can be configured via the API to notify your application when a notable events take place in your Go1 portal or your connected customer portals, for example when an enrollment occurs, or when a user is updated. Events are sent to an endpoint URL that is specified by you when creating a new webhook.
+
+
+    Use this resource to create, retrieve and update webhooks. For a list of webhook events, including more information about each event, see the Webhook events resource section.'
+  x-source: https://developers.go1.com/api/rest/2025-01-01/webhooks/
 paths:
   /webhooks:
     get:
@@ -558,28 +577,48 @@ components:
   securitySchemes:
     OAuth2:
       type: oauth2
-      description: OAuth 2.0. Server-to-server integrations use the client_credentials flow; user-context integrations use the authorization_code flow. Access tokens are valid for 12 hours.
+      description: OAuth 2.0 via a Go1 Developer App (client_id/client_secret). See https://developers.go1.com/docs/developer-tools/auth/overview-auth
       flows:
         clientCredentials:
           tokenUrl: https://auth.go1.com/oauth/token
           scopes:
-            lo.read: Read learning objects (content catalog).
-            lo.write: Create, update and delete learning objects.
-            enrollment.read: Read enrollments and completion records.
-            enrollment.write: Create, update and delete enrollments.
-            webhook.read: Read webhook configurations.
-            webhook.write: Create, update and delete webhook configurations.
-            portal.read: Read customer portals.
-            portal.write: Create and update customer portals.
+            enrollment.read: ''
+            enrollment.write: ''
+            group.read: ''
+            group.write: ''
+            lo.launch: ''
+            lo.read: ''
+            lo.write: ''
+            plan.read: ''
+            plan.write: ''
+            portal.read: ''
+            portal.write: ''
+            user.login: ''
+            user.read: ''
+            user.write: ''
+            webhook.read: ''
+            webhook.write: ''
         authorizationCode:
           authorizationUrl: https://auth.go1.com/oauth/authorize
           tokenUrl: https://auth.go1.com/oauth/token
           scopes:
-            lo.read: Read learning objects (content catalog).
-            lo.write: Create, update and delete learning objects.
-            enrollment.read: Read enrollments and completion records.
-            enrollment.write: Create, update and delete enrollments.
-            webhook.read: Read webhook configurations.
-            webhook.write: Create, update and delete webhook configurations.
-            portal.read: Read customer portals.
-            portal.write: Create and update customer portals.
+            enrollment.read: ''
+            enrollment.write: ''
+            group.read: ''
+            group.write: ''
+            lo.launch: ''
+            lo.read: ''
+            lo.write: ''
+            plan.read: ''
+            plan.write: ''
+            portal.read: ''
+            portal.write: ''
+            user.login: ''
+            user.read: ''
+            user.write: ''
+            webhook.read: ''
+            webhook.write: ''
+    bearer:
+      type: http
+      scheme: bearer
+      description: Access token sent in the Authorization header (named "bearer" by some operations in the reference).

@@ -1,6 +1,6 @@
-generated: '2026-07-19'
-method: derived
-source: openapi/go1-openapi.yml (4xx/5xx responses)
+generated: '2026-10-21'
+method: searched
+source: https://developers.go1.com/api/rest/2025-01-01/overview/#status-and-error-codes
 format: custom-json
 envelope:
   content_type: application/json
@@ -18,6 +18,34 @@ known_error_codes:
   meaning: An enrollment already exists for the user and learning object.
   operation: enrolmentCreateController_postV3
 problems:
+- status: 400
+  title: BAD REQUEST
+  description: The request was unacceptable, eg. due to missing a required parameter.
+  source: docs
+- status: 401
+  title: UNAUTHORIZED
+  description: The access token provided is not valid.
+  source: docs
+- status: 403
+  title: FORBIDDEN
+  description: The access token does not have permissions to perform the request.
+  source: docs
+- status: 404
+  title: NOT FOUND
+  description: The requested resource was not found.
+  source: docs
+- status: 409
+  title: CONFLICT
+  description: The request conflicts with an existing resource.
+  source: docs
+- status: 429
+  title: TOO MANY REQUESTS
+  description: Rate limit exceeded. Too many requests hit the API too quickly.
+  source: docs
+- status: 500
+  title: INTERNAL SERVER ERROR
+  description: Something went wrong on Go1’s end.
+  source: docs
 - status: 401
   title: User is unauthenticated.
   source_operation: openapi/go1-openapi.yml#WebhookController_getPortalWebhookConfiguration
@@ -163,8 +191,8 @@ problems:
   title: User is unauthenticated.
   source_operation: openapi/go1-openapi.yml#enrolmentSearchController_get
 - status: 403
-  title: Only portal administrators can query another user's enrollments. To retrieve enrollments that
-    belong to you. Include you
+  title: Only portal administrators can query another user's enrollments. To retrieve enrollments that belong to
+    you. Include you
   source_operation: openapi/go1-openapi.yml#enrolmentSearchController_get
 - status: 500
   title: Server error
@@ -220,3 +248,30 @@ problems:
 - status: 404
   title: Not found
   source_operation: openapi/go1-openapi.yml#patchPortal
+derived_from: openapi/_original/go1-openapi-2025-01-01.json (4xx/5xx responses)
+documented_status_codes:
+- status: 200
+  title: OK
+  description: Everything worked as expected.
+- status: 400
+  title: BAD REQUEST
+  description: The request was unacceptable, eg. due to missing a required parameter.
+- status: 401
+  title: UNAUTHORIZED
+  description: The access token provided is not valid.
+- status: 403
+  title: FORBIDDEN
+  description: The access token does not have permissions to perform the request.
+- status: 404
+  title: NOT FOUND
+  description: The requested resource was not found.
+- status: 409
+  title: CONFLICT
+  description: The request conflicts with an existing resource.
+- status: 429
+  title: TOO MANY REQUESTS
+  description: Rate limit exceeded. Too many requests hit the API too quickly.
+- status: 500
+  title: INTERNAL SERVER ERROR
+  description: Something went wrong on Go1’s end.
+scim_error_schema: urn:ietf:params:scim:api:messages:2.0:Error (SCIM endpoints)

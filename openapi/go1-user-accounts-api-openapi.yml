@@ -1,0 +1,2456 @@
+openapi: 3.2.0
+info:
+  title: Go1 User accounts API
+  version: '2025-01-01'
+  description: Go1 REST API, version 2025-01-01, as published in the Go1 developer API reference. Every path operation is the provider's own OpenAPI operation object, copied verbatim from the endpoints data embedded in each reference page (__NEXT_DATA__ pageProps.endpoints) on developers.go1.com. The info, servers and securitySchemes envelope is assembled from the reference overview (base URL https://gateway.go1.com, Api-Version header) and the OAuth 2.0 grant guides (auth.go1.com token/authorize URLs); scope descriptions are left blank because the operations name scopes without describing them.
+  contact:
+    name: Go1 Developer Support
+    url: https://developers.go1.com/
+  x-assembled-from:
+  - https://developers.go1.com/api/rest/2025-01-01/overview/
+  - https://developers.go1.com/api/rest/2025-01-01/categories/
+  - https://developers.go1.com/api/rest/2025-01-01/collections/
+  - https://developers.go1.com/api/rest/2025-01-01/compliance/
+  - https://developers.go1.com/api/rest/2025-01-01/enrollments/
+  - https://developers.go1.com/api/rest/2025-01-01/files/
+  - https://developers.go1.com/api/rest/2025-01-01/learning-objects/
+  - https://developers.go1.com/api/rest/2025-01-01/plans/
+  - https://developers.go1.com/api/rest/2025-01-01/play-links/
+  - https://developers.go1.com/api/rest/2025-01-01/playlists/
+  - https://developers.go1.com/api/rest/2025-01-01/portals/
+  - https://developers.go1.com/api/rest/2025-01-01/restrictions/
+  - https://developers.go1.com/api/rest/2025-01-01/scim/
+  - https://developers.go1.com/api/rest/2025-01-01/user-accounts/
+  - https://developers.go1.com/api/rest/2025-01-01/webhooks/
+  x-assembled: '2026-10-21'
+servers:
+- url: https://gateway.go1.com
+  description: Go1 API gateway (stated as the Base URL in the API reference overview)
+tags:
+- name: User accounts
+  description: 'The user accounts resource represents a user with access to a Go1 portal. The user account object contains basic contact information about the user and allows you to keep track of the learning activity that is connected to the user through using the enrollment APIs.
+
+
+    Users may have different roles within Go1, such as learner, manager or administrator, that allow different levels of access, see user roles and permissions to learn more.
+
+
+    Use this resource to create, look up and manage user accounts.'
+  x-source: https://developers.go1.com/api/rest/2025-01-01/user-accounts/
+paths:
+  /user-accounts:
+    get:
+      servers:
+      - url: /user-management
+      - url: /accounts/search
+        description: rewrite
+      operationId: searchAccountsBasic
+      summary: List all user accounts
+      description: Returns a list of user accounts.
+      parameters:
+      - name: offset
+        required: false
+        in: query
+        description: "Number of items to skip before starting to return results.\nUsed for pagination. For example, with `limit=20` and `offset=20`, \nitems 21-40 are returned.\n\n**Limitation**: `limit` + `offset` cannot exceed 10,000."
+        schema:
+          type: integer
+          minimum: 0
+          example: 0
+      - name: limit
+        required: false
+        in: query
+        description: 'Maximum number of results to return per page.
+
+          Must be between 1 and 10000. Default is 100.'
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 100
+          example: 20
+      - name: family_name
+        required: false
+        in: query
+        description: 'Filter by family name (last name). Performs partial matching.
+
+          Case-insensitive search.
+
+
+          **Examples:**
+
+          • family_name=Smith'
+        schema:
+          type: string
+          example: Smith
+      - name: given_name
+        required: false
+        in: query
+        description: 'Filter by given name (first name). Performs partial matching.
+
+          Case-insensitive search.
+
+
+          **Examples:**
+
+          • given_name=John'
+        schema:
+          type: string
+          example: John
+      - name: email
+        required: false
+        in: query
+        description: 'Filter by email address. Performs partial matching.
+
+          Case-insensitive search.
+
+
+          **Examples:**
+
+          • email=john.doe@example.com'
+        schema:
+          type: string
+          format: email
+          example: john.doe@example.com
+      - name: keyword
+        required: false
+        in: query
+        description: "Universal search across full name (given_name + family_name) OR email address.\nReturns accounts where the search term matches any part of the user's \nfull name or email. Useful for quick user lookup.\n\n**Examples:**\n• keyword=john.doe@example.com"
+        schema:
+          type: string
+          example: john.doe@example.com
+      - name: id
+        required: false
+        in: query
+        description: 'Filter by legacy account IDs. Supports multiple values using array syntax.
+
+          Use: `id[]=123&id[]=456` for multiple IDs.
+
+
+          **Examples:**
+
+          • id[]=123&id[]=456'
+        schema:
+          type: array
+          items:
+            type: string
+          example:
+          - '123'
+          - '456'
+      - name: account_guid
+        required: false
+        in: query
+        description: 'Filter by account GUIDs. Supports multiple values using array syntax.
+
+          Use: `account_guid[]=acc_...&account_guid[]=acc_...` for multiple GUIDs.
+
+
+          **Examples:**
+
+          • account_guid[]=acc_ABC&account_guid[]=acc_DEF'
+        schema:
+          type: array
+          items:
+            type: string
+            pattern: ^acc_[A-Za-z0-9]+$
+          example:
+          - acc_F0RPABFZ75Z8KO8N4SCX5Y89PI
+      - name: manager_guid
+        required: false
+        in: query
+        description: 'Filter by manager GUIDs. Returns accounts that are managed by any of the specified managers.
+
+          Supports multiple values using array syntax.
+
+          Use: `manager_guid[]=acc_...&manager_guid[]=acc_...` for multiple GUIDs.
+
+
+          **Examples:**
+
+          • manager_guid[]=acc_ABC&manager_guid[]=acc_DEF'
+        schema:
+          type: array
+          items:
+            type: string
+            pattern: ^acc_[A-Za-z0-9]+$
+          example:
+          - acc_01GEJM93EXPVJM317CXZT3X5CW
+      - name: group_id
+        required: false
+        in: query
+        description: 'Filter by group IDs. Returns accounts that are members of any of the specified groups.
+
+          Supports multiple values using array syntax.
+
+          Use: `group_id[]=123&group_id[]=456` for multiple IDs.
+
+
+          **Examples:**
+
+          • group_id[]=123&group_id[]=456'
+        schema:
+          type: array
+          items:
+            type: string
+          example:
+          - '123'
+          - '456'
+      - name: roles
+        required: false
+        in: query
+        description: 'Filter by role GUIDs. Returns accounts that have any of the specified roles.
+
+          Supports multiple values using array syntax.
+
+
+          **Available role GUIDs:**
+
+          • Administrator: `rol_01G3PZS7NCBKB170TEP3CC2BBH`
+
+          • Learner: `rol_01G3PZS7NZ0CF95J340P55FSZH`
+
+          • Manager: `rol_01G3PZS7NZBW04V44QBM48PP0C`
+
+          • Content administrator: `rol_01G3PZS7NXC78RP57SG0EXD0Z5`
+
+
+          **Examples:**
+
+          • roles[]=rol_01G3PZS7NCBKB170TEP3CC2BBH&roles[]=rol_01G3PZS7NZ0CF95J340P55FSZH'
+        schema:
+          type: array
+          items:
+            type: string
+            pattern: ^rol_[A-Za-z0-9]+$
+          example:
+          - rol_01G3PZS7NZBW04V44QBM48PP0C
+      - name: standard_fields
+        required: false
+        in: query
+        description: 'Filter by standard fields associated with user accounts.
+
+
+          **Field Rules:**
+
+          • `external_user_id` can be filtered multiple times
+
+          • All other standard fields can only be filtered once
+
+
+          **Examples:**
+
+          • `standard_fields.external_user_id[]=123A` - Find user with external_user_id = 123A
+
+          • `standard_fields.external_user_id[]=123A&standard_fields.external_user_id[]=456B` - Find users with either ID
+
+          • `standard_fields.department=Sales` - Find users in Sales department (partial match)'
+        schema:
+          type: object
+          properties:
+            external_user_id:
+              type: array
+              items:
+                type: string
+              description: External user ID(s) for filtering
+              example:
+              - 123A
+              - 456B
+      - name: additional_fields
+        required: false
+        in: query
+        description: 'Filter by additional/custom fields associated with user accounts.
+
+          Supports exact match filtering using array syntax.
+
+
+          **Examples:**
+
+          • `additional_fields.department[]=Engineering` - Find users in Engineering department
+
+          • `additional_fields.age[]=25` - Find users aged 25
+
+          • `additional_fields.employee_id[]=12345` - Find user with employee ID 12345
+
+
+          **Supported Operators:**
+
+          • `[]` - Exact match for strings and numbers
+
+          • `[min]`  will match all records greater than or equal to this date
+
+          • `[max]` will match all records less than or equal to this date.'
+        schema:
+          type: object
+          additionalProperties:
+            oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+          example:
+            department:
+            - Engineering
+            age:
+            - '25'
+      - name: include[]
+        required: false
+        in: query
+        description: 'Specify which extended fields to include in the response.
+
+          By default, only basic account information is returned.
+
+
+          **Available Fields:**
+
+          • `standard_fields` - Include standard fields (external_user_id, department, etc.)
+
+          • `additional_fields` - Include custom/additional fields
+
+
+          **Examples:**
+
+          • `include[]=standard_fields.external_user_id&include[]=standard_fields.department`
+
+          • `include[]=additional_fields.colour`
+
+          • `include[]=additional_fields.colour&include[]=standard_fields.external_user_id`'
+        schema:
+          type: array
+          items:
+            type: string
+          example:
+          - standard_fields.external_user_id
+          - additional_fields.colour
+      - name: status
+        required: false
+        in: query
+        description: 'Filter by account status (active/inactive).
+
+          • `true` - Show only active users
+
+          • `false` - Show only inactive users
+
+          • Omit parameter - Show both active and inactive users'
+        schema:
+          type: boolean
+      - name: sort
+        required: false
+        in: query
+        description: "Sorts the results of your request by a given property.\nEnum:\n - given_name\n - family_name\n - name\n - email\n - status\n - created_time\n - updated_time\n - logged_in_time\n - account_guid\n - _gc_user_id\n - _gc_user_account_id\n - standard_fields.*\n - additional_fields.*\n\n**Examples:**\n• sort=given_name,standard_fields.external_user_id,additional_fields.dob"
+        schema:
+          type: string
+          example:
+          - given_name
+          - standard_fields.external_user_id
+          - additional_fields.dob
+      - name: order
+        required: false
+        in: query
+        description: "Orders the results by a given direction.\nEnum:\n - asc\n - desc\n\n**Examples:**\n• order=asc,desc"
+        schema:
+          type: string
+          example: asc,desc
+      - name: created_time
+        required: false
+        in: query
+        description: "Filter user accounts by created time in ISO-8601 format.\n - [min]  will match all records greater than or equal to this date\n - [max] will match all records less than or equal to this date.\n\n Examples:\n - created_time[min]=2024-07-01 – Returns all user accounts created after July 1st, 2024\n - created_time[min]=2024-01-01&created_time[max]=2024-06-30 – Returns all user accounts created between January 1st, 2024 and June 30th, 2024\n - created_time[max]=2022-01-01 – Returns all user accounts that were created prior to January 1st, 2022"
+        schema:
+          additionalProperties:
+            type: string
+          example: created_time[min]=2021-01-01&created_time[max]=2021-01-02
+          type: object
+      - name: updated_time
+        required: false
+        in: query
+        description: "Filter user accounts by updated time in ISO-8601 format.\n - [min]  will match all records greater than or equal to this date\n - [max] will match all records less than or equal to this date.\n\n Examples:\n - updated_time[min]=2024-07-01 – Returns all user accounts updated after July 1st, 2024\n - updated_time[min]=2024-01-01&updated_time[max]=2024-06-30 – Returns all user accounts updated between January 1st, 2024 and June 30th, 2024\n - updated_time[max]=2022-01-01 – Returns all user accounts that were updated prior to January 1st, 2022"
+        schema:
+          additionalProperties:
+            type: string
+          example: updated_time[min]=2021-01-01&updated_time[max]=2021-01-02
+          type: object
+      - name: logged_in_time
+        required: false
+        in: query
+        description: "Filter user accounts by logged in time in ISO-8601 format.\n - [min]  will match all records greater than or equal to this date\n - [max] will match all records less than or equal to this date.\n\n Examples:\n - logged_in_time[min]=2024-07-01 – Returns all user accounts logged in after July 1st, 2024\n - logged_in_time[min]=2024-01-01&logged_in_time[max]=2024-06-30 – Returns all user accounts logged in between January 1st, 2024 and June 30th, 2024\n - logged_in_time[max]=2022-01-01 – Returns all user accounts that were logged in prior to January 1st, 2022"
+        schema:
+          additionalProperties:
+            type: string
+          example: logged_in_time[min]=2021-01-01&logged_in_time[max]=2021-01-02
+          type: object
+      - name: include_managers
+        required: false
+        in: query
+        description: 'Include manager details in the response.
+
+          When set to `true`, the response will include detailed information about managers assigned to each user account.
+
+          When set to `false`, manager information will be excluded from the response.
+
+
+          **Default:** `true` (for backward compatibility)
+
+
+          **Examples:**
+
+          • `include_managers=true` - Include manager details.
+
+          • `include_managers=false` - Exclude manager details.'
+        schema:
+          type: boolean
+          default: true
+          example: true
+      - name: has_direct_reports
+        required: false
+        in: query
+        description: 'Filter to include only managers who have at least one assigned learner.
+
+          When set to `true`, only returns managers who are actively managing other users.
+
+          This filter only applies to accounts with the manager role.
+
+
+          **Default:** `false`
+
+
+          **Examples:**
+
+          • `has_direct_reports=true` - Show only managers with learners.
+
+          • `has_direct_reports=false` - Show all managers (default).'
+        schema:
+          type: boolean
+          default: false
+          example: false
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: The total number of retrievable results from the request.
+                    example: 1
+                  hits:
+                    description: An array containing the requested results.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: The unique identifier for a user account.
+                          example: '123'
+                        account_guid:
+                          type: string
+                          description: A new identifier for the user account. Moving to GUID will be introduced in future API versions.
+                          example: acc_01G3PZS7NXC78RT57SS0EXD0Z5
+                        portal_id:
+                          type: string
+                          description: The ID of the Portal that the user account belong to.
+                          example: '122'
+                        group_ids:
+                          description: A list of group IDs that the user account belongs to.
+                          example:
+                          - '123'
+                          - '124'
+                          type: array
+                          items:
+                            type: string
+                        managers:
+                          description: A list of managers that the user account is managed by.
+                          example:
+                          - account_guid: acc_01G3PZS7NXC78RT57DN0EXD0Z5
+                            given_name: John
+                            family_name: Doe
+                            email: john.doe@email.com
+                            status: true
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              account_guid:
+                                type: string
+                                description: The unique identifier for a user account.
+                                example: acc_01G3PZS7NXC78RT57DN0EXD0Z5
+                              given_name:
+                                type: string
+                                description: Given name.
+                                example: John
+                              family_name:
+                                type: string
+                                description: Family name.
+                                example: Doe
+                              email:
+                                type: string
+                                description: Email address.
+                                example: john.doe@email.com
+                              status:
+                                type: boolean
+                                description: Whether the user account is active (true) or inactive (false).
+                            required:
+                            - account_guid
+                            - given_name
+                            - family_name
+                            - email
+                            - status
+                        roles:
+                          description: Permission roles associated with the user account.
+                          example:
+                          - guid: rol_01G3PZS7NCBKB170TEP3CC2BBH
+                            role: learner
+                          type: array
+                          items:
+                            type: string
+                        status:
+                          type: boolean
+                          description: Whether the user account is active (true) or inactive (false).
+                        locale:
+                          type: string
+                          description: Locale, represented by a two letter code using ISO 639-1.
+                          example: en
+                        created_time:
+                          type: string
+                          description: Time at which the user account was created (ISO 8601 in UTC).
+                          example: '2022-03-29T01:29:36Z'
+                        updated_time:
+                          type: string
+                          description: Time at which the user account was last updated (ISO 8601 in UTC).
+                          example: '2022-03-29T01:29:36Z'
+                        logged_in_time:
+                          type: string
+                          description: Time at which the user account last logged in to Go1 (ISO 8601 in UTC).
+                          example: '2022-03-29T01:29:36Z'
+                        user:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: The unique identifier for a primary user object.
+                              example: '112'
+                            family_name:
+                              type: string
+                              description: Family name.
+                              example: Doe
+                            given_name:
+                              type: string
+                              description: Given name.
+                              example: Jane
+                            username:
+                              type: string
+                              description: Unique username.
+                              example: jane.doe
+                            email:
+                              type: string
+                              description: Email address.
+                              example: jane.doe@email.com
+                            picture:
+                              type: string
+                              description: Profile picture as a URL.
+                              example: https://example-image-url.jpg
+                            status:
+                              type: boolean
+                              description: Whether the user is active (true) or inactive (false).
+                            created_time:
+                              type: string
+                              description: Time at which the user was created (ISO 8601 in UTC).
+                              example: '2022-03-29T01:29:36Z'
+                            updated_time:
+                              type: string
+                              description: Time at which the user was last updated (ISO 8601 in UTC).
+                              example: '2022-03-29T01:29:36Z'
+                            user_guid:
+                              type: string
+                              description: A new identifier for the user object. Moving to GUID will be introduced in future API versions.
+                              example: usr_01G3PZS7NXC78RT57DN0EXD0Z5
+                            region:
+                              type: string
+                              description: Data residency region for user.
+                              example: australiaeast
+                          required:
+                          - id
+                          - family_name
+                          - given_name
+                          - username
+                          - email
+                          - picture
+                          - status
+                          - created_time
+                          - updated_time
+                        standard_fields:
+                          type: object
+                          description: 'Standard fields associated with the user account.
+
+                            Only required and valid `standard_fields` are returned.'
+                          example:
+                            external_user_id: 123A
+                      required:
+                      - id
+                      - account_guid
+                      - portal_id
+                      - roles
+                      - status
+                      - locale
+                      - created_time
+                      - updated_time
+                      - logged_in_time
+                      - user
+                required:
+                - total
+                - hits
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_MISSING_PORTAL
+                    - USER_ACCOUNT_SEARCH_UNAUTHORIZED
+                    - PORTAL_NOT_FOUND
+                    - PORTAL_REGION_INVALID
+                    - INVALID_SORT_FIELD
+                    - INVALID_ORDER_DIRECTION
+                    - INVALID_DATE_FILTER_OPERATOR
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                PORTAL_REGION_INVALID:
+                  value:
+                    error_code: portal_region_invalid
+                    message: Region is not supported for this search.
+                INVALID_ORDER_DIRECTION:
+                  value:
+                    error_code: invalid_order_direction
+                    message: 'Order direction is not valid. Valid directions are: asc, desc.'
+                INVALID_DATE_FILTER_OPERATOR:
+                  value:
+                    error_code: invalid_date_filter_operator
+                    message: Date filter operators must be either "min" or "max".
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_MISSING_PORTAL
+                    - USER_ACCOUNT_SEARCH_UNAUTHORIZED
+                    - PORTAL_NOT_FOUND
+                    - PORTAL_REGION_INVALID
+                    - INVALID_SORT_FIELD
+                    - INVALID_ORDER_DIRECTION
+                    - INVALID_DATE_FILTER_OPERATOR
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                AUTH_MISSING_PORTAL:
+                  value:
+                    error_code: auth_invalid_jwt
+                    message: Missing portal ID in JWT.
+                USER_ACCOUNT_SEARCH_UNAUTHORIZED:
+                  value:
+                    error_code: user_account_search_unauthorized
+                    message: You must be a manager or admin to search.
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_MISSING_PORTAL
+                    - USER_ACCOUNT_SEARCH_UNAUTHORIZED
+                    - PORTAL_NOT_FOUND
+                    - PORTAL_REGION_INVALID
+                    - INVALID_SORT_FIELD
+                    - INVALID_ORDER_DIRECTION
+                    - INVALID_DATE_FILTER_OPERATOR
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                PORTAL_NOT_FOUND:
+                  value:
+                    error_code: portal_not_found
+                    message: Portal not found.
+      tags:
+      - User accounts
+      security:
+      - OAuth2:
+        - user.read
+    post:
+      servers:
+      - url: /iam
+      - url: /admin/accounts
+        description: rewrite
+      operationId: createUserAccount
+      summary: Create a user account
+      description: Create a new user account.
+      parameters:
+      - name: send_login_email
+        required: false
+        in: query
+        description: Determines whether a welcome email containing a login link should be sent to the user. The email allows the user to log in to Go1 and set their password. If this parameter is not included, the default behavior is to send the email. To opt out of sending the welcome email, set this parameter to false.
+        schema:
+          type: boolean
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                given_name:
+                  type: string
+                  description: The user's first name.
+                  example: Jane
+                family_name:
+                  type: string
+                  description: The user's last name.
+                  example: Doe
+                username:
+                  type: string
+                  description: The user's username. Must be unique. We recommend using the user's email address when creating an account on behalf of another user.
+                  example: jane.doe@example.com
+                email:
+                  type: string
+                  description: The user's email address.
+                  example: jane.doe@example.com
+                picture:
+                  type: string
+                  description: The user's profile picture as a URL.
+                  example: https://example-image-url.jpg
+                password:
+                  type: string
+                  description: 'Password must contain at least one letter and be at least 8 characters long. Password must not contain common words, eg. password. We recommend using a combination of upper and lower-case characters, numbers and special characters. Note: to set a password the email address provided must not currently exist in any go1 portals, otherwise an error will be returned.'
+                  example: 12345@abC
+                roles:
+                  description: 'Permission roles associated with the user account. Must use the role GUIDs. Enum: Administrator `rol_01G3PZS7NCBKB170TEP3CC2BBH`, Learner `rol_01G3PZS7NZ0CF95J340P55FSZH`, Manager `rol_01G3PZS7NZBW04V44QBM48PP0C`, Content administrator `rol_01G3PZS7NXC78RP57SG0EXD0Z5`'
+                  example:
+                  - rol_01G3PZS7NCBKB170TEP3CC2BBH
+                  type: array
+                  items:
+                    type: string
+                managers:
+                  description: A list of user account id's to assign as managers to this user account.
+                  example:
+                  - '789'
+                  - '456'
+                  type: array
+                  items:
+                    type: string
+                status:
+                  type: boolean
+                  description: Whether the user account is active (true) or inactive (false). Defaults to true.
+                locale:
+                  type: string
+                  description: The user's locale. Accepts ISO 639-1 two letter codes.
+                  example: pt-br
+                standard_fields:
+                  description: An object containing standard company fields associated with the user account. Standard fields are not enabled by default and can be configured as mandatory. For setup assistance, please contact support@go1.com.
+                  allOf:
+                  - type: object
+                    properties:
+                      external_user_id:
+                        type: string
+                        example: LMN456OPQ
+                        description: An external identifier unique to the user in the external system.
+                      phone:
+                        type: string
+                        example: '+14151231234'
+                        description: The user's phone number.
+                      gender:
+                        type: string
+                        example: Male
+                        description: The gender identity of the user.
+                      industry:
+                        type: string
+                        example: Finance
+                        description: The industry or sector to which the user's organization belongs.
+                      department:
+                        type: string
+                        example: Investment
+                        description: The department within an organization to which the user belongs.
+                      division:
+                        type: string
+                        example: Equity Research
+                        description: The division or segment within an organization to which the user is assigned.
+                      job_title:
+                        type: string
+                        example: Financial Analyst
+                        description: The job title or position held by the user.
+                      job_level:
+                        type: string
+                        example: Mid
+                        description: The hierarchical level of the user's position within an organization.
+                      language:
+                        type: string
+                        example: en
+                        description: A preferred language setting for the user as ISO 639-1 two letter codes.
+                      country:
+                        type: string
+                        example: Australia
+                        description: The country of residence for the user.
+                      state:
+                        type: string
+                        example: Victoria
+                        description: The state or region within a country where the user is located.
+                      city:
+                        type: string
+                        example: Melbourne
+                        description: The city that the user is located in.
+                      start_date:
+                        type: string
+                        format: date
+                        example: '2019-07-01'
+                        description: The date when the user began their association with the organization.
+                additional_fields:
+                  description: An object containing custom fields that have been set up against the user account object. Additional fields must be configured before use. For setup assistance, please contact support@go1.com.
+                  example:
+                    dob: '1990-01-20'
+                    branch: Northwest
+                    disability: 'No'
+                  type: object
+                  additionalProperties: true
+              required:
+              - given_name
+              - family_name
+              - username
+              - email
+      responses:
+        '201':
+          description: New account has been successfully created
+          content:
+            application/json:
+              schema:
+                allOf:
+                - type: object
+                  properties:
+                    id:
+                      type: string
+                      description: The unique identifier for a user account.
+                      example: '123'
+                    account_guid:
+                      type: string
+                      description: A new identifier for the user account. Moving to GUID will be introduced in future API versions.
+                      example: acc_1234567890
+                    portal_id:
+                      type: string
+                      description: The ID of the Portal that the user account belongs to.
+                      example: '456'
+                    managers:
+                      description: A list of managers that the user account is managed by.
+                      example:
+                      - account_guid: acc_01G3PZS7NXC78RT57DN0EXD8S2
+                        given_name: John
+                        family_name: Doe
+                        email: john.doe@email.com
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          account_guid:
+                            type: string
+                            description: The unique identifier for a user account.
+                            example: acc_1234567890
+                          given_name:
+                            type: string
+                            description: Given name.
+                            example: John
+                          family_name:
+                            type: string
+                            description: Family name.
+                            example: Doe
+                          email:
+                            type: string
+                            description: Email address.
+                            example: john.doe@email.com
+                        required:
+                        - account_guid
+                        - given_name
+                        - family_name
+                        - email
+                    roles:
+                      description: Permission roles associated with the user account.
+                      example:
+                        guid: rol_01G3PZS7NZ0CF95J340P55FSZH
+                        role: learner
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          guid:
+                            type: string
+                            description: The unique identifier for role.
+                            example: rol_01G3PZS7NZ0CF95J340P55FSZH
+                          role:
+                            type: string
+                            description: Permission roles label associated with the user account.
+                            example: learner
+                        required:
+                        - guid
+                        - role
+                    status:
+                      type: boolean
+                      description: Whether the user account is active (true) or inactive (false).
+                    locale:
+                      type: string
+                      description: Locale, represented by a two letter code using ISO 639-1.
+                      example: pt-br
+                    created_time:
+                      type: string
+                      description: Time at which the user account was created (ISO 8601 in UTC).
+                      example: '2022-03-29T01:29:36.000Z'
+                    updated_time:
+                      type: string
+                      description: Time at which the user account was last updated (ISO 8601 in UTC).
+                      example: '2022-03-29T01:29:36.000Z'
+                    logged_in_time:
+                      type:
+                      - string
+                      - 'null'
+                      description: Time at which the user account last logged in to Go1 (ISO 8601 in UTC).
+                      example: '2022-03-29T01:29:36.000Z'
+                  required:
+                  - id
+                  - portal_id
+                  - roles
+                  - status
+                  - locale
+                  - created_time
+                  - updated_time
+                  - logged_in_time
+                  - account_guid
+                - type: object
+                  properties:
+                    standard_fields:
+                      description: An object containing standard company fields associated with the user account. Standard fields are not enabled by default and can be configured as mandatory. For setup assistance, please contact support@go1.com.
+                      allOf:
+                      - type: object
+                        properties:
+                          external_user_id:
+                            type: string
+                            example: LMN456OPQ
+                            description: An external identifier unique to the user in the external system.
+                          phone:
+                            type: string
+                            example: '+14151231234'
+                            description: The user's phone number.
+                          gender:
+                            type: string
+                            example: Male
+                            description: The gender identity of the user.
+                          industry:
+                            type: string
+                            example: Finance
+                            description: The industry or sector to which the user's organization belongs.
+                          department:
+                            type: string
+                            example: Investment
+                            description: The department within an organization to which the user belongs.
+                          division:
+                            type: string
+                            example: Equity Research
+                            description: The division or segment within an organization to which the user is assigned.
+                          job_title:
+                            type: string
+                            example: Financial Analyst
+                            description: The job title or position held by the user.
+                          job_level:
+                            type: string
+                            example: Mid
+                            description: The hierarchical level of the user's position within an organization.
+                          language:
+                            type: string
+                            example: en
+                            description: A preferred language setting for the user as ISO 639-1 two letter codes.
+                          country:
+                            type: string
+                            example: Australia
+                            description: The country of residence for the user.
+                          state:
+                            type: string
+                            example: Victoria
+                            description: The state or region within a country where the user is located.
+                          city:
+                            type: string
+                            example: Melbourne
+                            description: The city that the user is located in.
+                          start_date:
+                            type: string
+                            format: date
+                            example: '2019-07-01'
+                            description: The date when the user began their association with the organization.
+                    additional_fields:
+                      type: object
+                      description: An object containing custom fields that have been set up against the user account object. Additional fields must be configured before use. For setup assistance, please contact support@go1.com.
+                      additionalProperties: true
+                      example:
+                        dob: '1990-01-20T00:00:00.000Z'
+                        branch: Northwest
+                        disability: 'No'
+                - type: object
+                  properties:
+                    user:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: The unique identifier for the primary user object.
+                          example: '123'
+                        family_name:
+                          type: string
+                          description: Family name.
+                          example: Jane
+                        given_name:
+                          type: string
+                          description: Given name.
+                          example: Doe
+                        username:
+                          type: string
+                          description: Unique username.
+                          example: janedoe
+                        email:
+                          type: string
+                          description: Email address.
+                          example: jane.doe@example.com
+                        picture:
+                          type: string
+                          description: Profile picture as a URL.
+                          example: https://example-image-url.jpg
+                        status:
+                          type: boolean
+                          description: Whether the user is active (true) or inactive (false).
+                        created_time:
+                          type: string
+                          description: Time at which the user was created (ISO 8601 in UTC).
+                          example: '2022-03-29T01:29:36.000Z'
+                        updated_time:
+                          type: string
+                          description: Time at which the user was last updated (ISO 8601 in UTC).
+                          example: '2022-03-29T01:29:36.000Z'
+                        user_guid:
+                          type: string
+                          description: A new identifier for the user object. Moving to GUID will be introduced in future API versions.
+                          example: usr_1234567890
+                        region:
+                          type: string
+                          description: Data residency region for user.
+                          example: northeurope
+                      required:
+                      - id
+                      - family_name
+                      - given_name
+                      - username
+                      - email
+                      - picture
+                      - status
+                      - created_time
+                      - updated_time
+                      - user_guid
+                      - region
+                required:
+                - user
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - JOB_NOT_FOUND
+                    - JOB_COMPLETED
+                    - USER_ACCOUNT_ACCESS_UNAUTHORIZED
+                    - USER_ACCOUNT_DISABLED
+                    - USER_ACCOUNT_MISSING
+                    - USER_ACCOUNT_NOT_FOUND
+                    - USER_ACCOUNT_ROLE_UPDATE_UNAUTHORISED
+                    - USER_ACCESS_UNAUTHORIZED
+                    - USER_DISABLED
+                    - USER_EMAIL_ADD_WHEN_MASQ
+                    - USER_EMAIL_EXISTS
+                    - USER_EMAIL_NOT_FOUND
+                    - USER_EMAIL_USERNAME_CONFLICT
+                    - USER_PRIMARY_EMAIL_EXISTS
+                    - USER_EXISTS
+                    - USER_EXISTS_AUTH_REQUIRED
+                    - USER_EXISTS_DATA_RESIDENCY_INCOMPATIBLE
+                    - USER_GUID_MISSING
+                    - USER_NOT_FOUND
+                    - USER_MAPPING_NOT_FOUND
+                    - USER_EMAIL_VERIFY_INVALID
+                    - PERMISSION_INVALID_USER_REINDEX
+                    - PERMISSION_INVALID_ACCOUNT_REINDEX
+                    - PERMISSION_INVALID_MASK
+                    - PERMISSION_INVALID_CHANGE_PASSWORD
+                    - PERMISSION_INVALID_SYSTEM_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ADMIN_ALL_ACCOUNTS_REQUIRED
+                    - PERMISSION_INVALID_CREATE_NEW_USER
+                    - PORTAL_NOT_FOUND
+                    - PORTAL_SELF_SIGNUP_DISABLED
+                    - PORTAL_REGION_INVALID
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - JOB_NOT_FOUND
+                    - JOB_COMPLETED
+                    - USER_ACCOUNT_ACCESS_UNAUTHORIZED
+                    - USER_ACCOUNT_DISABLED
+                    - USER_ACCOUNT_MISSING
+                    - USER_ACCOUNT_NOT_FOUND
+                    - USER_ACCOUNT_ROLE_UPDATE_UNAUTHORISED
+                    - USER_ACCESS_UNAUTHORIZED
+                    - USER_DISABLED
+                    - USER_EMAIL_ADD_WHEN_MASQ
+                    - USER_EMAIL_EXISTS
+                    - USER_EMAIL_NOT_FOUND
+                    - USER_EMAIL_USERNAME_CONFLICT
+                    - USER_PRIMARY_EMAIL_EXISTS
+                    - USER_EXISTS
+                    - USER_EXISTS_AUTH_REQUIRED
+                    - USER_EXISTS_DATA_RESIDENCY_INCOMPATIBLE
+                    - USER_GUID_MISSING
+                    - USER_NOT_FOUND
+                    - USER_MAPPING_NOT_FOUND
+                    - USER_EMAIL_VERIFY_INVALID
+                    - PERMISSION_INVALID_USER_REINDEX
+                    - PERMISSION_INVALID_ACCOUNT_REINDEX
+                    - PERMISSION_INVALID_MASK
+                    - PERMISSION_INVALID_CHANGE_PASSWORD
+                    - PERMISSION_INVALID_SYSTEM_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ADMIN_ALL_ACCOUNTS_REQUIRED
+                    - PERMISSION_INVALID_CREATE_NEW_USER
+                    - PORTAL_NOT_FOUND
+                    - PORTAL_SELF_SIGNUP_DISABLED
+                    - PORTAL_REGION_INVALID
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+      tags:
+      - User accounts
+      security:
+      - OAuth2:
+        - user.write
+  /user-accounts/{id}:
+    get:
+      servers:
+      - url: /accounts/{id}
+        description: rewrite
+      operationId: getUserAccount
+      summary: Retrieve a user account
+      description: Retrieves the details of a user account. User account id, as well as account_guid, a new unique identifier for the user account object can be used to fetch the account details.
+      parameters:
+      - name: id
+        description: "Either Go1's ID or External ID.<br>\nIf it is an External ID then\n  * `identifier` query parameter must be provided as `external_id`.\n  * Example: `GET user-accounts/123456789?identifier=external_id`\n"
+        required: true
+        in: path
+        schema:
+          oneOf:
+          - type: string
+          - type: integer
+        examples:
+          go1_id:
+            value: 12346
+          external_id:
+            value: '123456789'
+      - name: identifier
+        required: false
+        in: query
+        example: external_id
+        description: "The `identifier` query parameter allows you to specify the identifier you would like to use when looking up a user account.\n\n\n  The available values are:\n\n\n- `external_id`: The API will consider the supplied {id} as the external ID, and will look up the user account that corresponds to the provided id."
+        schema:
+          enum:
+          - external_id
+          type: string
+      - name: include[]
+        required: false
+        in: query
+        description: "Returns extended information related to a user account.\nAvailable values:\n\n  - managers: Returns the associated managers for the user account.\n      * `include[]=managers`, returns user account(s) with managers.\n  - standard_fields: Returns the standard fields associated with the user account.\n      * `include[]=standard_fields.external_user_id&include[]=standard_fields.department`, returns user account(s) with standard_fields.external_user_id and standard_fields.department.\n  - additional_fields: Returns the additional fields associated with the user account.\n      * `include[]=additional_fields.colour`, returns user account(s) with additional_fields.colour.\n"
+        example: standard_fields
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - standard_fields
+            - additional_fields
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                allOf:
+                - type: object
+                  properties:
+                    id:
+                      type: string
+                      description: The unique identifier for a user account.
+                      example: '123'
+                    account_guid:
+                      type: string
+                      description: A new identifier for the user account. Moving to GUID will be introduced in future API versions.
+                      example: acc_1234567890
+                    portal_id:
+                      type: string
+                      description: The ID of the Portal that the user account belongs to.
+                      example: '456'
+                    managers:
+                      description: A list of managers that the user account is managed by.
+                      example:
+                      - account_guid: acc_01G3PZS7NXC78RT57DN0EXD8S2
+                        given_name: John
+                        family_name: Doe
+                        email: john.doe@email.com
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          account_guid:
+                            type: string
+                            description: The unique identifier for a user account.
+                            example: acc_1234567890
+                          given_name:
+                            type: string
+                            description: Given name.
+                            example: John
+                          family_name:
+                            type: string
+                            description: Family name.
+                            example: Doe
+                          email:
+                            type: string
+                            description: Email address.
+                            example: john.doe@email.com
+                        required:
+                        - account_guid
+                        - given_name
+                        - family_name
+                        - email
+                    roles:
+                      description: Permission roles associated with the user account.
+                      example:
+                        guid: rol_01G3PZS7NZ0CF95J340P55FSZH
+                        role: learner
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          guid:
+                            type: string
+                            description: The unique identifier for role.
+                            example: rol_01G3PZS7NZ0CF95J340P55FSZH
+                          role:
+                            type: string
+                            description: Permission roles label associated with the user account.
+                            example: learner
+                        required:
+                        - guid
+                        - role
+                    status:
+                      type: boolean
+                      description: Whether the user account is active (true) or inactive (false).
+                    locale:
+                      type: string
+                      description: Locale, represented by a two letter code using ISO 639-1.
+                      example: pt-br
+                    created_time:
+                      type: string
+                      description: Time at which the user account was created (ISO 8601 in UTC).
+                      example: '2022-03-29T01:29:36.000Z'
+                    updated_time:
+                      type: string
+                      description: Time at which the user account was last updated (ISO 8601 in UTC).
+                      example: '2022-03-29T01:29:36.000Z'
+                    logged_in_time:
+                      type:
+                      - string
+                      - 'null'
+                      description: Time at which the user account last logged in to Go1 (ISO 8601 in UTC).
+                      example: '2022-03-29T01:29:36.000Z'
+                  required:
+                  - id
+                  - portal_id
+                  - roles
+                  - status
+                  - locale
+                  - created_time
+                  - updated_time
+                  - logged_in_time
+                  - account_guid
+                - type: object
+                  properties:
+                    standard_fields:
+                      description: An object containing standard company fields associated with the user account. Standard fields are not enabled by default and can be configured as mandatory. For setup assistance, please contact support@go1.com.
+                      allOf:
+                      - type: object
+                        properties:
+                          external_user_id:
+                            type: string
+                            example: LMN456OPQ
+                            description: An external identifier unique to the user in the external system.
+                          phone:
+                            type: string
+                            example: '+14151231234'
+                            description: The user's phone number.
+                          gender:
+                            type: string
+                            example: Male
+                            description: The gender identity of the user.
+                          industry:
+                            type: string
+                            example: Finance
+                            description: The industry or sector to which the user's organization belongs.
+                          department:
+                            type: string
+                            example: Investment
+                            description: The department within an organization to which the user belongs.
+                          division:
+                            type: string
+                            example: Equity Research
+                            description: The division or segment within an organization to which the user is assigned.
+                          job_title:
+                            type: string
+                            example: Financial Analyst
+                            description: The job title or position held by the user.
+                          job_level:
+                            type: string
+                            example: Mid
+                            description: The hierarchical level of the user's position within an organization.
+                          language:
+                            type: string
+                            example: en
+                            description: A preferred language setting for the user as ISO 639-1 two letter codes.
+                          country:
+                            type: string
+                            example: Australia
+                            description: The country of residence for the user.
+                          state:
+                            type: string
+                            example: Victoria
+                            description: The state or region within a country where the user is located.
+                          city:
+                            type: string
+                            example: Melbourne
+                            description: The city that the user is located in.
+                          start_date:
+                            type: string
+                            format: date
+                            example: '2019-07-01'
+                            description: The date when the user began their association with the organization.
+                    additional_fields:
+                      type: object
+                      description: An object containing custom fields that have been set up against the user account object. Additional fields must be configured before use. For setup assistance, please contact support@go1.com.
+                      additionalProperties: true
+                      example:
+                        dob: '1990-01-20T00:00:00.000Z'
+                        branch: Northwest
+                        disability: 'No'
+                - type: object
+                  properties:
+                    user:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: The unique identifier for the primary user object.
+                          example: '123'
+                        family_name:
+                          type: string
+                          description: Family name.
+                          example: Jane
+                        given_name:
+                          type: string
+                          description: Given name.
+                          example: Doe
+                        username:
+                          type: string
+                          description: Unique username.
+                          example: janedoe
+                        email:
+                          type: string
+                          description: Email address.
+                          example: jane.doe@example.com
+                        picture:
+                          type: string
+                          description: Profile picture as a URL.
+                          example: https://example-image-url.jpg
+                        status:
+                          type: boolean
+                          description: Whether the user is active (true) or inactive (false).
+                        created_time:
+                          type: string
+                          description: Time at which the user was created (ISO 8601 in UTC).
+                          example: '2022-03-29T01:29:36.000Z'
+                        updated_time:
+                          type: string
+                          description: Time at which the user was last updated (ISO 8601 in UTC).
+                          example: '2022-03-29T01:29:36.000Z'
+                        user_guid:
+                          type: string
+                          description: A new identifier for the user object. Moving to GUID will be introduced in future API versions.
+                          example: usr_1234567890
+                        region:
+                          type: string
+                          description: Data residency region for user.
+                          example: northeurope
+                      required:
+                      - id
+                      - family_name
+                      - given_name
+                      - username
+                      - email
+                      - picture
+                      - status
+                      - created_time
+                      - updated_time
+                      - user_guid
+                      - region
+                required:
+                - user
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - JOB_NOT_FOUND
+                    - JOB_COMPLETED
+                    - USER_ACCOUNT_ACCESS_UNAUTHORIZED
+                    - USER_ACCOUNT_DISABLED
+                    - USER_ACCOUNT_MISSING
+                    - USER_ACCOUNT_NOT_FOUND
+                    - USER_ACCOUNT_ROLE_UPDATE_UNAUTHORISED
+                    - USER_ACCESS_UNAUTHORIZED
+                    - USER_DISABLED
+                    - USER_EMAIL_ADD_WHEN_MASQ
+                    - USER_EMAIL_EXISTS
+                    - USER_EMAIL_NOT_FOUND
+                    - USER_EMAIL_USERNAME_CONFLICT
+                    - USER_PRIMARY_EMAIL_EXISTS
+                    - USER_EXISTS
+                    - USER_EXISTS_AUTH_REQUIRED
+                    - USER_EXISTS_DATA_RESIDENCY_INCOMPATIBLE
+                    - USER_GUID_MISSING
+                    - USER_NOT_FOUND
+                    - USER_MAPPING_NOT_FOUND
+                    - USER_EMAIL_VERIFY_INVALID
+                    - PERMISSION_INVALID_USER_REINDEX
+                    - PERMISSION_INVALID_ACCOUNT_REINDEX
+                    - PERMISSION_INVALID_MASK
+                    - PERMISSION_INVALID_CHANGE_PASSWORD
+                    - PERMISSION_INVALID_SYSTEM_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ADMIN_ALL_ACCOUNTS_REQUIRED
+                    - PERMISSION_INVALID_CREATE_NEW_USER
+                    - PORTAL_NOT_FOUND
+                    - PORTAL_SELF_SIGNUP_DISABLED
+                    - PORTAL_REGION_INVALID
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - JOB_NOT_FOUND
+                    - JOB_COMPLETED
+                    - USER_ACCOUNT_ACCESS_UNAUTHORIZED
+                    - USER_ACCOUNT_DISABLED
+                    - USER_ACCOUNT_MISSING
+                    - USER_ACCOUNT_NOT_FOUND
+                    - USER_ACCOUNT_ROLE_UPDATE_UNAUTHORISED
+                    - USER_ACCESS_UNAUTHORIZED
+                    - USER_DISABLED
+                    - USER_EMAIL_ADD_WHEN_MASQ
+                    - USER_EMAIL_EXISTS
+                    - USER_EMAIL_NOT_FOUND
+                    - USER_EMAIL_USERNAME_CONFLICT
+                    - USER_PRIMARY_EMAIL_EXISTS
+                    - USER_EXISTS
+                    - USER_EXISTS_AUTH_REQUIRED
+                    - USER_EXISTS_DATA_RESIDENCY_INCOMPATIBLE
+                    - USER_GUID_MISSING
+                    - USER_NOT_FOUND
+                    - USER_MAPPING_NOT_FOUND
+                    - USER_EMAIL_VERIFY_INVALID
+                    - PERMISSION_INVALID_USER_REINDEX
+                    - PERMISSION_INVALID_ACCOUNT_REINDEX
+                    - PERMISSION_INVALID_MASK
+                    - PERMISSION_INVALID_CHANGE_PASSWORD
+                    - PERMISSION_INVALID_SYSTEM_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ADMIN_ALL_ACCOUNTS_REQUIRED
+                    - PERMISSION_INVALID_CREATE_NEW_USER
+                    - PORTAL_NOT_FOUND
+                    - PORTAL_SELF_SIGNUP_DISABLED
+                    - PORTAL_REGION_INVALID
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - JOB_NOT_FOUND
+                    - JOB_COMPLETED
+                    - USER_ACCOUNT_ACCESS_UNAUTHORIZED
+                    - USER_ACCOUNT_DISABLED
+                    - USER_ACCOUNT_MISSING
+                    - USER_ACCOUNT_NOT_FOUND
+                    - USER_ACCOUNT_ROLE_UPDATE_UNAUTHORISED
+                    - USER_ACCESS_UNAUTHORIZED
+                    - USER_DISABLED
+                    - USER_EMAIL_ADD_WHEN_MASQ
+                    - USER_EMAIL_EXISTS
+                    - USER_EMAIL_NOT_FOUND
+                    - USER_EMAIL_USERNAME_CONFLICT
+                    - USER_PRIMARY_EMAIL_EXISTS
+                    - USER_EXISTS
+                    - USER_EXISTS_AUTH_REQUIRED
+                    - USER_EXISTS_DATA_RESIDENCY_INCOMPATIBLE
+                    - USER_GUID_MISSING
+                    - USER_NOT_FOUND
+                    - USER_MAPPING_NOT_FOUND
+                    - USER_EMAIL_VERIFY_INVALID
+                    - PERMISSION_INVALID_USER_REINDEX
+                    - PERMISSION_INVALID_ACCOUNT_REINDEX
+                    - PERMISSION_INVALID_MASK
+                    - PERMISSION_INVALID_CHANGE_PASSWORD
+                    - PERMISSION_INVALID_SYSTEM_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ADMIN_ALL_ACCOUNTS_REQUIRED
+                    - PERMISSION_INVALID_CREATE_NEW_USER
+                    - PORTAL_NOT_FOUND
+                    - PORTAL_SELF_SIGNUP_DISABLED
+                    - PORTAL_REGION_INVALID
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                USER_ACCOUNT_NOT_FOUND:
+                  value:
+                    error_code: USER_ACCOUNT_NOT_FOUND
+                    message: User Account not found.
+      tags:
+      - User accounts
+      security:
+      - OAuth2:
+        - user.read
+    patch:
+      servers:
+      - url: /admin/user-accounts/{id}
+        description: rewrite
+      operationId: updateUserAccount
+      summary: Update a user account
+      description: Updates the details of a user account.
+      parameters:
+      - name: id
+        description: "Either Go1's ID or External ID.<br>\nIf it is an External ID then\n  * `identifier` query parameter must be provided as `external_id`.\n  * Example: `GET user-accounts/123456789?identifier=external_id`\n"
+        required: true
+        in: path
+        schema:
+          oneOf:
+          - type: string
+          - type: integer
+        examples:
+          go1_id:
+            value: 12346
+          external_id:
+            value: '123456789'
+      - name: identifier
+        required: false
+        in: query
+        example: external_id
+        description: "The `identifier` query parameter allows you to specify the identifier you would like to use when looking up a user account.\n\n\n  The available values are:\n\n\n- `external_id`: The API will consider the supplied {id} as the external ID, and will look up the user account that corresponds to the provided id."
+        schema:
+          enum:
+          - external_id
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                given_name:
+                  type: string
+                  description: The user's first name.
+                  example: Jane
+                family_name:
+                  type: string
+                  description: The user's last name.
+                  example: Doe
+                picture:
+                  type: string
+                  description: The user's profile picture as a URL.
+                  example: https://example-image-url.jpg
+                email:
+                  type: string
+                  description: The user's email address. Email cannot be updated if the user account exists in additional portals that you are not the administrator of.
+                  example: jane.doe@example.com
+                roles:
+                  description: 'Permission roles associated with the user account. Must use the role GUIDs. Enum: Administrator `rol_01G3PZS7NCBKB170TEP3CC2BBH`, Learner `rol_01G3PZS7NZ0CF95J340P55FSZH`, Manager `rol_01G3PZS7NZBW04V44QBM48PP0C`, Content administrator `rol_01G3PZS7NXC78RP57SG0EXD0Z5`'
+                  example:
+                  - rol_01G3PZS7NZ0CF95J340P55FSZH
+                  type: array
+                  items:
+                    type: string
+                managers:
+                  description: A list of user account id's to assign as managers to this user account. Any existing managers will be removed, and replaced with the provided list of managers.
+                  example:
+                  - '789'
+                  - '456'
+                  type: array
+                  items:
+                    type: string
+                status:
+                  type: boolean
+                  description: Whether the user account is active (true) or inactive (false). Defaults to true.
+                locale:
+                  type: string
+                  description: The user's locale. Accepts ISO 639-1 two letter codes.
+                  example: pt-br
+                standard_fields:
+                  description: An object containing standard company fields associated with the user account. Standard fields are not enabled by default and can be configured as mandatory. For setup assistance, please contact support@go1.com.
+                  allOf:
+                  - type: object
+                    properties:
+                      external_user_id:
+                        type: string
+                        example: LMN456OPQ
+                        description: An external identifier unique to the user in the external system.
+                      phone:
+                        type: string
+                        example: '+14151231234'
+                        description: The user's phone number.
+                      gender:
+                        type: string
+                        example: Male
+                        description: The gender identity of the user.
+                      industry:
+                        type: string
+                        example: Finance
+                        description: The industry or sector to which the user's organization belongs.
+                      department:
+                        type: string
+                        example: Investment
+                        description: The department within an organization to which the user belongs.
+                      division:
+                        type: string
+                        example: Equity Research
+                        description: The division or segment within an organization to which the user is assigned.
+                      job_title:
+                        type: string
+                        example: Financial Analyst
+                        description: The job title or position held by the user.
+                      job_level:
+                        type: string
+                        example: Mid
+                        description: The hierarchical level of the user's position within an organization.
+                      language:
+                        type: string
+                        example: en
+                        description: A preferred language setting for the user as ISO 639-1 two letter codes.
+                      country:
+                        type: string
+                        example: Australia
+                        description: The country of residence for the user.
+                      state:
+                        type: string
+                        example: Victoria
+                        description: The state or region within a country where the user is located.
+                      city:
+                        type: string
+                        example: Melbourne
+                        description: The city that the user is located in.
+                      start_date:
+                        type: string
+                        format: date
+                        example: '2019-07-01'
+                        description: The date when the user began their association with the organization.
+                additional_fields:
+                  description: An object containing custom fields that have been set up against the user account object. Additional fields must be configured before use. For setup assistance, please contact support@go1.com.
+                  example:
+                    dob: '1990-01-20'
+                    branch: Northwest
+                    disability: 'No'
+                  type: object
+                  additionalProperties: true
+      responses:
+        '200':
+          description: Account updated successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                - type: object
+                  properties:
+                    id:
+                      type: string
+                      description: The unique identifier for a user account.
+                      example: '123'
+                    account_guid:
+                      type: string
+                      description: A new identifier for the user account. Moving to GUID will be introduced in future API versions.
+                      example: acc_1234567890
+                    portal_id:
+                      type: string
+                      description: The ID of the Portal that the user account belongs to.
+                      example: '456'
+                    managers:
+                      description: A list of managers that the user account is managed by.
+                      example:
+                      - account_guid: acc_01G3PZS7NXC78RT57DN0EXD8S2
+                        given_name: John
+                        family_name: Doe
+                        email: john.doe@email.com
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          account_guid:
+                            type: string
+                            description: The unique identifier for a user account.
+                            example: acc_1234567890
+                          given_name:
+                            type: string
+                            description: Given name.
+                            example: John
+                          family_name:
+                            type: string
+                            description: Family name.
+                            example: Doe
+                          email:
+                            type: string
+                            description: Email address.
+                            example: john.doe@email.com
+                        required:
+                        - account_guid
+                        - given_name
+                        - family_name
+                        - email
+                    roles:
+                      description: Permission roles associated with the user account.
+                      example:
+                        guid: rol_01G3PZS7NZ0CF95J340P55FSZH
+                        role: learner
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          guid:
+                            type: string
+                            description: The unique identifier for role.
+                            example: rol_01G3PZS7NZ0CF95J340P55FSZH
+                          role:
+                            type: string
+                            description: Permission roles label associated with the user account.
+                            example: learner
+                        required:
+                        - guid
+                        - role
+                    status:
+                      type: boolean
+                      description: Whether the user account is active (true) or inactive (false).
+                    locale:
+                      type: string
+                      description: Locale, represented by a two letter code using ISO 639-1.
+                      example: pt-br
+                    created_time:
+                      type: string
+                      description: Time at which the user account was created (ISO 8601 in UTC).
+                      example: '2022-03-29T01:29:36.000Z'
+                    updated_time:
+                      type: string
+                      description: Time at which the user account was last updated (ISO 8601 in UTC).
+                      example: '2022-03-29T01:29:36.000Z'
+                    logged_in_time:
+                      type:
+                      - string
+                      - 'null'
+                      description: Time at which the user account last logged in to Go1 (ISO 8601 in UTC).
+                      example: '2022-03-29T01:29:36.000Z'
+                  required:
+                  - id
+                  - portal_id
+                  - roles
+                  - status
+                  - locale
+                  - created_time
+                  - updated_time
+                  - logged_in_time
+                  - account_guid
+                - type: object
+                  properties:
+                    standard_fields:
+                      description: An object containing standard company fields associated with the user account. Standard fields are not enabled by default and can be configured as mandatory. For setup assistance, please contact support@go1.com.
+                      allOf:
+                      - type: object
+                        properties:
+                          external_user_id:
+                            type: string
+                            example: LMN456OPQ
+                            description: An external identifier unique to the user in the external system.
+                          phone:
+                            type: string
+                            example: '+14151231234'
+                            description: The user's phone number.
+                          gender:
+                            type: string
+                            example: Male
+                            description: The gender identity of the user.
+                          industry:
+                            type: string
+                            example: Finance
+                            description: The industry or sector to which the user's organization belongs.
+                          department:
+                            type: string
+                            example: Investment
+                            description: The department within an organization to which the user belongs.
+                          division:
+                            type: string
+                            example: Equity Research
+                            description: The division or segment within an organization to which the user is assigned.
+                          job_title:
+                            type: string
+                            example: Financial Analyst
+                            description: The job title or position held by the user.
+                          job_level:
+                            type: string
+                            example: Mid
+                            description: The hierarchical level of the user's position within an organization.
+                          language:
+                            type: string
+                            example: en
+                            description: A preferred language setting for the user as ISO 639-1 two letter codes.
+                          country:
+                            type: string
+                            example: Australia
+                            description: The country of residence for the user.
+                          state:
+                            type: string
+                            example: Victoria
+                            description: The state or region within a country where the user is located.
+                          city:
+                            type: string
+                            example: Melbourne
+                            description: The city that the user is located in.
+                          start_date:
+                            type: string
+                            format: date
+                            example: '2019-07-01'
+                            description: The date when the user began their association with the organization.
+                    additional_fields:
+                      type: object
+                      description: An object containing custom fields that have been set up against the user account object. Additional fields must be configured before use. For setup assistance, please contact support@go1.com.
+                      additionalProperties: true
+                      example:
+                        dob: '1990-01-20T00:00:00.000Z'
+                        branch: Northwest
+                        disability: 'No'
+                - type: object
+                  properties:
+                    user:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: The unique identifier for the primary user object.
+                          example: '123'
+                        family_name:
+                          type: string
+                          description: Family name.
+                          example: Jane
+                        given_name:
+                          type: string
+                          description: Given name.
+                          example: Doe
+                        username:
+                          type: string
+                          description: Unique username.
+                          example: janedoe
+                        email:
+                          type: string
+                          description: Email address.
+                          example: jane.doe@example.com
+                        picture:
+                          type: string
+                          description: Profile picture as a URL.
+                          example: https://example-image-url.jpg
+                        status:
+                          type: boolean
+                          description: Whether the user is active (true) or inactive (false).
+                        created_time:
+                          type: string
+                          description: Time at which the user was created (ISO 8601 in UTC).
+                          example: '2022-03-29T01:29:36.000Z'
+                        updated_time:
+                          type: string
+                          description: Time at which the user was last updated (ISO 8601 in UTC).
+                          example: '2022-03-29T01:29:36.000Z'
+                        user_guid:
+                          type: string
+                          description: A new identifier for the user object. Moving to GUID will be introduced in future API versions.
+                          example: usr_1234567890
+                        region:
+                          type: string
+                          description: Data residency region for user.
+                          example: northeurope
+                      required:
+                      - id
+                      - family_name
+                      - given_name
+                      - username
+                      - email
+                      - picture
+                      - status
+                      - created_time
+                      - updated_time
+                      - user_guid
+                      - region
+                required:
+                - user
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - JOB_NOT_FOUND
+                    - JOB_COMPLETED
+                    - USER_ACCOUNT_ACCESS_UNAUTHORIZED
+                    - USER_ACCOUNT_DISABLED
+                    - USER_ACCOUNT_MISSING
+                    - USER_ACCOUNT_NOT_FOUND
+                    - USER_ACCOUNT_ROLE_UPDATE_UNAUTHORISED
+                    - USER_ACCESS_UNAUTHORIZED
+                    - USER_DISABLED
+                    - USER_EMAIL_ADD_WHEN_MASQ
+                    - USER_EMAIL_EXISTS
+                    - USER_EMAIL_NOT_FOUND
+                    - USER_EMAIL_USERNAME_CONFLICT
+                    - USER_PRIMARY_EMAIL_EXISTS
+                    - USER_EXISTS
+                    - USER_EXISTS_AUTH_REQUIRED
+                    - USER_EXISTS_DATA_RESIDENCY_INCOMPATIBLE
+                    - USER_GUID_MISSING
+                    - USER_NOT_FOUND
+                    - USER_MAPPING_NOT_FOUND
+                    - USER_EMAIL_VERIFY_INVALID
+                    - PERMISSION_INVALID_USER_REINDEX
+                    - PERMISSION_INVALID_ACCOUNT_REINDEX
+                    - PERMISSION_INVALID_MASK
+                    - PERMISSION_INVALID_CHANGE_PASSWORD
+                    - PERMISSION_INVALID_SYSTEM_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ADMIN_ALL_ACCOUNTS_REQUIRED
+                    - PERMISSION_INVALID_CREATE_NEW_USER
+                    - PORTAL_NOT_FOUND
+                    - PORTAL_SELF_SIGNUP_DISABLED
+                    - PORTAL_REGION_INVALID
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - JOB_NOT_FOUND
+                    - JOB_COMPLETED
+                    - USER_ACCOUNT_ACCESS_UNAUTHORIZED
+                    - USER_ACCOUNT_DISABLED
+                    - USER_ACCOUNT_MISSING
+                    - USER_ACCOUNT_NOT_FOUND
+                    - USER_ACCOUNT_ROLE_UPDATE_UNAUTHORISED
+                    - USER_ACCESS_UNAUTHORIZED
+                    - USER_DISABLED
+                    - USER_EMAIL_ADD_WHEN_MASQ
+                    - USER_EMAIL_EXISTS
+                    - USER_EMAIL_NOT_FOUND
+                    - USER_EMAIL_USERNAME_CONFLICT
+                    - USER_PRIMARY_EMAIL_EXISTS
+                    - USER_EXISTS
+                    - USER_EXISTS_AUTH_REQUIRED
+                    - USER_EXISTS_DATA_RESIDENCY_INCOMPATIBLE
+                    - USER_GUID_MISSING
+                    - USER_NOT_FOUND
+                    - USER_MAPPING_NOT_FOUND
+                    - USER_EMAIL_VERIFY_INVALID
+                    - PERMISSION_INVALID_USER_REINDEX
+                    - PERMISSION_INVALID_ACCOUNT_REINDEX
+                    - PERMISSION_INVALID_MASK
+                    - PERMISSION_INVALID_CHANGE_PASSWORD
+                    - PERMISSION_INVALID_SYSTEM_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ADMIN_ALL_ACCOUNTS_REQUIRED
+                    - PERMISSION_INVALID_CREATE_NEW_USER
+                    - PORTAL_NOT_FOUND
+                    - PORTAL_SELF_SIGNUP_DISABLED
+                    - PORTAL_REGION_INVALID
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                USER_ACCOUNT_ACCESS_UNAUTHORIZED:
+                  value:
+                    error_code: USER_ACCOUNT_ACCESS_UNAUTHORIZED
+                    message: Insufficient permission to access account.
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - JOB_NOT_FOUND
+                    - JOB_COMPLETED
+                    - USER_ACCOUNT_ACCESS_UNAUTHORIZED
+                    - USER_ACCOUNT_DISABLED
+                    - USER_ACCOUNT_MISSING
+                    - USER_ACCOUNT_NOT_FOUND
+                    - USER_ACCOUNT_ROLE_UPDATE_UNAUTHORISED
+                    - USER_ACCESS_UNAUTHORIZED
+                    - USER_DISABLED
+                    - USER_EMAIL_ADD_WHEN_MASQ
+                    - USER_EMAIL_EXISTS
+                    - USER_EMAIL_NOT_FOUND
+                    - USER_EMAIL_USERNAME_CONFLICT
+                    - USER_PRIMARY_EMAIL_EXISTS
+                    - USER_EXISTS
+                    - USER_EXISTS_AUTH_REQUIRED
+                    - USER_EXISTS_DATA_RESIDENCY_INCOMPATIBLE
+                    - USER_GUID_MISSING
+                    - USER_NOT_FOUND
+                    - USER_MAPPING_NOT_FOUND
+                    - USER_EMAIL_VERIFY_INVALID
+                    - PERMISSION_INVALID_USER_REINDEX
+                    - PERMISSION_INVALID_ACCOUNT_REINDEX
+                    - PERMISSION_INVALID_MASK
+                    - PERMISSION_INVALID_CHANGE_PASSWORD
+                    - PERMISSION_INVALID_SYSTEM_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ADMIN_ALL_ACCOUNTS_REQUIRED
+                    - PERMISSION_INVALID_CREATE_NEW_USER
+                    - PORTAL_NOT_FOUND
+                    - PORTAL_SELF_SIGNUP_DISABLED
+                    - PORTAL_REGION_INVALID
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                USER_ACCOUNT_NOT_FOUND:
+                  value:
+                    error_code: USER_ACCOUNT_NOT_FOUND
+                    message: User account not found.
+      tags:
+      - User accounts
+      security:
+      - OAuth2:
+        - user.write
+  /user-accounts/{id}/login:
+    post:
+      servers:
+      - url: /admin/accounts/{id}/login
+        description: rewrite
+      operationId: generateOneTimeTokenLoginLink
+      summary: Create a login link
+      description: Creates a single-use login link and token for a user account, that can be used to authenticate and log a user into a Go1 experience. This is not enabled by default, please contact support@go1.com for access.
+      parameters:
+      - name: id
+        description: "Either Go1's ID or External ID.<br>\nIf it is an External ID then\n  * `identifier` query parameter must be provided as `external_id`.\n  * Example: `GET user-accounts/123456789?identifier=external_id`\n"
+        required: true
+        in: path
+        schema:
+          oneOf:
+          - type: string
+          - type: integer
+        examples:
+          go1_id:
+            value: 12346
+          external_id:
+            value: '123456789'
+      - name: identifier
+        required: false
+        in: query
+        example: external_id
+        description: "The `identifier` query parameter allows you to specify the identifier you would like to use when looking up a user account.\n\n\n  The available values are:\n\n\n- `external_id`: The API will consider the supplied {id} as the external ID, and will look up the user account that corresponds to the provided id."
+        schema:
+          enum:
+          - external_id
+          type: string
+      - name: redirect_url
+        required: false
+        in: query
+        description: Redirect path after login. Relative to portal domain.
+        example: ?redirect_url=https://bobsbakery.mygo1.com/me
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    description: The login link URL.
+                    example: https://bobsbakery.mygo1.com/me?oneTimeToken=REDACTED
+                  one_time_token:
+                    type: string
+                    description: A single-use login token.
+                    example: REDACTED
+                required:
+                - url
+                - one_time_token
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - JOB_NOT_FOUND
+                    - JOB_COMPLETED
+                    - USER_ACCOUNT_ACCESS_UNAUTHORIZED
+                    - USER_ACCOUNT_DISABLED
+                    - USER_ACCOUNT_MISSING
+                    - USER_ACCOUNT_NOT_FOUND
+                    - USER_ACCOUNT_ROLE_UPDATE_UNAUTHORISED
+                    - USER_ACCESS_UNAUTHORIZED
+                    - USER_DISABLED
+                    - USER_EMAIL_ADD_WHEN_MASQ
+                    - USER_EMAIL_EXISTS
+                    - USER_EMAIL_NOT_FOUND
+                    - USER_EMAIL_USERNAME_CONFLICT
+                    - USER_PRIMARY_EMAIL_EXISTS
+                    - USER_EXISTS
+                    - USER_EXISTS_AUTH_REQUIRED
+                    - USER_EXISTS_DATA_RESIDENCY_INCOMPATIBLE
+                    - USER_GUID_MISSING
+                    - USER_NOT_FOUND
+                    - USER_MAPPING_NOT_FOUND
+                    - USER_EMAIL_VERIFY_INVALID
+                    - PERMISSION_INVALID_USER_REINDEX
+                    - PERMISSION_INVALID_ACCOUNT_REINDEX
+                    - PERMISSION_INVALID_MASK
+                    - PERMISSION_INVALID_CHANGE_PASSWORD
+                    - PERMISSION_INVALID_SYSTEM_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ADMIN_ALL_ACCOUNTS_REQUIRED
+                    - PERMISSION_INVALID_CREATE_NEW_USER
+                    - PORTAL_NOT_FOUND
+                    - PORTAL_SELF_SIGNUP_DISABLED
+                    - PORTAL_REGION_INVALID
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - JOB_NOT_FOUND
+                    - JOB_COMPLETED
+                    - USER_ACCOUNT_ACCESS_UNAUTHORIZED
+                    - USER_ACCOUNT_DISABLED
+                    - USER_ACCOUNT_MISSING
+                    - USER_ACCOUNT_NOT_FOUND
+                    - USER_ACCOUNT_ROLE_UPDATE_UNAUTHORISED
+                    - USER_ACCESS_UNAUTHORIZED
+                    - USER_DISABLED
+                    - USER_EMAIL_ADD_WHEN_MASQ
+                    - USER_EMAIL_EXISTS
+                    - USER_EMAIL_NOT_FOUND
+                    - USER_EMAIL_USERNAME_CONFLICT
+                    - USER_PRIMARY_EMAIL_EXISTS
+                    - USER_EXISTS
+                    - USER_EXISTS_AUTH_REQUIRED
+                    - USER_EXISTS_DATA_RESIDENCY_INCOMPATIBLE
+                    - USER_GUID_MISSING
+                    - USER_NOT_FOUND
+                    - USER_MAPPING_NOT_FOUND
+                    - USER_EMAIL_VERIFY_INVALID
+                    - PERMISSION_INVALID_USER_REINDEX
+                    - PERMISSION_INVALID_ACCOUNT_REINDEX
+                    - PERMISSION_INVALID_MASK
+                    - PERMISSION_INVALID_CHANGE_PASSWORD
+                    - PERMISSION_INVALID_SYSTEM_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ADMIN_ALL_ACCOUNTS_REQUIRED
+                    - PERMISSION_INVALID_CREATE_NEW_USER
+                    - PORTAL_NOT_FOUND
+                    - PORTAL_SELF_SIGNUP_DISABLED
+                    - PORTAL_REGION_INVALID
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - AUTH_TOKEN_MISSING
+                    - AUTH_TOKEN_INVALID
+                    - AUTH_INVALID_JWT
+                    - AUTH_INVALID_JWT_SUB_MISSING
+                    - JOB_NOT_FOUND
+                    - JOB_COMPLETED
+                    - USER_ACCOUNT_ACCESS_UNAUTHORIZED
+                    - USER_ACCOUNT_DISABLED
+                    - USER_ACCOUNT_MISSING
+                    - USER_ACCOUNT_NOT_FOUND
+                    - USER_ACCOUNT_ROLE_UPDATE_UNAUTHORISED
+                    - USER_ACCESS_UNAUTHORIZED
+                    - USER_DISABLED
+                    - USER_EMAIL_ADD_WHEN_MASQ
+                    - USER_EMAIL_EXISTS
+                    - USER_EMAIL_NOT_FOUND
+                    - USER_EMAIL_USERNAME_CONFLICT
+                    - USER_PRIMARY_EMAIL_EXISTS
+                    - USER_EXISTS
+                    - USER_EXISTS_AUTH_REQUIRED
+                    - USER_EXISTS_DATA_RESIDENCY_INCOMPATIBLE
+                    - USER_GUID_MISSING
+                    - USER_NOT_FOUND
+                    - USER_MAPPING_NOT_FOUND
+                    - USER_EMAIL_VERIFY_INVALID
+                    - PERMISSION_INVALID_USER_REINDEX
+                    - PERMISSION_INVALID_ACCOUNT_REINDEX
+                    - PERMISSION_INVALID_MASK
+                    - PERMISSION_INVALID_CHANGE_PASSWORD
+                    - PERMISSION_INVALID_SYSTEM_ADMIN_REQUIRED
+                    - PERMISSION_INVALID_ADMIN_ALL_ACCOUNTS_REQUIRED
+                    - PERMISSION_INVALID_CREATE_NEW_USER
+                    - PORTAL_NOT_FOUND
+                    - PORTAL_SELF_SIGNUP_DISABLED
+                    - PORTAL_REGION_INVALID
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - error_code
+                - message
+              examples:
+                USER_ACCOUNT_NOT_FOUND:
+                  value:
+                    error_code: USER_ACCOUNT_NOT_FOUND
+                    message: User Account not found.
+      tags:
+      - User accounts
+      security:
+      - OAuth2:
+        - user.login
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: OAuth 2.0 via a Go1 Developer App (client_id/client_secret). See https://developers.go1.com/docs/developer-tools/auth/overview-auth
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.go1.com/oauth/token
+          scopes:
+            enrollment.read: ''
+            enrollment.write: ''
+            group.read: ''
+            group.write: ''
+            lo.launch: ''
+            lo.read: ''
+            lo.write: ''
+            plan.read: ''
+            plan.write: ''
+            portal.read: ''
+            portal.write: ''
+            user.login: ''
+            user.read: ''
+            user.write: ''
+            webhook.read: ''
+            webhook.write: ''
+        authorizationCode:
+          authorizationUrl: https://auth.go1.com/oauth/authorize
+          tokenUrl: https://auth.go1.com/oauth/token
+          scopes:
+            enrollment.read: ''
+            enrollment.write: ''
+            group.read: ''
+            group.write: ''
+            lo.launch: ''
+            lo.read: ''
+            lo.write: ''
+            plan.read: ''
+            plan.write: ''
+            portal.read: ''
+            portal.write: ''
+            user.login: ''
+            user.read: ''
+            user.write: ''
+            webhook.read: ''
+            webhook.write: ''
+    bearer:
+      type: http
+      scheme: bearer
+      description: Access token sent in the Authorization header (named "bearer" by some operations in the reference).

@@ -1,13 +1,40 @@
-generated: '2026-07-19'
+generated: '2026-10-21'
 method: searched
-source: developers.go1.com + status.go1.com
+source: https://developers.go1.com/docs/developer-tools/api/versioning/
 versioning:
   scheme: date-based
   selector: Api-Version request header
   current: '2025-01-01'
-  docs: https://developers.go1.com/api/rest/2025-01-01/overview/
+  docs: https://developers.go1.com/docs/developer-tools/api/versioning/
+  naming: Each Go1 API version is denoted by the date it was released, following the format YYYY-MM-DD.
+  versions:
+  - version: '2025-01-01'
+    status: Stable
+    note: This version should be the default version used when integrating Go1.
+  - version: '2022-07-01'
+    status: Stable
+    note: This version can continue be used by existing integrators, but should not be used for new integrations
+      with Go1.
+  - version: Alpha
+    status: Unstable
+    note: While the Alpha API version is suitable for testing, it's not recommended for use in production environments.
+  - version: v2
+    status: Deprecated
+    note: the v2 API does not currently have a scheduled retirement date; however, we will notify users well in
+      advance before discontinuation.
+  breaking_change_policy: Breaking changes that necessitate an upgrade to the API version to use. These changes
+    are introduced in new dated versions of the API.
 status_page: https://status.go1.com
 status_api: https://status.go1.com/api/v2/status.json
 deprecated_operations: []
-note: Version is pinned per request via the Api-Version header. No public deprecation-policy page or Sunset/Deprecation
-  header contract was found; not asserted.
+note: No Sunset/Deprecation (RFC 8594) header contract documented. v2 is deprecated with no scheduled retirement
+  date.
+deprecation:
+  policy: Although deprecated APIs remain available and supported, this status indicates that the API is planned
+    for retirement in the future.
+  deprecated_versions:
+  - v2
+  retirement_date: null
+  sunset_headers: not documented
+  docs: https://developers.go1.com/docs/developer-tools/api/versioning/
+changelog: changelog/go1-changelog.yml

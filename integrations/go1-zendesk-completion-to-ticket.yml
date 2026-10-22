@@ -1,0 +1,69 @@
+arazzo: 1.0.1
+info:
+  title: Open a Zendesk ticket when Go1 enrollments complete
+  version: 1.0.0
+  description: >-
+    Mirrors the Go1 + zendesk pairing listed on Zapier. Completed Go1 enrollments for a user since a given
+    time are listed and summarised into a new Zendesk ticket for follow-up (e.g. certification checks).
+sourceDescriptions:
+- name: go1Enrollments
+  url: https://raw.githubusercontent.com/api-evangelist/go1/refs/heads/main/openapi/go1-enrollments-api-openapi.yml
+  type: openapi
+- name: zendeskTickets
+  url: https://raw.githubusercontent.com/api-evangelist/zendesk/refs/heads/main/openapi/zendesk-tickets-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: go1CompletionTozendeskTicket
+  summary: Find completed Go1 enrollments and raise a Zendesk ticket.
+  inputs:
+    type: object
+    required: [userAccountId, since]
+    properties:
+      userAccountId: {type: integer}
+      since: {type: string, format: date-time}
+      requesterEmail: {type: string}
+  steps:
+  - stepId: findCompleted
+    operationId: $sourceDescriptions.go1Enrollments.enrolmentSearchController_get
+    parameters:
+    - name: user_account_id
+      in: query
+      value: $inputs.userAccountId
+    - name: status
+      in: query
+      value: completed
+    - name: update_time_gte
+      in: query
+      value: $inputs.since
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      total: $response.body#/total
+      enrollments: $response.body#/hits
+  - stepId: createTicket
+    operationId: $sourceDescriptions.zendeskTickets.CreateTicket
+    requestBody:
+      contentType: application/json
+      payload:
+        ticket:
+          subject: Go1 learning completed
+          comment:
+            body: $steps.findCompleted.outputs.enrollments
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      ticket: $response.body
+  outputs:
+    completedCount: $steps.findCompleted.outputs.total
+    ticket: $steps.createTicket.outputs.ticket
+x-integration:
+  partner: zendesk
+  edge_evidence: https://zapier.com/apps/go1/integrations/zendesk
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-21'
+  generator: provider-integrations-arazzo
+  guessed_steps:
+  - step: createTicket
+    cause: partner-contract
+    why: "CreateTicket's request schema references components/schemas/TicketCreateRequest, which the Zendesk spec does not define, so the ticket payload shape is assumed from the response's ticket object."

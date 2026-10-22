@@ -1,33 +1,452 @@
 # Go1
 
-> Go1 is an AI-powered corporate learning and development (L&D) platform whose content library aggregates courses from 250+ providers across 40+ languages. The Go1 developer platform exposes a date-versioned REST API (gateway.go1.com, selected with the `Api-Version` header) for discovering learning objects, managing enrollments, provisioning customer portals, and subscribing to events via webhooks. Authentication is OAuth 2.0 (client_credentials and authorization_code), with bearer tokens issued by https://auth.go1.com/oauth/token.
+> Welcome to the Go1 Help Center
 
-Provenance: generated 2026-07-19 by the API Evangelist enrichment pipeline from Go1's public developer surface (developers.go1.com) and package registries. Method: generated.
+## English
 
-## API
+### I access Go1 directly
 
-- [Go1 API developer portal](https://developers.go1.com/): learning objects, enrollments, portals, webhooks. Base URL https://gateway.go1.com, header `Api-Version: 2025-01-01`.
-- [API reference](https://developers.go1.com/api/rest/2025-01-01/overview/)
-- [Getting started](https://developers.go1.com/docs/getting-started/)
+- [Go1 Learn: Your Complete Admin Guide](https://help.go1.com/en/articles/11051747-go1-learn-your-complete-admin-guide.md): Frequently asked questions and key links for all things Go1 Learn
+- [Create and manage users](https://help.go1.com/en/articles/13211547-create-and-manage-users.md): Add, edit, and manage users in your Go1 portal individually or in bulk.
+- [Find content with Search](https://help.go1.com/en/articles/10632880-find-content-with-search.md): Search, filter, sort, preview, and compare learning content in Go1 Learn.
+- [Endorse content to guide learners to trusted resources](https://help.go1.com/en/articles/12537411-endorse-content-to-guide-learners-to-trusted-resources.md): Help your learners identify organization-approved content by endorsing courses, playlists, and awards that meet your standards.
+- [Highlight priority content with Spotlight](https://help.go1.com/en/articles/11424498-highlight-priority-content-with-spotlight.md): Learn how to promote important, strategic learning content on your homepage with Spotlight.
+- [Feature your organization's content on the homepage](https://help.go1.com/en/articles/11560370-feature-your-organization-s-content-on-the-homepage.md): Feature courses and playlists on homepage to showcase organizational content for maximum visibility and engagement with your custom content
+- [Content administration](https://help.go1.com/en/articles/12147083-content-administration.md): Understand your Content area and how to curate learning that meets your organization's needs.
+- [Create and manage reports](https://help.go1.com/en/articles/13284409-create-and-manage-reports.md): Track learning activity across assignments, learners, and content
+- [Assign learning to your organization](https://help.go1.com/en/articles/13283815-assign-learning-to-your-organization.md): Assign content to individuals or groups with flexible due dates and scheduling options.
+- [Opt in to content preferences](https://help.go1.com/en/articles/13330004-opt-in-to-content-preferences.md): Switch from manual library curation to intelligent content management with smart preferences.
+- [Understand user roles and permissions](https://help.go1.com/en/articles/13191268-understand-user-roles-and-permissions.md): Understand what learners, managers, content admins, and admins can access in Go1.
+- [Supported languages](https://help.go1.com/en/articles/13340480-supported-languages.md): Change your platform language or find content in your preferred language.
+- [Go1 Learn: Manager guide](https://help.go1.com/en/articles/13340890-go1-learn-manager-guide.md): Manage your team's learning, assign content, and track progress in Go1 Learn.
+- [Go1 Learn: Learner Guide](https://help.go1.com/en/articles/11051965-go1-learn-learner-guide.md): Everything you need to know about your new learning experience
+- [Getting the most from your Go1 Learn homepage](https://help.go1.com/en/articles/10537333-getting-the-most-from-your-go1-learn-homepage.md): A guide to the different types of content displayed on the Go1 Learn home page and how it is selected.
+- [How to change my password](https://help.go1.com/en/articles/13605031-how-to-change-my-password.md): This article explains how Go1 users can reset their passwords within the Go1 Learn portal.
+- [Upload your external learning](https://help.go1.com/en/articles/13867671-upload-your-external-learning.md): Record learning completed outside Go1 toward your award progress.
+- [Change your email address](https://help.go1.com/en/articles/13767111-change-your-email-address.md): Add, change, or remove the email address linked to your Go1 account.
+- [Download your award transcript](https://help.go1.com/en/articles/13867931-download-your-award-transcript.md): Get a PDF record of your award progress, including credits and external learning.
+- [Understanding how your Learning is sorted](https://help.go1.com/en/articles/11805610-understanding-how-your-learning-is-sorted.md): In this article, we explain how Go1 Learn automatically sorts learning items in the Assigned, In Progress, and Completed tabs
+- [AI Assistant in Reports](https://help.go1.com/en/articles/13761282-ai-assistant-in-reports.md): Ask questions about your learning data in plain language and get clear answers and charts.
+- [Knowledge Checks](https://help.go1.com/en/articles/14118571-knowledge-checks.md): Check your understanding with questions personalized to your role
+- [Export content from Go1](https://help.go1.com/en/articles/14133606-export-content-from-go1.md): Export content details as a CSV, or download SCORM packages to use in your external LMS or HRIS.
+- [Brand your Go1 Learn portal](https://help.go1.com/en/articles/14338444-brand-your-go1-learn-portal.md): Add your organization's logo, banner, and accent color from Go1 Learn.
+- [Export enrolment data](https://help.go1.com/en/articles/15079421-export-enrolment-data.md): Export a comprehensive CSV of enrolment data from any report view in Go1 Learn.
+- [Manage learning from Overview](https://help.go1.com/en/articles/16983413-manage-learning-from-overview.md): Understand Overview metrics, alerts, team activity, and quick actions.
+- [Search content with the AI assistant](https://help.go1.com/en/articles/17228184-search-content-with-the-ai-assistant.md): Your AI-powered assistant for discovering and curating the right learning content
+- [Remove, archive or delete assigned learning](https://help.go1.com/en/articles/17345301-remove-archive-or-delete-assigned-learning.md): Stop assignments, remove learning requirements, and see what happens to learner records.
+- [Enable self-service sign-up](https://help.go1.com/en/articles/17420764-enable-self-service-sign-up.md): Let learners create accounts and configure terms or notices.
+- [Why has my CSV upload failed? \(MyGo1\)](https://help.go1.com/en/articles/1785527-why-has-my-csv-upload-failed-mygo1.md): Common reasons a user CSV upload fails on our legacy platform, and how to fix them.
+- [How to Manually Send a Welcome Email](https://help.go1.com/en/articles/14835183-how-to-manually-send-a-welcome-email.md): How administrators in Go1 Learn can manually send welcome emails to one user or to multiple users at once.
+- [Creating a user without an email address](https://help.go1.com/en/articles/5074623-creating-a-user-without-an-email-address.md): How to create a user account for an individual that does not have an email address
+- [How to Manually Send a Welcome Email \(MyGo1\)](https://help.go1.com/en/articles/7669592-how-to-manually-send-a-welcome-email-mygo1.md): Send a welcome email manually in your portal on our legacy platform.
+- [Troubleshooting duplicate users created in portal \(MyGo1\)](https://help.go1.com/en/articles/9530939-troubleshooting-duplicate-users-created-in-portal-mygo1.md): Why SCORM wrapper accounts look like duplicate users on our legacy platform, and how to fix it.
+- [Why Emails Are Not Being Received and How to prevent and Fix it.](https://help.go1.com/en/articles/11635314-why-emails-are-not-being-received-and-how-to-prevent-and-fix-it.md): The article explains why Go1 emails are not received and how users can prevent or resolve this issue
+- [How to Reset Your Password in Go1 \(MyGo1\)](https://help.go1.com/en/articles/11739222-how-to-reset-your-password-in-go1-mygo1.md): Reset a forgotten password from the login page on our legacy platform.
+- [Essential Select: Library Review Mode](https://help.go1.com/en/articles/12162922-essential-select-library-review-mode.md)
+- [Finding content in the language of your choice \(MyGo1\)](https://help.go1.com/en/articles/9755959-finding-content-in-the-language-of-your-choice-mygo1.md): Users can search for content in a specific language on our legacy platform
+- [How to change my password \(MyGo1\)](https://help.go1.com/en/articles/6980914-how-to-change-my-password-mygo1.md): This article explains how Go1 users can reset their password within the MyGo1 portal.
+- [How to change the email address through which you access Go1 \(MyGo1\)](https://help.go1.com/en/articles/3338844-how-to-change-the-email-address-through-which-you-access-go1-mygo1.md): How to add a secondary email address or change an email address used to log in to MyGo1 Platform
+- [How to send reset password link \(Admins\) \(MyGo1\)](https://help.go1.com/en/articles/2759348-how-to-send-reset-password-link-admins-mygo1.md): How admins send a password reset link to a locked-out user on our legacy platform.
+- [My Team Dashboard \(MyGo1\)](https://help.go1.com/en/articles/2453645-my-team-dashboard-mygo1.md): This article will go through what My Team is and how it can be utilised on our legacy platform
+- [Supported languages \(MyGo1\)](https://help.go1.com/en/articles/13340635-supported-languages-mygo1.md): Update your language preference to display our legacy interface in your preferred language.
+- [Upload organization logo \(MyGo1\)](https://help.go1.com/en/articles/5319176-upload-organization-logo-mygo1.md): Upload your logo and certificate signature on our legacy platform.
+- [Share a playlist to another portal \(MyGo1\)](https://help.go1.com/en/articles/14481474-share-a-playlist-to-another-portal-mygo1.md): How to share a copy of a playlist from one portal to another portal in MyGo1
+- [Create Standalone Learning Item: Interactive \(MyGo1\)](https://help.go1.com/en/articles/3102712-create-standalone-learning-item-interactive-mygo1.md): Upload a SCORM or xAPI package as a standalone learning item on our legacy platform.
+- [How to manage assigned learning \(MyGo1\)](https://help.go1.com/en/articles/6680860-how-to-manage-assigned-learning-mygo1.md): A step-by-step, hands on guide for our legacy platform
+- [How to update course settings \(MyGo1\)](https://help.go1.com/en/articles/6676668-how-to-update-course-settings-mygo1.md): A step-by-step, hands on guide for our legacy platform
+- [How to create awards \(MyGo1\)](https://help.go1.com/en/articles/6676729-how-to-create-awards-mygo1.md): A step-by-step, hands on guide for our legacy platform
+- [How to assign training through Awards \(MyGo1\)](https://help.go1.com/en/articles/6676742-how-to-assign-training-through-awards-mygo1.md): A step-by-step, hands on guide for our legacy platform
+- [How to update Platform Settings and Notifications \(MyGo1\)](https://help.go1.com/en/articles/6681208-how-to-update-platform-settings-and-notifications-mygo1.md): A step-by-step, hands on guide for our legacy platform
+- [Create and Edit Users \(MyGo1\)](https://help.go1.com/en/articles/1703815-create-and-edit-users-mygo1.md): Create, edit, and deactivate users individually or in bulk on our legacy platform.
+- [Assign Group Managers to groups](https://help.go1.com/en/articles/17021331-assign-group-managers-to-groups.md): Give Group Managers access to users and learning within assigned groups.
+- [User roles and permissions \(MyGo1\)](https://help.go1.com/en/articles/1703818-user-roles-and-permissions-mygo1.md): User roles and permissions control what learners, managers, and administrators can access in MyGo1.
+- [Introduction to Groups \(MyGo1\)](https://help.go1.com/en/articles/1704044-introduction-to-groups-mygo1.md): What is a user group on our legacy platform
+- [Share groups between Go1 Platforms \(MyGo1\)](https://help.go1.com/en/articles/2745907-share-groups-between-go1-platforms-mygo1.md): Share a group of content with another portal on our legacy platform.
+- [How to share groups to your portal \(MyGo1\)](https://help.go1.com/en/articles/3091071-how-to-share-groups-to-your-portal-mygo1.md): Share a content group to your portal to make it public, on our legacy platform.
+- [Why do I see unknown accounts in my portal? \(MyGo1\)](https://help.go1.com/en/articles/8178680-why-do-i-see-unknown-accounts-in-my-portal-mygo1.md): What a SCORM-generated user account is, and what to do about it, on our legacy platform.
+- [Managing Duplicate Accounts in Go1: Current Solutions](https://help.go1.com/en/articles/11459861-managing-duplicate-accounts-in-go1-current-solutions.md): This support article serves as a practical guide for understanding and addressing duplicate account challenges.
+- [Assigning a Manager via CSV : New UMP \(MyGo1\)](https://help.go1.com/en/articles/11492556-assigning-a-manager-via-csv-new-ump-mygo1.md): Assign managers to new and existing users via CSV import on our legacy platform.
+- [Add users to a Group in-bulk \(MyGo1\)](https://help.go1.com/en/articles/2435600-add-users-to-a-group-in-bulk-mygo1.md): Add many users to a group at once from User Management on our legacy platform.
+- [Exporting User Data in Go1 \(MyGo1\)](https://help.go1.com/en/articles/12077140-exporting-user-data-in-go1-mygo1.md): Download user information from your portal on our legacy platform.
+- [View and manage deactivated users](https://help.go1.com/en/articles/14114483-view-and-manage-deactivated-users.md): This instruction applies to People Management in Go1 Learn.
+- [Introduction to groups](https://help.go1.com/en/articles/14192580-introduction-to-groups.md): Learn how groups help you organize users and deliver learning across your organization.
+- [Create a group](https://help.go1.com/en/articles/14406040-create-a-group.md): Create static or dynamic groups to organize users and deliver learning efficiently.
+- [Add or remove group members](https://help.go1.com/en/articles/14468331-add-or-remove-group-members.md): Manage who belongs in your static and dynamic groups in Go1 Learn.
+- [Edit or delete a group](https://help.go1.com/en/articles/14468366-edit-or-delete-a-group.md): Update group details, change dynamic group rules, or delete groups you no longer need.
+- [Filtering reports to find users with incomplete profiles](https://help.go1.com/en/articles/14487753-filtering-reports-to-find-users-with-incomplete-profiles.md): Learn how to apply filters in your reports to quickly identify users who have incomplete or missing profile information, enabling more accurate data management and follow‑up.
+- [Portal Notification Settings \(MyGo1\)](https://help.go1.com/en/articles/5482864-portal-notification-settings-mygo1.md): Set up notifications sent to your learners on our legacy platform.
+- [Understanding Notification Triggers in Go1 \(MyGo1\)](https://help.go1.com/en/articles/14464319-understanding-notification-triggers-in-go1-mygo1.md): The notification triggers available on our legacy platform, and when each one is sent.
 
-## Specs & artifacts
+### I'm new to Go1
 
-- [OpenAPI (harvested)](openapi/go1-openapi.yml): 12 paths / 20 operations across Learning Objects, Enrollments, Portals, Webhooks.
-- [Authentication profile](authentication/go1-authentication.yml): OAuth 2.0, token endpoint https://auth.go1.com/oauth/token.
-- [OAuth scopes](scopes/go1-scopes.yml): lo.read, lo.write, enrollment.read, enrollment.write, portal.read, portal.write, webhook.read, webhook.write.
-- [API conventions](conventions/go1-conventions.yml): auth, versioning header, offset/scroll pagination, error envelope, webhook signatures.
-- [Error catalog](errors/go1-problem-types.yml): custom `{ref, error_code, message}` JSON envelope.
-- [Data model](data-model/go1-data-model.yml): LearningObject, Enrollment, Portal, Webhook.
-- [Webhooks catalog](asyncapi/go1-webhooks.yml): 12 event types (content.*, content.library.*, enrollment.*).
-- [Lifecycle](lifecycle/go1-lifecycle.yml): date-based versioning, status page https://status.go1.com.
-- [Packages / SDKs](packages/go1-packages.yml): @go1 embedding JS/React SDKs, webhook-verifier, apim-cli, go1d design system.
-- [Agent skills](skills/_index.yml)
+- [Accessing to Go1 from Your Welcome Email](https://help.go1.com/en/articles/4330930-accessing-to-go1-from-your-welcome-email.md): Welcome to Go1! To start your journey with us, follow these steps to successfully access the Go1 Platform.
+- [Get help from Go1](https://help.go1.com/en/articles/8059962-get-help-from-go1.md): Support options and how to get help from the team at Go1
+- [Guide to Multi-Language Content in the Go1 Library](https://help.go1.com/en/articles/12659920-guide-to-multi-language-content-in-the-go1-library.md)
+- [Purchase a Go1 subscription](https://help.go1.com/en/articles/16092124-purchase-a-go1-subscription.md): Learn how to purchase a Go1 subscription and convert your trial into a paid subscription.
+- [Understand the Account Owner role](https://help.go1.com/en/articles/16093241-understand-the-account-owner-role.md): Learn about the Account Owner role and the responsibilities that come with managing your organisation's Go1 subscription.
+- [Transfer Account Ownership](https://help.go1.com/en/articles/16093295-transfer-account-ownership.md): Learn how to transfer Account Ownership to another administrator in your organisation
+- [Update your billing details](https://help.go1.com/en/articles/16093651-update-your-billing-details.md): Learn how to update the billing information associated with your Go1 subscription.
+- [View and download invoices](https://help.go1.com/en/articles/16093662-view-and-download-invoices.md): Learn how to access and download invoices for your Go1 subscription.
+- [Understand subscription renewals](https://help.go1.com/en/articles/16093671-understand-subscription-renewals.md): Learn when your Go1 subscription renews, what you’ll be charged and what happens next.
+- [Cancel your plan](https://help.go1.com/en/articles/16093681-cancel-your-plan.md): Learn how to cancel your annual Go1 subscription and what happens after cancellation.
+- [What happens when your plan ends](https://help.go1.com/en/articles/16093807-what-happens-when-your-plan-ends.md): Learn how plan expiry affects access and how to continue using Go1.
+- [Launch Learning on Go1](https://help.go1.com/en/articles/10813928-launch-learning-on-go1.md): Everything you need to set up Go1 as your learning platform.
+- [Access Go1 content within our existing HRIS or LMS platform](https://help.go1.com/en/articles/10815582-access-go1-content-within-our-existing-hris-or-lms-platform.md): Implement Go1 to access content in your existing platform.
+- [Set up learner profiles to power personalisation in Go1](https://help.go1.com/en/articles/14848974-set-up-learner-profiles-to-power-personalisation-in-go1.md): The six learner profile fields that power the best possible personalised experience for customers using content recommendations, Intelligent Translations, Knowledge Checks, and Morgan by Go1™.
+- [Discover and Set Your Learning & Development Goals](https://help.go1.com/en/articles/8059981-discover-and-set-your-learning-development-goals.md)
+- [Needs Analysis Tool](https://help.go1.com/en/articles/8059971-needs-analysis-tool.md)
+- [Skills for Business Success](https://help.go1.com/en/articles/8060056-skills-for-business-success.md)
+- [Curation Decision Tool](https://help.go1.com/en/articles/8060063-curation-decision-tool.md)
+- [L&D Skills Prioritizer Tool](https://help.go1.com/en/articles/8060093-l-d-skills-prioritizer-tool.md)
+- [Team Skills Mapping Tool](https://help.go1.com/en/articles/8060100-team-skills-mapping-tool.md)
+- [Change Journey Planner](https://help.go1.com/en/articles/8060109-change-journey-planner.md)
+- [Pre-launch Email Template](https://help.go1.com/en/articles/8060217-pre-launch-email-template.md)
+- [Pre-launch Graphics](https://help.go1.com/en/articles/8060531-pre-launch-graphics.md)
+- [Launch Invitation Email Templates](https://help.go1.com/en/articles/8060572-launch-invitation-email-templates.md)
+- [How to Troubleshoot Course Access Problems Through Go1 Links \(MyGo1\)](https://help.go1.com/en/articles/14501647-how-to-troubleshoot-course-access-problems-through-go1-links-mygo1.md): Troubleshoot learner problems opening course links on our legacy platform.
+- [Cultivating Learning in Workplace Communities](https://help.go1.com/en/articles/8060594-cultivating-learning-in-workplace-communities.md)
+- [Power Hour Tool](https://help.go1.com/en/articles/8060600-power-hour-tool.md)
+- [Improving Impact Tool](https://help.go1.com/en/articles/8060602-improving-impact-tool.md)
+- [Post Launch Email Template](https://help.go1.com/en/articles/8060635-post-launch-email-template.md)
+- [Adoption Slidedeck](https://help.go1.com/en/articles/8060640-adoption-slidedeck.md)
+- [12 Months of Learning Calendar](https://help.go1.com/en/articles/8060647-12-months-of-learning-calendar.md)
+- [Upskill Playbooks: Leadership](https://help.go1.com/en/articles/8884839-upskill-playbooks-leadership.md): Invest in your employee's future by becoming a skills-powered organisation.
+- [Choose Your Preferred Learning Topics \(MyGo1\)](https://help.go1.com/en/articles/8077395-choose-your-preferred-learning-topics-mygo1.md): Choose the learning topics you're interested in, on our legacy platform.
+- [Logging in to Go1 for the first time \(MyGo1\)](https://help.go1.com/en/articles/8064554-logging-in-to-go1-for-the-first-time-mygo1.md): Access a Go1 user account created for you on our legacy platform.
+- [What is Go1?](https://help.go1.com/en/articles/8064297-what-is-go1.md): Welcome to a whole world of learning
+- [Register for a Go1 learner account](https://help.go1.com/en/articles/8060703-register-for-a-go1-learner-account.md): Follow these steps to get started as a Go1 learner
+- [Managing Your Learning](https://help.go1.com/en/articles/11051998-managing-your-learning.md): Save and start content you're interested in
+- [How to Access Learning Items as a Learner \(MyGo1\)](https://help.go1.com/en/articles/12901579-how-to-access-learning-items-as-a-learner-mygo1.md): Find, start and track your assigned learning as a learner on our legacy platform.
 
-## Docs
+### I'm facing a problem
 
-- [Authentication](https://developers.go1.com/docs/developer-tools/auth/overview-auth)
-- [Webhooks](https://developers.go1.com/docs/developer-tools/webhooks/overview-webhooks/)
-- [SDKs](https://developers.go1.com/docs/developer-tools/sdks/overview-sdks/)
-- [Support](https://help.go1.com/en)
-- [Status](https://status.go1.com)
-- [Trust center](https://trust.go1.com/)
+- [Go1 System Status ⚠️](https://help.go1.com/en/articles/9334632-go1-system-status.md): Where to find Go1's service availability status and receive regular updates
+- [Browser and Device support](https://help.go1.com/en/articles/5468374-browser-and-device-support.md): Understand what browser and device you need to learn through Go1
+- [Login Issues - Why can't I login? \(MyGo1\)](https://help.go1.com/en/articles/2945255-login-issues-why-can-t-i-login-mygo1.md): Troubleshoot login problems on our legacy platform. You may be on the wrong portal.
+- [Too many failed sign in attempts lockout](https://help.go1.com/en/articles/4129219-too-many-failed-sign-in-attempts-lockout.md): Locked out of your account due to too many failed attempts? We can help!
+- [Unable to Log In Via The Link in The Email](https://help.go1.com/en/articles/6826807-unable-to-log-in-via-the-link-in-the-email.md): Why can't I log in through the link in the email I received? Why am I being redirected to the login page?
+- [Fix a course that will not open, play or complete](https://help.go1.com/en/articles/6381656-fix-a-course-that-will-not-open-play-or-complete.md): Steps to resolve courses that will not load, play, progress or record completion.
+- [How to send diagnostic information to Go1 support](https://help.go1.com/en/articles/6994223-how-to-send-diagnostic-information-to-go1-support.md): Collect browser logs, screenshots, and device details to help Go1 support resolve your issue.
+- [Fix garbled text in a Go1 CSV export opened in Excel](https://help.go1.com/en/articles/6828618-fix-garbled-text-in-a-go1-csv-export-opened-in-excel.md): Seeing random characters in your exported CSV? Fix the encoding when opening the file in Excel.
+- [YouTube Clip link not working](https://help.go1.com/en/articles/12032253-youtube-clip-link-not-working.md): Why YouTube “Clip” Links Don’t Work in Go1 \(and How to Fix It\)
+
+### I create or manage content
+
+- [Manage content preferences](https://help.go1.com/en/articles/12032841-manage-content-preferences.md): Ensure relevant content access using content preferences that suit your organizational and cultural context.
+- [Deliver multiple content items as a program](https://help.go1.com/en/articles/14465547-deliver-multiple-content-items-as-a-program.md): Decide whether to assign items as they are, or group them into a course or award.
+- [Create and edit courses](https://help.go1.com/en/articles/13262124-create-and-edit-courses.md): Build custom courses by blending your own content with Go1's library
+- [Create and edit content items](https://help.go1.com/en/articles/14664833-create-and-edit-content-items.md): Upload and manage individual content items like videos, documents, and links.
+- [Create playlists with AI](https://help.go1.com/en/articles/9625277-create-playlists-with-ai.md): Generate a playlist with AI assistance
+- [Create and edit playlists](https://help.go1.com/en/articles/8892692-create-and-edit-playlists.md): A guide to curating content into playlists for your learners
+- [Delete your content](https://help.go1.com/en/articles/15639923-delete-your-content.md): Delete custom content you no longer need in Go1 Learn
+- [Create and edit awards](https://help.go1.com/en/articles/16062130-create-and-edit-awards.md): Create awards with completion rules, content, and track external learning on Go1 Learn.
+- [Create and edit event sessions](https://help.go1.com/en/articles/16767378-create-and-edit-event-sessions.md): Create events, configure sessions, and manage learner booking settings.
+- [Create and edit quizzes](https://help.go1.com/en/articles/16936766-create-and-edit-quizzes.md): Create quizzes, questions, and configure scoring in the Course Editor
+- [Metadata Guidelines: Learning Outcomes](https://help.go1.com/en/articles/10180546-metadata-guidelines-learning-outcomes.md): The skills or knowledge learners should expect to gain from completing the content
+- [Exporting Playlists](https://help.go1.com/en/articles/9625270-exporting-playlists.md): Administrators can export playlists in Go1 Learn
+- [Content Partner Insights](https://help.go1.com/en/articles/6242830-content-partner-insights.md): Content Insights provides clarity for Content Providers on how their learning content is performing.
+- [How to bulk upload content to Go1](https://help.go1.com/en/articles/6757732-how-to-bulk-upload-content-to-go1.md): A step-by-step guide to using the Bulk Uploader
+- [Go1 Content Metadata Guidelines](https://help.go1.com/en/articles/6757771-go1-content-metadata-guidelines.md): Metadata guidelines for publishing to content on Go1
+- [How to bulk update content metadata](https://help.go1.com/en/articles/6975368-how-to-bulk-update-content-metadata.md): A step-by-step guide to updating the metadata for existing content using the Bulk Uploader
+- [Publishing content using the Bulk Uploader \(MyGo1\)](https://help.go1.com/en/articles/7002262-publishing-content-using-the-bulk-uploader-mygo1.md): Publish content uploaded with the Bulk Uploader on our legacy platform.
+- [How to bulk update content files](https://help.go1.com/en/articles/9626839-how-to-bulk-update-content-files.md): A step-by-step guide to updating existing content files using the Bulk Uploader
+- [How to see the status of your Premium content](https://help.go1.com/en/articles/9627029-how-to-see-the-status-of-your-premium-content.md): Using the content manager table to check the status of content submitted to Premium \(Pending review, Fixes required, Live\)
+- [How to Create and Configure an LTI resource \( LTI v1.1 and v1.3 \) on a portal](https://help.go1.com/en/articles/8301553-how-to-create-and-configure-an-lti-resource-lti-v1-1-and-v1-3-on-a-portal.md)
+- [Create a Playlist as a Go1 Content Partner](https://help.go1.com/en/articles/8060681-create-a-playlist-as-a-go1-content-partner.md)
+- [Go1 Image Quality Standards](https://help.go1.com/en/articles/7199110-go1-image-quality-standards.md): Image quality greatly influences the learning experience on Go1. Here are some tips for optimizing image quality based on the Go1 standards.
+- [Troubleshooting errors using the Bulk Uploader](https://help.go1.com/en/articles/6795430-troubleshooting-errors-using-the-bulk-uploader.md): Get help resolving errors when bulk uploading content to Go1
+- [Topics Taxonomy](https://help.go1.com/en/articles/6767512-topics-taxonomy.md): Understand Go1's topics taxonomy
+- [Platform tips and tricks for GO1 Content Partners](https://help.go1.com/en/articles/3202399-platform-tips-and-tricks-for-go1-content-partners.md)
+- [Managing Languages in your Content](https://help.go1.com/en/articles/11324733-managing-languages-in-your-content.md): How to manage Content on Go1 in multiple languages
+- [Best Practices for Creating and Uploading Content to Go1](https://help.go1.com/en/articles/11904056-best-practices-for-creating-and-uploading-content-to-go1.md): Before creating or uploading content to Go1, consider these key questions to ensure your content meets best practice standards.
+- [Group Formats and When to Use Them](https://help.go1.com/en/articles/11904253-group-formats-and-when-to-use-them.md): Courses and Playlists: when to use them.
+- [Single Learning Object formats](https://help.go1.com/en/articles/11904160-single-learning-object-formats.md): Learning Objects are individual pieces of learning content in the Go1 platform.
+- [Updating or Retiring Content: Best Practice](https://help.go1.com/en/articles/11903884-updating-or-retiring-content-best-practice.md): Should this content be updated, or is it time to retire and replace it?
+- [Creating a Learning Object: Decision Making Tips](https://help.go1.com/en/articles/11926746-creating-a-learning-object-decision-making-tips.md): Before creating or uploading content to Go1, ask yourself these key questions to ensure your content meets best practice standards.
+- [Versioning Mandated Compliance Content: Content Provider Guide](https://help.go1.com/en/articles/14426747-versioning-mandated-compliance-content-content-provider-guide.md): How to manage multiple versions of compliance courses in the Go1 library
+- [Update WCAG accessibility metadata using the bulk uploader](https://help.go1.com/en/articles/14852181-update-wcag-accessibility-metadata-using-the-bulk-uploader.md): Update WCAG levels and accessibility features for your content in bulk
+- [Re-using existing content \(MyGo1\)](https://help.go1.com/en/articles/2607108-re-using-existing-content-mygo1.md): Reuse existing content to build new courses on our legacy platform.
+- [Update a SCORM file without disrupting learners](https://help.go1.com/en/articles/16160159-update-a-scorm-file-without-disrupting-learners.md): Replace a SCORM ZIP and understand which version each learner opens.
+- [Editing new Learning Items \(MyGo1\)](https://help.go1.com/en/articles/2610005-editing-new-learning-items-mygo1.md): What learning items are, and how to edit and delete them on our legacy platform.
+- [Create a Standalone Learning item: Text Resource \(MyGo1\)](https://help.go1.com/en/articles/1691587-create-a-standalone-learning-item-text-resource-mygo1.md): How to create a text resource on our legacy platform
+- [Create Assignments \(MyGo1\)](https://help.go1.com/en/articles/1691682-create-assignments-mygo1.md): How to create assignments in our legacy platform
+- [How to re-upload or update interactive \(SCORM\) files \(MyGo1\)](https://help.go1.com/en/articles/2535117-how-to-re-upload-or-update-interactive-scorm-files-mygo1.md): Add the new file and ensure learners are enrolled into the correct version on our legacy platform
+- [Create Standalone Learning Item: Video \(MyGo1\)](https://help.go1.com/en/articles/3102694-create-standalone-learning-item-video-mygo1.md): Upload a video or add a YouTube or Vimeo link as a standalone item on our legacy platform.
+- [Create Standalone Learning Item: Link \(MyGo1\)](https://help.go1.com/en/articles/3102704-create-standalone-learning-item-link-mygo1.md): Add a link to external content as a standalone learning item on our legacy platform.
+- [Create Standalone Item: Document \(MyGo1\)](https://help.go1.com/en/articles/3102834-create-standalone-item-document-mygo1.md): Upload a document as a standalone learning item on our legacy platform.
+- [How to publish and unpublish your standalone items \(MyGo1\)](https://help.go1.com/en/articles/3102845-how-to-publish-and-unpublish-your-standalone-items-mygo1.md): Publish and unpublish standalone learning items on our legacy platform.
+- [How to share standalone learning items with portals \(MyGo1\)](https://help.go1.com/en/articles/3103354-how-to-share-standalone-learning-items-with-portals-mygo1.md): Share standalone learning items with portals on our legacy platform.
+- [How to share standalone learning items with groups \(MyGo1\)](https://help.go1.com/en/articles/3103375-how-to-share-standalone-learning-items-with-groups-mygo1.md): Share standalone learning items with groups on our legacy platform.
+- [How to share a learning item with users \(MyGo1\)](https://help.go1.com/en/articles/3105926-how-to-share-a-learning-item-with-users-mygo1.md): Share a learning item with individual users on our legacy platform.
+- [Create Standalone Learning Item: Audio \(MyGo1\)](https://help.go1.com/en/articles/4126043-create-standalone-learning-item-audio-mygo1.md): How to Create Audio Learning Item in our legacy platform
+- [How to upload learning objects \(MyGo1\)](https://help.go1.com/en/articles/6676720-how-to-upload-learning-objects-mygo1.md): A step-by-step, hands on guide for our legacy platform
+- [Introduction to course creation \(MyGo1\)](https://help.go1.com/en/articles/5289847-introduction-to-course-creation-mygo1.md): Guide to creating courses in our legacy platform
+- [Creating Courses Errors \(MyGo1\)](https://help.go1.com/en/articles/2610042-creating-courses-errors-mygo1.md): Troubleshoot common errors when creating courses on our legacy platform.
+- [Creating courses, modules & new learning items \(MyGo1\)](https://help.go1.com/en/articles/2607089-creating-courses-modules-new-learning-items-mygo1.md): Create courses, modules, and learning items on our legacy platform.
+- [Publish and/or Unpublish your course \(MyGo1\)](https://help.go1.com/en/articles/2607109-publish-and-or-unpublish-your-course-mygo1.md): Managing your courses on our legacy platform
+- [Editing Courses: Content attributes \(MyGo1\)](https://help.go1.com/en/articles/2607212-editing-courses-content-attributes-mygo1.md): Capture additional attributes for standalone learning items and courses in our legacy platform
+- [Can I Remove or Delete a Course or Learning Item I Created? \(MyGo1\)](https://help.go1.com/en/articles/2610004-can-i-remove-or-delete-a-course-or-learning-item-i-created-mygo1.md): Deletion isn't supported on our legacy platform — unpublish the course or item instead.
+- [Applying & Checking Due Dates In a Course \(MyGo1\)](https://help.go1.com/en/articles/1738947-applying-checking-due-dates-in-a-course-mygo1.md): Set course due dates and check due date emails on our legacy platform.
+- [Setting up Module Completion Rules \(MyGo1\)](https://help.go1.com/en/articles/2609972-setting-up-module-completion-rules-mygo1.md): Learn how to add completion rule for modules on our legacy platform
+- [Edit Course Details Tab \(MyGo1\)](https://help.go1.com/en/articles/2609992-edit-course-details-tab-mygo1.md): Edit a course's image, price, and details on our legacy platform.
+- [Steps to Set Up Pre-requisites in a Course \(MyGo1\)](https://help.go1.com/en/articles/11072231-steps-to-set-up-pre-requisites-in-a-course-mygo1.md): Set up pre-requisites on our legacy platform so learners complete required content first.
+- [Setting up Completion Rules \(MyGo1\)](https://help.go1.com/en/articles/6170302-setting-up-completion-rules-mygo1.md): Learn how to add a completion rule for the course and module level on our legacy platform
+- [Why can't I see my shared content? \(MyGo1\)](https://help.go1.com/en/articles/6607772-why-can-t-i-see-my-shared-content-mygo1.md): Fix shared content not appearing in another portal on our legacy platform.
+- [How to Share Content to Users, specific Groups or Portals \(MyGo1\)](https://help.go1.com/en/articles/2464470-how-to-share-content-to-users-specific-groups-or-portals-mygo1.md): Share content with users, groups or portals on our legacy platform.
+- [Understanding Go1 Course Structure \(MyGo1\)](https://help.go1.com/en/articles/11571716-understanding-go1-course-structure-mygo1.md): How to structure courses on our legacy platform using modules and different content types.
+- [Introduction to Awards \(MyGo1\)](https://help.go1.com/en/articles/5289832-introduction-to-awards-mygo1.md): Learn what Awards are, and common use cases on our legacy platform.
+- [How to create an Award \(MyGo1\)](https://help.go1.com/en/articles/1691736-how-to-create-an-award-mygo1.md): How to create awards on our legacy platform
+- [Award Goal Types and Completion Triggers \(MyGo1\)](https://help.go1.com/en/articles/5970627-award-goal-types-and-completion-triggers-mygo1.md): Understand the three award goal types and how they complete on our legacy platform.
+- [How to Delete an Award and Learning Items from it \(MyGo1\)](https://help.go1.com/en/articles/2567188-how-to-delete-an-award-and-learning-items-from-it-mygo1.md): Delete awards and remove learning items from them on our legacy platform.
+- [Award Expiration Logic \(MyGo1\)](https://help.go1.com/en/articles/5030778-award-expiration-logic-mygo1.md): How awards group learning items and handle expiry on our legacy platform.
+- [Create a Quiz \(MyGo1\)](https://help.go1.com/en/articles/1691692-create-a-quiz-mygo1.md): How to create a quiz on our legacy platform
+- [How to Add Questions to your Quiz \(MyGo1\)](https://help.go1.com/en/articles/1704424-how-to-add-questions-to-your-quiz-mygo1.md): How to add different questions to your quiz on our legacy platform
+- [How to Allow Learners to Retake a Quiz After Failed Attempts \(MyGo1\)](https://help.go1.com/en/articles/11554024-how-to-allow-learners-to-retake-a-quiz-after-failed-attempts-mygo1.md): Enable Multiple Takes so learners can retake a quiz, on our legacy platform.
+- [Why can’t learners access quizzes on Go1, and how can this be resolved? \(MyGo1\)](https://help.go1.com/en/articles/14788664-why-can-t-learners-access-quizzes-on-go1-and-how-can-this-be-resolved-mygo1.md)
+
+### I manage learning programs
+
+- [Skills at Go1](https://help.go1.com/en/articles/8515629-skills-at-go1.md): Understanding our skills taxonomy
+- [Book and change event sessions](https://help.go1.com/en/articles/2635752-book-and-change-event-sessions.md): Book an event session, view its details, or change to another available session as a learner.
+- [Compare content side by side](https://help.go1.com/en/articles/15561433-compare-content-side-by-side.md): Compare learning options before you choose what to start, save, assign, or promote.
+- [Managing Content Retirements](https://help.go1.com/en/articles/8836830-managing-content-retirements.md): Understand content retirements and how to manage changes in your library
+- [Managing content retirements in Playlists](https://help.go1.com/en/articles/9625240-managing-content-retirements-in-playlists.md): Admins can manage retiring or retired content and make changes in Playlists within Go1 Learn.
+- [Skills Insights](https://help.go1.com/en/articles/10567275-skills-insights.md): A guide to Go1's Skills Insights
+- [Maximizing the dynamic home experience for your learners](https://help.go1.com/en/articles/10766138-maximizing-the-dynamic-home-experience-for-your-learners.md): Admin guide to getting the most out of Go1 Learn
+- [Essentials Select Guide](https://help.go1.com/en/articles/10396758-essentials-select-guide.md): Essentials Select allows admins to browse the entire Premium library and select a limited number of learning items to make available.
+- [Create custom content](https://help.go1.com/en/articles/11574240-create-custom-content.md): Compare items, courses, playlists, and awards before creating custom content.
+- [Content Insights](https://help.go1.com/en/articles/11819775-content-insights.md): A guide to Go1's Content Feedback Insights
+- [Downloading documents while learning](https://help.go1.com/en/articles/12492601-downloading-documents-while-learning.md): Downloading relevant materials from the player
+- [Finding content in the language of your choice](https://help.go1.com/en/articles/9755931-finding-content-in-the-language-of-your-choice.md): Admins can search for content in a specific language
+- [Preview Content \(MyGo1\)](https://help.go1.com/en/articles/3674268-preview-content-mygo1.md): Preview content before enrolling or assigning it from search results in your MyGo1 Portal
+- [Content Ratings \(MyGo1\)](https://help.go1.com/en/articles/8829932-content-ratings-mygo1.md): Use content ratings to choose the right content on our legacy platform.
+- [Using pre-curated playlists to accelerate your learning program](https://help.go1.com/en/articles/8398312-using-pre-curated-playlists-to-accelerate-your-learning-program.md): Learn about our collections of learning content, hand-picked to help customers get the most out of the Go1 Premium subscription.
+- [Tips for driving learner engagement using pre-curated content](https://help.go1.com/en/articles/8442812-tips-for-driving-learner-engagement-using-pre-curated-content.md): Get ideas for how to drive ongoing engagement and level up your learning program.
+- [Search Categories](https://help.go1.com/en/articles/11665311-search-categories.md): Discover more relevant content faster with categories
+- [Restricted Content Categories](https://help.go1.com/en/articles/11819471-restricted-content-categories.md): Understanding how AI-powered content categorization works and what it means for your organization's learning.
+- [Preview content](https://help.go1.com/en/articles/13236046-preview-content.md): Preview content before enrolling or assigning it from search
+- [Intelligent Translations](https://help.go1.com/en/articles/15160310-intelligent-translations.md): Intelligently personalising your content language experience on Go1
+- [Understand Go1 Pay](https://help.go1.com/en/articles/9842985-understand-go1-pay.md): Learn how Go1 Pay manages learning budgets, requests and purchases.
+- [Go1 Integration for Slack: Purchase and Approval Notifications](https://help.go1.com/en/articles/9441189-go1-integration-for-slack-purchase-and-approval-notifications.md): This article will show the types of notifications you will receive when activating the Go1 integration for Slack.
+- [Activate Go1 Pay](https://help.go1.com/en/articles/8922946-activate-go1-pay.md): Activate Go1 Pay and complete the required Stripe verification.
+- [Request a Go1 Pay purchase \(MyGo1\)](https://help.go1.com/en/articles/8922984-request-a-go1-pay-purchase-mygo1.md): Request a learning resource through Go1 Pay on MyGo1.
+- [Approve Go1 Pay requests as a manager](https://help.go1.com/en/articles/8938435-approve-go1-pay-requests-as-a-manager.md): Approve, deny or cancel purchase requests from people on your team.
+- [Deactivate Go1 Pay](https://help.go1.com/en/articles/8944514-deactivate-go1-pay.md): Prepare your requests, invoices and balance before deactivating Go1 Pay.
+- [Set up Go1 Pay notifications in Slack \(MyGo1\)](https://help.go1.com/en/articles/9389734-set-up-go1-pay-notifications-in-slack-mygo1.md): Connect Slack and receive Go1 Pay approval and purchase notifications.
+- [Set and renew learner budgets](https://help.go1.com/en/articles/9504710-set-and-renew-learner-budgets.md): Set one learner's budget or update several Go1 Pay budgets by CSV.
+- [Review and export Go1 Pay transactions](https://help.go1.com/en/articles/9798871-review-and-export-go1-pay-transactions.md): Search transactions and download receipts, expense summaries and statements.
+- [Review Go1 Pay requests as an admin](https://help.go1.com/en/articles/10133354-review-go1-pay-requests-as-an-admin.md): Find, review and manage Go1 Pay requests across your organization.
+- [Add funds to Go1 Pay](https://help.go1.com/en/articles/9320072-add-funds-to-go1-pay.md): Add money to your organization's Go1 Pay wallet by bank transfer.
+- [Request and manage a Go1 Pay purchase](https://help.go1.com/en/articles/13239807-request-and-manage-a-go1-pay-purchase.md): Request a learning resource, track its status and cancel it if plans change.
+- [Use your Go1 Pay card](https://help.go1.com/en/articles/13273245-use-your-go1-pay-card.md): Use your virtual card, complete verification and upload your purchase invoice.
+- [What Is The Difference Between "Enrolling" vs "Assigning"? \(MyGo1\)](https://help.go1.com/en/articles/6061354-what-is-the-difference-between-enrolling-vs-assigning-mygo1.md): How can we assign and enrol in the legacy platform?
+- [Assigning & Managing Learning \(MyGo1\)](https://help.go1.com/en/articles/5567073-assigning-managing-learning-mygo1.md): Assign and manage learning for your learners on our legacy platform.
+- [Manage assigned learning \(MyGo1\)](https://help.go1.com/en/articles/5608579-manage-assigned-learning-mygo1.md): Manage assigned learning via the manage page in our legacy platform
+- [Assign Learning \(MyGo1\)](https://help.go1.com/en/articles/5608578-assign-learning-mygo1.md): Assign learning to individual learners, or via a Group in our legacy platform
+- [Edit assigned learning \(MyGo1\)](https://help.go1.com/en/articles/5608582-edit-assigned-learning-mygo1.md): Update due dates for assigned learners on our legacy platform.
+- [Reassign Learning Through the Manage Page \(MyGo1\)](https://help.go1.com/en/articles/5608717-reassign-learning-through-the-manage-page-mygo1.md): Reassign due dates and reset learner progress from the Manage page on our legacy platform.
+- [Auto-Reassign Courses \(MyGo1\)](https://help.go1.com/en/articles/6541269-auto-reassign-courses-mygo1.md): Set courses to reassign automatically on a schedule, on our legacy platform.
+- [Assign Awards to Many Learners via Groups \(MyGo1\)](https://help.go1.com/en/articles/6058257-assign-awards-to-many-learners-via-groups-mygo1.md): Assign an award to many learners at once via a group on our legacy platform.
+- [Delete assigned learning \(MyGo1\)](https://help.go1.com/en/articles/5608587-delete-assigned-learning-mygo1.md): Unassign learners from a course or resource on our legacy platform.
+- [Adding Due Date to Self-Directed Learning \(MyGo1\)](https://help.go1.com/en/articles/5608581-adding-due-date-to-self-directed-learning-mygo1.md): Add a due date to a learner's self-enrolled course on our legacy platform.
+- [Send customized notifications to learners \(MyGo1\)](https://help.go1.com/en/articles/6058253-send-customized-notifications-to-learners-mygo1.md): Send reminder emails with a custom message to overdue learners on our legacy platform.
+- [How to assign assessors to students \(MyGo1\)](https://help.go1.com/en/articles/2457931-how-to-assign-assessors-to-students-mygo1.md): This article goes over assigning assessors for learning in our legacy platform
+- [How to assign learning to a group \(MyGo1\)](https://help.go1.com/en/articles/2745823-how-to-assign-learning-to-a-group-mygo1.md): Assign learning to a group with a due date in our legacy platform
+- [How to enroll and re-enroll users via the course report \(MyGo1\)](https://help.go1.com/en/articles/5030606-how-to-enroll-and-re-enroll-users-via-the-course-report-mygo1.md): Enroll and re-enroll users from a course report on our legacy platform.
+- [How to Remove Content From a Group \(MyGo1\)](https://help.go1.com/en/articles/7234659-how-to-remove-content-from-a-group-mygo1.md): Guide to removing content assigned to a group in our legacy platform
+- [How to add learning to a group \(MyGo1\)](https://help.go1.com/en/articles/2745521-how-to-add-learning-to-a-group-mygo1.md): Add learning to a group in your portal on our legacy platform.
+- [Assign content](https://help.go1.com/en/articles/13284239-assign-content.md): Step-by-step guide to assigning learning to learners or groups with due dates, recurring schedules
+- [Edit an assignment](https://help.go1.com/en/articles/13868106-edit-an-assignment.md): Change the name, due date, content, or recipients of an active or scheduled assignment.
+- [Close an assignment](https://help.go1.com/en/articles/13868131-close-an-assignment.md): Stop an assignment from repeating or future group members from receiving an assignment.
+- [Moving your assignments to Go1 Learn](https://help.go1.com/en/articles/16801376-moving-your-assignments-to-go1-learn.md): What to expect when we move your MyGo1 assignments to Go1 Learn.
+- [What file types does Go1 accept when uploading?](https://help.go1.com/en/articles/1739158-what-file-types-does-go1-accept-when-uploading.md): What files types does your system accept when uploading?
+- [How to import historical enrollment records \(MyGo1\)](https://help.go1.com/en/articles/2107251-how-to-import-historical-enrollment-records-mygo1.md): How to import enrollments using our legacy platform
+- [How to view and mark quiz answers and see previous attempts \(MyGo1\)](https://help.go1.com/en/articles/2469280-how-to-view-and-mark-quiz-answers-and-see-previous-attempts-mygo1.md): View and mark quiz answers and see previous attempts on our legacy platform.
+- [Award Transcripts \(MyGo1\)](https://help.go1.com/en/articles/1691822-award-transcripts-mygo1.md): Get a PDF transcript for a completed award on our legacy platform.
+- [Recognize existing enrollments for reused content \(MyGo1\)](https://help.go1.com/en/articles/2610054-recognize-existing-enrollments-for-reused-content-mygo1.md): Recognise a learner's existing progress for reused content on our legacy platform.
+- [Viewing Completion Certificates](https://help.go1.com/en/articles/3141051-viewing-completion-certificates.md): View and download your completion certificate on Go1 Learn.
+- [Uploading a certificate on behalf of a learner \(MyGo1\)](https://help.go1.com/en/articles/3751229-uploading-a-certificate-on-behalf-of-a-learner-mygo1.md): Upload a certificate for a learner through an Award on our legacy platform.
+- [How to View and Export Learner's Individual Answer Attempts \(MyGo1\)](https://help.go1.com/en/articles/6137062-how-to-view-and-export-learner-s-individual-answer-attempts-mygo1.md): View and export individual learner quiz answer attempts on our legacy platform.
+- [How to import historical learning records into an award within Go1 \(MyGo1\)](https://help.go1.com/en/articles/6676800-how-to-import-historical-learning-records-into-an-award-within-go1-mygo1.md): Upload previously completed learning against an award on our legacy platform.
+- [How to update enrollment status \(MyGo1\)](https://help.go1.com/en/articles/6105390-how-to-update-enrollment-status-mygo1.md): This article provides a clear explanation of how the enrollment update process works in MyGo1.
+- [How to delete an enrolment \(MyGo1\)](https://help.go1.com/en/articles/1739094-how-to-delete-an-enrolment-mygo1.md): How to un-enrol students from courses on our legacy platform.
+- [How to update enrolled learning for a Group \(MyGo1\)](https://help.go1.com/en/articles/6680733-how-to-update-enrolled-learning-for-a-group-mygo1.md): Bulk update enrolment status for a group of learners on our legacy platform.
+- [Managing Completion Certificates \(MyGo1\)](https://help.go1.com/en/articles/11693532-managing-completion-certificates-mygo1.md): Managing Go1 Completion Certificates inside your portal.
+- [View and report on learner progress](https://help.go1.com/en/articles/13298163-view-and-report-on-learner-progress.md): Access detailed reports of the completed, assigned or ongoing learning for an individual.
+- [Reporting \(MyGo1\)](https://help.go1.com/en/articles/1691825-reporting-mygo1.md): An overview of reporting features on our legacy platform
+- [How to Export an Enrollment Report \(MyGo1\)](https://help.go1.com/en/articles/2107220-how-to-export-an-enrollment-report-mygo1.md): How to export reports within your portal on our legacy platform.
+- [Filtering a Report \(MyGo1\)](https://help.go1.com/en/articles/1691842-filtering-a-report-mygo1.md): How to filter a report on our legacy platform
+- [Configuring a Report \(MyGo1\)](https://help.go1.com/en/articles/1691850-configuring-a-report-mygo1.md): How to configure your report and customise your viewing in our legacy platform
+- [Track assignment progress](https://help.go1.com/en/articles/13284509-track-assignment-progress.md): Monitor assignment progress, identify learners who need support, and access detailed completion reports.
+- [Report on content engagement and completion](https://help.go1.com/en/articles/13404979-report-on-content-engagement-and-completion.md): View which courses have the most learners and track completion rates for your content.
+- [How to create an event within a course in Go1 \(MyGo1\)](https://help.go1.com/en/articles/6676624-how-to-create-an-event-within-a-course-in-go1-mygo1.md): Create an event within a course on our legacy platform.
+- [Adding More Than One Event \(MyGo1\)](https://help.go1.com/en/articles/2636000-adding-more-than-one-event-mygo1.md): Create multiple events, or one event with several dates, on our legacy platform.
+- [Managing event attendees \(MyGo1\)](https://help.go1.com/en/articles/2635887-managing-event-attendees-mygo1.md): Manage event attendees, attendance, and notifications on our legacy platform.
+- [How to record attendance to an event in Go1 \(MyGo1\)](https://help.go1.com/en/articles/6676845-how-to-record-attendance-to-an-event-in-go1-mygo1.md): Record learner attendance for an event on our legacy platform.
+- [Sending Event Notifications \(MyGo1\)](https://help.go1.com/en/articles/2610089-sending-event-notifications-mygo1.md): Send notifications to event attendees on our legacy platform.
+- [Deleting Event Date \(MyGo1\)](https://help.go1.com/en/articles/2635996-deleting-event-date-mygo1.md): Delete a date from an event, and what happens to attendees, on our legacy platform.
+- [Delete Attendee From Event \(MyGo1\)](https://help.go1.com/en/articles/3143955-delete-attendee-from-event-mygo1.md): Delete an attendee's enrollment from an event on our legacy platform.
+- [Managing events via reports \(MyGo1\)](https://help.go1.com/en/articles/2636010-managing-events-via-reports-mygo1.md): Access and manage all events in your portal on our legacy platform.
+
+### I access Go1 through my HRIS/LMS
+
+- [Integrating Go1 with MHR People First](https://help.go1.com/en/articles/17575259-integrating-go1-with-mhr-people-first.md): Connect Go1 with MHR People First to deliver learning content and track course completions.
+- [Syncing Content with your HRIS/LMS](https://help.go1.com/en/articles/8892974-syncing-content-with-your-hris-lms.md): A guide to syncing content between Go1 and your HRIS/LMS
+- [Integrating Go1 with SAP SuccessFactors](https://help.go1.com/en/articles/14088363-integrating-go1-with-sap-successfactors.md): Customer configuration guide and best practices for Go1 as a content provider in SuccessFactors Open Content Network.
+- [Integrating Go1 Portals with Workday](https://help.go1.com/en/articles/11709740-integrating-go1-portals-with-workday.md)
+- [Integrating Go1 with Oracle Learning Cloud](https://help.go1.com/en/articles/13573368-integrating-go1-with-oracle-learning-cloud.md): This guide explains how to configure the integration and begin using Go1 content within Oracle HCM Learning.
+- [Integrating Go1 with Employment Hero](https://help.go1.com/en/articles/6852549-integrating-go1-with-employment-hero.md): This is a integration guide for setting up Go1 and Employment Hero integration
+- [Go1 Integration into HiBob Learning](https://help.go1.com/en/articles/13440059-go1-integration-into-hibob-learning.md): Access to Go1’s learning content directly within the HiBob Learning module
+- [Go1 Integration into Rippling - FAQ](https://help.go1.com/en/articles/7885767-go1-integration-into-rippling-faq.md)
+- [Deploy pre-curated playlist content through a technology partner](https://help.go1.com/en/articles/8439001-deploy-pre-curated-playlist-content-through-a-technology-partner.md): Get the most out of Go1 Premium content through pre-curated playlists using your preferred technology provider.
+- [Go1 and Workday CCL Integration Guide \[Legacy\]](https://help.go1.com/en/articles/9053093-go1-and-workday-ccl-integration-guide-legacy.md)
+- [How to add Go1 as an 'OCN Provider' in SuccessFactors \[Legacy\]](https://help.go1.com/en/articles/4571957-how-to-add-go1-as-an-ocn-provider-in-successfactors-legacy.md)
+- [Integrating Go1 with Totara](https://help.go1.com/en/articles/15700339-integrating-go1-with-totara.md): Learners can discover, launch, and complete Go1 content inside Totara, with completions tracked and recorded.
+- [What is a SCORM?](https://help.go1.com/en/articles/1739189-what-is-a-scorm.md): What is a SCORM File?
+- [Use Intelligent Translations in your LMS or HRIS](https://help.go1.com/en/articles/16106785-use-intelligent-translations-in-your-lms-or-hris.md): Set learner language preferences so eligible Go1 content plays in the right language.
+- [Export SCORM from Go1 to your external HRIS or LMS](https://help.go1.com/en/articles/4030866-export-scorm-from-go1-to-your-external-hris-or-lms.md): Export Go1 content as SCORM files, so your learners can access learning within your own system.
+- [Export your custom content as SCORM](https://help.go1.com/en/articles/16142621-export-your-custom-content-as-scorm.md): Export published courses and items from Go1 Learn as SCORM packages.
+
+### I'm a partner of Go1
+
+- [Introducing Go1 Partner Hub](https://help.go1.com/en/articles/6393363-introducing-go1-partner-hub.md)
+- [How to create a portal for your customers](https://help.go1.com/en/articles/6113537-how-to-create-a-portal-for-your-customers.md): This article is for Go1 Partners who want to generate customer portals via Partner Hub.
+- [How to share a bundle with your customers](https://help.go1.com/en/articles/6113540-how-to-share-a-bundle-with-your-customers.md): This article is for Go1 Partners who wish to share bundles of learning content to their customer portals via the Partner Hub.
+- [How to create a Webhook](https://help.go1.com/en/articles/6393365-how-to-create-a-webhook.md): This article is for Go1 Partners who wish to set up webhooks to pull completion data to wherever their customers need, via Partner Hub.
+- [How to add more users to a customer portal](https://help.go1.com/en/articles/6113538-how-to-add-more-users-to-a-customer-portal.md): This article is for Go1 Partners who want to add more users, via Partner Hub
+- [Connecting to the Go1 MCP Server](https://help.go1.com/en/articles/15469776-connecting-to-the-go1-mcp-server.md)
+
+### I need technical help
+
+- [How to troubleshoot access issues for course links and third-party content in Go1?](https://help.go1.com/en/articles/14463916-how-to-troubleshoot-access-issues-for-course-links-and-third-party-content-in-go1.md)
+- [Manage user fields in Field settings](https://help.go1.com/en/articles/16612805-manage-user-fields-in-field-settings.md): Field settings gives admins control over the profile information collected in their Go1 portal. Complete and consistent user data supports groups, reporting, compliance, and personalized learning e...
+- [How Go1 uses AI](https://help.go1.com/en/articles/14082774-how-go1-uses-ai.md): Learn how Go1 uses AI, how your data is handled, and what you should never share
+- [AI Fairness & Transparency Considerations Overview](https://help.go1.com/en/articles/8913609-ai-fairness-transparency-considerations-overview.md): How Go1 approaches ethical, fair, and transparent AI development across our products
+- [Single Sign On with SAML](https://help.go1.com/en/articles/2803424-single-sign-on-with-saml.md): Set up an SSO connection to your Go1 Platform with your SAML Identity Provider.
+- [Single Sign On with Microsoft Entra \(Azure AD\)](https://help.go1.com/en/articles/3381443-single-sign-on-with-microsoft-entra-azure-ad.md)
+- [SCIM user provisioning and de-provisioning](https://help.go1.com/en/articles/9775525-scim-user-provisioning-and-de-provisioning.md): Easily provision and manage users and groups in Go1 with the System for Cross-domain Identity Management \(SCIM\) API standard
+- [Single Sign On with Microsoft Azure B2C](https://help.go1.com/en/articles/3405143-single-sign-on-with-microsoft-azure-b2c.md)
+- [Set up SAML SSO with Okta](https://help.go1.com/en/articles/15939418-set-up-saml-sso-with-okta.md): How to enable SSO on your Go1 platform using Okta
+- [Set up SAML SSO with Microsoft Entra \(SAML\)](https://help.go1.com/en/articles/15939450-set-up-saml-sso-with-microsoft-entra-saml.md): How to enable SSO on your Go1 platform using Microsoft Entra's SAML based authentication
+- [Set up SAML SSO with Google Workspace](https://help.go1.com/en/articles/15939484-set-up-saml-sso-with-google-workspace.md): How to enable SSO on your Go1 platform using Google based authentication
+- [User Data Feed - FAQ](https://help.go1.com/en/articles/3800602-user-data-feed-faq.md): Edit the details of the data feed that manages users on Go1
+- [HiBob User Data Feed Setup](https://help.go1.com/en/articles/17436761-hibob-user-data-feed-setup.md): Customer reference for sending a scheduled Bob report to Go1 by Amazon S3.
+- [Integrate with the Go1 API](https://help.go1.com/en/articles/4642648-integrate-with-the-go1-api.md): Create a client app in Go1 Learn to generate credentials for Go1 API authentication.
+- [Access Go1 resources via the Go1 API](https://help.go1.com/en/articles/4382784-access-go1-resources-via-the-go1-api.md): Employ the Go1 API to access Go1 Content Hub resources within your existing LMS or LXP.
+- [Allow Go1 domains through your network firewall](https://help.go1.com/en/articles/4340879-allow-go1-domains-through-your-network-firewall.md): Allow Go1 domains and identify blocked course-provider domains.
+
+### MyGo1 retirement
+
+- [MyGo1 Migration FAQs](https://help.go1.com/en/articles/16812734-mygo1-migration-faqs.md): Supporting your move from MyGo1 to Go1 Learn
+- [Prepare for MyGo1 Retirement](https://help.go1.com/en/articles/16640172-prepare-for-mygo1-retirement.md): A simple guide to the MyGo1 retirement, your Go1 Learn rollout and the features that will make learning easier to manage & more engaging to use.
+- [Changes from MyGo1 to Go1 Learn](https://help.go1.com/en/articles/16978924-changes-from-mygo1-to-go1-learn.md): Details of specific changes before the transition to Go1 Learn
+
+### I want to see what's new
+
+- [Manage Product Updates](https://help.go1.com/en/articles/13456774-manage-product-updates.md): New releases to help you set the foundation and stay in control.
+- [Curate Product Updates](https://help.go1.com/en/articles/11006201-curate-product-updates.md): Smarter features to help you cut through noise and build learning that matters.
+- [Assign Product Updates](https://help.go1.com/en/articles/13456794-assign-product-updates.md): New releases to ensure you get the right learning to the right people
+- [Engage Product Updates](https://help.go1.com/en/articles/11006108-engage-product-updates.md): New features designed to inspire learners, boost engagement, and turn learning into momentum.
+- [Report Product Updates](https://help.go1.com/en/articles/11006016-report-product-updates.md): Improvements to help you understand progress and act with confidence.
+- [Morgan by Go1 Product Updates](https://help.go1.com/en/articles/15731157-morgan-by-go1-product-updates.md): Updates to Morgan by Go1, helping learners act on assigned and recommended learning from Slack and Microsoft Teams.
+- [Content Partner Product Updates](https://help.go1.com/en/articles/11870669-content-partner-product-updates.md): Supporting quality, scale, and reach for our content partners
+- [Integration & Partner Product Updates](https://help.go1.com/en/articles/11005352-integration-partner-product-updates.md): The latest enhancements that make Go1 work seamlessly with your existing systems, built to support and scale our partner ecosystem
+- [Content Library Updates](https://help.go1.com/en/articles/7982805-content-library-updates.md): Monthly updates to the Go1 library
+
+### Morgan by Go1
+
+- [Morgan by Go1 App for Microsoft Teams](https://help.go1.com/en/articles/13713836-morgan-by-go1-app-for-microsoft-teams.md): An overview of the functionality of the Morgan by Go1 app for Learners.
+- [About Morgan by Go1 ](https://help.go1.com/en/articles/14685020-about-morgan-by-go1.md): Learn what Morgan by Go1 does, who it is for, and what learners can expect.
+- [How Morgan by Go1 works for learners](https://help.go1.com/en/articles/15595003-how-morgan-by-go1-works-for-learners.md): Learn what learners see in Morgan, how weekly digests work, and what they can ask Morgan to do.
+- [How Morgan works with integrated learning systems](https://help.go1.com/en/articles/15724312-how-morgan-works-with-integrated-learning-systems.md)
+- [Set up Morgan by Go1 ](https://help.go1.com/en/articles/14685194-set-up-morgan-by-go1.md): What's involved in getting the Morgan by Go1 assistant running.
+- [Install Morgan by Go1 in Microsoft Teams](https://help.go1.com/en/articles/14685812-install-morgan-by-go1-in-microsoft-teams.md): Set up the Morgan by Go1 assistant in Microsoft Teams for your organization.
+- [Install Morgan by Go1 in Slack ](https://help.go1.com/en/articles/14685830-install-morgan-by-go1-in-slack.md): Set up the Morgan by Go1 assistant in Slack for your organization.
+- [Roll out Morgan by Go1 to your organization](https://help.go1.com/en/articles/15594726-roll-out-morgan-by-go1-to-your-organization.md): Launch Morgan by Go1 to learners after setup is complete.
+- [Troubleshoot Morgan by Go1](https://help.go1.com/en/articles/15594656-troubleshoot-morgan-by-go1.md): Use this guide to resolve common Morgan by Go1 setup, access, and learner experience issues.
+
+### Immersive Simulations
+
+- [About Immersive Simulations](https://help.go1.com/en/articles/16885977-about-immersive-simulations.md): Learn what Immersive Simulations are, who can use them, and what to expect.
+- [Explore available simulation topics](https://help.go1.com/en/articles/16886032-explore-available-simulation-topics.md): Explore simulation topics and choose a template for your organization.
+- [How AI assessment works in Immersive Simulations](https://help.go1.com/en/articles/16886042-how-ai-assessment-works-in-immersive-simulations.md): Learn how AI produces overall and behavior-level outcomes and feedback.
+- [Roll out an Immersive Simulation](https://help.go1.com/en/articles/16886077-roll-out-an-immersive-simulation.md): Plan, communicate, and support an Immersive Simulation rollout.
+- [Create and publish an Immersive Simulation](https://help.go1.com/en/articles/16885992-create-and-publish-an-immersive-simulation.md): Choose a template, tailor its scenario and scoring, test it, and publish.
+- [Assign an Immersive Simulation](https://help.go1.com/en/articles/16886011-assign-an-immersive-simulation.md): Find a published simulation and assign it to learners or groups in Go1 Learn.
+- [Publish and assign simulations through your LMS](https://help.go1.com/en/articles/16886053-publish-and-assign-simulations-through-your-lms.md): Publish in Go1, sync to a supported LMS, and assign using your LMS workflow.
+- [Complete an Immersive Simulation](https://help.go1.com/en/articles/16886019-complete-an-immersive-simulation.md): Learn what to expect before, during, and after an Immersive Simulation.
+- [Review Immersive Simulation results](https://help.go1.com/en/articles/16886065-review-immersive-simulation-results.md): Review participation, outcomes, behavior-level insights, and individual learner feedback.
+- [Troubleshoot an Immersive Simulation](https://help.go1.com/en/articles/16886128-troubleshoot-an-immersive-simulation.md): Resolve common problems when testing or completing an Immersive Simulation.
+
+## Français
+
+### J'accède directement à Go1
+
+- [Créer et gérer des utilisateurs](https://help.go1.com/fr/articles/13211547-creer-et-gerer-des-utilisateurs.md): Ajoutez, modifiez et gérez les utilisateurs de votre portail Go1 individuellement ou en masse.
+- [Rechercher des contenus à l’aide du moteur de recherche](https://help.go1.com/fr/articles/10632880-rechercher-des-contenus-a-l-aide-du-moteur-de-recherche.md): Recherchez, filtrez, triez, prévisualisez et comparez les contenus de formation dans Go1 Learn.
+- [Approuver des contenus pour orienter les apprenants vers des ressources fiables](https://help.go1.com/fr/articles/12537411-approuver-des-contenus-pour-orienter-les-apprenants-vers-des-ressources-fiables.md): Aidez vos apprenants à identifier les contenus approuvés par votre organisation en validant les cours, playlists et Awards qui répondent à vos critères.
+- [Mettre les contenus prioritaires en avant avec Spotlight](https://help.go1.com/fr/articles/11424498-mettre-les-contenus-prioritaires-en-avant-avec-spotlight.md): Valorisez vos contenus de formation prioritaires sur la page Accueil avec Spotlight.
+- [Mettre en avant les contenus de votre organisation sur la page Accueil](https://help.go1.com/fr/articles/11560370-mettre-en-avant-les-contenus-de-votre-organisation-sur-la-page-accueil.md): Valorisez les formations et les playlists de votre organisation sur Accueil pour toucher davantage vos apprenants.
+- [Assigner des formations à votre organisation](https://help.go1.com/fr/articles/13283815-assigner-des-formations-a-votre-organisation.md): Assignez du contenu à des personnes ou à des groupes, avec des dates d’échéance et des options de planification flexibles.
+- [Rôles utilisateur et autorisations](https://help.go1.com/fr/articles/13191268-roles-utilisateur-et-autorisations.md): Les rôles utilisateur et les autorisations déterminent les fonctionnalités auxquelles les apprenants, les managers et les administrateurs peuvent accéder dans Go1.
+- [Go1 Learn : guide du manager](https://help.go1.com/fr/articles/13340890-go1-learn-guide-du-manager.md): Gérez les formations de votre équipe, assignez des contenus et suivez sa progression dans Go1 Learn.
+- [Go1 Learn : guide de l’apprenant](https://help.go1.com/fr/articles/11051965-go1-learn-guide-de-l-apprenant.md): Tout ce que vous devez savoir sur votre nouvelle expérience de formation.
+- [Contrôles des connaissances](https://help.go1.com/fr/articles/14118571-controles-des-connaissances.md): Des questions selon votre poste pour valider les connaissances acquises.
+- [Rechercher du contenu avec l’assistante IA](https://help.go1.com/fr/articles/17228184-rechercher-du-contenu-avec-l-assistante-ia.md): Votre assistante optimisée par l’IA pour découvrir et sélectionner les contenus de formation adaptés
+- [Création d'un utilisateur sans adresse électronique](https://help.go1.com/fr/articles/5074623-creation-d-un-utilisateur-sans-adresse-electronique.md): Comment créer un compte d'utilisateur pour une personne qui n'a pas d'adresse électronique ?
+- [Comment envoyer manuellement un e-mail de bienvenue](https://help.go1.com/fr/articles/7669592-comment-envoyer-manuellement-un-e-mail-de-bienvenue.md): Envoi manuel d'un message de bienvenue
+- [Comment modifier mon mot de passe](https://help.go1.com/fr/articles/6980914-comment-modifier-mon-mot-de-passe.md)
+- [Comment importer des utilisateurs en masse via un fichier CSV](https://help.go1.com/fr/articles/1703815-comment-importer-des-utilisateurs-en-masse-via-un-fichier-csv.md): Comment importer des utilisateurs via CSV
+- [Introduction aux groupes](https://help.go1.com/fr/articles/14192580-introduction-aux-groupes.md): Découvrez comment les groupes vous permettent d’organiser les utilisateurs et de proposer des formations dans l’ensemble de votre organisation.
+
+### I'm new to Go1
+
+- [Guide des contenus multilingues dans la bibliothèque Go1](https://help.go1.com/fr/articles/12659920-guide-des-contenus-multilingues-dans-la-bibliotheque-go1.md): Découvrez les différentes options de contenu multilingue disponibles dans la bibliothèque Go1.
+- [Gérer votre apprentissage](https://help.go1.com/fr/articles/11051998-gerer-votre-apprentissage.md): Enregistrez les contenus qui vous intéressent et commencez-les lorsque vous êtes prêt.
+- [Accéder aux contenus de formation en tant qu’apprenant](https://help.go1.com/fr/articles/12901579-acceder-aux-contenus-de-formation-en-tant-qu-apprenant.md): Cet article explique aux apprenants comment accéder aux contenus qui leur sont assignés, les démarrer et suivre leur progression dans Go1.
+
+### Je suis confronté à un problème
+
+- [Erreurs de lecture du contenu LMS d'un tiers](https://help.go1.com/fr/articles/6381656-erreurs-de-lecture-du-contenu-lms-d-un-tiers.md)
+- [Comment envoyer des informations de diagnostic au support Go1](https://help.go1.com/fr/articles/6994223-comment-envoyer-des-informations-de-diagnostic-au-support-go1.md): Fournissez les logs, les captures et les informations concernant votre appareil pour aider le support Go1 dans son diagnostic.
+
+### Je crée ou gère du contenu
+
+- [Créer et modifier des cours](https://help.go1.com/fr/articles/13262124-creer-et-modifier-des-cours.md): Créez des cours personnalisés en combinant vos propres contenus avec ceux de la bibliothèque Go1
+- [Créer et modifier des playlists](https://help.go1.com/fr/articles/8892692-creer-et-modifier-des-playlists.md): Guide pour organiser des contenus en playlists destinées à vos apprenants.
+- [Exporter ou partager des playlists](https://help.go1.com/fr/articles/9625270-exporter-ou-partager-des-playlists.md): Les administrateurs peuvent exporter ou partager des playlists dans Go1 Learn.
+- [Créer des cours, des modules et de nouveaux éléments d'apprentissage](https://help.go1.com/fr/articles/2607089-creer-des-cours-des-modules-et-de-nouveaux-elements-d-apprentissage.md): Apprenez à créer des cours et des éléments d'apprentissage dans la plateforme Go1.
+
+### Je gère des programmes d'apprentissage
+
+- [Analyse des compétences](https://help.go1.com/fr/articles/10567275-analyse-des-competences.md): Guide de l’analyse des compétences de Go1
+- [Analyse des notes et avis sur les contenus](https://help.go1.com/fr/articles/11819775-analyse-des-notes-et-avis-sur-les-contenus.md): Guide de l’analyse des notes et avis sur les contenus dans Go1.
+- [Catégories de recherche](https://help.go1.com/fr/articles/11665311-categories-de-recherche.md): Découvrez plus rapidement des contenus pertinents grâce aux catégories.
+- [Traductions intelligentes](https://help.go1.com/fr/articles/15160310-traductions-intelligentes.md): Personnalisez intelligemment vos contenus selon la langue dans Go1
+- [Assigner la formation](https://help.go1.com/fr/articles/5608578-assigner-la-formation.md): Assigner la formaiton à des apprenants individuels ou via un groupe
+- [Introduction aux rapports](https://help.go1.com/fr/articles/1691825-introduction-aux-rapports.md): Introduction aux éléments de rapports
+- [Créer un rapport sur l’engagement et la complétion des contenus](https://help.go1.com/fr/articles/13404979-creer-un-rapport-sur-l-engagement-et-la-completion-des-contenus.md): Identifiez les cours comptant le plus d’apprenants et suivez les taux de complétion de vos contenus.
+
+### I access Go1 through my HRIS/LMS
+
+- [Synchroniser les contenus avec votre SIRH/LMS](https://help.go1.com/fr/articles/8892974-synchroniser-les-contenus-avec-votre-sirh-lms.md): Guide de synchronisation des contenus entre Go1 et votre SIRH/LMS
+
+### J'ai besoin d'une aide technique
+
+- [Comment Go1 utilise l’IA](https://help.go1.com/fr/articles/14082774-comment-go1-utilise-l-ia.md): Découvrez comment Go1 utilise l’IA, comment vos données sont traitées et quelles informations vous ne devez jamais communiquer.
+- [Single Sign-On | Avantages et guide d'installation](https://help.go1.com/fr/articles/2803424-single-sign-on-avantages-et-guide-d-installation.md): Établissez une connexion SSO à votre plateforme Go1 avec votre fournisseur d'identité SAML.
+
+### Morgan by Go1
+
+- [Application Morgan by Go1 pour Microsoft Teams](https://help.go1.com/fr/articles/13713836-application-morgan-by-go1-pour-microsoft-teams.md): Présentation des fonctionnalités de l’application Morgan by Go1 pour les apprenants.
+- [À propos de Morgan by Go1](https://help.go1.com/fr/articles/14685020-a-propos-de-morgan-by-go1.md): Découvrez ce que fait Morgan by Go1, à qui il s’adresse et ce que les apprenants peuvent en attendre.
+- [Configurer Morgan by Go1](https://help.go1.com/fr/articles/14685194-configurer-morgan-by-go1.md): Découvrez les étapes nécessaires pour mettre en service l’assistant Morgan by Go1.
+- [Installer Morgan by Go1 dans Microsoft Teams](https://help.go1.com/fr/articles/14685812-installer-morgan-by-go1-dans-microsoft-teams.md): Découvrez comment configurer l’assistant Morgan by Go1 dans Microsoft Teams pour votre organisation.
+- [Installer Morgan by Go1 dans Slack](https://help.go1.com/fr/articles/14685830-installer-morgan-by-go1-dans-slack.md): Configurez l’assistant Morgan by Go1 dans Slack pour votre organisation.
+
+### Les simulations immersives
+
+- [Tout savoir sur les simulations immersives](https://help.go1.com/fr/articles/16885977-tout-savoir-sur-les-simulations-immersives.md): Vue globale des simulations immersives, de leurs utilisateurs et de leur fonctionnement.
+- [Découvrir les thèmes de simulation disponibles](https://help.go1.com/fr/articles/16886032-decouvrir-les-themes-de-simulation-disponibles.md): Parcourez les sujets de simulation et choisissez un gabarit pour votre organisation.
+- [Comment fonctionne l’évaluation par l’IA dans les Simulations immersives](https://help.go1.com/fr/articles/16886042-comment-fonctionne-l-evaluation-par-l-ia-dans-les-simulations-immersives.md): Découvrez comment l’IA évalue les comportements des apprenants et génère les résultats dans les Simulations immersives.
+- [Déployer une Simulation immersive](https://help.go1.com/fr/articles/16886077-deployer-une-simulation-immersive.md): Planifiez et déployez une Simulation immersive auprès de vos apprenants, puis exploitez les résultats pour cibler les actions de suivi.

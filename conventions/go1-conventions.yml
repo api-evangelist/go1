@@ -1,6 +1,7 @@
-generated: '2026-07-19'
+generated: '2026-10-21'
 method: searched
-source: https://developers.go1.com/docs/ + openapi/go1-openapi.yml
+source: https://developers.go1.com/api/rest/2025-01-01/overview/ + https://developers.go1.com/docs/developer-tools/api/versioning/
+  + openapi/_original/go1-openapi-2025-01-01.json
 authentication:
   style: OAuth 2.0 Bearer token
   header: 'Authorization: Bearer {access_token}'
@@ -10,11 +11,13 @@ authentication:
   - authorization_code
   token_lifetime_seconds: 43200
   artifact: authentication/go1-authentication.yml
+  header_example: 'Authorization: {access_token}'
 versioning:
   style: date-based header
   header: Api-Version
   current: '2025-01-01'
   artifact: lifecycle/go1-lifecycle.yml
+  alpha: 'Api-Version: Alpha'
 pagination:
   style: offset
   params:
@@ -29,10 +32,13 @@ pagination:
     limit_max_with_scroll: 5000
   response_fields:
   - total
+  - hits
+  offset_cap: pagination using the offset parameters cannot exceed 10,000 results
+  docs: https://developers.go1.com/api/rest/2025-01-01/overview/#pagination
 idempotency:
-  supported: false
-  note: No Idempotency-Key header/parameter is documented. enrolmentCreateController_postV3 returns 409
-    enrollment_exists on duplicate create.
+  coverage: none
+  note: No Idempotency-Key header or parameter is documented or declared in the contract. enrolmentCreateController_postV3
+    returns 409 enrollment_exists on a duplicate create, which is a uniqueness conflict, not replay protection.
 error_envelope:
   content_type: application/json
   fields:
@@ -48,4 +54,60 @@ webhooks:
   webhook_version: 3.0.0
   artifact: asyncapi/go1-webhooks.yml
 rate_limiting:
-  note: No public rate-limit headers or quota policy documented at probe time.
+  status_code: 429
+  headers:
+  - Retry-After
+  artifact: rate-limits/go1-rate-limits.yml
+  docs: https://developers.go1.com/docs/developer-tools/api/rate-limits/
+base_url: https://gateway.go1.com
+field_selection:
+  style: include[] fragments
+  param: include[]
+  fragments:
+  - core
+  - relevance
+  - lifecycle
+  - provider
+  - revisions
+  - skills
+  - quality
+  - playback_behavior
+  scope: learning objects (2025-01-01)
+  docs: https://developers.go1.com/docs/developer-tools/api/api-release-notes-2025-01-01/
+reversibility:
+  grade: documented
+  note: Reversal operations exist in the contract; no docs or spec text states a window inside which they work,
+    so none is asserted.
+  surfaces:
+  - surface: portal plans
+    action: createPlan / setPlanSchedule
+    reversal: cancelPortalPlan
+    reversal_description: Cancels a plan, preventing renewal of linked entitlements.
+    window: null
+  - surface: scheduled plans
+    action: setPlanSchedule
+    reversal: deleteScheduledPlan
+    window: null
+  - surface: content library collections
+    action: addContentsById
+    reversal: removeContentsById
+    window: null
+  - surface: enrollments
+    action: enrolmentCreateController_postV3
+    reversal: enrolmentDeleteController_delete
+    window: null
+  - surface: SCIM users
+    action: scimCreateUser
+    reversal: scimDeleteUser
+    reversal_description: Change user account status to inactive.
+    window: null
+    note: Delete deactivates (soft) rather than erases; reactivation via scimPatchUser/scimPutUser is implied by
+      the PUT/PATCH surface, not documented as a restore.
+  - surface: learning objects
+    action: learning-objects-v3-create
+    reversal: learning-objects-v3-delete
+    window: null
+    note: Delete is not itself reversible per the contract; no restore operation.
+dry_run:
+  supported: false
+  note: No dry-run/validate-only mode documented; the Alpha version is for testing unreleased APIs, not a sandbox.

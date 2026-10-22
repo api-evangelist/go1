@@ -2,18 +2,40 @@ openapi: 3.2.0
 info:
   title: Go1 Enrollments API
   version: '2025-01-01'
-  description: The Go1 API lets partners and platforms discover Go1's learning content library, manage learner enrollments, provision and manage customer portals, and subscribe to Go1 events via webhooks.
+  description: Go1 REST API, version 2025-01-01, as published in the Go1 developer API reference. Every path operation is the provider's own OpenAPI operation object, copied verbatim from the endpoints data embedded in each reference page (__NEXT_DATA__ pageProps.endpoints) on developers.go1.com. The info, servers and securitySchemes envelope is assembled from the reference overview (base URL https://gateway.go1.com, Api-Version header) and the OAuth 2.0 grant guides (auth.go1.com token/authorize URLs); scope descriptions are left blank because the operations name scopes without describing them.
   contact:
     name: Go1 Developer Support
     url: https://developers.go1.com/
-  termsOfService: https://www.go1.com/terms/customer-terms
+  x-assembled-from:
+  - https://developers.go1.com/api/rest/2025-01-01/overview/
+  - https://developers.go1.com/api/rest/2025-01-01/categories/
+  - https://developers.go1.com/api/rest/2025-01-01/collections/
+  - https://developers.go1.com/api/rest/2025-01-01/compliance/
+  - https://developers.go1.com/api/rest/2025-01-01/enrollments/
+  - https://developers.go1.com/api/rest/2025-01-01/files/
+  - https://developers.go1.com/api/rest/2025-01-01/learning-objects/
+  - https://developers.go1.com/api/rest/2025-01-01/plans/
+  - https://developers.go1.com/api/rest/2025-01-01/play-links/
+  - https://developers.go1.com/api/rest/2025-01-01/playlists/
+  - https://developers.go1.com/api/rest/2025-01-01/portals/
+  - https://developers.go1.com/api/rest/2025-01-01/restrictions/
+  - https://developers.go1.com/api/rest/2025-01-01/scim/
+  - https://developers.go1.com/api/rest/2025-01-01/user-accounts/
+  - https://developers.go1.com/api/rest/2025-01-01/webhooks/
+  x-assembled: '2026-10-21'
 servers:
 - url: https://gateway.go1.com
-  description: Go1 API gateway (production)
-security:
-- OAuth2: []
+  description: Go1 API gateway (stated as the Base URL in the API reference overview)
 tags:
 - name: Enrollments
+  description: 'Enrollments represent the record of a user''s learning activity within a learning object. An enrollment occurs when a user begins or is assigned a learning object.
+
+
+    The enrollment object contains information about a user''s progress through a learning object, such as their enrollment status (not-started, in-progress, completed), the enrollment due date, start date, end date and the enrollment results.
+
+
+    You can use this resource to create, look up and manage enrollments against users and learning objects.'
+  x-source: https://developers.go1.com/api/rest/2025-01-01/enrollments/
 paths:
   /enrollments/{id}:
     get:
@@ -29,6 +51,24 @@ paths:
         in: path
         schema:
           type: string
+      - name: include[]
+        in: query
+        description: 'Returns extended information related to the Enrollment object.
+
+
+          If the `include[]` parameter is not supplied, the default fields will be returned. See the response schema for a list of fields that can be expected with each of the included objects.
+
+
+          - `award`: Returns the award enrollment object.
+
+          '
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - award
       responses:
         '200':
           description: Returns the details of a enrollment.
@@ -118,6 +158,185 @@ paths:
                     format: date-time
                     example: '2022-03-31T03:29:36+00:00'
                     description: The date that the enrollment is due for completion (ISO 8601 in UTC).
+                  award:
+                    type: object
+                    description: Award-specific enrollment data. Only included when `include[]=award` is specified and the enrollment is for an award learning object.
+                    properties:
+                      id:
+                        type: string
+                        example: '123'
+                        description: The unique identifier for the award enrollment.
+                      status:
+                        type: string
+                        example: in-progress
+                        description: The status of the award enrollment. Used to determine award completion state.
+                        enum:
+                        - not-started
+                        - in-progress
+                        - completed
+                        - expired
+                      quantity:
+                        type: number
+                        example: 12
+                        description: The total achievements/credits earned by user. Primary value for progress bar calculation (quantity / target) * 100.
+                      start_time:
+                        type: string
+                        format: date-time
+                        example: '2022-03-29T01:29:36+00:00'
+                        description: The date that the user started the award (ISO 8601 in UTC).
+                      end_time:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        example: '2023-06-14T06:51:01+00:00'
+                        description: The date that the user completed the award (ISO 8601 in UTC).
+                      expire_time:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        example: '2025-03-29T01:29:36+00:00'
+                        description: The date that the award enrollment expires (ISO 8601 in UTC). Used for expiration warning display.
+                      learning_records:
+                        type: array
+                        description: The list of learning records contributing to this award.
+                        items:
+                          discriminator:
+                            propertyName: record_type
+                            mapping:
+                              item_enrolment: '#/components/schemas/ItemEnrolmentRecord'
+                              external_learning: '#/components/schemas/AwardExternalLearningRecord'
+                          oneOf:
+                          - type: object
+                            description: A learning record for a Go1 enrollment or or nested award enrollment.
+                            required:
+                            - record_type
+                            properties:
+                              id:
+                                type: string
+                                example: '1'
+                                description: The unique identifier for this learning record.
+                              record_type:
+                                type: string
+                                example: item_enrolment
+                                description: The learning record type indicating whether it is a Go1 enrollment or external learning.
+                                enum:
+                                - item_enrolment
+                              lo_id:
+                                type: string
+                                example: '124'
+                                description: The learning object ID of the completed learning object.
+                              status:
+                                type: string
+                                example: completed
+                                description: The completion status of the learning record.
+                                enum:
+                                - not-started
+                                - in-progress
+                                - completed
+                                - failed
+                              quantity:
+                                type: number
+                                example: 3
+                                description: The credits earned from this learning object.
+                              pass:
+                                type: boolean
+                                example: true
+                                description: Whether the user passed the learning object.
+                              start_time:
+                                type:
+                                - string
+                                - 'null'
+                                format: date-time
+                                example: '2023-05-01T09:00:00+00:00'
+                                description: The date that the learning record started (ISO 8601 in UTC).
+                              end_time:
+                                type:
+                                - string
+                                - 'null'
+                                format: date-time
+                                example: '2023-06-14T06:51:01+00:00'
+                                description: The date that the course was completed (ISO 8601 in UTC).
+                          - type: object
+                            description: An external learning record submitted by the user.
+                            required:
+                            - record_type
+                            properties:
+                              id:
+                                type: string
+                                example: '3'
+                                description: The unique identifier for this learning record.
+                              record_type:
+                                type: string
+                                example: external_learning
+                                description: The learning record type indicating whether it is a Go1 enrollment or external learning.
+                                enum:
+                                - external_learning
+                              title:
+                                type: string
+                                example: AWS Cloud Practitioner Conference
+                                description: The title of the external learning.
+                              description:
+                                type: string
+                                example: Attended 2-day AWS conference covering cloud fundamentals
+                                description: The description of the external learning.
+                              lo_type:
+                                type: string
+                                example: face_to_face
+                                description: The type of external learning.
+                                enum:
+                                - face_to_face
+                                - online
+                                - on_the_job
+                                - book
+                                - other
+                              categories:
+                                type: array
+                                items:
+                                  type: string
+                                example:
+                                - AWS
+                                - Cloud
+                                - Infrastructure
+                                description: The categories/tags for the external learning.
+                              quantity:
+                                type: number
+                                example: 4
+                                description: The credits claimed for this external learning.
+                              end_time:
+                                type: string
+                                format: date-time
+                                example: '2023-08-20T17:00:00+00:00'
+                                description: The date that the external learning was completed (ISO 8601 in UTC).
+                              pass:
+                                type: boolean
+                                example: true
+                                description: The approval status indicating whether the external learning counts toward award progress. `true` = approved and contributes to completion; `false` = pending or rejected.
+                              verified:
+                                type: boolean
+                                example: true
+                                description: Whether this record has been verified/approved.
+                              verifier_id:
+                                type:
+                                - string
+                                - 'null'
+                                example: '789'
+                                description: The user account ID of the verifier.
+                              submissions:
+                                type: array
+                                description: The supporting documents submitted for verification.
+                                items:
+                                  type: object
+                                  properties:
+                                    name:
+                                      type: string
+                                      example: certificate-of-completion.pdf
+                                      description: The name of the submission file.
+                                    url:
+                                      type: string
+                                      example: https://www.example.com/certificate-of-completion.pdf
+                                      description: The URL of the submission document.
         '404':
           description: Enrollment not found.
       tags:
@@ -284,6 +503,185 @@ paths:
                     format: date-time
                     example: '2022-03-31T03:29:36+00:00'
                     description: The date that the enrollment is due for completion (ISO 8601 in UTC).
+                  award:
+                    type: object
+                    description: Award-specific enrollment data. Only included when `include[]=award` is specified and the enrollment is for an award learning object.
+                    properties:
+                      id:
+                        type: string
+                        example: '123'
+                        description: The unique identifier for the award enrollment.
+                      status:
+                        type: string
+                        example: in-progress
+                        description: The status of the award enrollment. Used to determine award completion state.
+                        enum:
+                        - not-started
+                        - in-progress
+                        - completed
+                        - expired
+                      quantity:
+                        type: number
+                        example: 12
+                        description: The total achievements/credits earned by user. Primary value for progress bar calculation (quantity / target) * 100.
+                      start_time:
+                        type: string
+                        format: date-time
+                        example: '2022-03-29T01:29:36+00:00'
+                        description: The date that the user started the award (ISO 8601 in UTC).
+                      end_time:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        example: '2023-06-14T06:51:01+00:00'
+                        description: The date that the user completed the award (ISO 8601 in UTC).
+                      expire_time:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        example: '2025-03-29T01:29:36+00:00'
+                        description: The date that the award enrollment expires (ISO 8601 in UTC). Used for expiration warning display.
+                      learning_records:
+                        type: array
+                        description: The list of learning records contributing to this award.
+                        items:
+                          discriminator:
+                            propertyName: record_type
+                            mapping:
+                              item_enrolment: '#/components/schemas/ItemEnrolmentRecord'
+                              external_learning: '#/components/schemas/AwardExternalLearningRecord'
+                          oneOf:
+                          - type: object
+                            description: A learning record for a Go1 enrollment or or nested award enrollment.
+                            required:
+                            - record_type
+                            properties:
+                              id:
+                                type: string
+                                example: '1'
+                                description: The unique identifier for this learning record.
+                              record_type:
+                                type: string
+                                example: item_enrolment
+                                description: The learning record type indicating whether it is a Go1 enrollment or external learning.
+                                enum:
+                                - item_enrolment
+                              lo_id:
+                                type: string
+                                example: '124'
+                                description: The learning object ID of the completed learning object.
+                              status:
+                                type: string
+                                example: completed
+                                description: The completion status of the learning record.
+                                enum:
+                                - not-started
+                                - in-progress
+                                - completed
+                                - failed
+                              quantity:
+                                type: number
+                                example: 3
+                                description: The credits earned from this learning object.
+                              pass:
+                                type: boolean
+                                example: true
+                                description: Whether the user passed the learning object.
+                              start_time:
+                                type:
+                                - string
+                                - 'null'
+                                format: date-time
+                                example: '2023-05-01T09:00:00+00:00'
+                                description: The date that the learning record started (ISO 8601 in UTC).
+                              end_time:
+                                type:
+                                - string
+                                - 'null'
+                                format: date-time
+                                example: '2023-06-14T06:51:01+00:00'
+                                description: The date that the course was completed (ISO 8601 in UTC).
+                          - type: object
+                            description: An external learning record submitted by the user.
+                            required:
+                            - record_type
+                            properties:
+                              id:
+                                type: string
+                                example: '3'
+                                description: The unique identifier for this learning record.
+                              record_type:
+                                type: string
+                                example: external_learning
+                                description: The learning record type indicating whether it is a Go1 enrollment or external learning.
+                                enum:
+                                - external_learning
+                              title:
+                                type: string
+                                example: AWS Cloud Practitioner Conference
+                                description: The title of the external learning.
+                              description:
+                                type: string
+                                example: Attended 2-day AWS conference covering cloud fundamentals
+                                description: The description of the external learning.
+                              lo_type:
+                                type: string
+                                example: face_to_face
+                                description: The type of external learning.
+                                enum:
+                                - face_to_face
+                                - online
+                                - on_the_job
+                                - book
+                                - other
+                              categories:
+                                type: array
+                                items:
+                                  type: string
+                                example:
+                                - AWS
+                                - Cloud
+                                - Infrastructure
+                                description: The categories/tags for the external learning.
+                              quantity:
+                                type: number
+                                example: 4
+                                description: The credits claimed for this external learning.
+                              end_time:
+                                type: string
+                                format: date-time
+                                example: '2023-08-20T17:00:00+00:00'
+                                description: The date that the external learning was completed (ISO 8601 in UTC).
+                              pass:
+                                type: boolean
+                                example: true
+                                description: The approval status indicating whether the external learning counts toward award progress. `true` = approved and contributes to completion; `false` = pending or rejected.
+                              verified:
+                                type: boolean
+                                example: true
+                                description: Whether this record has been verified/approved.
+                              verifier_id:
+                                type:
+                                - string
+                                - 'null'
+                                example: '789'
+                                description: The user account ID of the verifier.
+                              submissions:
+                                type: array
+                                description: The supporting documents submitted for verification.
+                                items:
+                                  type: object
+                                  properties:
+                                    name:
+                                      type: string
+                                      example: certificate-of-completion.pdf
+                                      description: The name of the submission file.
+                                    url:
+                                      type: string
+                                      example: https://www.example.com/certificate-of-completion.pdf
+                                      description: The URL of the submission document.
         '400':
           description: Invalid request.
         '403':
@@ -325,6 +723,403 @@ paths:
       tags:
       - Enrollments
   /enrollments:
+    post:
+      servers:
+      - url: /enrolment
+      security:
+      - OAuth2:
+        - enrollment.write
+      summary: Create an enrollment
+      operationId: enrolmentCreateController_postV3
+      parameters:
+      - name: re-enroll
+        in: query
+        description: A parameter that enables a new enrollment to be created where one already exists. Set `re-enroll` to `true` to create a new enrollment, and archive the existing enrollment.
+        required: false
+        schema:
+          type: boolean
+      requestBody:
+        description: Create an enrollment
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - user_account_id
+              - lo_id
+              - enrollment_type
+              - status
+              properties:
+                enrollment_type:
+                  description: The enrollment type. Use `assigned` for enrollments created by one user for another user, or if assigning learning to oneself via an assigned learning workflow. Use `self-directed` when an enrollment is created by a user for themselves.  Only applies to a parent enrollment.
+                  type: string
+                  example: assigned
+                  enum:
+                  - self-directed
+                  - assigned
+                user_account_id:
+                  description: The ID of a user account that the enrollment will be created for.
+                  type: string
+                  example: '1012'
+                lo_id:
+                  description: The ID of a learning object that the enrollment will be created for.
+                  type: string
+                  example: '198772'
+                parent_enrolment_id:
+                  type: string
+                  example: '555'
+                  description: The ID of the parent enrollment, required only when creating an enrollment into a child learning object, such as a module within a course, or learning objects within a module.
+                assigner_account_id:
+                  description: 'The ID of a user account that is assigning the enrollment to another user. For example, this could be the user''s manager or administrator.
+
+
+                    Only include this field for enrollment_type of assigned. Defaults to the current user, determined by the access token used in the request.
+
+                    '
+                  type: string
+                  example: '31013'
+                assign_date:
+                  description: 'The date-time that the user is assigned the enrollment (ISO 8601 in UTC).
+
+
+                    Only include this field for `enrollment_type` of `assigned`. Defaults to the current date-time.
+
+                    '
+                  type: string
+                  format: date-time
+                status:
+                  type: string
+                  description: 'The status of the enrollment.
+
+
+                    When creating enrollments in a `not-started` status, the result, pass, start_date and end_date parameters cannot be included in the request.
+
+                    '
+                  example: completed
+                  enum:
+                  - not-started
+                  - in-progress
+                  - completed
+                result:
+                  description: The enrollment score result, as an integer between 0 and 100. Only include for enrollments in a `completed` status.
+                  type: integer
+                  minimum: 0
+                  maximum: 100
+                  example: 100
+                pass:
+                  description: Whether the enrollment was passed `true` or not passed `false`. Only include for enrollments in a `completed` status.
+                  type: boolean
+                  example: true
+                start_date:
+                  description: The date that the user began the enrollment (ISO 8601 in UTC). Only include for enrollments in an `in-progress` or `completed` status, exclude for `not-started` enrollments
+                  type: string
+                  format: date-time
+                end_date:
+                  description: The date that the user finished the enrollment (ISO 8601 in UTC). Only include for enrollments in a `completed` status.
+                  type: string
+                  format: date-time
+                due_date:
+                  description: The date that the enrollment is due for completion (ISO 8601 in UTC).
+                  type: string
+                  format: date-time
+        required: true
+      responses:
+        '201':
+          description: Returns the details of a enrollment.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - enrollment_type
+                - user_account_id
+                - lo_id
+                - created_time
+                - updated_time
+                - status
+                properties:
+                  id:
+                    type: string
+                    example: '123'
+                    description: The unique identifier for the enrollment.
+                  enrollment_type:
+                    type: string
+                    example: assigned
+                    description: 'The enrollment type. Will return empty string for child enrollments. Enum: `assigned`, `self-directed`.'
+                    enum:
+                    - assigned
+                    - self-directed
+                  user_account_id:
+                    type: string
+                    example: '432'
+                    description: The ID of the user account that the enrollment belongs to.
+                  lo_id:
+                    type: string
+                    example: '567'
+                    description: The ID of the learning object that the enrollment belongs to.
+                  parent_enrollment_id:
+                    type: string
+                    example: '876'
+                    description: The ID of the parent enrollment that the enrollment belongs to.
+                  assigner_account_id:
+                    type: string
+                    example: '31013'
+                    description: The ID of a user account that assigned the enrollment.
+                  assign_date:
+                    type: string
+                    format: date-time
+                    description: The date that the user is assigned the enrollment (ISO 8601 in UTC).
+                    example: '2023-04-18T01:08:23+00:00'
+                  created_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36+00:00'
+                    description: Time at which the enrollment was created (ISO 8601 in UTC).
+                  updated_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36+00:00'
+                    description: Time at which the enrollment was last updated (ISO 8601 in UTC).
+                  status:
+                    type: string
+                    example: completed
+                    description: The status of the enrollment.
+                    enum:
+                    - not-started
+                    - in-progress
+                    - completed
+                  result:
+                    type: integer
+                    example: 100
+                    description: The enrollment score result, as an integer between 0 and 100.
+                  pass:
+                    type: boolean
+                    example: true
+                    description: Whether the enrollment was passed `true` or not passed `false`.
+                  start_date:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36+00:00'
+                    description: The date that the user started the enrollment (ISO 8601 in UTC). Start date is only populated for enrollments that are `in-progress` or `completed`.
+                  end_date:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T03:29:36+00:00'
+                    description: The date that the user completed the enrollment (ISO 8601 in UTC). End date is only populated for enrollments that are `completed`.
+                  due_date:
+                    type: string
+                    format: date-time
+                    example: '2022-03-31T03:29:36+00:00'
+                    description: The date that the enrollment is due for completion (ISO 8601 in UTC).
+                  award:
+                    type: object
+                    description: Award-specific enrollment data. Only included when `include[]=award` is specified and the enrollment is for an award learning object.
+                    properties:
+                      id:
+                        type: string
+                        example: '123'
+                        description: The unique identifier for the award enrollment.
+                      status:
+                        type: string
+                        example: in-progress
+                        description: The status of the award enrollment. Used to determine award completion state.
+                        enum:
+                        - not-started
+                        - in-progress
+                        - completed
+                        - expired
+                      quantity:
+                        type: number
+                        example: 12
+                        description: The total achievements/credits earned by user. Primary value for progress bar calculation (quantity / target) * 100.
+                      start_time:
+                        type: string
+                        format: date-time
+                        example: '2022-03-29T01:29:36+00:00'
+                        description: The date that the user started the award (ISO 8601 in UTC).
+                      end_time:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        example: '2023-06-14T06:51:01+00:00'
+                        description: The date that the user completed the award (ISO 8601 in UTC).
+                      expire_time:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        example: '2025-03-29T01:29:36+00:00'
+                        description: The date that the award enrollment expires (ISO 8601 in UTC). Used for expiration warning display.
+                      learning_records:
+                        type: array
+                        description: The list of learning records contributing to this award.
+                        items:
+                          discriminator:
+                            propertyName: record_type
+                            mapping:
+                              item_enrolment: '#/components/schemas/ItemEnrolmentRecord'
+                              external_learning: '#/components/schemas/AwardExternalLearningRecord'
+                          oneOf:
+                          - type: object
+                            description: A learning record for a Go1 enrollment or or nested award enrollment.
+                            required:
+                            - record_type
+                            properties:
+                              id:
+                                type: string
+                                example: '1'
+                                description: The unique identifier for this learning record.
+                              record_type:
+                                type: string
+                                example: item_enrolment
+                                description: The learning record type indicating whether it is a Go1 enrollment or external learning.
+                                enum:
+                                - item_enrolment
+                              lo_id:
+                                type: string
+                                example: '124'
+                                description: The learning object ID of the completed learning object.
+                              status:
+                                type: string
+                                example: completed
+                                description: The completion status of the learning record.
+                                enum:
+                                - not-started
+                                - in-progress
+                                - completed
+                                - failed
+                              quantity:
+                                type: number
+                                example: 3
+                                description: The credits earned from this learning object.
+                              pass:
+                                type: boolean
+                                example: true
+                                description: Whether the user passed the learning object.
+                              start_time:
+                                type:
+                                - string
+                                - 'null'
+                                format: date-time
+                                example: '2023-05-01T09:00:00+00:00'
+                                description: The date that the learning record started (ISO 8601 in UTC).
+                              end_time:
+                                type:
+                                - string
+                                - 'null'
+                                format: date-time
+                                example: '2023-06-14T06:51:01+00:00'
+                                description: The date that the course was completed (ISO 8601 in UTC).
+                          - type: object
+                            description: An external learning record submitted by the user.
+                            required:
+                            - record_type
+                            properties:
+                              id:
+                                type: string
+                                example: '3'
+                                description: The unique identifier for this learning record.
+                              record_type:
+                                type: string
+                                example: external_learning
+                                description: The learning record type indicating whether it is a Go1 enrollment or external learning.
+                                enum:
+                                - external_learning
+                              title:
+                                type: string
+                                example: AWS Cloud Practitioner Conference
+                                description: The title of the external learning.
+                              description:
+                                type: string
+                                example: Attended 2-day AWS conference covering cloud fundamentals
+                                description: The description of the external learning.
+                              lo_type:
+                                type: string
+                                example: face_to_face
+                                description: The type of external learning.
+                                enum:
+                                - face_to_face
+                                - online
+                                - on_the_job
+                                - book
+                                - other
+                              categories:
+                                type: array
+                                items:
+                                  type: string
+                                example:
+                                - AWS
+                                - Cloud
+                                - Infrastructure
+                                description: The categories/tags for the external learning.
+                              quantity:
+                                type: number
+                                example: 4
+                                description: The credits claimed for this external learning.
+                              end_time:
+                                type: string
+                                format: date-time
+                                example: '2023-08-20T17:00:00+00:00'
+                                description: The date that the external learning was completed (ISO 8601 in UTC).
+                              pass:
+                                type: boolean
+                                example: true
+                                description: The approval status indicating whether the external learning counts toward award progress. `true` = approved and contributes to completion; `false` = pending or rejected.
+                              verified:
+                                type: boolean
+                                example: true
+                                description: Whether this record has been verified/approved.
+                              verifier_id:
+                                type:
+                                - string
+                                - 'null'
+                                example: '789'
+                                description: The user account ID of the verifier.
+                              submissions:
+                                type: array
+                                description: The supporting documents submitted for verification.
+                                items:
+                                  type: object
+                                  properties:
+                                    name:
+                                      type: string
+                                      example: certificate-of-completion.pdf
+                                      description: The name of the submission file.
+                                    url:
+                                      type: string
+                                      example: https://www.example.com/certificate-of-completion.pdf
+                                      description: The URL of the submission document.
+        '400':
+          description: Invalid input
+        '403':
+          description: Forbidden
+        '409':
+          description: Already exists will be returned if an existing enrollment is found create_new
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - ref
+                - error_code
+                - message
+                properties:
+                  ref:
+                    description: The unique identifier for the enrollment.
+                    type: string
+                    example: '123'
+                  error_code:
+                    description: Type of error
+                    type: string
+                    example: enrollment_exists
+                  message:
+                    description: Description of the error
+                    type: string
+                    example: Enrollment already exists. To create a new enrollment and archive the current enrollment, include the re_enroll=true parameter.
+      tags:
+      - Enrollments
     get:
       servers:
       - url: /report-data/enrolment
@@ -573,224 +1368,6 @@ paths:
           description: Server error
       tags:
       - Enrollments
-    post:
-      servers:
-      - url: /enrolment
-      security:
-      - OAuth2:
-        - enrollment.write
-      summary: Create an enrollment
-      operationId: enrolmentCreateController_postV3
-      parameters:
-      - name: re-enroll
-        in: query
-        description: A parameter that enables a new enrollment to be created where one already exists. Set `re-enroll` to `true` to create a new enrollment, and archive the existing enrollment.
-        required: false
-        schema:
-          type: boolean
-      requestBody:
-        description: Create an enrollment
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-              - user_account_id
-              - lo_id
-              - enrollment_type
-              - status
-              properties:
-                enrollment_type:
-                  description: The enrollment type. Use `assigned` for enrollments created by one user for another user, or if assigning learning to oneself via an assigned learning workflow. Use `self-directed` when an enrollment is created by a user for themselves.  Only applies to a parent enrollment.
-                  type: string
-                  example: assigned
-                  enum:
-                  - self-directed
-                  - assigned
-                user_account_id:
-                  description: The ID of a user account that the enrollment will be created for.
-                  type: string
-                  example: '1012'
-                lo_id:
-                  description: The ID of a learning object that the enrollment will be created for.
-                  type: string
-                  example: '198772'
-                parent_enrolment_id:
-                  type: string
-                  example: '555'
-                  description: The ID of the parent enrollment, required only when creating an enrollment into a child learning object, such as a module within a course, or learning objects within a module.
-                assigner_account_id:
-                  description: 'The ID of a user account that is assigning the enrollment to another user. For example, this could be the user''s manager or administrator.
-
-
-                    Only include this field for enrollment_type of assigned. Defaults to the current user, determined by the access token used in the request.
-
-                    '
-                  type: string
-                  example: '31013'
-                assign_date:
-                  description: 'The date-time that the user is assigned the enrollment (ISO 8601 in UTC).
-
-
-                    Only include this field for `enrollment_type` of `assigned`. Defaults to the current date-time.
-
-                    '
-                  type: string
-                  format: date-time
-                status:
-                  type: string
-                  description: 'The status of the enrollment.
-
-
-                    When creating enrollments in a `not-started` status, the result, pass, start_date and end_date parameters cannot be included in the request.
-
-                    '
-                  example: completed
-                  enum:
-                  - not-started
-                  - in-progress
-                  - completed
-                result:
-                  description: The enrollment score result, as an integer between 0 and 100. Only include for enrollments in a `completed` status.
-                  type: integer
-                  minimum: 0
-                  maximum: 100
-                  example: 100
-                pass:
-                  description: Whether the enrollment was passed `true` or not passed `false`. Only include for enrollments in a `completed` status.
-                  type: boolean
-                  example: true
-                start_date:
-                  description: The date that the user began the enrollment (ISO 8601 in UTC). Only include for enrollments in an `in-progress` or `completed` status, exclude for `not-started` enrollments
-                  type: string
-                  format: date-time
-                end_date:
-                  description: The date that the user finished the enrollment (ISO 8601 in UTC). Only include for enrollments in a `completed` status.
-                  type: string
-                  format: date-time
-                due_date:
-                  description: The date that the enrollment is due for completion (ISO 8601 in UTC).
-                  type: string
-                  format: date-time
-        required: true
-      responses:
-        '201':
-          description: Returns the details of a enrollment.
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                - id
-                - enrollment_type
-                - user_account_id
-                - lo_id
-                - created_time
-                - updated_time
-                - status
-                properties:
-                  id:
-                    type: string
-                    example: '123'
-                    description: The unique identifier for the enrollment.
-                  enrollment_type:
-                    type: string
-                    example: assigned
-                    description: 'The enrollment type. Will return empty string for child enrollments. Enum: `assigned`, `self-directed`.'
-                    enum:
-                    - assigned
-                    - self-directed
-                  user_account_id:
-                    type: string
-                    example: '432'
-                    description: The ID of the user account that the enrollment belongs to.
-                  lo_id:
-                    type: string
-                    example: '567'
-                    description: The ID of the learning object that the enrollment belongs to.
-                  parent_enrollment_id:
-                    type: string
-                    example: '876'
-                    description: The ID of the parent enrollment that the enrollment belongs to.
-                  assigner_account_id:
-                    type: string
-                    example: '31013'
-                    description: The ID of a user account that assigned the enrollment.
-                  assign_date:
-                    type: string
-                    format: date-time
-                    description: The date that the user is assigned the enrollment (ISO 8601 in UTC).
-                    example: '2023-04-18T01:08:23+00:00'
-                  created_time:
-                    type: string
-                    format: date-time
-                    example: '2022-03-29T01:29:36+00:00'
-                    description: Time at which the enrollment was created (ISO 8601 in UTC).
-                  updated_time:
-                    type: string
-                    format: date-time
-                    example: '2022-03-29T01:29:36+00:00'
-                    description: Time at which the enrollment was last updated (ISO 8601 in UTC).
-                  status:
-                    type: string
-                    example: completed
-                    description: The status of the enrollment.
-                    enum:
-                    - not-started
-                    - in-progress
-                    - completed
-                  result:
-                    type: integer
-                    example: 100
-                    description: The enrollment score result, as an integer between 0 and 100.
-                  pass:
-                    type: boolean
-                    example: true
-                    description: Whether the enrollment was passed `true` or not passed `false`.
-                  start_date:
-                    type: string
-                    format: date-time
-                    example: '2022-03-29T01:29:36+00:00'
-                    description: The date that the user started the enrollment (ISO 8601 in UTC). Start date is only populated for enrollments that are `in-progress` or `completed`.
-                  end_date:
-                    type: string
-                    format: date-time
-                    example: '2022-03-29T03:29:36+00:00'
-                    description: The date that the user completed the enrollment (ISO 8601 in UTC). End date is only populated for enrollments that are `completed`.
-                  due_date:
-                    type: string
-                    format: date-time
-                    example: '2022-03-31T03:29:36+00:00'
-                    description: The date that the enrollment is due for completion (ISO 8601 in UTC).
-        '400':
-          description: Invalid input
-        '403':
-          description: Forbidden
-        '409':
-          description: Already exists will be returned if an existing enrollment is found create_new
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                - ref
-                - error_code
-                - message
-                properties:
-                  ref:
-                    description: The unique identifier for the enrollment.
-                    type: string
-                    example: '123'
-                  error_code:
-                    description: Type of error
-                    type: string
-                    example: enrollment_exists
-                  message:
-                    description: Description of the error
-                    type: string
-                    example: Enrollment already exists. To create a new enrollment and archive the current enrollment, include the re_enroll=true parameter.
-      tags:
-      - Enrollments
   /enrollments/{id}/certificate:
     get:
       security:
@@ -848,28 +1425,48 @@ components:
   securitySchemes:
     OAuth2:
       type: oauth2
-      description: OAuth 2.0. Server-to-server integrations use the client_credentials flow; user-context integrations use the authorization_code flow. Access tokens are valid for 12 hours.
+      description: OAuth 2.0 via a Go1 Developer App (client_id/client_secret). See https://developers.go1.com/docs/developer-tools/auth/overview-auth
       flows:
         clientCredentials:
           tokenUrl: https://auth.go1.com/oauth/token
           scopes:
-            lo.read: Read learning objects (content catalog).
-            lo.write: Create, update and delete learning objects.
-            enrollment.read: Read enrollments and completion records.
-            enrollment.write: Create, update and delete enrollments.
-            webhook.read: Read webhook configurations.
-            webhook.write: Create, update and delete webhook configurations.
-            portal.read: Read customer portals.
-            portal.write: Create and update customer portals.
+            enrollment.read: ''
+            enrollment.write: ''
+            group.read: ''
+            group.write: ''
+            lo.launch: ''
+            lo.read: ''
+            lo.write: ''
+            plan.read: ''
+            plan.write: ''
+            portal.read: ''
+            portal.write: ''
+            user.login: ''
+            user.read: ''
+            user.write: ''
+            webhook.read: ''
+            webhook.write: ''
         authorizationCode:
           authorizationUrl: https://auth.go1.com/oauth/authorize
           tokenUrl: https://auth.go1.com/oauth/token
           scopes:
-            lo.read: Read learning objects (content catalog).
-            lo.write: Create, update and delete learning objects.
-            enrollment.read: Read enrollments and completion records.
-            enrollment.write: Create, update and delete enrollments.
-            webhook.read: Read webhook configurations.
-            webhook.write: Create, update and delete webhook configurations.
-            portal.read: Read customer portals.
-            portal.write: Create and update customer portals.
+            enrollment.read: ''
+            enrollment.write: ''
+            group.read: ''
+            group.write: ''
+            lo.launch: ''
+            lo.read: ''
+            lo.write: ''
+            plan.read: ''
+            plan.write: ''
+            portal.read: ''
+            portal.write: ''
+            user.login: ''
+            user.read: ''
+            user.write: ''
+            webhook.read: ''
+            webhook.write: ''
+    bearer:
+      type: http
+      scheme: bearer
+      description: Access token sent in the Authorization header (named "bearer" by some operations in the reference).

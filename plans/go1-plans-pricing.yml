@@ -2,6 +2,7 @@
 generated: '2026-09-20'
 method: searched
 source: https://www.go1.com/plans
+name: Go1 API Plans
 sources:
 - https://www.go1.com/plans
 provenance:

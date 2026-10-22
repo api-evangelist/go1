@@ -1,7 +1,9 @@
 ---
-name: Provision a Go1 portal and subscribe to events
+name: go1-provision-portal-and-webhook
 description: Create a customer portal, then register a webhook to receive Go1 events and verify its signature.
-api: openapi/go1-openapi.yml
+api:
+  - openapi/go1-portals-api-openapi.yml
+  - openapi/go1-webhooks-api-openapi.yml
 operations:
   - createPortal
   - WebhookController_createPortalWebhookConfiguration

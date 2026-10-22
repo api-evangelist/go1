@@ -1,0 +1,42 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Go1 Playlists API
+  version: 1.0.0
+extends: openapi/go1-playlists-api-openapi.yml
+x-generated: '2026-10-21'
+x-method: generated
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provenance:
+      method: harvested
+      source: https://developers.go1.com/api/rest/2025-01-01/overview/
+      original: openapi/_original/go1-openapi-2025-01-01.json
+    x-apievangelist-versioning:
+      scheme: date-based
+      selector: Api-Version request header
+      current: '2025-01-01'
+    x-apievangelist-artifacts:
+      authentication: authentication/go1-authentication.yml
+      scopes: scopes/go1-scopes.yml
+      conventions: conventions/go1-conventions.yml
+      webhooks: asyncapi/go1-webhooks.yml
+      mcp: mcp/go1-mcp.yml
+      tool_crosswalk: mcp/go1-tool-crosswalk.yml
+- target: $.components.securitySchemes.OAuth2
+  update:
+    x-apievangelist-token-lifetime-seconds: 43200
+- target: $.paths['/playlists/{id}'].get
+  update:
+    x-mcp-tool:
+      name: get_playlist_details
+      server: https://mcp.go1.com/mcp
+      confidence: medium
+      source: https://help.go1.com/en/articles/15469776-connecting-to-the-go1-mcp-server
+- target: $.paths['/playlists/{id}/learning-objects'].get
+  update:
+    x-mcp-tool:
+      name: get_playlist_details
+      server: https://mcp.go1.com/mcp
+      confidence: medium
+      source: https://help.go1.com/en/articles/15469776-connecting-to-the-go1-mcp-server

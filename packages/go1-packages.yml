@@ -1,6 +1,6 @@
-generated: '2026-07-19'
+generated: '2026-10-21'
 method: searched
-source: https://www.npmjs.com/ (npm registry search, @go1 / @go1d scopes)
+source: https://developers.go1.com/docs/developer-tools/sdks/embedding-sdk/ + registry.npmjs.org
 packages:
 - language: javascript
   registry: npm
@@ -10,6 +10,9 @@ packages:
   version: 0.13.1
   official: true
   description: JavaScript library to embed Go1 content into your website.
+  published: '2026-06-25'
+  version_source: https://registry.npmjs.org/@go1/go1-embedding-js-sdk
+  ownership_audit: metadata names go1.com
 - language: javascript
   registry: npm
   name: '@go1/go1-embedding-react-sdk'
@@ -18,27 +21,51 @@ packages:
   version: 0.13.1
   official: true
   description: React library to embed Go1 content into your website.
+  published: '2026-06-25'
+  version_source: https://registry.npmjs.org/@go1/go1-embedding-react-sdk
+  ownership_audit: metadata names go1.com
 - language: javascript
   registry: npm
   name: '@go1/webhook-verifier-js'
   url: https://www.npmjs.com/package/@go1/webhook-verifier-js
-  version: 1.0.5
+  version: 1.0.9
   install: npm install @go1/webhook-verifier-js
   official: true
   repository: https://github.com/go1com/webhook-verifier-js
   description: Verify the signature passed in the header of an incoming Go1 webhook.
+  published: '2026-09-07'
+  version_source: https://registry.npmjs.org/@go1/webhook-verifier-js
+  ownership_audit: metadata names go1.com
 - language: javascript
   registry: npm
   name: '@go1/apim-cli'
   url: https://www.npmjs.com/package/@go1/apim-cli
-  version: 2.0.3
+  version: 2.0.5
   install: npm install -g @go1/apim-cli
   official: true
   description: Generate APIM deployment files from your OpenAPI doc (Go1 API management CLI).
+  published: '2026-09-01'
+  version_source: https://registry.npmjs.org/@go1/apim-cli
+  ownership_audit: metadata names go1.com
 - language: javascript
   registry: npm
   name: '@go1d/go1d'
   url: https://www.npmjs.com/package/@go1d/go1d
-  official: true
+  official: false
   install: npm install @go1d/go1d
   description: Go1 Design System (go1d) React component library.
+  version: 15.36.3
+  published: '2025-07-07'
+  version_source: https://registry.npmjs.org/@go1d/go1d
+  ownership_audit: 'registry has no such package: official downgraded (harvest-packages.py --audit)'
+- language: javascript
+  registry: cdn
+  name: Go1 Embedding Plain HTML and JavaScript SDK
+  url: https://embedding.go1.com/js/embedding.js
+  official: true
+  version: null
+  published: null
+  note: Script-tag distribution documented on the Embedding SDK page; URL is unpinned (no version in the path), so a consumer cannot tell which
+    build they get.
+  description: Universal script-tag build; same APIs as the JavaScript SDK.
+docs: https://developers.go1.com/docs/developer-tools/sdks/overview-sdks/

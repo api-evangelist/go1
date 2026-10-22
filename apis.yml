@@ -1,5 +1,7 @@
 aid: go1
+
 name: Go1
+
 description: >-
   Go1 is an AI-powered corporate learning and development (L&D) platform that consolidates employee
   training into a single subscription. Its content library aggregates courses from 250+ providers
@@ -9,6 +11,7 @@ description: >-
   for discovering learning objects, managing enrollments, provisioning customer portals and
   subscribing to events via webhooks, secured with OAuth 2.0, plus JavaScript/React embedding SDKs
   and a webhook-verifier library. Go1 is backed by SoftBank Vision Fund and Y Combinator.
+
 deliveryModel:
   model: saas
   open_source: false
@@ -21,6 +24,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: unknown
   onboarding: self-serve
@@ -33,18 +37,28 @@ accessModel:
   - authentication
   generated: '2026-07-22'
   method: derived
+
 image: https://www.go1.com/opengraph-image.png
+
 url: https://raw.githubusercontent.com/api-evangelist/go1/refs/heads/main/apis.yml
+
 x-type: company
+
 x-source: vc-portfolio
+
 x-backed-by:
 - softbank-vision-fund
 - y-combinator
-x-tier: stub
-x-tier-reason: portfolio-lead
+
+x-tier: profiled
+x-tier-reason: enrichment pass 2026-10-21 (modular-v1; was portfolio-lead)
+
 specificationVersion: '0.23'
+
 created: '2026-07-17'
-modified: '2026-07-19'
+
+modified: '2026-10-21'
+
 tags:
 - Company
 - EdTech
@@ -55,6 +69,7 @@ tags:
 - LMS
 - Education
 - Webhook
+
 tags_raw:
 - Company
 - Edtech
@@ -66,61 +81,38 @@ tags_raw:
 - LMS
 - Education
 - Webhooks
-apis:
-- aid: go1:go1-enrollments-api
-  name: Go1 Enrollments API
-  description: The Enrollments API from Go1 — 3 operation(s) for enrollments.
-  humanURL: https://developers.go1.com/
-  baseURL: https://gateway.go1.com
-  tags:
-  - Enrollment
-  tags_raw:
-  - Enrollments
-  properties:
-  - type: OpenAPI
-    url: openapi/go1-enrollments-api-openapi.yml
-- aid: go1:go1-learning-objects-api
-  name: Go1 Learning objects API
-  description: The Learning objects API from Go1 — 5 operation(s) for learning objects.
-  humanURL: https://developers.go1.com/
-  baseURL: https://gateway.go1.com
-  tags:
-  - Learning Objects
-  tags_raw:
-  - Learning objects
-  properties:
-  - type: OpenAPI
-    url: openapi/go1-learning-objects-api-openapi.yml
-- aid: go1:go1-portals-api
-  name: Go1 Portals API
-  description: The Portals API from Go1 — 2 operation(s) for portals.
-  humanURL: https://developers.go1.com/
-  baseURL: https://gateway.go1.com
-  tags:
-  - Portal
-  tags_raw:
-  - Portals
-  properties:
-  - type: OpenAPI
-    url: openapi/go1-portals-api-openapi.yml
-- aid: go1:go1-webhooks-api
-  name: Go1 Webhooks API
-  description: The Webhooks API from Go1 — 2 operation(s) for webhooks.
-  humanURL: https://developers.go1.com/
-  baseURL: https://gateway.go1.com
-  tags:
-  - Webhook
-  tags_raw:
-  - Webhooks
-  properties:
-  - type: OpenAPI
-    url: openapi/go1-webhooks-api-openapi.yml
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+
 common:
+- type: RateLimits
+  url: rate-limits/go1-rate-limits.yml
+- type: Spectral
+  url: rules/go1-rules.yml
+- type: Vocabulary
+  url: vocabulary/go1-vocabulary.yml
+- type: ChangeLog
+  url: changelog/go1-changelog.yml
+- type: Deprecation
+  url: https://developers.go1.com/docs/developer-tools/api/versioning/
+- type: Overlay
+  url: overlays/go1-categories-api-overlay.yaml
+- type: ToolCrosswalk
+  url: mcp/go1-tool-crosswalk.yml
+- type: MCPServer
+  url: mcp/go1-mcp.yml
+- type: Hosts
+  url: hosts/go1-hosts.yml
+- type: IntegrationEdges
+  url: integrations/go1-integration-edges.yml
+- type: Vendors
+  url: vendors/go1-vendors.yml
+- type: Leadership
+  url: https://www.go1.com/solutions/category/leadership
 - type: Plans
   url: plans/go1-plans-pricing.yml
 - type: CapabilityMap
@@ -149,8 +141,6 @@ common:
   note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
 - type: LLMsTxt
   url: llms/go1-llms.txt
-- type: Overlay
-  url: overlays/go1-openapi-overlay.yaml
 - type: Conformance
   url: conformance/go1-conformance.yml
 - type: ErrorCatalog
@@ -193,14 +183,282 @@ common:
   url: https://github.com/go1com
 - type: Pricing
   url: https://www.go1.com/plans
-- type: SignUp
-  url: https://www.go1.com/login
+- type: Login
+  url: https://app.go1.com/login
 - type: TermsOfService
   url: https://www.go1.com/terms/customer-terms
 - type: PrivacyPolicy
   url: https://www.go1.com/terms/privacy-policy
+
+apis:
+- aid: go1:go1-categories-api
+  name: Go1 Categories API
+  description: The Go1 Categories API (REST, version 2025-01-01) — 1 operation(s) on the Go1 API gateway,
+    from the Go1 developer API reference.
+  humanURL: https://developers.go1.com/api/rest/2025-01-01/categories/
+  baseURL: https://gateway.go1.com
+  tags:
+  - Categories
+  tags_raw:
+  - Categories
+  properties:
+  - type: OpenAPI
+    url: openapi/go1-categories-api-openapi.yml
+  - type: Documentation
+    url: https://developers.go1.com/api/rest/2025-01-01/categories/
+- aid: go1:go1-collections-api
+  name: Go1 Collections API
+  description: The Go1 Collections API (REST, version 2025-01-01) — 4 operation(s) on the Go1 API gateway,
+    from the Go1 developer API reference. Collections provide a means to curate learning objects into
+    subset groups. Currently, our system only supports a primary collection known as the `Library` collection.
+    This collection is designed specifically for the management of customer-specific content libraries.
+    Admins leverage the Library collection to seamlessly add, remove, and synchronize content within the
+    Library, ensuring seamless integration with external systems.
+  humanURL: https://developers.go1.com/api/rest/2025-01-01/collections/
+  baseURL: https://gateway.go1.com
+  tags:
+  - Collections
+  tags_raw:
+  - Collections
+  properties:
+  - type: OpenAPI
+    url: openapi/go1-collections-api-openapi.yml
+  - type: Documentation
+    url: https://developers.go1.com/api/rest/2025-01-01/collections/
+- aid: go1:go1-compliance-api
+  name: Go1 Compliance API
+  description: The Go1 Compliance API (REST, version 2025-01-01) — 1 operation(s) on the Go1 API gateway,
+    from the Go1 developer API reference.
+  humanURL: https://developers.go1.com/api/rest/2025-01-01/compliance/
+  baseURL: https://gateway.go1.com
+  tags:
+  - Compliance
+  tags_raw:
+  - Compliance
+  properties:
+  - type: OpenAPI
+    url: openapi/go1-compliance-api-openapi.yml
+  - type: Documentation
+    url: https://developers.go1.com/api/rest/2025-01-01/compliance/
+- aid: go1:go1-enrollments-api
+  name: Go1 Enrollments API
+  description: The Go1 Enrollments API (REST, version 2025-01-01) — 6 operation(s) on the Go1 API gateway,
+    from the Go1 developer API reference. Enrollments represent the record of a user's learning activity
+    within a learning object. An enrollment occurs when a user begins or is assigned a learning object.
+  humanURL: https://developers.go1.com/api/rest/2025-01-01/enrollments/
+  baseURL: https://gateway.go1.com
+  tags:
+  - Enrollment
+  tags_raw:
+  - Enrollments
+  properties:
+  - type: OpenAPI
+    url: openapi/go1-enrollments-api-openapi.yml
+  - type: Documentation
+    url: https://developers.go1.com/api/rest/2025-01-01/enrollments/
+- aid: go1:go1-files-api
+  name: Go1 Files API
+  description: The Go1 Files API (REST, version 2025-01-01) — 1 operation(s) on the Go1 API gateway, from
+    the Go1 developer API reference. The File Upload endpoint allows users to upload and manage learning
+    media within the Go1 ecosystem, including images, videos, audio files, documents, and SCORM packages.
+    Uploaded files are securely stored and can be used for playback, embedding, or reference within learning
+    content. Use this resource to upload new files, retrieve file details, and manage media assets for
+    seamless content delivery.
+  humanURL: https://developers.go1.com/api/rest/2025-01-01/files/
+  baseURL: https://gateway.go1.com
+  tags:
+  - Files
+  tags_raw:
+  - Files
+  properties:
+  - type: OpenAPI
+    url: openapi/go1-files-api-openapi.yml
+  - type: Documentation
+    url: https://developers.go1.com/api/rest/2025-01-01/files/
+- aid: go1:go1-learning-objects-api
+  name: Go1 Learning objects API
+  description: The Go1 Learning objects API (REST, version 2025-01-01) — 7 operation(s) on the Go1 API
+    gateway, from the Go1 developer API reference. Learning objects represent learning content that can
+    be consumed by learners within the Go1 ecosystem, for example, a course, document or video. A learning
+    object contains contextual information about the content resource, such as its title, description,
+    thumbnail image, learning outcomes and provider. Use this resource to create, look up and manage learning
+    objects.
+  humanURL: https://developers.go1.com/api/rest/2025-01-01/learning-objects/
+  baseURL: https://gateway.go1.com
+  tags:
+  - Learning Objects
+  tags_raw:
+  - Learning objects
+  properties:
+  - type: OpenAPI
+    url: openapi/go1-learning-objects-api-openapi.yml
+  - type: Documentation
+    url: https://developers.go1.com/api/rest/2025-01-01/learning-objects/
+- aid: go1:go1-plans-api
+  name: Go1 Plans API
+  description: The Go1 Plans API (REST, version 2025-01-01) — 9 operation(s) on the Go1 API gateway, from
+    the Go1 developer API reference. The Plans resource represents a customer's subscription plan to Go1,
+    containing details such as the customer’s product tier, term duration, and license count. It manages
+    customer access to Go1 products and facilitates the customer lifecycle, such as transitions between
+    plan upgrades, downgrades, and renewals.
+  humanURL: https://developers.go1.com/api/rest/2025-01-01/plans/
+  baseURL: https://gateway.go1.com
+  tags:
+  - Plans
+  tags_raw:
+  - Plans
+  properties:
+  - type: OpenAPI
+    url: openapi/go1-plans-api-openapi.yml
+  - type: Documentation
+    url: https://developers.go1.com/api/rest/2025-01-01/plans/
+- aid: go1:go1-play-links-api
+  name: Go1 Play links API
+  description: The Go1 Play links API (REST, version 2025-01-01) — 1 operation(s) on the Go1 API gateway,
+    from the Go1 developer API reference. Play links are the means by which a user is granted access to
+    play learning content within the Go1 Player, a Go1-hosted UI for playing learning objects. A play
+    link consists of a URL that when loaded, will log a user into the player to access and play a learning
+    object.
+  humanURL: https://developers.go1.com/api/rest/2025-01-01/play-links/
+  baseURL: https://gateway.go1.com
+  tags:
+  - Play links
+  tags_raw:
+  - Play links
+  properties:
+  - type: OpenAPI
+    url: openapi/go1-play-links-api-openapi.yml
+  - type: Documentation
+    url: https://developers.go1.com/api/rest/2025-01-01/play-links/
+- aid: go1:go1-playlists-api
+  name: Go1 Playlists API
+  description: The Go1 Playlists API (REST, version 2025-01-01) — 5 operation(s) on the Go1 API gateway,
+    from the Go1 developer API reference. Playlists are a simple way to group learning objects into organised
+    themes of choice, for instance, based on topics or learning outcomes. Playlists enable the larger
+    Go1 content library to be curated into smaller lists of content for review, or to provide inspiration
+    for learners to decide what to learn next.
+  humanURL: https://developers.go1.com/api/rest/2025-01-01/playlists/
+  baseURL: https://gateway.go1.com
+  tags:
+  - Playlists
+  tags_raw:
+  - Playlists
+  properties:
+  - type: OpenAPI
+    url: openapi/go1-playlists-api-openapi.yml
+  - type: Documentation
+    url: https://developers.go1.com/api/rest/2025-01-01/playlists/
+- aid: go1:go1-portals-api
+  name: Go1 Portals API
+  description: The Go1 Portals API (REST, version 2025-01-01) — 4 operation(s) on the Go1 API gateway,
+    from the Go1 developer API reference. The Portals resource serves as a dedicated workspace or tenant
+    within Go1. Each portal represents a unique customer's business entity and encapsulates their access
+    to Go1's platform and services. The Portals resource provides detailed information about the associated
+    company, including its settings and configuration.
+  humanURL: https://developers.go1.com/api/rest/2025-01-01/portals/
+  baseURL: https://gateway.go1.com
+  tags:
+  - Portal
+  tags_raw:
+  - Portals
+  properties:
+  - type: OpenAPI
+    url: openapi/go1-portals-api-openapi.yml
+  - type: Documentation
+    url: https://developers.go1.com/api/rest/2025-01-01/portals/
+- aid: go1:go1-restrictions-api
+  name: Go1 Restrictions API
+  description: The Go1 Restrictions API (REST, version 2025-01-01) — 3 operation(s) on the Go1 API gateway,
+    from the Go1 developer API reference. The Restrictions service provides APIs for managing restrictions
+    on learning objects, including access control and visibility settings.
+  humanURL: https://developers.go1.com/api/rest/2025-01-01/restrictions/
+  baseURL: https://gateway.go1.com
+  tags:
+  - Restrictions
+  tags_raw:
+  - Restrictions
+  properties:
+  - type: OpenAPI
+    url: openapi/go1-restrictions-api-openapi.yml
+  - type: Documentation
+    url: https://developers.go1.com/api/rest/2025-01-01/restrictions/
+- aid: go1:go1-scim-api
+  name: Go1 SCIM API
+  description: The Go1 SCIM API (REST, version 2025-01-01) — 18 operation(s) on the Go1 API gateway, from
+    the Go1 developer API reference. The SCIM protocol is an application-level REST protocol for provisioning
+    and managing identity data on the web. The protocol supports creation, discovery, retrieval, and modification
+    of core identity resources.
+  humanURL: https://developers.go1.com/api/rest/2025-01-01/scim/
+  baseURL: https://gateway.go1.com
+  tags:
+  - SCIM
+  tags_raw:
+  - SCIM
+  properties:
+  - type: OpenAPI
+    url: openapi/go1-scim-api-openapi.yml
+  - type: Documentation
+    url: https://developers.go1.com/api/rest/2025-01-01/scim/
+- aid: go1:go1-user-accounts-api
+  name: Go1 User accounts API
+  description: The Go1 User accounts API (REST, version 2025-01-01) — 5 operation(s) on the Go1 API gateway,
+    from the Go1 developer API reference. The user accounts resource represents a user with access to
+    a Go1 portal. The user account object contains basic contact information about the user and allows
+    you to keep track of the learning activity that is connected to the user through using the enrollment
+    APIs.
+  humanURL: https://developers.go1.com/api/rest/2025-01-01/user-accounts/
+  baseURL: https://gateway.go1.com
+  tags:
+  - User accounts
+  tags_raw:
+  - User accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/go1-user-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developers.go1.com/api/rest/2025-01-01/user-accounts/
+- aid: go1:go1-webhooks-api
+  name: Go1 Webhooks API
+  description: The Go1 Webhooks API (REST, version 2025-01-01) — 3 operation(s) on the Go1 API gateway,
+    from the Go1 developer API reference. Webhooks can be configured via the API to notify your application
+    when a notable events take place in your Go1 portal or your connected customer portals, for example
+    when an enrollment occurs, or when a user is updated. Events are sent to an endpoint URL that is specified
+    by you when creating a new webhook.
+  humanURL: https://developers.go1.com/api/rest/2025-01-01/webhooks/
+  baseURL: https://gateway.go1.com
+  tags:
+  - Webhook
+  tags_raw:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/go1-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://developers.go1.com/api/rest/2025-01-01/webhooks/
+
+x-coverage:
+  state: covered
+  reason: identity-verified
+  detail: Identity pass 2026-10-21 — www.go1.com serves Go1's own site (title names Go1); all link-property pointers fetched live with a browser UA. www.go1.com/login redirects to app.go1.com/login (a login page), so the pointer is recorded as Login. No public changelog, roadmap or Postman workspace found (developers.go1.com/changelog/ 404; 'Stay updated' page is a newsletter signup only).
+  evidence:
+  - {url: 'https://www.go1.com/', status: 200}
+  - {url: 'https://developers.go1.com/docs/overview/', status: 200}
+  - {url: 'https://developers.go1.com/api/rest/2025-01-01/overview/', status: 200}
+  - {url: 'https://developers.go1.com/docs/getting-started/', status: 200}
+  - {url: 'https://help.go1.com/en', status: 200}
+  - {url: 'https://www.go1.com/blog', status: 200}
+  - {url: 'https://github.com/go1com', status: 200}
+  - {url: 'https://www.go1.com/plans', status: 200}
+  - {url: 'https://app.go1.com/login', status: 200}
+  - {url: 'https://www.go1.com/terms/customer-terms', status: 200}
+  - {url: 'https://www.go1.com/terms/privacy-policy', status: 200}
+  - {url: 'https://status.go1.com', status: 200}
+  - {url: 'https://trust.go1.com/', status: 200}
+  - {url: 'https://developers.go1.com/changelog/', status: 404}
+
 x-enrichment:
-  date: '2026-07-19'
-  status: backfilled
-  pass: local-v1
-  note: backfilled from .gitignore signal + verified work evidence
+  date: '2026-10-21'
+  status: enriched
+  artifacts_added: 42
+  pass: modular-v1
+  engine: identity=anthropic,contract=anthropic,surfaces=anthropic,docs=anthropic,regulatory=anthropic

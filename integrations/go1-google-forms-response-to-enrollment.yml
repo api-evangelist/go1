@@ -1,0 +1,79 @@
+arazzo: 1.0.1
+info:
+  title: Enroll Google Forms respondents in Go1 learning
+  version: 1.0.0
+  description: >-
+    Mirrors the Go1 + Google Forms pairing listed on Zapier. Responses are listed from a Google Form; a
+    respondent becomes a Go1 user account and is enrolled in a chosen learning object.
+sourceDescriptions:
+- name: googleFormsResponses
+  url: https://raw.githubusercontent.com/api-evangelist/google-forms/refs/heads/main/openapi/google-forms-responses-api-openapi.yml
+  type: openapi
+- name: go1UserAccounts
+  url: https://raw.githubusercontent.com/api-evangelist/go1/refs/heads/main/openapi/go1-user-accounts-api-openapi.yml
+  type: openapi
+- name: go1Enrollments
+  url: https://raw.githubusercontent.com/api-evangelist/go1/refs/heads/main/openapi/go1-enrollments-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: formResponseToGo1Enrollment
+  summary: Read form responses, create the respondent in Go1, and enroll them.
+  inputs:
+    type: object
+    required: [formId, loId, givenName, familyName]
+    properties:
+      formId: {type: string}
+      loId: {type: integer, description: Go1 learning object id to enroll in.}
+      givenName: {type: string, description: Mapped from the response answers by the caller.}
+      familyName: {type: string, description: Mapped from the response answers by the caller.}
+  steps:
+  - stepId: listResponses
+    operationId: $sourceDescriptions.googleFormsResponses.listFormResponses
+    parameters:
+    - name: formId
+      in: path
+      value: $inputs.formId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      respondentEmail: $response.body#/responses/0/respondentEmail
+  - stepId: createGo1User
+    operationId: $sourceDescriptions.go1UserAccounts.createUserAccount
+    requestBody:
+      contentType: application/json
+      payload:
+        given_name: $inputs.givenName
+        family_name: $inputs.familyName
+        username: $steps.listResponses.outputs.respondentEmail
+        email: $steps.listResponses.outputs.respondentEmail
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      userAccountId: $response.body#/id
+  - stepId: enroll
+    operationId: $sourceDescriptions.go1Enrollments.enrolmentCreateController_postV3
+    requestBody:
+      contentType: application/json
+      payload:
+        user_account_id: $steps.createGo1User.outputs.userAccountId
+        lo_id: $inputs.loId
+        enrollment_type: assigned
+        status: not-started
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      enrollmentId: $response.body#/id
+  outputs:
+    userAccountId: $steps.createGo1User.outputs.userAccountId
+    enrollmentId: $steps.enroll.outputs.enrollmentId
+x-integration:
+  partner: google-forms
+  edge_evidence: https://zapier.com/apps/go1/integrations/google-forms-legacy
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-21'
+  generator: provider-integrations-arazzo
+  guessed_steps:
+  - step: listResponses
+    cause: partner-contract
+    why: respondentEmail is only populated when the form collects emails; names live in free-form answers, so given/family name are caller inputs.

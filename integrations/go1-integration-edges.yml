@@ -1,5 +1,8 @@
-generated: '2026-10-14'
+generated: '2026-10-21'
 method: searched
+source:
+- okta/integrations/okta-integration-edges.yml
+- https://zapier.com/apps/go1/integrations
 checked:
 - https://api.nuget.org/v3
 - https://crates.io/api/v1
@@ -16,8 +19,47 @@ checked:
 - https://www.antler.co/portfolio
 - https://www.techstars.com/portfolio
 - https://www.ycombinator.com/companies
-source:
-- okta/integrations/okta-integration-edges.yml
+- https://composio.dev/toolkits/go1
+- https://monid.ai/tools/go1
+- https://n8n.io/integrations/go1/
+- https://zapier.com/apps/go1/integrations
+summary: null
+marketplace_apps:
+- marketplace: zapier
+  channel: ipaas-listing
+  app: go1
+  url: https://zapier.com/apps/go1/integrations
+  external_url: https://go1.com/
+  partner_tier: BRONZE
+  triggers:
+  - key: course_enrolment_overdue
+    label: Overdue Enrollment
+  - key: lo_enrolment_completed_created
+    label: Course/Module Completed
+  - key: lo_enrolment_created
+    label: New Enrollment
+  - key: transaction_created
+    label: New Transaction
+  - key: user_created
+    label: New User
+  actions:
+  - key: assign_group
+    label: Assign Group
+  - key: assign_manager
+    label: Assign Manager
+  - key: create_notification
+    label: Create Notification
+  - key: create_user
+    label: Create User
+  - key: enrol_user
+    label: Create Enrollment
+  - key: update_enrol_cert
+    label: Upload Completion Certificate
+  - key: update_enrol_user
+    label: Update Enrollment
+  searches:
+  - key: find_user
+    label: Find User
 edges:
 - partner_name: Okta (own)
   partner: okta
@@ -156,3 +198,409 @@ edges:
     status: Active
   detected_by: sweep-accelerator-portfolios.py
   first_seen: '2026-10-21'
+- partner_name: Google Forms (Legacy)
+  partner: google-forms
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/google-forms-legacy
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: http://google.com/
+- partner_name: Stripe (Legacy)
+  partner: stripe
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/stripe-legacy
+  direction: third-party
+  category: Payment Processing
+  partner_url: https://stripe.com/
+- partner_name: intelliHR
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/intellihr
+  direction: third-party
+  category: HR Talent & Recruitment
+  partner_url: https://intellihr.com.au/
+- partner_name: Zendesk
+  partner: zendesk
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/zendesk
+  direction: third-party
+  category: Customer Support
+  partner_url: https://www.zendesk.com/
+- partner_name: Let's Level Up
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/lets-level-up
+  direction: third-party
+  category: Sales & CRM
+  partner_url: https://letslevelup.io/
+- partner_name: Pointagram
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/pointagram
+  direction: third-party
+  category: Dashboards
+  partner_url: http://pointagram.com/
+- partner_name: Hibob
+  partner: bob
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/hibob
+  direction: third-party
+  category: HR Talent & Recruitment
+  partner_url: https://www.hibob.com/
+- partner_name: Facebook Lead Ads (for Business admins)
+  partner: facebook-lead-ads
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/facebook-lead-ads-beta
+  direction: third-party
+  category: Ads & Conversion
+  partner_url: https://facebook.com/
+- partner_name: GoTo Webinar
+  partner: gotowebinar
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/gotowebinar
+  direction: third-party
+  category: Webinars
+  partner_url: https://www.gotomeeting.com/
+- partner_name: Introwise
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/introwise
+  direction: third-party
+  category: Scheduling & Booking
+  partner_url: https://introwise.com/
+- partner_name: Google Docs
+  partner: google-docs
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/google-docs
+  direction: third-party
+  category: Documents
+  partner_url: http://google.com/
+- partner_name: Google Ads
+  partner: google-ads
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/google-ads
+  direction: third-party
+  category: Ads & Conversion
+  partner_url: https://ads.google.com/
+- partner_name: Anthropic (Claude)
+  partner: anthropic
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/anthropic-claude
+  direction: third-party
+  category: AI Models
+  partner_url: https://www.anthropic.com/
+- partner_name: Facebook Conversions (for Business admins)
+  partner: facebook
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/facebook-conversions-business
+  direction: third-party
+  category: Ads & Conversion
+  partner_url: https://developers.facebook.com/docs/marketing-api/server-side-api/guides/zapier-integration
+- partner_name: Freshservice
+  partner: freshservice
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/freshservice
+  direction: third-party
+  category: Server Monitoring
+  partner_url: https://freshservice.com/
+- partner_name: Submittable
+  partner: submittable
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/submittable
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.submittable.com/
+- partner_name: SMS Alert
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/sms-alert
+  direction: third-party
+  category: Phone & SMS
+  partner_url: http://www.smsalert.co.in/
+- partner_name: Cling
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/cling
+  direction: third-party
+  category: Proposal & Invoice Management
+  partner_url: https://cling.se/
+- partner_name: FitBudd
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/fitbudd
+  direction: third-party
+  category: Fitness
+  partner_url: https://www.fitbudd.com/
+- partner_name: Typeform Enterprise (EU)
+  partner: typeform
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/typeform-enterprise-eu
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://admin.typeform.com/
+- partner_name: Gerar Certificado
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/gerar-certificado
+  direction: third-party
+  category: Content & Files
+  partner_url: http://gerarcertificado.com.br/
+- partner_name: VivoMeetings
+  partner: null
+  partner_match: null
+  partner_candidate: zapier
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/vivomeetings
+  direction: third-party
+  category: Video Conferencing
+  partner_url: https://zapier.com/www.vivomeetings.com
+- partner_name: Binated
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/binated
+  direction: third-party
+  category: Images & Design
+  partner_url: https://binated.com/
+- partner_name: eBay
+  partner: ebay
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/ebay
+  direction: third-party
+  category: eCommerce
+  partner_url: https://www.ebay.com/
+- partner_name: Storenvy
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/storenvy
+  direction: third-party
+  category: eCommerce
+  partner_url: http://www.storenvy.com/
+- partner_name: Solve CRM
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/go1/integrations/solve360
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://solve360.com/
+templates:
+- title: Enroll new Go1 users into a course on Go1
+  url: https://zapier.com/apps/go1/integrations/go1/23096/enroll-new-go1-users-into-a-course-on-go1
+  apps:
+  - go1
+- title: Subscribe new Go1 users to a list in Mailchimp
+  url: https://zapier.com/apps/go1/integrations/mailchimp/23100/subscribe-new-go1-users-to-a-list-in-mailchimp
+  apps:
+  - go1
+  - mailchimp
+- title: Add completed Go1 course completions to a Google Sheet
+  url: https://zapier.com/apps/go1/integrations/google-sheets/23102/add-completed-go1-course-completions-to-a-google-sheet
+  apps:
+  - go1
+  - google-sheets
+- title: Add Go1 users from new Salesforce leads
+  url: https://zapier.com/apps/go1/integrations/salesforce/23093/add-go1-users-from-new-salesforce-leads
+  apps:
+  - salesforce
+  - go1
+- title: Add new Go1 users from new Salesforce leads
+  url: https://zapier.com/apps/go1/integrations/salesforce/23094/add-new-go1-users-from-new-salesforce-leads
+  apps:
+  - salesforce
+  - go1
+- title: Enrols new Go1 users into a group on Go1
+  url: https://zapier.com/apps/go1/integrations/go1/23097/enrols-new-go1-users-into-a-group-on-go1
+  apps:
+  - go1
+- title: Assign new Go1 users to a manager on Go1
+  url: https://zapier.com/apps/go1/integrations/go1/23098/assign-new-go1-users-to-a-manager-on-go1
+  apps:
+  - go1
+- title: Send new Go1 users emails via Sendgrid
+  url: https://zapier.com/apps/go1/integrations/sendgrid/23099/send-new-go1-users-emails-via-sendgrid
+  apps:
+  - go1
+  - sendgrid
+- title: Generate and send custom WebMerge files as certificates for Go1 course completions
+  url: https://zapier.com/apps/go1/integrations/go1/23101/generate-and-send-custom-webmerge-files-as-certificates-for-go1-course-completions
+  apps:
+  - go1
+  - formstack-documents
+- title: Log Go1 data to a Google Sheet
+  url: https://zapier.com/apps/go1/integrations/google-sheets/23103/log-go1-data-to-a-google-sheet
+  apps:
+  - go1
+  - google-sheets
+- title: Add new Go1 users by adding or updating rows in Google Sheets
+  url: https://zapier.com/apps/go1/integrations/google-sheets/23106/add-new-go1-users-by-adding-or-updating-rows-in-google-sheets
+  apps:
+  - google-sheets
+  - go1
+- title: Log completed courses/modules from Go1 to intelliHR
+  url: https://zapier.com/apps/go1/integrations/intellihr/92418/log-completed-coursesmodules-from-go1-to-intellihr
+  apps:
+  - go1
+  - intellihr
+skips:
+- label: Stripe (Legacy)
+  cause: provider-contract
+  why: Go1 exposes no payment/billing-event operation that a Stripe charge or customer could feed beyond portal
+    plans, which are partner-provisioning, not customer billing.
+- label: Facebook Lead Ads (for Business admins)
+  cause: provider-contract
+  why: No Go1 lead/contact operation; creating a learner account from an ad lead is not a market-proven Go1 workflow
+    and no template was listed.
+- label: GoTo Webinar
+  cause: catalog
+  why: Paired app only; no template on the listing and no clear GoTo Webinar operation mapping to Go1 enrollments
+    in the held spec chosen this run.
+- label: Google Docs
+  cause: provider-contract
+  why: Go1 exposes no document/report export operation to write into a Doc.
+- label: Google Ads
+  cause: provider-contract
+  why: No Go1 operation corresponds to ad conversions or audiences.
+- label: Anthropic (Claude)
+  cause: catalog
+  why: Pairing is a generic AI step on Zapier; no template and no concrete Go1-side workflow to recreate.
+- label: Facebook Conversions (for Business admins)
+  cause: provider-contract
+  why: No Go1 operation corresponds to conversion events.
+- label: Submittable
+  cause: catalog
+  why: No template on the listing; Submittable submission operations were not mapped this run (not attempted, not
+    a provider gap).
+- label: Typeform Enterprise (EU)
+  cause: partner-contract
+  why: The catalog Typeform spec holds forms/images/themes only, no responses operation to read submissions from.
+- label: eBay
+  cause: provider-contract
+  why: No Go1 operation maps to marketplace orders or listings.
+template_total: 36

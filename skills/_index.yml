@@ -1,18 +1,17 @@
-generated: '2026-07-19'
+name: Go1 agent skills
+generated: '2026-10-21'
 method: generated
-source: openapi/go1-openapi.yml
+source: openapi/
 skills:
 - file: go1-discover-and-enroll.md
-  name: Discover Go1 content and enroll a learner
-  api: openapi/go1-openapi.yml
-  operations:
-  - learning-objects-v3-search
-  - enrolmentCreateController_postV3
-  - enrolmentLoadController_getSlimEnrollment
+  name: go1-discover-and-enroll
+  api: [openapi/go1-learning-objects-api-openapi.yml, openapi/go1-enrollments-api-openapi.yml]
+  operations: [learning-objects-v3-search, enrolmentCreateController_postV3, enrolmentLoadController_getSlimEnrollment]
 - file: go1-provision-portal-and-webhook.md
-  name: Provision a Go1 portal and subscribe to events
-  api: openapi/go1-openapi.yml
-  operations:
-  - createPortal
-  - WebhookController_createPortalWebhookConfiguration
-  - WebhookController_updatePortalWebhookConfiguration
+  name: go1-provision-portal-and-webhook
+  api: [openapi/go1-portals-api-openapi.yml, openapi/go1-webhooks-api-openapi.yml]
+  operations: [createPortal, WebhookController_createPortalWebhookConfiguration, WebhookController_updatePortalWebhookConfiguration, WebhookController_getPortalWebhookConfiguration]
+- file: go1-find-learning-content-via-mcp.md
+  name: go1-find-learning-content-via-mcp
+  api: [openapi/go1-learning-objects-api-openapi.yml, openapi/go1-playlists-api-openapi.yml]
+  operations: [learning-objects-v3-search, getRetiringContentAlternatives, playlistController_getPlaylistDetails, playlistController_getPlaylistLos]

@@ -1,0 +1,782 @@
+openapi: 3.2.0
+info:
+  title: Go1 Compliance API
+  version: '2025-01-01'
+  description: Go1 REST API, version 2025-01-01, as published in the Go1 developer API reference. Every path operation is the provider's own OpenAPI operation object, copied verbatim from the endpoints data embedded in each reference page (__NEXT_DATA__ pageProps.endpoints) on developers.go1.com. The info, servers and securitySchemes envelope is assembled from the reference overview (base URL https://gateway.go1.com, Api-Version header) and the OAuth 2.0 grant guides (auth.go1.com token/authorize URLs); scope descriptions are left blank because the operations name scopes without describing them.
+  contact:
+    name: Go1 Developer Support
+    url: https://developers.go1.com/
+  x-assembled-from:
+  - https://developers.go1.com/api/rest/2025-01-01/overview/
+  - https://developers.go1.com/api/rest/2025-01-01/categories/
+  - https://developers.go1.com/api/rest/2025-01-01/collections/
+  - https://developers.go1.com/api/rest/2025-01-01/compliance/
+  - https://developers.go1.com/api/rest/2025-01-01/enrollments/
+  - https://developers.go1.com/api/rest/2025-01-01/files/
+  - https://developers.go1.com/api/rest/2025-01-01/learning-objects/
+  - https://developers.go1.com/api/rest/2025-01-01/plans/
+  - https://developers.go1.com/api/rest/2025-01-01/play-links/
+  - https://developers.go1.com/api/rest/2025-01-01/playlists/
+  - https://developers.go1.com/api/rest/2025-01-01/portals/
+  - https://developers.go1.com/api/rest/2025-01-01/restrictions/
+  - https://developers.go1.com/api/rest/2025-01-01/scim/
+  - https://developers.go1.com/api/rest/2025-01-01/user-accounts/
+  - https://developers.go1.com/api/rest/2025-01-01/webhooks/
+  x-assembled: '2026-10-21'
+servers:
+- url: https://gateway.go1.com
+  description: Go1 API gateway (stated as the Base URL in the API reference overview)
+tags:
+- name: Compliance
+  description: 'The Compliance resource provides read-only access to compliance
+
+    regulations and their linked obligations. Use this endpoint to
+
+    discover active compliance taxonomy records by industry, mandate
+
+    status, location, and optional topic relationships.
+
+
+    **Important notes:**
+
+    - Only active regulations are returned
+
+    - Embedded obligations are limited to active obligations
+
+    - Topic relationships are included only when requested with
+
+    include[]=topics'
+  x-source: https://developers.go1.com/api/rest/2025-01-01/compliance/
+paths:
+  /regulations:
+    get:
+      operationId: RegulationsController_getRegulations
+      description: 'Regulations are canonical Go1 compliance taxonomy records for named laws, regulations, directives, standards, or official frameworks that define or inform organizational compliance expectations. A regulation includes contextual information such as its name, description, citation, enforcing agency, locations, applicable industries, and associated learning needs.
+
+
+        Use this endpoint to browse active regulations and their associated learning needs for a selected operating context. This endpoint supports compliance discovery; it does not determine whether a regulation applies to a particular organization or whether a learning object satisfies its requirements.
+
+
+        *Regulatory tags are provided for discovery and informational purposes only. Go1 does not provide legal, compliance, HR, financial, or professional advice and does not warrant that any content is current, complete, or aligned with applicable laws or regulations. Customers are responsible for assessing whether content is suitable for their own compliance needs.*'
+      parameters:
+      - name: ids[]
+        required: false
+        in: query
+        description: 'Filters regulations by regulation ID.
+
+
+          Send up to 50 `ids[]` values to return matching active regulations. IDs match the `id` field returned in each regulation response.
+
+
+          Example: `ids[]=reg_01M0VX0XC5ZEDBW5E28ZJQYDXP`
+
+          '
+        schema:
+          example:
+          - reg_01M0VX0XC5ZEDBW5E28ZJQYDXP
+          type: array
+          maxItems: 50
+          items:
+            type: string
+      - name: keyword
+        required: false
+        in: query
+        description: 'Searches active regulations by keyword.
+
+
+          The search applies text matching across regulation names and descriptions, and may also use semantic matching from the regulation search index. Use it for short keyword or natural-language queries.
+
+
+          Example: `keyword=OSHA`
+
+          '
+        schema:
+          type: string
+          example: OSHA
+      - name: facets[]
+        required: false
+        in: query
+        description: 'Requests facet buckets for filterable regulation fields.
+
+
+          Supported values:
+
+          - `industries`
+
+          - `country_or_region`
+
+          - `state_provinces`
+
+          - `city_localities`
+
+          - `mandate_status`
+
+
+          Example: `facets[]=country_or_region`
+
+          '
+        schema:
+          example:
+          - country_or_region
+          type: array
+          items:
+            type: string
+            enum:
+            - industries
+            - country_or_region
+            - state_provinces
+            - city_localities
+            - mandate_status
+      - name: industries[]
+        required: false
+        in: query
+        description: 'Filters regulations by industry display value.
+
+
+          Send one or more `industries[]` values to return regulations associated with any of the supplied industries.
+
+
+          Example: `industries[]=Arts%2C%20Recreation%20and%20Entertainment`
+
+          '
+        schema:
+          example:
+          - Arts, Recreation and Entertainment
+          type: array
+          items:
+            type: string
+            enum:
+            - Accommodation and Food Services
+            - Administrative and Support and Waste Management
+            - Agriculture, Forestry, Fishing and Hunting
+            - Arts, Recreation and Entertainment
+            - Construction
+            - Education Services
+            - Finance and Insurance
+            - Health Care and Social Assistance
+            - Information
+            - Management of Companies and Enterprises
+            - Manufacturing
+            - Mining, Quarrying, and Oil and Gas Extraction
+            - Professional, Scientific and Technical Services
+            - Public Administration
+            - Real Estate and Rental and Leasing
+            - Retail Trade
+            - Transportation and Warehousing
+            - Electricity, Gas, Water and Waste Services
+            - Wholesale Trade
+      - name: mandate_status
+        required: false
+        in: query
+        description: 'Filters regulations by mandate classification.
+
+
+          Values:
+
+          - `required`: returns regulations marked as mandatory.
+
+          - `best_practice`: returns regulations marked as recommended best practice.
+
+
+          Example: `mandate_status=required`
+
+          '
+        schema:
+          type: string
+          enum:
+          - required
+          - best_practice
+          example: required
+      - name: country_or_region[]
+        required: false
+        in: query
+        description: 'Filters regulations by country or region in their locations.
+
+
+          Use ISO 3166-1 alpha-2 codes for countries or UN M49 codes for regions. Send one or more `country_or_region[]` values to return regulations for any supplied country or region.
+
+
+          Example: `country_or_region[]=US`
+
+          '
+        schema:
+          example:
+          - US
+          type: array
+          items:
+            type: string
+      - name: state_provinces[]
+        required: false
+        in: query
+        description: 'Filters regulations by state or province in their locations.
+
+
+          Send one or more `state_provinces[]` values to return regulations for any supplied state or province.
+
+
+          Example: `state_provinces[]=California`
+
+          '
+        schema:
+          example:
+          - California
+          type: array
+          items:
+            type: string
+      - name: city_localities[]
+        required: false
+        in: query
+        description: 'Filters regulations by city or locality in their locations.
+
+
+          Send one or more `city_localities[]` values to return regulations for any supplied city or locality.
+
+
+          Example: `city_localities[]=Chicago`
+
+          '
+        schema:
+          example:
+          - Chicago
+          type: array
+          items:
+            type: string
+      - name: include[]
+        required: false
+        in: query
+        description: 'Includes optional related data in each regulation.
+
+
+          Values:
+
+          - `topics`: includes topic relationships for each returned regulation.
+
+
+          If omitted, topic relationships are not returned.
+
+          '
+        schema:
+          example:
+          - topics
+          type: array
+          items:
+            type: string
+            enum:
+            - topics
+      - name: limit
+        required: false
+        in: query
+        description: Maximum number of regulations to return per page. Must be between 1 and 50. Default is 20. The response `meta.total` value shows the total number of matching regulations before this page limit is applied.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 50
+          default: 20
+          example: 10
+      - name: use_scroll
+        required: false
+        in: query
+        description: 'Activates "scrolling" mode to paginate through large result sets.
+
+
+          How it works:
+
+          - When `use_scroll=true` is set, the response includes a `meta.next_scroll_id` property in the body.
+
+          - This `next_scroll_id` value is valid for 5 minutes and is used to retrieve the next page of results.
+
+          - The number of results per page is determined by the `limit` parameter.
+
+          '
+        schema:
+          type: boolean
+          default: false
+          example: true
+      - name: scroll_id
+        required: false
+        in: query
+        description: 'The pointer to the next page of results, obtained from a previous scroll request.
+
+
+          Usage:
+
+          - Initial request: pass `use_scroll=true`, and store the value of `meta.next_scroll_id` from the response.
+
+          - Subsequent requests: pass `use_scroll=true&scroll_id={next_scroll_id}` where `{next_scroll_id}` is the value from the previous response.
+
+
+          Notes:
+
+          - Each `next_scroll_id` value is valid for 5 minutes.
+
+          - Requires `use_scroll=true`.
+
+
+          Errors:
+
+          - Returns 400 (Invalid request) for invalid or expired `scroll_id` values.
+
+          '
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns a list of active regulations and their active learning needs.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    description: List of active regulations matching the request.
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          description: Resource type discriminator. Always `regulation`.
+                          enum:
+                          - regulation
+                          example: regulation
+                        id:
+                          type: string
+                          description: Unique identifier of the regulation.
+                          example: reg_01M0F57N1NG08H9ZT2N8M60TR0
+                        name:
+                          type: string
+                          description: Human-readable name of the regulation.
+                          example: OSHA Hazard Communication Standard
+                        description:
+                          type:
+                          - string
+                          - 'null'
+                          description: Description of the regulation.
+                          example: OSHA Hazard Communication Standard is a standard for the United States covering occupational safety.
+                        citation:
+                          type:
+                          - string
+                          - 'null'
+                          description: Legal or official citation for the regulation, when available.
+                          example: 29 CFR 1910.1200
+                        enforcing_agency:
+                          type:
+                          - string
+                          - 'null'
+                          description: Agency or authority responsible for enforcing the regulation, when available.
+                          example: OSHA
+                        locations:
+                          type: array
+                          description: Locations where the regulation may be relevant.
+                          items:
+                            type: object
+                            properties:
+                              display_name:
+                                type: string
+                                description: Human-readable name for the regulation location.
+                                example: United States
+                              country_or_region:
+                                type: string
+                                description: ISO 3166-1 alpha-2 country code or UN M49 region code for the regulation location.
+                                example: US
+                              state_province:
+                                type:
+                                - string
+                                - 'null'
+                                description: State or province for the regulation location, when applicable.
+                                example: Illinois
+                              city_locality:
+                                type:
+                                - string
+                                - 'null'
+                                description: City or locality for the regulation location, when applicable.
+                                example: Chicago
+                            required:
+                            - display_name
+                            - country_or_region
+                            - state_province
+                            - city_locality
+                        industries:
+                          type: array
+                          description: Industry display values associated with the regulation.
+                          items:
+                            type: string
+                            enum:
+                            - Accommodation and Food Services
+                            - Administrative and Support and Waste Management
+                            - Agriculture, Forestry, Fishing and Hunting
+                            - Arts, Recreation and Entertainment
+                            - Construction
+                            - Education Services
+                            - Finance and Insurance
+                            - Health Care and Social Assistance
+                            - Information
+                            - Management of Companies and Enterprises
+                            - Manufacturing
+                            - Mining, Quarrying, and Oil and Gas Extraction
+                            - Professional, Scientific and Technical Services
+                            - Public Administration
+                            - Real Estate and Rental and Leasing
+                            - Retail Trade
+                            - Transportation and Warehousing
+                            - Electricity, Gas, Water and Waste Services
+                            - Wholesale Trade
+                          example:
+                          - Arts, Recreation and Entertainment
+                        obligations:
+                          type: array
+                          description: Active learning needs associated with the regulation.
+                          items:
+                            type: object
+                            properties:
+                              type:
+                                type: string
+                                description: Resource type discriminator. Always `obligation`.
+                                enum:
+                                - obligation
+                                example: obligation
+                              id:
+                                type: string
+                                description: Unique identifier of the learning need.
+                                example: obl_01M0F57N1NG08H9ZT2N8M60TR1
+                              name:
+                                type: string
+                                description: Human-readable name of the learning need.
+                                example: GHS labels and pictograms recognition
+                              description:
+                                type:
+                                - string
+                                - 'null'
+                                description: Description of the learning need.
+                                example: Employees must be able to recognize all elements of a GHS label.
+                              mandate_status:
+                                type:
+                                - string
+                                - 'null'
+                                description: Indicates whether the learning need is required or recommended as best practice.
+                                enum:
+                                - required
+                                - best_practice
+                                example: required
+                              duration:
+                                description: Expected learning duration for the learning need.
+                                allOf:
+                                - type: object
+                                  properties:
+                                    minimum:
+                                      type: number
+                                      description: Minimum expected learning duration for the learning need.
+                                      example: 60
+                                    maximum:
+                                      type: number
+                                      description: Maximum expected learning duration for the learning need.
+                                      example: 120
+                                    unit:
+                                      type: string
+                                      description: Unit used for the duration values.
+                                      enum:
+                                      - minutes
+                                      example: minutes
+                                  required:
+                                  - minimum
+                                  - maximum
+                                  - unit
+                              audience:
+                                description: Typical learner audience for the learning need.
+                                type: object
+                                properties:
+                                  departments:
+                                    type: array
+                                    description: Departments that are typically associated with the learning need.
+                                    items:
+                                      type: string
+                                    example:
+                                    - Health / Safety
+                                  roles:
+                                    type: array
+                                    description: Roles or worker groups that are typically associated with the learning need.
+                                    items:
+                                      type: string
+                                    example:
+                                    - Frontline / hazard-exposed workers
+                                required:
+                                - departments
+                                - roles
+                              source_url:
+                                type:
+                                - string
+                                - 'null'
+                                description: Source URL used to support the learning need, when available.
+                                example: https://www.osha.gov/hazcom
+                            required:
+                            - type
+                            - id
+                            - name
+                            - description
+                            - mandate_status
+                            - duration
+                            - audience
+                            - source_url
+                        mandatory:
+                          type:
+                          - boolean
+                          - 'null'
+                          description: Indicates whether the regulation is marked as mandatory in the compliance taxonomy.
+                          example: true
+                        applicability_minimum_employees:
+                          type:
+                          - number
+                          - 'null'
+                          description: Minimum employee count associated with regulation applicability, when available.
+                          example: 3
+                        applicability_organization:
+                          type:
+                          - string
+                          - 'null'
+                          description: Organization type or threshold associated with regulation applicability, when available.
+                          example: Employers with 50+ employees
+                        last_updated:
+                          type:
+                          - string
+                          - 'null'
+                          description: Last updated date for the regulation record, when available.
+                          example: '2026-08-19'
+                        frequency:
+                          description: Frequency guidance associated with the regulation.
+                          type: object
+                          properties:
+                            type:
+                              type:
+                              - string
+                              - 'null'
+                              description: Frequency type for the regulation, when available.
+                              example: Event-driven
+                            triggers:
+                              type: array
+                              description: Events or conditions that may trigger the learning need.
+                              items:
+                                type: string
+                              example:
+                              - New hire / start
+                              - Hazard / exposure change
+                            completion:
+                              type:
+                              - string
+                              - 'null'
+                              description: Expected completion timing for triggered learning, when available.
+                              example: Within 6 months
+                          required:
+                          - type
+                          - triggers
+                          - completion
+                        relationships:
+                          description: Optional relationship fragments requested with `include[]`.
+                          type: object
+                          properties:
+                            topics:
+                              type: array
+                              description: Topic relationships for the regulation. Returned only when `include[]=topics` is supplied.
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    description: Unique identifier of the topic.
+                                    example: '63'
+                                  level:
+                                    type: string
+                                    description: Topic hierarchy level.
+                                    enum:
+                                    - '1'
+                                    - '2'
+                                    - '3'
+                                    example: '1'
+                                  name:
+                                    type: string
+                                    description: Human-readable topic name.
+                                    example: Safety and Compliance
+                                required:
+                                - id
+                                - level
+                                - name
+                          required:
+                          - topics
+                      required:
+                      - type
+                      - id
+                      - name
+                      - description
+                      - citation
+                      - enforcing_agency
+                      - locations
+                      - industries
+                      - obligations
+                      - mandatory
+                      - applicability_minimum_employees
+                      - applicability_organization
+                      - last_updated
+                      - frequency
+                  meta:
+                    description: Pagination metadata for the response.
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        description: Total number of active regulations matching the request filters before pagination is applied.
+                        example: 68
+                      next_scroll_id:
+                        type:
+                        - string
+                        - 'null'
+                        description: Scroll token to pass as `scroll_id` in the next request. Returned as `null` when there are no more results or when `use_scroll` is not enabled.
+                        example: null
+                    required:
+                    - total
+                    - next_scroll_id
+                  facets:
+                    description: Requested regulation facets. Returned only when `facets[]` is supplied.
+                    type: object
+                    properties:
+                      industries:
+                        type: array
+                        description: Available values for `industries[]`.
+                        items:
+                          type: object
+                          properties:
+                            key:
+                              type: string
+                              description: Facet value that can be supplied to the corresponding filter.
+                              example: US
+                            count:
+                              type: integer
+                              description: Number of active regulations matching this facet value within the current query.
+                              example: 12
+                          required:
+                          - key
+                          - count
+                      country_or_region:
+                        type: array
+                        description: Available values for `country_or_region[]`.
+                        items:
+                          type: object
+                          properties:
+                            key:
+                              type: string
+                              description: Facet value that can be supplied to the corresponding filter.
+                              example: US
+                            count:
+                              type: integer
+                              description: Number of active regulations matching this facet value within the current query.
+                              example: 12
+                          required:
+                          - key
+                          - count
+                      state_provinces:
+                        type: array
+                        description: Available values for `state_provinces[]`.
+                        items:
+                          type: object
+                          properties:
+                            key:
+                              type: string
+                              description: Facet value that can be supplied to the corresponding filter.
+                              example: US
+                            count:
+                              type: integer
+                              description: Number of active regulations matching this facet value within the current query.
+                              example: 12
+                          required:
+                          - key
+                          - count
+                      city_localities:
+                        type: array
+                        description: Available values for `city_localities[]`.
+                        items:
+                          type: object
+                          properties:
+                            key:
+                              type: string
+                              description: Facet value that can be supplied to the corresponding filter.
+                              example: US
+                            count:
+                              type: integer
+                              description: Number of active regulations matching this facet value within the current query.
+                              example: 12
+                          required:
+                          - key
+                          - count
+                      mandate_status:
+                        type: array
+                        description: Available values for `mandate_status`.
+                        items:
+                          type: object
+                          properties:
+                            key:
+                              type: string
+                              description: Facet value that can be supplied to the corresponding filter.
+                              example: US
+                            count:
+                              type: integer
+                              description: Number of active regulations matching this facet value within the current query.
+                              example: 12
+                          required:
+                          - key
+                          - count
+                required:
+                - data
+                - meta
+      security:
+      - OAuth2:
+        - portal.read
+      summary: List regulations and learning needs
+      tags:
+      - Compliance
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: OAuth 2.0 via a Go1 Developer App (client_id/client_secret). See https://developers.go1.com/docs/developer-tools/auth/overview-auth
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.go1.com/oauth/token
+          scopes:
+            enrollment.read: ''
+            enrollment.write: ''
+            group.read: ''
+            group.write: ''
+            lo.launch: ''
+            lo.read: ''
+            lo.write: ''
+            plan.read: ''
+            plan.write: ''
+            portal.read: ''
+            portal.write: ''
+            user.login: ''
+            user.read: ''
+            user.write: ''
+            webhook.read: ''
+            webhook.write: ''
+        authorizationCode:
+          authorizationUrl: https://auth.go1.com/oauth/authorize
+          tokenUrl: https://auth.go1.com/oauth/token
+          scopes:
+            enrollment.read: ''
+            enrollment.write: ''
+            group.read: ''
+            group.write: ''
+            lo.launch: ''
+            lo.read: ''
+            lo.write: ''
+            plan.read: ''
+            plan.write: ''
+            portal.read: ''
+            portal.write: ''
+            user.login: ''
+            user.read: ''
+            user.write: ''
+            webhook.read: ''
+            webhook.write: ''
+    bearer:
+      type: http
+      scheme: bearer
+      description: Access token sent in the Authorization header (named "bearer" by some operations in the reference).

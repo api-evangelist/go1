@@ -1,0 +1,478 @@
+openapi: 3.2.0
+info:
+  title: Go1 Playlists API
+  version: '2025-01-01'
+  description: Go1 REST API, version 2025-01-01, as published in the Go1 developer API reference. Every path operation is the provider's own OpenAPI operation object, copied verbatim from the endpoints data embedded in each reference page (__NEXT_DATA__ pageProps.endpoints) on developers.go1.com. The info, servers and securitySchemes envelope is assembled from the reference overview (base URL https://gateway.go1.com, Api-Version header) and the OAuth 2.0 grant guides (auth.go1.com token/authorize URLs); scope descriptions are left blank because the operations name scopes without describing them.
+  contact:
+    name: Go1 Developer Support
+    url: https://developers.go1.com/
+  x-assembled-from:
+  - https://developers.go1.com/api/rest/2025-01-01/overview/
+  - https://developers.go1.com/api/rest/2025-01-01/categories/
+  - https://developers.go1.com/api/rest/2025-01-01/collections/
+  - https://developers.go1.com/api/rest/2025-01-01/compliance/
+  - https://developers.go1.com/api/rest/2025-01-01/enrollments/
+  - https://developers.go1.com/api/rest/2025-01-01/files/
+  - https://developers.go1.com/api/rest/2025-01-01/learning-objects/
+  - https://developers.go1.com/api/rest/2025-01-01/plans/
+  - https://developers.go1.com/api/rest/2025-01-01/play-links/
+  - https://developers.go1.com/api/rest/2025-01-01/playlists/
+  - https://developers.go1.com/api/rest/2025-01-01/portals/
+  - https://developers.go1.com/api/rest/2025-01-01/restrictions/
+  - https://developers.go1.com/api/rest/2025-01-01/scim/
+  - https://developers.go1.com/api/rest/2025-01-01/user-accounts/
+  - https://developers.go1.com/api/rest/2025-01-01/webhooks/
+  x-assembled: '2026-10-21'
+servers:
+- url: https://gateway.go1.com
+  description: Go1 API gateway (stated as the Base URL in the API reference overview)
+tags:
+- name: Playlists
+  description: 'Playlists are a simple way to group learning objects into organised themes of choice, for instance, based on topics or learning outcomes. Playlists enable the larger Go1 content library to be curated into smaller lists of content for review, or to provide inspiration for learners to decide what to learn next.
+
+
+    Use this resource to retrieve the contents of playlists, create a new playlist, and add or remove learning objects from existing playlists.'
+  x-source: https://developers.go1.com/api/rest/2025-01-01/playlists/
+paths:
+  /playlists/{id}:
+    get:
+      security:
+      - OAuth2:
+        - lo.read
+      operationId: playlistController_getPlaylistDetails
+      summary: Retrieve a playlist
+      description: Retrieves the details of a playlist.
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the details of a playlist.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1234567
+                    description: The id of a playlist.
+                  title:
+                    type: string
+                    example: Playlist
+                    description: The title of the playlist.
+                  description:
+                    type: string
+                    example: This is about playlist
+                    description: Description of the playlist.
+                  image:
+                    type: string
+                    example: https://example-image-url.com
+                    description: Thumbnail image for the playlist as a URL.
+                  published:
+                    type: integer
+                    example: 1
+                    description: The published status of a playlist, defaults to 0, meaning the playlist is private. If set to 1 the playlist will be made public.
+                  created_time:
+                    type: string
+                    format: date-time
+                    example: '2022-03-29T01:29:36+00:00'
+                    description: Time at which the playlist was created (ISO 8601 in UTC).
+                  authors:
+                    type: array
+                    example:
+                      name: Jane Doe
+                      last_name: Doe
+                      id: 7878905
+                      first_name: Jane
+                    description: An array containing the list of users who curated the playlist.
+                    items:
+                      properties:
+                        first_name:
+                          type: string
+                        last_name:
+                          type: string
+                        id:
+                          type: number
+                        name:
+                          type: string
+                  provider:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1617675
+                        description: The id of the learning object's provider
+                      name:
+                        type: string
+                        example: Go1learning
+                        description: The name of the learning object's provider
+        '400':
+          description: Bad request.
+        '404':
+          description: Not found.
+        '500':
+          description: Internal error.
+      tags:
+      - Playlists
+  /playlists:
+    post:
+      security:
+      - OAuth2:
+        - lo.write
+      operationId: playlistController_createPlaylist
+      tags:
+      - Playlists
+      summary: Create a playlist
+      description: Creates a new playlist.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Leadership
+                  description: Title of the playlist.
+                description:
+                  type: string
+                  example: A playlist about leadership.
+                  description: Description of the playlist.
+                image:
+                  type: string
+                  example: https://example-image-url.com
+                  description: Thumbnail image for the playlist as a URL.
+              required:
+              - title
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1234567
+                    description: The id of a playlist.
+                  title:
+                    type: string
+                    example: Playlist
+                    description: The title of the playlist.
+                  description:
+                    type: string
+                    example: This is about playlist
+                    description: Description of the playlist.
+                  image:
+                    type: string
+                    example: https://example-image-url.com
+                    description: Thumbnail image for the playlist as a URL.
+                  published:
+                    type: integer
+                    example: 0
+                    description: The published status of a playlist, defaults to 0, meaning the playlist is private. If set to 1 the playlist will be made public.
+        '400':
+          description: Invalid request
+        '403':
+          description: Access denied
+        '404':
+          description: Not Found
+        '500':
+          description: Server error
+  /playlists/{id}/learning-objects:
+    post:
+      security:
+      - OAuth2:
+        - lo.write
+      operationId: playlistController_addLOToPlaylist
+      tags:
+      - Playlists
+      summary: Add items to a playlist
+      description: Add learning objects to the end of a playlist.
+      parameters:
+      - name: id
+        in: path
+        description: Playlist id.
+        required: true
+        schema:
+          type: integer
+          example: 123
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                lo_ids:
+                  type: array
+                  description: List of learning objects to add to the playlist.
+                  items:
+                    type: integer
+              required:
+              - lo_ids
+            example:
+              lo_ids:
+              - 10
+              - 20
+              - 30
+      responses:
+        '200':
+          description: Successful.
+        '400':
+          description: Bad request.
+        '403':
+          description: Access denied.
+        '404':
+          description: Learning objects or playlist provided were not found.
+        '500':
+          description: Internal error.
+    get:
+      servers:
+      - url: /playlist/v4
+      security:
+      - OAuth2:
+        - lo.read
+      operationId: playlistController_getPlaylistLos
+      tags:
+      - Playlists
+      summary: List items in a playlist
+      description: Retrieves a list of learning objects within a given playlist.
+      parameters:
+      - name: id
+        in: path
+        description: The id of the playlist.
+        required: true
+        schema:
+          type: integer
+        example: 123
+      - name: filter_retired_learning_object
+        in: query
+        description: Returns only learning objects that are retired. Defaults to false.
+        required: false
+        schema:
+          default: false
+          type: boolean
+        example: true
+      - name: limit
+        in: query
+        description: A limit on the number of objects to be returned, between 1 and 50. The default is 20.
+        required: false
+        schema:
+          type: integer
+          default: 20
+          minimum: 1
+          maximum: 50
+        example: 40
+      - name: offset
+        in: query
+        description: For use in pagination. The item number within a list request to start displaying results after. For example, a request with `limit=20` and `offset=20`, returns items 21 - 40.
+        required: false
+        schema:
+          type: integer
+          default: 0
+          example: 20
+          minimum: 0
+        example: 20
+      responses:
+        '200':
+          description: Returns the learning objects of a playlist.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    example: 1
+                    description: The number of learning objects in the playlist.
+                  hits:
+                    type: array
+                    example:
+                    - id: 123
+                      type: course
+                      title: Example learning object title
+                      description: A long description about the learning object.
+                      image: https://example-image-url.com
+                      duration: 20
+                      provider:
+                        name: Coursera
+                      pending_decommission_at: '2024-05-31T00:00:00.000Z'
+                    description: An array containing the list of learning objects.
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: 123
+                          description: The id of the learning object.
+                        type:
+                          type: string
+                          example: course
+                          description: The learning object type.
+                          enum:
+                          - course
+                          - award
+                          - playlist
+                          - document
+                          - link
+                          - interactive
+                          - text
+                          - video
+                          - audio
+                          - integration
+                        title:
+                          type: string
+                          example: Example learning object title
+                          description: The title of the learning object.
+                        description:
+                          type: string
+                          example: A long description about the learning object.
+                          description: The description of the learning object.
+                        image:
+                          type: string
+                          example: https://example-image-url.com
+                          description: Thumbnail image for the learning object as a URL.
+                        duration:
+                          type: integer
+                          example: 10
+                          description: Duration of the learning object in minutes.
+                        provider:
+                          type: object
+                          example:
+                            name: Coursera
+                          description: The content provider details.
+                          properties:
+                            name:
+                              type: string
+                              example: Coursera
+                              description: The name of the content provider.
+                          required:
+                          - name
+                        pending_decommission_at:
+                          type: string
+                          format: date-time
+                          example: '2024-05-31T00:00:00.000Z'
+                          description: Optional. If returned, time at which the learning object will be decommissioned (ISO 8601 in UTC).
+                      required:
+                      - id
+                      - type
+                      - title
+                      - description
+                      - image
+                      - duration
+                      - provider
+                required:
+                - total
+                - hits
+        '400':
+          description: Bad request.
+        '404':
+          description: Playlist provided was not found or is private.
+        '500':
+          description: Internal error.
+  /playlists/{id}/learning-objects/re-order:
+    patch:
+      security:
+      - OAuth2:
+        - lo.write
+      tags:
+      - Playlists
+      summary: Re-order items in a playlist
+      operationId: playlistController_reOrderPlaylist
+      description: Re-orders a learning object within a playlist. Only the playlist author can re-order playlist items.
+      parameters:
+      - name: id
+        in: path
+        description: The id of the playlist.
+        required: true
+        schema:
+          type: integer
+          example: 123
+      requestBody:
+        required: true
+        description: The learning object to move and the playlist position where it should be inserted.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lo_id:
+                  description: The id of the learning object to move.
+                  type: integer
+                  example: 123
+                insert_before:
+                  description: The position where the learning object should be inserted. To move an item to the end of a playlist with 10 items, use 10.
+                  type: integer
+                  example: 20
+              required:
+              - lo_id
+              - insert_before
+            example:
+              lo_id: 123
+              insert_before: 20
+      responses:
+        '200':
+          description: Successful.
+        '400':
+          description: Bad request.
+        '403':
+          description: Access denied.
+        '404':
+          description: Playlist or learning object provided was not found.
+        '500':
+          description: Internal error.
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: OAuth 2.0 via a Go1 Developer App (client_id/client_secret). See https://developers.go1.com/docs/developer-tools/auth/overview-auth
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.go1.com/oauth/token
+          scopes:
+            enrollment.read: ''
+            enrollment.write: ''
+            group.read: ''
+            group.write: ''
+            lo.launch: ''
+            lo.read: ''
+            lo.write: ''
+            plan.read: ''
+            plan.write: ''
+            portal.read: ''
+            portal.write: ''
+            user.login: ''
+            user.read: ''
+            user.write: ''
+            webhook.read: ''
+            webhook.write: ''
+        authorizationCode:
+          authorizationUrl: https://auth.go1.com/oauth/authorize
+          tokenUrl: https://auth.go1.com/oauth/token
+          scopes:
+            enrollment.read: ''
+            enrollment.write: ''
+            group.read: ''
+            group.write: ''
+            lo.launch: ''
+            lo.read: ''
+            lo.write: ''
+            plan.read: ''
+            plan.write: ''
+            portal.read: ''
+            portal.write: ''
+            user.login: ''
+            user.read: ''
+            user.write: ''
+            webhook.read: ''
+            webhook.write: ''
+    bearer:
+      type: http
+      scheme: bearer
+      description: Access token sent in the Authorization header (named "bearer" by some operations in the reference).

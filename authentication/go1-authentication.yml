@@ -1,10 +1,9 @@
-generated: '2026-07-19'
+generated: '2026-10-21'
 method: searched
-source: openapi/go1-openapi.yml
-docs: https://developers.go1.com/docs/developer-tools/auth/overview-auth
+source: https://developers.go1.com/docs/developer-tools/auth/overview-auth/
+docs: https://developers.go1.com/docs/developer-tools/auth/overview-auth/
 verified:
 - https://developers.go1.com/docs/developer-tools/auth/grant-client-credentials
-- POST https://auth.go1.com/oauth/token returned 400 invalid_request (live probe, endpoint confirmed)
 summary:
   types:
   - oauth2
@@ -22,7 +21,11 @@ schemes:
     authorizationUrl: https://auth.go1.com/oauth/authorize
     tokenUrl: https://auth.go1.com/oauth/token
     scopes: 8
-  description: OAuth 2.0. Server-to-server integrations use the client_credentials flow; user-context
-    integrations use the authorization_code flow. Access tokens are valid for 12 hours.
+  description: OAuth 2.0. Server-to-server integrations use the client_credentials flow; user-context integrations
+    use the authorization_code flow. Access tokens are valid for 12 hours.
   sources:
   - openapi/go1-openapi.yml
+scopes_docs: https://developers.go1.com/docs/developer-tools/auth/oauth-scopes/
+note: 'Docs: "Go1 uses OAuth 2.0, an industry-standard framework, for authentication." Credentials (client_id, client_secret)
+  come from a Go1 Developer App. Token endpoint taken from the OpenAPI securitySchemes; it was not called (GET/HEAD/OPTIONS-only
+  probe policy).'

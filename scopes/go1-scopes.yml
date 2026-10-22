@@ -1,11 +1,9 @@
-generated: '2026-07-19'
+generated: '2026-10-21'
 method: searched
-source: openapi/go1-openapi.yml
-docs: https://developers.go1.com/docs/developer-tools/auth/overview-auth
-note: >-
-  Scopes recovered from the per-operation security requirements published in Go1's REST reference
-  (developers.go1.com). Go1 does not publish a standalone scope-reference page; descriptions are
-  derived from the resource each scope governs.
+source: https://developers.go1.com/docs/developer-tools/auth/oauth-scopes/
+docs: https://developers.go1.com/docs/developer-tools/auth/oauth-scopes/
+note: 'Go1 publishes a standalone OAuth Scopes page; descriptions below are taken from it. It advises: "We suggest
+  requesting only those which are necessary for the integration".'
 schemes:
 - name: OAuth2
   source: openapi/go1-openapi.yml
@@ -15,62 +13,97 @@ schemes:
   - flow: authorizationCode
     authorizationUrl: https://auth.go1.com/oauth/authorize
     tokenUrl: https://auth.go1.com/oauth/token
-  description: OAuth 2.0. Server-to-server integrations use the client_credentials flow; user-context
-    integrations use the authorization_code flow. Access tokens are valid for 12 hours.
+  description: OAuth 2.0. Server-to-server integrations use the client_credentials flow; user-context integrations
+    use the authorization_code flow. Access tokens are valid for 12 hours.
 scopes:
 - scope: enrollment.read
-  description: Read enrollments and completion records.
+  description: Read enrollment data.
   flows:
   - authorizationCode
   - clientCredentials
   sources:
   - openapi/go1-openapi.yml
 - scope: enrollment.write
-  description: Create, update and delete enrollments.
+  description: Write access to enrollment data.
   flows:
   - authorizationCode
   - clientCredentials
   sources:
   - openapi/go1-openapi.yml
 - scope: lo.read
-  description: Read learning objects (content catalog).
+  description: Read access to view available learning objects.
   flows:
   - authorizationCode
   - clientCredentials
   sources:
   - openapi/go1-openapi.yml
 - scope: lo.write
-  description: Create, update and delete learning objects.
+  description: Write access to create and modify learning objects.
   flows:
   - authorizationCode
   - clientCredentials
   sources:
   - openapi/go1-openapi.yml
 - scope: portal.read
-  description: Read customer portals.
+  description: Read access to portal integrations.
   flows:
   - authorizationCode
   - clientCredentials
   sources:
   - openapi/go1-openapi.yml
 - scope: portal.write
-  description: Create and update customer portals.
+  description: Create and update portals.
   flows:
   - authorizationCode
   - clientCredentials
   sources:
   - openapi/go1-openapi.yml
 - scope: webhook.read
-  description: Read webhook configurations.
+  description: Read configured webhooks.
   flows:
   - authorizationCode
   - clientCredentials
   sources:
   - openapi/go1-openapi.yml
 - scope: webhook.write
-  description: Create, update and delete webhook configurations.
+  description: Create and update webhooks.
   flows:
   - authorizationCode
   - clientCredentials
   sources:
   - openapi/go1-openapi.yml
+- scope: assignment.read
+  description: Read assignment data.
+  source: docs (not in OpenAPI security requirements)
+- scope: basic.read
+  description: Generic read access.
+  source: docs (not in OpenAPI security requirements)
+- scope: group.read
+  description: Read user group membership and assignment information.
+  source: docs (not in OpenAPI security requirements)
+- scope: group.write
+  description: Manage user group membership and assignment information.
+  source: docs (not in OpenAPI security requirements)
+- scope: lo.launch
+  description: Access to play content via authenticated play links.
+  source: docs (not in OpenAPI security requirements)
+- scope: plan.read
+  description: Read plans.
+  source: docs (not in OpenAPI security requirements)
+- scope: plan.write
+  description: Create and update plans.
+  source: docs (not in OpenAPI security requirements)
+- scope: user.login
+  description: Generate single-use login tokens. This scope is restricted and must be enabled on your developer
+    app by Go1. Please contact support to request access.
+  source: docs (not in OpenAPI security requirements)
+  restricted: true
+- scope: user.read
+  description: Read user data.
+  source: docs (not in OpenAPI security requirements)
+- scope: user.write
+  description: Create and update user accounts.
+  source: docs (not in OpenAPI security requirements)
+- scope: wallet.organization.read
+  description: Read wallet organization data.
+  source: docs (not in OpenAPI security requirements)

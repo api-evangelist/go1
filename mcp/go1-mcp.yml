@@ -1,76 +1,85 @@
-generated: '2026-07-19'
-method: derived
-status: candidate
-source: openapi/go1-openapi.yml
-note: No official hosted/remote Go1 MCP server was found. Tool list derived from the Go1 REST API operations
-  as a candidate manifest.
+generated: '2026-10-21'
+method: probed
+source: https://help.go1.com/en/articles/15469776-connecting-to-the-go1-mcp-server
+status: official
+note: 'Go1 documents an official hosted MCP server in its Help Center. Tool names and descriptions below are as
+  DOCUMENTED on that page (paraphrased from the page text); they were NOT read from a live tools/list. Unauthenticated
+  probes on 2026-10-21: GET and JSON-RPC initialize and tools/list to https://mcp.go1.com/mcp all returned HTTP
+  401 {"message":"No Authorization header found"} with WWW-Authenticate: Bearer resource_metadata="https://mcp.go1.com/.well-known/oauth-protected-resource";
+  that protected-resource metadata document returned HTTP 200.'
 server:
-  name: go1
-  transport: http
-tools:
-- name: WebhookController_getPortalWebhookConfiguration
-  description: List all webhooks
-  source_operation: openapi/go1-openapi.yml#WebhookController_getPortalWebhookConfiguration
-- name: WebhookController_createPortalWebhookConfiguration
-  description: Create a webhook
-  source_operation: openapi/go1-openapi.yml#WebhookController_createPortalWebhookConfiguration
-- name: WebhookController_updatePortalWebhookConfiguration
-  description: Update a webhook
-  source_operation: openapi/go1-openapi.yml#WebhookController_updatePortalWebhookConfiguration
-- name: getRetiringContentAlternatives
-  description: List alternative learning objects
-  source_operation: openapi/go1-openapi.yml#getRetiringContentAlternatives
-- name: learning-objects-v3-get
-  description: Retrieve a Learning Object
-  source_operation: openapi/go1-openapi.yml#learning-objects-v3-get
-- name: learning-objects-v3-delete
-  description: Delete a Learning Object
-  source_operation: openapi/go1-openapi.yml#learning-objects-v3-delete
-- name: learning-objects-v3-search
-  description: List all Learning Objects
-  source_operation: openapi/go1-openapi.yml#learning-objects-v3-search
-- name: learning-objects-v3-create
-  description: Create a Learning Object
-  source_operation: openapi/go1-openapi.yml#learning-objects-v3-create
-- name: learning-objects-v3-update
-  description: Update a Learning Object
-  source_operation: openapi/go1-openapi.yml#learning-objects-v3-update
-- name: learning-objects-download-scorm-package
-  description: Download learning object as a SCORM package
-  source_operation: openapi/go1-openapi.yml#learning-objects-download-scorm-package
-- name: enrolmentLoadController_getSlimEnrollment
-  description: Retrieve an enrollment
-  source_operation: openapi/go1-openapi.yml#enrolmentLoadController_getSlimEnrollment
-- name: enrolmentLoadController_patchSlimEnrollment
-  description: Update an enrollment
-  source_operation: openapi/go1-openapi.yml#enrolmentLoadController_patchSlimEnrollment
-- name: enrolmentDeleteController_delete
-  description: Delete an enrollment
-  source_operation: openapi/go1-openapi.yml#enrolmentDeleteController_delete
-- name: enrolmentSearchController_get
-  description: List all enrollments
-  source_operation: openapi/go1-openapi.yml#enrolmentSearchController_get
-- name: enrolmentCreateController_postV3
-  description: Create an enrollment
-  source_operation: openapi/go1-openapi.yml#enrolmentCreateController_postV3
-- name: download_enrollment_controller
-  description: Download certificate
-  source_operation: openapi/go1-openapi.yml#download_enrollment_controller
-- name: createPortal
-  description: Create a portal
-  source_operation: openapi/go1-openapi.yml#createPortal
-- name: getPortals
-  description: List all portals
-  source_operation: openapi/go1-openapi.yml#getPortals
-- name: getPortal
-  description: Retrieve a portal
-  source_operation: openapi/go1-openapi.yml#getPortal
-- name: patchPortal
-  description: Update a portal
-  source_operation: openapi/go1-openapi.yml#patchPortal
+  name: Go1 Learning Platform MCP Server
+  url: https://mcp.go1.com/mcp
+  transport: streamable-http
+  resource_name_source: https://mcp.go1.com/.well-known/oauth-protected-resource
 deployment:
-  mode: none
-  verified: derived
-  tools: 20
-  checked: '2026-08-12'
-  source: catalog MCP census
+  mode: remote
+  endpoint: https://mcp.go1.com/mcp
+  auth: oauth
+  verified: probed
+  auth_detail: 'Go1 user JWT sent as Authorization: Bearer <jwt>, obtained via the Go1 OAuth flow (per docs). Protected-resource
+    metadata names authorization server https://mcp.go1.com/.'
+  probes:
+  - url: https://mcp.go1.com/mcp
+    method: GET
+    status: 401
+  - url: https://mcp.go1.com/mcp
+    method: POST initialize
+    status: 401
+  - url: https://mcp.go1.com/mcp
+    method: POST tools/list
+    status: 401
+  - url: https://mcp.go1.com/.well-known/oauth-protected-resource
+    method: GET
+    status: 200
+auth:
+  type: oauth2-bearer
+  token: Go1 user JWT
+  protected_resource_metadata: https://mcp.go1.com/.well-known/oauth-protected-resource
+  authorization_servers:
+  - https://mcp.go1.com/
+  scopes_supported:
+  - user.read
+  - user.write
+  - account.read
+  - lo.read
+  - lo.write
+  - portal.read
+  - enrollment.read
+  - enrollment.write
+  - group.read
+  entitlements: Portal content entitlements apply to all MCP requests (per docs).
+tool_evidence:
+  l3: list
+  evidence_url: https://help.go1.com/en/articles/15469776-connecting-to-the-go1-mcp-server
+  live_tools_list: gated (401)
+tools:
+- name: search_content
+  description: Search the Go1 catalogue by keyword, with optional filters for duration, level, language, content
+    provider, and skill. Returns course titles, descriptions, and direct links.
+  source: documented
+  evidence_url: https://help.go1.com/en/articles/15469776-connecting-to-the-go1-mcp-server
+- name: get_content_facets
+  description: Returns a breakdown of available filters for a given search — including languages, content providers,
+    and skill tags.
+  source: documented
+  evidence_url: https://help.go1.com/en/articles/15469776-connecting-to-the-go1-mcp-server
+- name: suggest_skills
+  description: Returns skill recommendations based on a role title or topic, for use as filter inputs when searching
+    for learning content.
+  source: documented
+  evidence_url: https://help.go1.com/en/articles/15469776-connecting-to-the-go1-mcp-server
+- name: get_playlist_details
+  description: Retrieves the full ordered contents of a curated Go1 learning playlist, including titles, durations,
+    providers, and links for each item.
+  source: documented
+  evidence_url: https://help.go1.com/en/articles/15469776-connecting-to-the-go1-mcp-server
+- name: get_content_alternatives
+  description: Suggests alternative learning content for a specific item that has been decommissioned, given the
+    ID of the original item.
+  source: documented
+  evidence_url: https://help.go1.com/en/articles/15469776-connecting-to-the-go1-mcp-server
+workflows_documented:
+- 'Finding courses for a topic: get_content_facets then search_content (limit 10-20)'
+- 'Recommending skills for a role: suggest_skills then search_content filtered by the returned skills'
+- 'Surfacing a curated playlist: search_content or known playlist ID, then get_playlist_details'

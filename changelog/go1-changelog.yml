@@ -1,0 +1,21 @@
+generated: '2026-10-21'
+method: searched
+source: https://developers.go1.com/docs/developer-tools/api/api-release-notes-2025-01-01/
+scheme: date-based (YYYY-MM-DD)
+current_version: '2025-01-01'
+subscribe: https://developers.go1.com/docs/resources/stay-updated/
+entries:
+- version: '2025-01-01'
+  date: '2025-01-01'
+  date_note: version name is its release date per the versioning page
+  breaking: true
+  highlights:
+  - /learning-objects - New object structure that provides a range of new search capabilities and metadata
+  - /learning-objects/{id}/scorm - Added to enable SCORM download
+  - include[] query param to request learning-object fragments (core, relevance, lifecycle, provider, revisions,
+    skills, quality, playback_behavior)
+  - New GET /learning-objects/{id}/alternatives endpoint
+  - External ID lookup on the learning-object detail endpoint
+  - All other endpoints have had no changes.
+note: Go1 publishes per-version release notes rather than a dated running changelog; updates are otherwise announced
+  by newsletter.

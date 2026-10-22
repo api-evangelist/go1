@@ -1,7 +1,9 @@
 ---
-name: Discover Go1 content and enroll a learner
+name: go1-discover-and-enroll
 description: Search the Go1 learning library, then create and confirm an enrollment for a learner.
-api: openapi/go1-openapi.yml
+api:
+  - openapi/go1-learning-objects-api-openapi.yml
+  - openapi/go1-enrollments-api-openapi.yml
 operations:
   - learning-objects-v3-search
   - enrolmentCreateController_postV3

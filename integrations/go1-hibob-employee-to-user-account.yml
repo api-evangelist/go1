@@ -1,0 +1,69 @@
+arazzo: 1.0.1
+info:
+  title: Create Go1 user accounts for Hibob employees
+  version: 1.0.0
+  description: >-
+    Mirrors the Go1 + Hibob pairing listed on Zapier. Employees are searched in Hibob, and one employee's
+    name and email are posted to Go1 as a new user account. Iterating over every employee and choosing
+    which Hibob fields to request is left to the caller.
+sourceDescriptions:
+- name: bobPeople
+  url: https://raw.githubusercontent.com/api-evangelist/bob/refs/heads/main/openapi/bob-people-api-openapi.yml
+  type: openapi
+- name: go1UserAccounts
+  url: https://raw.githubusercontent.com/api-evangelist/go1/refs/heads/main/openapi/go1-user-accounts-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: hibobEmployeeToGo1User
+  summary: Search Hibob employees and create a matching Go1 user account.
+  inputs:
+    type: object
+    required: [employeeIndex]
+    properties:
+      employeeIndex: {type: integer, description: Index of the employee in the search result to provision.}
+      sendLoginEmail: {type: boolean, default: true}
+  steps:
+  - stepId: searchEmployees
+    operationId: $sourceDescriptions.bobPeople.postPeopleSearch
+    requestBody:
+      contentType: application/json
+      payload:
+        fields: [root.firstName, root.surname, root.email]
+        showInactive: false
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      employees: $response.body#/employees
+      firstName: $response.body#/employees/0/firstName
+      surname: $response.body#/employees/0/surname
+      email: $response.body#/employees/0/email
+  - stepId: createGo1User
+    operationId: $sourceDescriptions.go1UserAccounts.createUserAccount
+    parameters:
+    - name: send_login_email
+      in: query
+      value: $inputs.sendLoginEmail
+    requestBody:
+      contentType: application/json
+      payload:
+        given_name: $steps.searchEmployees.outputs.firstName
+        family_name: $steps.searchEmployees.outputs.surname
+        username: $steps.searchEmployees.outputs.email
+        email: $steps.searchEmployees.outputs.email
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      userAccountId: $response.body#/id
+  outputs:
+    userAccountId: $steps.createGo1User.outputs.userAccountId
+x-integration:
+  partner: bob
+  edge_evidence: https://zapier.com/apps/go1/integrations/hibob
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-21'
+  generator: provider-integrations-arazzo
+  guessed_steps:
+  - step: searchEmployees
+    cause: partner-contract
+    why: postPeopleSearch's 200 schema names only an employees array; the per-employee field paths (firstName, surname, email) and the fields[] identifiers are not declared, and the outputs read only the first employee.

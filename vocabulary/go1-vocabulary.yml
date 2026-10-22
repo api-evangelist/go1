@@ -1,0 +1,123 @@
+generated: '2026-10-21'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/go1-categories-api-openapi.yml
+- openapi/go1-collections-api-openapi.yml
+- openapi/go1-compliance-api-openapi.yml
+- openapi/go1-enrollments-api-openapi.yml
+- openapi/go1-files-api-openapi.yml
+vocabulary:
+  name: Go1 Domain Vocabulary
+  description: 'Terms declared by Go1''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions. Derived,
+    not authored.'
+  version: '2026-10-21'
+  terms:
+  - term: Categories
+    definition: The Categories resource provides a structured taxonomy for organizing and discovering content within Go1. Categories can be applied
+      to various resource types and support hierarchical relationships to create intuitive navigation and filtering experiences. This API allows
+      you to retrieve category information from a portal. Use this endpoint to build navigation, filtering, and discovery features that
+    tags:
+    - Resource Group
+    source: openapi/go1-categories-api-openapi.yml
+  - term: Collections
+    definition: Collections provide a means to curate learning objects into subset groups. Currently, our system only supports a primary collection
+      known as the `Library` collection. This collection is designed specifically for the management of customer-specific content libraries. Admins
+      leverage the Library collection to seamlessly add, remove, and synchronize content within the Library, ensuring seamless integ
+    tags:
+    - Resource Group
+    source: openapi/go1-collections-api-openapi.yml
+  - term: Compliance
+    definition: The Compliance resource provides read-only access to compliance regulations and their linked obligations. Use this endpoint to
+      discover active compliance taxonomy records by industry, mandate status, location, and optional topic relationships. **Important notes:**
+      - Only active regulations are returned - Embedded obligations are limited to active obligations - Topic relationships are included only
+    tags:
+    - Resource Group
+    source: openapi/go1-compliance-api-openapi.yml
+  - term: Enrollments
+    definition: Enrollments represent the record of a user's learning activity within a learning object. An enrollment occurs when a user begins
+      or is assigned a learning object. The enrollment object contains information about a user's progress through a learning object, such as
+      their enrollment status (not-started, in-progress, completed), the enrollment due date, start date, end date and the enrollment results
+    tags:
+    - Resource Group
+    source: openapi/go1-enrollments-api-openapi.yml
+  - term: Files
+    definition: The File Upload endpoint allows users to upload and manage learning media within the Go1 ecosystem, including images, videos,
+      audio files, documents, and SCORM packages. Uploaded files are securely stored and can be used for playback, embedding, or reference within
+      learning content. Use this resource to upload new files, retrieve file details, and manage media assets for seamless content delivery.
+    tags:
+    - Resource Group
+    source: openapi/go1-files-api-openapi.yml
+  - term: Learning objects
+    definition: Learning objects represent learning content that can be consumed by learners within the Go1 ecosystem, for example, a course,
+      document or video. A learning object contains contextual information about the content resource, such as its title, description, thumbnail
+      image, learning outcomes and provider. Use this resource to create, look up and manage learning objects.
+    tags:
+    - Resource Group
+    source: openapi/go1-learning-objects-api-openapi.yml
+  - term: Plans
+    definition: The Plans resource represents a customer's subscription plan to Go1, containing details such as the customer’s product tier, term
+      duration, and license count. It manages customer access to Go1 products and facilitates the customer lifecycle, such as transitions between
+      plan upgrades, downgrades, and renewals. The Plans API allows Go1 partners who provision and distribute Go1 products to their cust
+    tags:
+    - Resource Group
+    source: openapi/go1-plans-api-openapi.yml
+  - term: Play links
+    definition: 'Play links are the means by which a user is granted access to play learning content within the Go1 Player, a Go1-hosted UI for
+      playing learning objects. A play link consists of a URL that when loaded, will log a user into the player to access and play a learning
+      object. For security reasons, sessions are short-lived and will expire if the customer does not visit the URL. Create sessions on-demand '
+    tags:
+    - Resource Group
+    source: openapi/go1-play-links-api-openapi.yml
+  - term: Playlists
+    definition: Playlists are a simple way to group learning objects into organised themes of choice, for instance, based on topics or learning
+      outcomes. Playlists enable the larger Go1 content library to be curated into smaller lists of content for review, or to provide inspiration
+      for learners to decide what to learn next. Use this resource to retrieve the contents of playlists, create a new playlist, and add o
+    tags:
+    - Resource Group
+    source: openapi/go1-playlists-api-openapi.yml
+  - term: Portals
+    definition: 'The Portals resource serves as a dedicated workspace or tenant within Go1. Each portal represents a unique customer''s business
+      entity and encapsulates their access to Go1''s platform and services. The Portals resource provides detailed information about the associated
+      company, including its settings and configuration. The Portals API allows Go1 partners who provision and distribute Go1 products to '
+    tags:
+    - Resource Group
+    source: openapi/go1-portals-api-openapi.yml
+  - term: Restrictions
+    definition: The Restrictions service provides APIs for managing restrictions on learning objects, including access control and visibility
+      settings.
+    tags:
+    - Resource Group
+    source: openapi/go1-restrictions-api-openapi.yml
+  - term: SCIM
+    definition: The SCIM protocol is an application-level REST protocol for provisioning and managing identity data on the web. The protocol supports
+      creation, discovery, retrieval, and modification of core identity resources.
+    tags:
+    - Resource Group
+    source: openapi/go1-scim-api-openapi.yml
+  - term: User accounts
+    definition: The user accounts resource represents a user with access to a Go1 portal. The user account object contains basic contact information
+      about the user and allows you to keep track of the learning activity that is connected to the user through using the enrollment APIs. Users
+      may have different roles within Go1, such as learner, manager or administrator, that allow different levels of access, see [use
+    tags:
+    - Resource Group
+    source: openapi/go1-user-accounts-api-openapi.yml
+  - term: Webhooks
+    definition: Webhooks can be configured via the API to notify your application when a notable events take place in your Go1 portal or your
+      connected customer portals, for example when an enrollment occurs, or when a user is updated. Events are sent to an endpoint URL that is
+      specified by you when creating a new webhook. Use this resource to create, retrieve and update webhooks. For a list of webhook events, in
+    tags:
+    - Resource Group
+    source: openapi/go1-webhooks-api-openapi.yml
+  - term: AwardExternalLearningRecord
+    definition: Referenced by this document but never defined in it. API Evangelist added this empty placeholder so the document resolves; the
+      shape is unknown and is NOT a claim about the API.
+    tags:
+    - Object
+    source: openapi/go1-enrollments-api-openapi.yml#/components/schemas/AwardExternalLearningRecord
+  - term: ItemEnrolmentRecord
+    definition: Referenced by this document but never defined in it. API Evangelist added this empty placeholder so the document resolves; the
+      shape is unknown and is NOT a claim about the API.
+    tags:
+    - Object
+    source: openapi/go1-enrollments-api-openapi.yml#/components/schemas/ItemEnrolmentRecord
